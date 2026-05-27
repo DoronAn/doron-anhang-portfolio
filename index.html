@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doron Anhang — Architectural R&D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f7f5f0;
+  --bg2: #f0ede6;
+  --white: #ffffff;
+  --gold: #E6A855;
+  --gold-dim: rgba(230,168,85,0.15);
+  --ink: #2a2a28;
+  --text: #808080;
+  --text-light: #aaaaaa;
+  --rule: #e0dbd0;
+  --sans: 'Assistant', 'Helvetica Neue', sans-serif;
+  --serif: 'Times New Roman', Times, serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.8rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.nav-name {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 3.5rem;
+}
+.hero-left {
+  padding: 2rem 3rem 2rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--rule);
+}
+.hero-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 3.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+.hero-name em { font-style: italic; }
+.hero-divider {
+  width: 3rem;
+  height: 2px;
+  background: var(--gold);
+  margin: 0.75rem 0;
+}
+.hero-role {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+.hero-statement {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.8;
+  max-width: 44ch;
+  margin-bottom: 1.25rem;
+}
+.hero-statement strong { color: var(--ink); font-weight: 600; }
+.hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.6rem;
+  text-decoration: none;
+  transition: all 0.15s;
+  display: inline-block;
+}
+.btn-gold { background: var(--gold); color: #fff; }
+.btn-gold:hover { background: #c98e3f; }
+.btn-outline { border: 1.5px solid var(--rule); color: var(--text); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-right {
+  padding: 2rem 3.5rem 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-right-label {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--gold);
+  display: inline-block;
+}
+.stack-row {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.stack-row:first-of-type { border-top: 1px solid var(--rule); }
+.stack-cat {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+.stack-vals {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+.hero-contact {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+.hero-contact a {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.hero-contact a:hover { color: var(--gold); }
+
+/* ── MAIN LAYOUT ── */
+.main-wrap {
+  border-top: none;
+}
+
+/* ── PROJECT TABS BAR ── */
+/* Outer: sticky + clips horizontal overflow without touching vertical */
+.tabs-scroll-outer {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 90;
+  background: var(--bg);
+  border-top: 1px solid var(--rule);
+  border-bottom: 2px solid var(--rule);
+  overflow: hidden; /* clips sides only; inner div drives horizontal scroll */
+}
+/* Inner: actual flex row, wide enough to never wrap */
+.proj-tabs-bar {
+  display: flex;
+  align-items: stretch;
+  min-width: max-content;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.proj-tabs-bar::-webkit-scrollbar { display: none; }
+
+/* Group separator — horizontal text, no writing-mode tricks */
+.tab-group-sep {
+  font-family: var(--sans);
+  font-size: 0.56rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  background: var(--bg2);
+  border-right: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+  padding: 0 0.45rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 0.55rem 1rem 0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  transition: all 0.15s;
+  text-align: left;
+  border-right: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+.tab-btn:hover { background: var(--bg2); }
+.tab-btn.active {
+  border-bottom-color: var(--gold);
+  background: var(--gold-dim);
+}
+.tab-btn-num {
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  display: block;
+}
+.tab-btn-title {
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.2;
+  display: block;
+  white-space: nowrap;
+}
+.tab-btn-sub {
+  font-size: 0.62rem;
+  color: var(--text-light);
+  display: block;
+  white-space: nowrap;
+}
+
+/* ── CONTENT PANEL ── */
+.content-panel {
+  padding: 2.5rem 3.5rem;
+  scroll-margin-top: 7rem;
+}
+
+/* project detail panel */
+.proj-detail { display: none; animation: fadeIn 0.3s ease; }
+.proj-detail.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detail-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.detail-title {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 0.35rem;
+}
+.detail-title em { font-style: italic; }
+.detail-meta {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.detail-meta a { color: var(--gold); text-decoration: none; }
+.detail-meta a:hover { text-decoration: underline; }
+
+.kw-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 2rem; }
+.kw {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--rule);
+  color: var(--text);
+}
+.kw-gold { border-color: var(--gold); color: var(--gold); }
+
+.subsec { margin-bottom: 1.75rem; }
+.subsec-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.subsec p {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.8;
+}
+.subsec p + p { margin-top: 0.65rem; }
+.subsec p strong { color: var(--ink); font-weight: 600; }
+.subsec ul { margin-left: 1.1rem; }
+.subsec ul li {
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.75;
+  margin-bottom: 0.3rem;
+}
+.subsec ul li strong { color: var(--ink); font-weight: 600; }
+
+.finding {
+  border-left: 3px solid var(--gold);
+  padding: 1rem 1.25rem;
+  background: var(--gold-dim);
+  margin-top: 0.75rem;
+}
+.finding-lbl {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.finding p { font-size: 0.88rem !important; color: var(--ink) !important; }
+
+/* image slot */
+.img-slot {
+  width: 100%;
+  background: var(--bg2);
+  border: 1.5px dashed var(--rule);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.75rem;
+  min-height: 220px;
+  color: var(--text-light);
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 1.5rem;
+}
+.img-slot svg { opacity: 0.35; }
+/* when real image is added, hide the placeholder */
+.img-slot img { width: 100%; display: block; max-height: 320px; object-fit: cover; }
+
+/* pub list */
+.pub { padding: 0.8rem 0; border-bottom: 1px solid var(--rule); }
+.pub:first-child { border-top: 1px solid var(--rule); }
+.pub-label { font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+.pub-title { font-size: 0.85rem; color: var(--text); }
+.pub-note { font-size: 0.72rem; color: var(--text-light); font-style: italic; margin-top: 0.1rem; }
+.pub-link { color: var(--gold); font-size: 0.78rem; text-decoration: none; }
+.pub-link:hover { text-decoration: underline; }
+
+/* default/welcome panel */
+.welcome-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  min-height: 60vh;
+  padding: 2rem 0;
+}
+.welcome-panel h2 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  color: var(--ink);
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.welcome-panel p {
+  font-size: 0.88rem;
+  color: var(--text);
+  max-width: 40ch;
+  line-height: 1.75;
+}
+.welcome-arrow {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── CTA ── */
+.cta-strip {
+  background: var(--ink);
+  padding: 2.5rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.cta-text {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: #fff;
+}
+.cta-links { display: flex; gap: 0.75rem; }
+.btn-white { background: #fff; color: var(--ink); }
+.btn-white:hover { background: var(--bg); }
+.btn-ghost { border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
+.btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+footer {
+  padding: 1.25rem 3.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer p { font-size: 0.72rem; color: var(--text-light); }
+footer a { color: var(--text-light); text-decoration: none; }
+footer a:hover { color: var(--gold); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.75rem 1.5rem; }
+  .hero-right { padding: 1.5rem 1.5rem; }
+  .content-panel { padding: 1.75rem 1.5rem; }
+  .cta-strip { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+  footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-name">Doron Anhang</a>
+  <ul class="nav-links">
+    <li><a href="#top">About</a></li>
+    <li><a href="#projects-section">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Portfolio — 2026</p>
+    <h1 class="hero-name">Doron<br><em>Anhang</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-role">Architectural R&amp;D · Spatial Research · Data Engineering</p>
+    <p class="hero-statement">
+      B.Arch. graduate with <strong>4+ years of advanced technical experience</strong> in Big Tech. I use empirical methods to understand how space shapes human behaviour — and build the analytical infrastructure to prove it.<br><br>
+      Bridging <strong>quantitative research, parametric design, and data engineering</strong> to connect the rigour of experimental science with the complexity of the built environment.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects-section" class="btn btn-gold">View Work</a>
+      <a href="mailto:doron.anhang@gmail.com" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <span class="hero-right-label">Technical &amp; Design Stack</span>
+    <div class="stack-row">
+      <span class="stack-cat">Design</span>
+      <span class="stack-vals">Revit, Rhino &amp; Grasshopper, GIS, AutoCAD, SketchUp, SolidEdge, Photoshop</span>
+    </div>
+    <div class="stack-row">
+      <span class="stack-cat">Engineering</span>
+      <span class="stack-vals">Python, PySpark, Pandas, NumPy, SQL/HiveQL, Airflow, AWS, Looker, Splunk, Git</span>
+    </div>
+    <div class="stack-row">
+      <span class="stack-cat">AI &amp; Automation</span>
+      <span class="stack-vals">Claude Code, LLM workflow integration, GenAI tooling</span>
+    </div>
+    <div class="stack-row">
+      <span class="stack-cat">Methods</span>
+      <span class="stack-vals">Experimental Design, A/B Testing, Causal Inference, Quantitative Spatial Analysis, Data Integrity</span>
+    </div>
+    <div class="hero-contact">
+      <a href="mailto:doron.anhang@gmail.com">doron.anhang@gmail.com</a>
+      <a href="tel:+972542330059">+972-54-233-0059</a>
+      <a href="https://linkedin.com/in/doron-anhang" target="_blank">LinkedIn ↗</a>
+      <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank">Published Paper ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT TABS BAR -->
+<div class="tabs-scroll-outer" id="projects-section">
+<div class="proj-tabs-bar">
+
+  <div class="tab-group-sep">Research</div>
+  <button class="tab-btn" onclick="show('research')" id="tab-research">
+    <span class="tab-btn-num">02</span>
+    <span class="tab-btn-title">Quantitative Spatial Analysis</span>
+    <span class="tab-btn-sub">Student Dorms Archetype</span>
+  </button>
+
+  <div class="tab-group-sep">Design</div>
+  <button class="tab-btn" onclick="show('nkdt')" id="tab-nkdt">
+    <span class="tab-btn-num">01</span>
+    <span class="tab-btn-title">NKDT</span>
+    <span class="tab-btn-sub">Dynamic System</span>
+  </button>
+  <button class="tab-btn" onclick="show('acre')" id="tab-acre">
+    <span class="tab-btn-num">03</span>
+    <span class="tab-btn-title">Acre</span>
+    <span class="tab-btn-sub">Urban Fabric</span>
+  </button>
+  <button class="tab-btn" onclick="show('telaviv')" id="tab-telaviv">
+    <span class="tab-btn-num">04</span>
+    <span class="tab-btn-title">Tel Aviv</span>
+    <span class="tab-btn-sub">Adaptive Environment</span>
+  </button>
+  <button class="tab-btn" onclick="show('nomad')" id="tab-nomad">
+    <span class="tab-btn-num">05</span>
+    <span class="tab-btn-title">Nomad Hotel</span>
+    <span class="tab-btn-sub">Flexible In-Between</span>
+  </button>
+  <button class="tab-btn" onclick="show('kibbutz')" id="tab-kibbutz">
+    <span class="tab-btn-num">06</span>
+    <span class="tab-btn-title">Kibbutz Merchavia</span>
+    <span class="tab-btn-sub">Renovation</span>
+  </button>
+
+  <div class="tab-group-sep">Industry</div>
+  <button class="tab-btn" onclick="show('yahoo')" id="tab-yahoo">
+    <span class="tab-btn-num">07</span>
+    <span class="tab-btn-title">Yahoo!</span>
+    <span class="tab-btn-sub">Research &amp; Automation</span>
+  </button>
+
+  <div class="tab-group-sep">More</div>
+  <button class="tab-btn" onclick="show('pubs')" id="tab-pubs">
+    <span class="tab-btn-num"></span>
+    <span class="tab-btn-title">Publications</span>
+    <span class="tab-btn-sub">Papers &amp; Presentations</span>
+  </button>
+
+</div><!-- /proj-tabs-bar -->
+</div><!-- /tabs-scroll-outer -->
+
+<!-- CONTENT -->
+<div class="main-wrap">
+  <div class="content-panel">
+
+    <!-- Welcome state -->
+    <div class="proj-detail active" id="detail-welcome">
+      <div class="welcome-panel">
+        <h2>Select a project<br>to explore.</h2>
+        <p>Research, design, and industry work — all connected by a single thread: using empirical methods to understand how space shapes human behaviour.</p>
+        <div class="welcome-arrow">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+          Choose a project from the bar above
+        </div>
+      </div>
+    </div>
+
+<!-- ============================================================
+     RESEARCH SECTION: Student Dorms Archetype — Seminary Paper
+     Copy-paste this block (and the style/script tags below)
+     into your portfolio HTML.
+
+     Required images folder (place alongside your HTML):
+       images/ariel_map.jpg
+       images/compound_comparison.jpg
+       images/caravan_site.jpg
+       images/midrise_site.jpg
+       images/caravan_floor_plan.jpg
+       images/building_101.jpg
+       images/building_102.jpg
+       images/building_103.jpg
+       images/buildings_111_114.jpg
+       images/corridor_plex.png       ← your existing diagram
+       images/cluster_plex.png        ← your existing diagram
+       images/scattered_plex.png      ← your existing diagram
+     ============================================================ -->
+
+<div class="proj-detail" id="detail-research">
+
+  <p class="detail-eyebrow">Academic Seminar Paper · Ariel University, 2022</p>
+  <h2 class="detail-title">Quantitative Spatial Data Analysis:<br><em>Student Dorms Archetype</em></h2>
+  <p class="detail-meta">Advisor: Dr. Arch. Gilad Schweid &nbsp;·&nbsp; <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank">Published Paper ↗</a></p>
+
+  <div class="kw-row">
+    <span class="kw kw-gold">Spatial Analytics</span>
+    <span class="kw kw-gold">SCI-2 Framework</span>
+    <span class="kw">Android Dev</span>
+    <span class="kw">Geofencing</span>
+    <span class="kw">Privacy Engineering</span>
+    <span class="kw">Comparative Modelling</span>
+    <span class="kw">Incremental Optimisation</span>
+  </div>
+
+  <!-- ── Hero: compound comparison ──────────────────────────── -->
+  <figure class="rs-figure rs-figure--hero">
+    <img src="images/compound_comparison.jpg"
+         alt="Side-by-side layout diagram: Caravan compound (top) vs Mid-rise compound (bottom)"
+         style="width:100%; display:block;">
+    <figcaption>Layout comparison — Caravan sub-plots (top) vs Mid-rise corridor blocks (bottom), Ariel University</figcaption>
+  </figure>
+
+  <!-- ── Campus context ─────────────────────────────────────── -->
+  <figure class="rs-figure">
+    <img src="images/ariel_map.jpg"
+         alt="Ariel University campus map 2018 showing dormitory compounds"
+         style="width:100%; display:block;">
+    <figcaption>Ariel University campus — 2018. Red = university buildings, Green = caravans (study compound), Purple = mid-rise dorms (study compound), Blue = other facilities</figcaption>
+  </figure>
+
+  <!-- ── Context & archetype diagrams ──────────────────────── -->
+  <div style="display:flex; gap:1.5rem; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap;">
+    <div class="subsec" style="flex:1 1 320px; margin-bottom:0;">
+      <span class="subsec-label">Context &amp; Challenge</span>
+      <p>Architectural theory frequently claims that physical environments shape human communities, yet these assertions often rely on subjective intuition rather than empirical, verifiable validation. This research seminar transitions architectural design into the realm of quantitative science. Under the supervision of Dr. Arch Gilad Schweid, this study establishes a rigorous empirical methodology to analyze, measure, and map exactly how micro-architectural and environmental features drive or restrict a psychological <strong>"<em>Sense of Community</em>" (SoC)</strong> within institutional student housing.</p>
+      <p>The core of the research evaluated a comparative dataset between two polarized housing archetypes at Ariel University: a structured Mid-rise Compound of a cluster/corridor hybrid archetype versus a decentralized Caravan Compound of the scattered plex archetype.</p>
+    </div>
+
+    <div style="flex:0 0 auto; display:flex; gap:0.75rem; align-items:flex-start; flex-wrap:wrap;">
+      <div style="flex:0 0 140px; min-width:0;">
+        <img src="images/corridor_plex.png" alt="Corridor Plex archetype diagram"
+             style="width:100%; max-height:140px; object-fit:contain; display:block; border:1px solid #d8d4c8; mix-blend-mode:multiply;">
+        <p style="font-size:0.72rem; color:#7a7a74; margin-top:0.4rem;">Corridor Plex archetype</p>
+      </div>
+      <div style="flex:0 0 140px; min-width:0;">
+        <img src="images/cluster_plex.png" alt="Cluster Plex archetype diagram"
+             style="width:100%; max-height:140px; object-fit:contain; display:block; border:1px solid #d8d4c8; mix-blend-mode:multiply;">
+        <p style="font-size:0.72rem; color:#7a7a74; margin-top:0.4rem;">Cluster Plex archetype</p>
+      </div>
+      <div style="flex:0 0 140px; min-width:0;">
+        <img src="images/scattered_plex.png" alt="Scattered Plex archetype diagram"
+             style="width:100%; max-height:140px; object-fit:contain; display:block; border:1px solid #d8d4c8; mix-blend-mode:multiply;">
+        <p style="font-size:0.72rem; color:#7a7a74; margin-top:0.4rem;">Scattered Plex archetype</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Case Study Site Plans ──────────────────────────────── -->
+  <div class="rs-two-col rs-two-col--labeled" style="margin-bottom:1.5rem;">
+    <div class="rs-compound-panel rs-compound-panel--caravan">
+      <div class="rs-compound-badge rs-compound-badge--caravan">Caravan Compound</div>
+      <figure class="rs-figure" style="margin-bottom:0;">
+        <img src="images/caravan_site.jpg"
+             alt="Caravan compound site plan — scattered caravan units across landscape"
+             style="width:100%; display:block;">
+        <figcaption>Caravan compound site plan — ~350 scattered units, 0.106 km², organic pedestrian-first layout</figcaption>
+      </figure>
+    </div>
+    <div class="rs-compound-panel rs-compound-panel--midrise">
+      <div class="rs-compound-badge rs-compound-badge--midrise">Mid-rise Compound</div>
+      <figure class="rs-figure" style="margin-bottom:0;">
+        <img src="images/midrise_site.jpg"
+             alt="Mid-rise compound site plan — numbered building blocks 101–116"
+             style="width:100%; display:block;">
+        <figcaption>Mid-rise compound site plan — Buildings 101–116, 0.033 km², 1,550 students at 46,969/km²</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ── Unit-level floor plans ─────────────────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">Unit-Level Spatial Breakdown</span>
+    <div class="rs-floor-grid">
+      <figure class="rs-figure">
+        <img src="images/caravan_floor_plan.jpg"
+             alt="Caravan unit floor plans — men's unit (blue) and women's unit (green)"
+             style="width:100%; display:block;">
+        <figcaption>Caravan unit plans — men's variant (blue) &amp; women's variant (green)</figcaption>
+      </figure>
+      <figure class="rs-figure">
+        <img src="images/building_101.jpg"
+             alt="Building 101 floor plan"
+             style="width:100%; display:block;">
+        <figcaption>Building 101 — curved cluster plan with central lobby</figcaption>
+      </figure>
+      <figure class="rs-figure">
+        <img src="images/building_103.jpg"
+             alt="Building 103 floor plan — large block with multiple unit types"
+             style="width:100%; display:block;">
+        <figcaption>Building 103 — large block, unit types A1, A2, B, C, D1/2/3</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ── Full-Stack Research Infrastructure ─────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">Full-Stack Research Infrastructure</span>
+    <p>To orchestrate remote data collection during the pandemic, I designed and co-developed a custom native <strong>Android mobile application</strong> ("פרויקט נקודות - מעונות אריאל"). The app functioned as a live research platform, capturing standardised psychometric metrics (calibrated Hebrew translations of the SCI-2 and URES environmental scales) alongside passive background geospatial telemetry.</p>
+    <p>Privacy-by-Design governed the data pipeline: survey responses were isolated from spatial location metrics across decoupled database tables. User identities were obfuscated at device edge using a client-side cryptographic hash function (crossing device hardware IDs with registration timestamps) generating a unique anonymous join-index token. Telemetry points were streamed to the server only if the participant was within the city limits. Hyper-Local data masking was used by the app to ignore a student's precise coordinate when he/she was inside their immediate residential cluster and log a default centralized anchor pointing to the middle of the cluster instead.</p>
+  </div>
+
+  <!-- ── DATA VISUALISATION ─────────────────────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">Research Results</span>
+
+    <!-- Study overview metrics -->
+    <div class="rs-metrics">
+      <div class="rs-metric"><div class="rs-metric-val">38</div><div class="rs-metric-lbl">app downloads</div></div>
+      <div class="rs-metric"><div class="rs-metric-val">25</div><div class="rs-metric-lbl">valid participants</div></div>
+      <div class="rs-metric"><div class="rs-metric-val">22</div><div class="rs-metric-lbl">SCI-2 responses</div></div>
+      <div class="rs-metric"><div class="rs-metric-val">3,955</div><div class="rs-metric-lbl">GPS datapoints</div></div>
+    </div>
+
+    <!-- Legend -->
+    <div class="rs-legend">
+      <span class="rs-legend-item">
+        <span class="rs-swatch" style="background:#2A9D5C;"></span>
+        Caravan compound
+      </span>
+      <span class="rs-legend-item">
+        <span class="rs-swatch" style="background:#C0392B;"></span>
+        Mid-rise compound
+      </span>
+    </div>
+
+    <!-- Charts row 1: SCI-2 + URES -->
+    <div class="rs-chart-row">
+      <div class="rs-chart-card">
+        <div class="rs-chart-title">Sense of Community Index (SCI-2)</div>
+        <div class="rs-chart-sub">Normalized scores — Caravan n=18, Mid-rise n=3</div>
+        <div class="rs-chart-wrap" style="height:220px;">
+          <canvas id="rs-sci-chart" role="img"
+            aria-label="Grouped bar chart: Caravan scores higher than Mid-rise on all SCI-2 subscales">
+            Caravan outscores Mid-rise on all SCI-2 subscales.
+          </canvas>
+        </div>
+      </div>
+      <div class="rs-chart-card">
+        <div class="rs-chart-title">University Residence Environment (URES)</div>
+        <div class="rs-chart-sub">Standardized scores · * marks significant differences (p&lt;0.1)</div>
+        <div class="rs-chart-wrap" style="height:220px;">
+          <canvas id="rs-ures-chart" role="img"
+            aria-label="Horizontal grouped bar chart of URES subscale scores">
+            Caravan higher on involvement, emotional support, academic achievement. Mid-rise higher on independence.
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts row 2: Qualitative spatial scores -->
+    <div class="rs-chart-row">
+      <div class="rs-chart-card rs-chart-card--caravan">
+        <div class="rs-compound-badge rs-compound-badge--caravan" style="margin-bottom:10px;">Caravan — qualitative spatial scores</div>
+        <div class="rs-chart-sub">Place attachment &amp; informal contact parameters (out of 5) · overall avg 3.9</div>
+        <div class="rs-chart-wrap" style="height:180px;">
+          <canvas id="rs-qual-caravan" role="img"
+            aria-label="Bar chart of caravan spatial quality scores — all parameters above 3.3">
+            Caravan scores strong across all spatial parameters, with Nature (4.5), Buffers (4.5) and Scale (4.3) highest.
+          </canvas>
+        </div>
+      </div>
+      <div class="rs-chart-card rs-chart-card--midrise">
+        <div class="rs-compound-badge rs-compound-badge--midrise" style="margin-bottom:10px;">Mid-rise — qualitative spatial scores</div>
+        <div class="rs-chart-sub">Place attachment &amp; informal contact parameters (out of 5) · overall avg 2.9</div>
+        <div class="rs-chart-wrap" style="height:180px;">
+          <canvas id="rs-qual-midrise" role="img"
+            aria-label="Bar chart of mid-rise spatial quality scores — all parameters below 3.5">
+            Mid-rise scores weakest on Views (2.2), Strollability (2.8) and Perception (2.8).
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Overall score bars -->
+    <div class="rs-overall-row">
+      <div class="rs-overall-card rs-overall-card--caravan">
+        <div class="rs-overall-label">Caravan compound · overall architectural viability</div>
+        <div class="rs-overall-score-row">
+          <span class="rs-overall-score" style="color:#2A9D5C;">3.9</span>
+          <span class="rs-overall-detail">/ 5 &nbsp;·&nbsp; SD = 0.38 &nbsp;·&nbsp; p &lt; 0.01</span>
+        </div>
+        <div class="rs-bar-bg"><div class="rs-bar-fill" style="width:78%; background:#2A9D5C;"></div></div>
+        <div class="rs-overall-note">High viability — significantly above midpoint</div>
+      </div>
+      <div class="rs-overall-card rs-overall-card--midrise">
+        <div class="rs-overall-label">Mid-rise compound · overall architectural viability</div>
+        <div class="rs-overall-score-row">
+          <span class="rs-overall-score" style="color:#C0392B;">2.9</span>
+          <span class="rs-overall-detail">/ 5 &nbsp;·&nbsp; SD = 0.35 &nbsp;·&nbsp; p &lt; 0.05</span>
+        </div>
+        <div class="rs-bar-bg"><div class="rs-bar-fill" style="width:58%; background:#C0392B;"></div></div>
+        <div class="rs-overall-note">Medium viability — above midpoint, but limited community potential</div>
+      </div>
+    </div>
+
+  </div><!-- /subsec results -->
+
+  <!-- ── Empirical Finding ──────────────────────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">Empirical Finding</span>
+    <div class="finding">
+      <span class="finding-lbl">Key Result</span>
+      <p>Counter to conventional density-driven assumptions, the mixed-method analysis revealed a <strong>clear statistical advantage for the decentralised Caravan Compound</strong> over the structured Mid-rise Compound in driving Sense of Community. Micro-spatial elements — specifically <strong>nature integration, visual appeal, and spatial buffer features</strong> — proved to be high-impact drivers of interpersonal trust, outperforming rigid structural density.</p>
+    </div>
+  </div>
+
+  <!-- ── R&D Framework ──────────────────────────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">R&amp;D Framework &amp; Scaling Path</span>
+    <p>The study is intentionally architected as a modular methodology framework. Because universities maintain total institutional control over students' physical boundaries, student housing represents the <strong>ultimate live testing sandbox</strong> for continuous spatial experimentation — running predictive modelling to discover optimal dormitory structures and deploying incremental spatial feature updates to systematically optimise human well-being and community resilience.</p>
+  </div>
+
+</div><!-- /proj-detail #detail-research -->
+
+
+<!-- ============================================================
+     SCOPED STYLES  (safe to paste alongside the section above)
+     All selectors are prefixed with #detail-research or .rs-
+     to avoid conflicts with your existing portfolio CSS.
+     ============================================================ -->
+<style>
+/* ── Figures & captions ── */
+#detail-research .rs-figure {
+  margin: 0 0 1.25rem;
+  border: 1px solid #d8d4c8;
+  background: #f5f2ec;
+}
+#detail-research .rs-figure--hero {
+  border-width: 2px;
+}
+#detail-research .rs-figure figcaption {
+  font-size: 0.72rem;
+  color: #7a7a74;
+  padding: 0.45rem 0.65rem;
+  border-top: 1px solid #d8d4c8;
+  line-height: 1.4;
+}
+/* cap image height so they support text rather than dominate it */
+#detail-research .rs-figure img {
+  max-height: 240px;
+  object-fit: contain;
+  object-position: center;
+}
+#detail-research .rs-figure--hero img {
+  max-height: 280px;
+}
+
+/* ── Two-column compound panels ── */
+#detail-research .rs-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 700px) {
+  #detail-research .rs-two-col { grid-template-columns: 1fr; }
+}
+#detail-research .rs-compound-panel {
+  border: 2px solid #d8d4c8;
+  padding: 0;
+  overflow: hidden;
+}
+#detail-research .rs-compound-panel--caravan { border-color: #2A9D5C; }
+#detail-research .rs-compound-panel--midrise  { border-color: #C0392B; }
+
+#detail-research .rs-compound-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border-radius: 0;
+}
+#detail-research .rs-compound-badge--caravan {
+  background: #2A9D5C;
+  color: #fff;
+}
+#detail-research .rs-compound-badge--midrise {
+  background: #C0392B;
+  color: #fff;
+}
+
+/* ── Floor plan grid ── */
+#detail-research .rs-floor-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+@media (max-width: 700px) {
+  #detail-research .rs-floor-grid { grid-template-columns: 1fr; }
+}
+
+/* ── Metrics strip ── */
+#detail-research .rs-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+@media (max-width: 600px) {
+  #detail-research .rs-metrics { grid-template-columns: repeat(2,1fr); }
+}
+#detail-research .rs-metric {
+  background: #f0ece4;
+  border: 1px solid #d8d4c8;
+  padding: 12px 14px;
+}
+#detail-research .rs-metric-val {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #1a1a1a;
+}
+#detail-research .rs-metric-lbl {
+  font-size: 0.7rem;
+  color: #7a7a74;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* ── Legend ── */
+#detail-research .rs-legend {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+  font-size: 0.78rem;
+  color: #555;
+}
+#detail-research .rs-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+#detail-research .rs-swatch {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  border-radius: 2px;
+}
+
+/* ── Chart rows ── */
+#detail-research .rs-chart-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+@media (max-width: 700px) {
+  #detail-research .rs-chart-row { grid-template-columns: 1fr; }
+}
+#detail-research .rs-chart-card {
+  border: 1px solid #d8d4c8;
+  padding: 14px 16px;
+  background: #fff;
+}
+#detail-research .rs-chart-card--caravan { border-left: 3px solid #2A9D5C; }
+#detail-research .rs-chart-card--midrise  { border-left: 3px solid #C0392B; }
+#detail-research .rs-chart-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin-bottom: 2px;
+}
+#detail-research .rs-chart-sub {
+  font-size: 0.68rem;
+  color: #7a7a74;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+#detail-research .rs-chart-wrap {
+  position: relative;
+  width: 100%;
+}
+
+/* ── Overall score cards ── */
+#detail-research .rs-overall-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+@media (max-width: 700px) {
+  #detail-research .rs-overall-row { grid-template-columns: 1fr; }
+}
+#detail-research .rs-overall-card {
+  border: 1px solid #d8d4c8;
+  padding: 14px 16px;
+  background: #faf8f4;
+}
+#detail-research .rs-overall-card--caravan { border-top: 3px solid #2A9D5C; }
+#detail-research .rs-overall-card--midrise  { border-top: 3px solid #C0392B; }
+#detail-research .rs-overall-label {
+  font-size: 0.7rem;
+  color: #7a7a74;
+  margin-bottom: 6px;
+}
+#detail-research .rs-overall-score-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+#detail-research .rs-overall-score {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+#detail-research .rs-overall-detail {
+  font-size: 0.72rem;
+  color: #7a7a74;
+}
+#detail-research .rs-bar-bg {
+  height: 6px;
+  background: #e8e4da;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+#detail-research .rs-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+#detail-research .rs-overall-note {
+  font-size: 0.68rem;
+  color: #7a7a74;
+}
+</style>
+
+
+<!-- ============================================================
+     CHARTS SCRIPT
+     Loads Chart.js once (skips if already on page) then draws.
+     ============================================================ -->
+<script>
+(function () {
+  /* ── color constants ── */
+  var C = '#2A9D5C';   /* caravan green  */
+  var M = '#C0392B';   /* midrise red    */
+  var CA = '#D5EEE0';  /* caravan tint   */
+  var MA = '#F5D0CC';  /* midrise tint   */
+  var TICK = { color: '#888', font: { size: 10 } };
+  var GRID = { color: 'rgba(0,0,0,0.07)' };
+
+  function initCharts() {
+    /* 1 — SCI-2 */
+    new Chart(document.getElementById('rs-sci-chart'), {
+      type: 'bar',
+      data: {
+        labels: ['Total SCI', 'Reinf. of needs', 'Membership', 'Influence', 'Shared emotion'],
+        datasets: [
+          { label: 'Caravan', data: [0.566, 0.627, 0.534, 0.500, 0.602], backgroundColor: C },
+          { label: 'Mid-rise', data: [0.407, 0.519, 0.278, 0.407, 0.426], backgroundColor: M }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false },
+          tooltip: { callbacks: { label: function(c){ return ' ' + c.dataset.label + ': ' + c.parsed.y.toFixed(3); } } } },
+        scales: {
+          x: { ticks: Object.assign({}, TICK, { maxRotation: 35 }), grid: { display: false } },
+          y: { ticks: TICK, grid: GRID, min: 0, max: 0.75,
+               title: { display: true, text: 'Normalized score', color: '#888', font: { size: 9 } } }
+        }
+      }
+    });
+
+    /* 2 — URES */
+    new Chart(document.getElementById('rs-ures-chart'), {
+      type: 'bar',
+      data: {
+        labels: ['Involvement *', 'Emot. support', 'Independence *', 'Traditional social',
+                 'Competition', 'Academic achiev. *', 'Intellectuality',
+                 'Order & org. *', 'Student influence', 'Innovation'],
+        datasets: [
+          { label: 'Caravan', data: [58, 54, 29, 64, 58, 50, 49, 43, 50, 30], backgroundColor: C },
+          { label: 'Mid-rise', data: [35, 35, 60, 67, 62, 25, 45, 30, 50, 33], backgroundColor: M }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: TICK, grid: GRID,
+               title: { display: true, text: 'Standardized score', color: '#888', font: { size: 9 } } },
+          y: { ticks: Object.assign({}, TICK, { font: { size: 9 } }), grid: { display: false } }
+        }
+      }
+    });
+
+    /* 3 — Qualitative caravan */
+    new Chart(document.getElementById('rs-qual-caravan'), {
+      type: 'bar',
+      data: {
+        labels: ['Control', 'Views', 'Scale', 'Nature', 'Appeal', 'Safety', 'Strollability', 'Buffers', 'Opportunities', 'Perception'],
+        datasets: [{
+          label: 'Caravan', backgroundColor: C,
+          data: [4.0, 4.0, 4.3, 4.5, 3.5, 3.5, 4.0, 4.5, 3.7, 3.3]
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false },
+          tooltip: { callbacks: { label: function(c){ return ' ' + c.parsed.y.toFixed(1) + ' / 5'; } } } },
+        scales: {
+          x: { ticks: Object.assign({}, TICK, { maxRotation: 45, font: { size: 9 } }), grid: { display: false } },
+          y: { ticks: TICK, grid: GRID, min: 0, max: 5,
+               title: { display: true, text: 'Score / 5', color: '#888', font: { size: 9 } } }
+        }
+      }
+    });
+
+    /* 4 — Qualitative midrise */
+    new Chart(document.getElementById('rs-qual-midrise'), {
+      type: 'bar',
+      data: {
+        labels: ['Control', 'Views', 'Scale', 'Nature', 'Appeal', 'Safety', 'Strollability', 'Buffers', 'Opportunities', 'Perception'],
+        datasets: [{
+          label: 'Mid-rise', backgroundColor: M,
+          data: [3.0, 2.2, 3.3, 2.5, 2.5, 3.0, 2.8, 3.0, 3.0, 2.8]
+        }]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false },
+          tooltip: { callbacks: { label: function(c){ return ' ' + c.parsed.y.toFixed(1) + ' / 5'; } } } },
+        scales: {
+          x: { ticks: Object.assign({}, TICK, { maxRotation: 45, font: { size: 9 } }), grid: { display: false } },
+          y: { ticks: TICK, grid: GRID, min: 0, max: 5,
+               title: { display: true, text: 'Score / 5', color: '#888', font: { size: 9 } } }
+        }
+      }
+    });
+  }
+
+  /* Load Chart.js if not already present, then run */
+  if (window.Chart) {
+    initCharts();
+  } else {
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js';
+    s.onload = initCharts;
+    document.head.appendChild(s);
+  }
+})();
+</script>
+
+<!-- ============================================================
+     NKDT SECTION — Architecture as a Dynamic System
+     Copy-paste this block (and the style tag below) into your
+     portfolio HTML, alongside the existing seminary section.
+
+     Required images (place in your images/ folder):
+       images/nkdt_combined.png          ← 3D aerial render (hero)
+       images/nkdt_perspective.jpg       ← perspective render
+       images/nkdt_type_a.jpg            ← Building Type A exploded axon
+       images/nkdt_type_b.jpg            ← Building Type B exploded axon
+       images/nkdt_type_c.jpg            ← Building Type C exploded axon
+       images/nkdt_unit_sheet.jpg        ← unit layout sheet
+       images/nkdt_unit_detail.jpg       ← unit detail / section
+       images/cluster_plex.png      ← cluster plex diagram
+       images/corridor_plex.png     ← corridor plex diagram
+       images/scattered_plex.png    ← scattered plex diagram
+     ============================================================ -->
+
+<div class="proj-detail" id="detail-nkdt">
+
+  <p class="detail-eyebrow">B.Arch. Final Project · Academic Thesis &amp; Design Lab</p>
+  <h2 class="detail-title">NKDT — Architecture as a<br><em>Dynamic System</em></h2>
+  <p class="detail-meta">Advisor: Arch. Daniel Azerrad &nbsp;·&nbsp; Ariel University</p>
+
+  <div class="kw-row">
+    <span class="kw kw-gold">Systemic Design</span>
+    <span class="kw kw-gold">Parametric Modularity</span>
+    <span class="kw">Structural Surplus</span>
+    <span class="kw">Dynamic Configurations</span>
+    <span class="kw">Architectural Laboratory</span>
+  </div>
+
+  <!-- ── Hero: 3D aerial render ──────────────────────────────── -->
+  <figure class="nk-figure nk-figure--hero">
+    <img src="images/nkdt_combined.png"
+         alt="NKDT project — aerial 3D render showing all three building typologies on site"
+         style="width:100%; display:block;">
+    <figcaption>Full site render — Type A (urban, top), Type B (mixed, centre), Type C (rural/scattered, bottom). Ariel University dormitory precinct.</figcaption>
+  </figure>
+
+  <!-- ── Concept ──────────────────────────────────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">Concept</span>
+    <p>Traditional residential architecture treats institutional housing as a static, unyielding container — failing to adapt to the fluid needs of its users or address the growing crisis of urban loneliness. NKDT (פרויקט נקודות — "Project Points") reimagines student housing not as a fixed building, but as a <strong>live, data-rich architectural laboratory and responsive system</strong>. The central question it asks: <em>should architecture not continue to help us find our place and way in an ever more disorienting world?</em></p>
+    <p>The project operates on three simultaneous scales — the <strong>architectural design laboratory</strong> (a dynamic system capable of receiving spatial modifications), the <strong>community laboratory</strong> (a social environment that reinforces communal bonds against loneliness), and the <strong>student dorms</strong> (a platform of temporary residents who are unwitting participants in the institutional experiment).</p>
+  </div>
+
+  <!-- ── Dorm typology context ────────────────────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">Dormitory Typology Spectrum</span>
+    <p>The project is positioned within a studied taxonomy of three dominant dorm archetypes — from the inward-facing cluster plex, to the corridor hybrid, to the decentralised scattered plex. Each typology generates a distinct social ecology, and each is embedded as one of the three testable building types within the NKDT precinct.</p>
+    <div class="nk-three-col" style="margin-top:0.85rem;">
+      <div class="nk-type-card nk-type-card--a">
+        <img src="images/cluster_plex.png"
+             alt="Cluster plex archetype — enclosed courtyard arrangement"
+             style="width:100%; display:block;">
+        <div class="nk-type-label">Type A · Cluster plex</div>
+        <p class="nk-type-desc">Urban character · enclosed courtyard · inward social focus · public ground floor</p>
+      </div>
+      <div class="nk-type-card nk-type-card--b">
+        <img src="images/corridor_plex.png"
+             alt="Corridor hybrid archetype — mixed internal street typology"
+             style="width:100%; display:block;">
+        <div class="nk-type-label">Type B · Corridor hybrid</div>
+        <p class="nk-type-desc">Mixed character · internal spine · ~2.8 dunams · follows topography</p>
+      </div>
+      <div class="nk-type-card nk-type-card--c">
+        <img src="images/scattered_plex.png"
+             alt="Scattered plex archetype — dispersed sub-plot layout"
+             style="width:100%; display:block;">
+        <div class="nk-type-label">Type C · Scattered plex</div>
+        <p class="nk-type-desc">Rural/organic character · no central building · inward-facing plots · topography-led</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── System Architecture ──────────────────────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">System Architecture &amp; Structural Surplus</span>
+    <div style="display:flex; gap:1.5rem; align-items:flex-start; flex-wrap:wrap;">
+      <div style="flex:1 1 300px;">
+        <p>The design is structured around three distinct architectural typologies, each engineered with unique spatial attributes to expand the matrix of testable environments. At its core: the <strong>"Spatial &amp; Structural Surplus"</strong> — an intentional structural over-engineering of the grid allowing the infrastructure to support far more spatial permutations than strictly required.</p>
+        <p>This surplus manifests as calculated programmatic voids within floor levels. As units expand or contract, these voids dynamically shift — mutating internal pathways, changing degrees of physical intimacy between residents, and transforming the building's external facade. The module is the atom of the system: each dorm room is a composite of 2–4 module units, a self-contained workspace, sleeping complex and ventilated space.</p>
+        <p>Modular flexibility deconstructs traditional corridors, transforming them into shared communal living nodes — <em>the corridor as a living room.</em> Community spaces are layered at the apartment, neighbourhood, and precinct level: shared lounge, laundry and terrace → laundry room, fitness and lounge → lecture hall, dining and management.</p>
+      </div>
+      <figure class="nk-figure" style="flex:0 0 340px; margin-bottom:0;">
+        <img src="images/nkdt_unit_detail.jpg"
+             alt="NKDT unit module — floor plan, section and exploded isometric"
+             style="width:100%; display:block;">
+        <figcaption>Unit module — floor plan (top left), section A-A (bottom left), explosion / partition / cut (centre), isometric module assembly (right)</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <!-- ── Unit sheet ────────────────────────────────────────────── -->
+  <figure class="nk-figure">
+    <img src="images/nkdt_unit_sheet.jpg"
+         alt="Building unit layout sheet showing plan and facade variations"
+         style="width:100%; display:block;">
+    <figcaption>Unit layout sheet — plan variants and facade compositions across module configurations</figcaption>
+  </figure>
+
+  <!-- ── Three building types + perspective ───────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">Three Building Typologies</span>
+    <p>The precinct is divided into three building types, each exploring a different spatial character. The diversity of typologies is itself the testing mechanism — it allows the project to run spatial experiments across a wider matrix of conditions simultaneously.</p>
+
+    <div class="nk-persp-types">
+
+      <!-- Left: street perspective -->
+      <figure class="nk-figure nk-figure--hero" style="margin-bottom:0;">
+        <img src="images/nkdt_perspective.jpg"
+             alt="NKDT project — street-level perspective render"
+             style="width:100%; display:block;">
+        <figcaption>Street-level perspective — NKDT dormitory precinct, Ariel University</figcaption>
+      </figure>
+
+      <!-- Right: three axon images stacked -->
+      <div class="nk-types-col">
+
+        <div class="nk-explode-card nk-explode-card--a">
+          <div class="nk-explode-header">
+            <span class="nk-explode-badge nk-explode-badge--a">Type A</span>
+            <div class="nk-explode-specs">
+              <span>Urban</span><span>2 bldgs</span><span>~6 storeys</span>
+            </div>
+          </div>
+          <figure class="nk-figure" style="margin-bottom:0;">
+            <img src="images/nkdt_type_a.jpg"
+                 alt="Building Type A — urban cluster exploded axonometric"
+                 style="width:100%; display:block;">
+            <figcaption>Type A — exploded axonometric &amp; floor-by-floor breakdown</figcaption>
+          </figure>
+        </div>
+
+        <div class="nk-explode-card nk-explode-card--b">
+          <div class="nk-explode-header">
+            <span class="nk-explode-badge nk-explode-badge--b">Type B</span>
+            <div class="nk-explode-specs">
+              <span>Mixed</span><span>3 bldgs</span><span>~4 storeys</span>
+            </div>
+          </div>
+          <figure class="nk-figure" style="margin-bottom:0;">
+            <img src="images/nkdt_type_b.jpg"
+                 alt="Building Type B — mixed hybrid exploded axonometric"
+                 style="width:100%; display:block;">
+            <figcaption>Type B — spine layout &amp; topographic adaptation</figcaption>
+          </figure>
+        </div>
+
+        <div class="nk-explode-card nk-explode-card--c">
+          <div class="nk-explode-header">
+            <span class="nk-explode-badge nk-explode-badge--c">Type C</span>
+            <div class="nk-explode-specs">
+              <span>Rural</span><span>scattered</span><span>~3 storeys</span>
+            </div>
+          </div>
+          <figure class="nk-figure" style="margin-bottom:0;">
+            <img src="images/nkdt_type_c.jpg"
+                 alt="Building Type C — scattered rural exploded axonometric"
+                 style="width:100%; display:block;">
+            <figcaption>Type C — scattered sub-plot arrangement</figcaption>
+          </figure>
+        </div>
+
+      </div><!-- /nk-types-col -->
+    </div><!-- /nk-persp-types -->
+  </div>
+
+  <!-- ── Research Connection ──────────────────────────────────── -->
+  <div class="subsec">
+    <span class="subsec-label">Research Connection</span>
+    <div class="finding">
+      <span class="finding-lbl">Design responds to data</span>
+      <p>NKDT directly embeds the empirical findings from the seminar research into its design logic. The quantitative study showed that <strong>spatial buffers, nature integration, and local resident autonomy</strong> are the primary drivers of Sense of Community — outperforming raw density. The design operationalises each finding as a physical, reconfigurable architectural system: buffer zones are encoded as the structural surplus voids; nature is woven through the topography-following Type B and C layouts; autonomy is preserved through modular unit control. The precinct functions as the <strong>ultimate live testing sandbox</strong> — where incremental spatial modifications can be deployed and their community effects measured in real time.</p>
+    </div>
+  </div>
+
+</div><!-- /proj-detail #detail-nkdt -->
+
+
+<!-- ============================================================
+     SCOPED STYLES — safe to paste alongside the section above.
+     All selectors prefixed with #detail-nkdt or .nk-
+     ============================================================ -->
+<style>
+/* ── Figures ── */
+#detail-nkdt .nk-figure {
+  margin: 0 0 1.25rem;
+  border: 1px solid #d8d4c8;
+  background: #f5f2ec;
+}
+#detail-nkdt .nk-figure--hero {
+  border-width: 2px;
+}
+#detail-nkdt .nk-figure figcaption {
+  font-size: 0.72rem;
+  color: #7a7a74;
+  padding: 0.45rem 0.65rem;
+  border-top: 1px solid #d8d4c8;
+  line-height: 1.4;
+}
+/* cap image height so they support text rather than dominate it */
+#detail-nkdt .nk-figure img {
+  max-height: 240px;
+  object-fit: contain;
+  object-position: center;
+}
+#detail-nkdt .nk-figure--hero img {
+  max-height: 280px;
+}
+/* cap typology card images too */
+#detail-nkdt .nk-type-card img {
+  max-height: 160px;
+  object-fit: contain;
+  object-position: center;
+  mix-blend-mode: multiply;
+}
+#detail-nkdt .nk-type-card { background: transparent; }
+
+/* ── Three-column typology cards ── */
+#detail-nkdt .nk-three-col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 700px) {
+  #detail-nkdt .nk-three-col { grid-template-columns: 1fr; }
+}
+#detail-nkdt .nk-type-card {
+  border: 1px solid #d8d4c8;
+  overflow: hidden;
+}
+#detail-nkdt .nk-type-card--a { border-top: 3px solid #3B7AC5; }
+#detail-nkdt .nk-type-card--b { border-top: 3px solid #D4860A; }
+#detail-nkdt .nk-type-card--c { border-top: 3px solid #2A9D5C; }
+#detail-nkdt .nk-type-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 7px 10px 3px;
+  color: #1a1a1a;
+}
+#detail-nkdt .nk-type-desc {
+  font-size: 0.68rem;
+  color: #7a7a74;
+  padding: 0 10px 10px;
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* ── Perspective + types side-by-side ── */
+#detail-nkdt .nk-persp-types {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+  align-items: start;
+}
+#detail-nkdt .nk-types-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+@media (max-width: 700px) {
+  #detail-nkdt .nk-persp-types { grid-template-columns: 1fr; }
+}
+
+/* ── Exploded axon cards ── */
+#detail-nkdt .nk-type-explode-row {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-top: 0.85rem;
+}
+#detail-nkdt .nk-explode-card {
+  border: 1px solid #d8d4c8;
+  overflow: hidden;
+}
+#detail-nkdt .nk-explode-card--a { border-left: 4px solid #3B7AC5; }
+#detail-nkdt .nk-explode-card--b { border-left: 4px solid #D4860A; }
+#detail-nkdt .nk-explode-card--c { border-left: 4px solid #2A9D5C; }
+#detail-nkdt .nk-explode-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 10px 14px;
+  background: #faf8f4;
+  border-bottom: 1px solid #d8d4c8;
+  flex-wrap: wrap;
+}
+#detail-nkdt .nk-explode-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+#detail-nkdt .nk-explode-badge--a { background: #3B7AC5; color: #fff; }
+#detail-nkdt .nk-explode-badge--b { background: #D4860A; color: #fff; }
+#detail-nkdt .nk-explode-badge--c { background: #2A9D5C; color: #fff; }
+#detail-nkdt .nk-explode-specs {
+  display: flex;
+  gap: 0.5rem 1rem;
+  flex-wrap: wrap;
+}
+#detail-nkdt .nk-explode-specs span {
+  font-size: 0.68rem;
+  color: #5a5a54;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+#detail-nkdt .nk-explode-specs span::before {
+  content: '·';
+  color: #aaa;
+}
+#detail-nkdt .nk-explode-specs span:first-child::before {
+  display: none;
+}
+</style>
+
+    <!-- ACRE -->
+    <div class="proj-detail" id="detail-acre">
+      <p class="detail-eyebrow">Urban Studio · Year 3</p>
+      <h2 class="detail-title">Acre —<br><em>Symbiotic Urban Fabric</em></h2>
+      <p class="detail-meta">Studio Urban · Advisors: Arch. David Aharoni &amp; Kobi Zik &nbsp;·&nbsp; Collaboration with Chen Ponces &amp; Hila Zahrihan</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Urban Design</span>
+        <span class="kw">Mixed-Use</span>
+        <span class="kw">Urban Fabric</span>
+        <span class="kw">Symbiosis</span>
+      </div>
+      <div class="img-slot">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+        Add site plans or urban diagrams here.
+      </div>
+      <div class="subsec">
+        <span class="subsec-label">Concept</span>
+        <p>A proposal allowing Acre to grow as a settlement containing both city and suburb — each reinforcing its distinct character while mutually sustaining the other. The intervention is structured around a symbiotic reading of daily-life opportunities embedded in the urban fabric, proposing a layered spatial system that allows both typologies to coexist and reinforce one another over time.</p>
+      </div>
+    </div>
+
+    <!-- TEL AVIV -->
+    <div class="proj-detail" id="detail-telaviv">
+      <p class="detail-eyebrow">Digital Studio · Year 3</p>
+      <h2 class="detail-title">Tel Aviv —<br><em>Adaptive Environment</em></h2>
+      <p class="detail-meta">Studio Digital · Advisor: Arch. Yoav Lanir</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Parametric Design</span>
+        <span class="kw">Adaptive Systems</span>
+        <span class="kw">Dynamic Topology</span>
+        <span class="kw">Environmental Response</span>
+      </div>
+      <div class="img-slot">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+        Add parametric diagrams or renderings here.
+      </div>
+      <div class="subsec">
+        <span class="subsec-label">Concept</span>
+        <p>An environment that adapts to field conditions through learning and prediction. A dynamic garden enabling high-quality spatial use by changing topology in real time — responding to live analysis of environmental conditions, expected user configurations, and planned activity. The project explores how rule-based computational geometry can generate architecture that behaves rather than merely exists.</p>
+      </div>
+    </div>
+
+    <!-- NOMAD -->
+    <div class="proj-detail" id="detail-nomad">
+      <p class="detail-eyebrow">Interior Studio · Year 4</p>
+      <h2 class="detail-title">Nomad Hotel —<br><em>Flexible In-Between</em></h2>
+      <p class="detail-meta">Studio Interior · Advisor: Arch. Dana Oberzon</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Interior Design</span>
+        <span class="kw">Hospitality</span>
+        <span class="kw">Modularity</span>
+        <span class="kw">In-Between Space</span>
+      </div>
+      <div class="img-slot">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+        Add interior renders or section drawings here.
+      </div>
+      <div class="subsec">
+        <span class="subsec-label">Concept</span>
+        <p>A hospitality experience designed to release guests from the boundaries of daily routine — enabling direct, honest encounter with place, moment, and self. The design focuses on flexible intermediate spaces under a repetitive modular framework, where the quality of the in-between defines the experience rather than the private room itself.</p>
+      </div>
+    </div>
+
+    <!-- KIBBUTZ -->
+    <div class="proj-detail" id="detail-kibbutz">
+      <p class="detail-eyebrow">Applied Design · Ongoing · Professional Practice</p>
+      <h2 class="detail-title">Kibbutz Merchavia —<br><em>Renovation &amp; Expansion</em></h2>
+      <p class="detail-meta">Revit · Construction Documentation</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Revit</span>
+        <span class="kw">BIM</span>
+        <span class="kw">Construction Docs</span>
+        <span class="kw">Renovation</span>
+        <span class="kw">Professional Practice</span>
+      </div>
+      <div class="img-slot">
+        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
+        Add Revit model screenshots or floor plans here.
+      </div>
+      <div class="subsec">
+        <span class="subsec-label">Scope</span>
+        <p>Developing full building layouts, construction documentation, and high-fidelity 3D architectural models for a 1950s house renovation and expansion. Directly managing real-world spatial, structural, and regulatory constraints within a live professional context — applying BIM methodology in an applied setting rather than academic.</p>
+      </div>
+    </div>
+
+    <!-- YAHOO -->
+    <div class="proj-detail" id="detail-yahoo">
+      <p class="detail-eyebrow">Professional Experience · 2015 – Present</p>
+      <h2 class="detail-title">Yahoo! —<br><em>Research Automation &amp; Integrity</em></h2>
+      <p class="detail-meta">Tel Aviv · Research Analyst, Data Analyst, Technical Analyst</p>
+
+      <div class="kw-row">
+        <span class="kw kw-gold">Python</span>
+        <span class="kw kw-gold">PySpark</span>
+        <span class="kw">SQL</span>
+        <span class="kw">Airflow</span>
+        <span class="kw">AWS</span>
+        <span class="kw">A/B Testing</span>
+        <span class="kw">Causal Inference</span>
+        <span class="kw">Claude Code</span>
+      </div>
+
+      <div class="subsec">
+        <span class="subsec-label">Research Analyst · 2023 – Present</span>
+        <ul>
+          <li><strong>Engineered a core Python/PySpark automation framework</strong> that unified disparate workflow systems into a single automated pipeline, reducing total runtime by 90% and ensuring complete execution validity.</li>
+          <li><strong>Architected an end-to-end automation pipeline</strong> for self-service systems, eliminating manual engineering intervention and democratising access for non-technical stakeholders.</li>
+          <li><strong>Led methodology alignment</strong> across a family of analytics products, establishing standardised experimental protocols.</li>
+          <li><strong>Partnered with Research Scientists and Engineering teams</strong> on backend infrastructure, making architectural decisions balancing performance, efficiency, and scientific rigour.</li>
+          <li><strong>Utilised LLM workflows</strong> (Claude Code) to accelerate technical knowledge acquisition and streamline complex debugging.</li>
+        </ul>
+      </div>
+
+      <div class="subsec">
+        <span class="subsec-label">Data Analyst — Systems &amp; Methodology · 2021 – 2023</span>
+        <ul>
+          <li><strong>Managed end-to-end execution of a $10M+/year technical testing roadmap</strong>, ensuring strict algorithmic validity and data integrity across continuous operational pipelines.</li>
+          <li><strong>Implemented multi-layered SQL and data automation workflows</strong> to guarantee data quality and detect pipeline contamination.</li>
+          <li>Collaborated with Research teams to refine methodologies, automate pipelines, and present papers at Yahoo's internal Tech Pulse conference.</li>
+        </ul>
+      </div>
+
+      <div class="subsec">
+        <span class="subsec-label">Technical Analyst (Student) · 2015 – 2021</span>
+        <ul>
+          <li><strong>Automated deployment validation pipelines</strong>, reducing time-to-production by ~3 days and saving 25+ developer hours per release.</li>
+          <li><strong>Conducted machine learning validation research</strong> using Python-based validation methodologies.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <div class="proj-detail" id="detail-pubs">
+      <p class="detail-eyebrow">Academic &amp; Professional</p>
+      <h2 class="detail-title">Publications &amp;<br><em>Presentations</em></h2>
+      <p class="detail-meta" style="margin-bottom: 2rem;">Papers, posters, and presented research</p>
+
+      <div class="pub">
+        <span class="pub-label">Submitted Paper · Tech Pulse 2023</span>
+        <p class="pub-title">Overcoming A/B Test Discrepancy Using Nearest Neighbour Data Imputation</p>
+        <p class="pub-note">Yahoo internal conference — content confidential</p>
+      </div>
+      <div class="pub">
+        <span class="pub-label">Presented Poster · Tech Pulse 2022</span>
+        <p class="pub-title">Assessing the Incrementality of Enhanced CPC as a Bidding Strategy in the Gemini Platform</p>
+        <p class="pub-note">Yahoo internal conference — content confidential</p>
+      </div>
+      <div class="pub">
+        <span class="pub-label">Architectural Seminar Paper</span>
+        <p class="pub-title">Student Dorms Architype as a Driving Factor in the Formation of a Sense of Community</p>
+        <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank" class="pub-link">dx.doi.org/10.13140/RG.2.2.32000.00001 ↗</a>
+        <p class="pub-note">A quantitative data study analysing spatial data and its relation to community formation metrics</p>
+      </div>
+    </div>
+
+  </div><!-- /content-panel -->
+</div><!-- /main-wrap -->
+
+<!-- CTA -->
+<div class="cta-strip" id="contact">
+  <p class="cta-text">Looking to bridge analytics engineering and architectural practice.</p>
+  <div class="cta-links">
+    <a href="mailto:doron.anhang@gmail.com" class="btn btn-white">Email Me</a>
+    <a href="https://linkedin.com/in/doron-anhang" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+  </div>
+</div>
+
+<footer>
+  <p>Doron Anhang · Architectural R&D · 2026</p>
+  <p>+972-54-233-0059 · <a href="mailto:doron.anhang@gmail.com">doron.anhang@gmail.com</a></p>
+</footer>
+
+<script>
+function show(id) {
+  // Measure scroll target BEFORE layout changes so the position is stable
+  const panel = document.querySelector('.content-panel');
+  const navH  = document.querySelector('nav').offsetHeight;
+  const tabsH = document.querySelector('.tabs-scroll-outer').offsetHeight;
+  const targetTop = panel.getBoundingClientRect().top + window.scrollY - navH - tabsH;
+
+  // Swap content
+  document.querySelectorAll('.proj-detail').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('detail-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+
+  // Scroll after two animation frames so the browser has repainted the new layout
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    });
+  });
+}
+</script>
+</body>
+</html>
