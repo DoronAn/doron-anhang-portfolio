@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doron Anhang — Architectural R&D</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f7f5f0;
+  --bg2: #f0ede6;
+  --white: #ffffff;
+  --gold: #E6A855;
+  --gold-dim: rgba(230,168,85,0.15);
+  --ink: #2a2a28;
+  --text: #808080;
+  --text-light: #aaaaaa;
+  --rule: #e0dbd0;
+  --sans: 'Assistant', 'Helvetica Neue', sans-serif;
+  --serif: 'Times New Roman', Times, serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.8rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.nav-name {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: color 0.15s;
+}
+.nav-links a:hover { color: var(--gold); }
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 3.5rem;
+}
+.hero-left {
+  padding: 2rem 3rem 2rem 3.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--rule);
+}
+.hero-eyebrow {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 3.5vw, 3.8rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+.hero-name em { font-style: italic; }
+.hero-divider {
+  width: 3rem;
+  height: 2px;
+  background: var(--gold);
+  margin: 0.75rem 0;
+}
+.hero-role {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+.hero-statement {
+  font-size: 0.92rem;
+  color: var(--text);
+  line-height: 1.8;
+  max-width: 44ch;
+  margin-bottom: 1.25rem;
+}
+.hero-statement strong { color: var(--ink); font-weight: 600; }
+.hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.btn {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.65rem 1.6rem;
+  text-decoration: none;
+  transition: all 0.15s;
+  display: inline-block;
+}
+.btn-gold { background: var(--gold); color: #fff; }
+.btn-gold:hover { background: #c98e3f; }
+.btn-outline { border: 1.5px solid var(--rule); color: var(--text); }
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+.hero-right {
+  padding: 2rem 3.5rem 2rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.hero-right-label {
+  font-family: var(--serif);
+  font-size: 1.1rem;
+  color: var(--ink);
+  margin-bottom: 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--gold);
+  display: inline-block;
+}
+.stack-row {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--rule);
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+.stack-row:first-of-type { border-top: 1px solid var(--rule); }
+.stack-cat {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+.stack-vals {
+  font-size: 0.82rem;
+  color: var(--text);
+  line-height: 1.6;
+}
+.hero-contact {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+.hero-contact a {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.hero-contact a:hover { color: var(--gold); }
+
+/* ── MAIN LAYOUT ── */
+.main-wrap { border-top: none; }
+
+/* ── PROJECT TABS BAR ── */
+.tabs-scroll-outer {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 90;
+  background: var(--bg);
+  border-top: 1px solid var(--rule);
+  border-bottom: 2px solid var(--rule);
+  overflow: hidden;
+}
+.proj-tabs-bar {
+  display: flex;
+  align-items: stretch;
+  min-width: max-content;
+  overflow-x: auto;
+  overflow-y: visible;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.proj-tabs-bar::-webkit-scrollbar { display: none; }
+
+.tab-group-sep {
+  font-family: var(--sans);
+  font-size: 0.56rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-light);
+  background: var(--bg2);
+  border-right: 1px solid var(--rule);
+  border-left: 1px solid var(--rule);
+  padding: 0 0.45rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 0.55rem 1rem 0.5rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  transition: all 0.15s;
+  text-align: left;
+  border-right: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+.tab-btn:hover { background: var(--bg2); }
+.tab-btn.active {
+  border-bottom-color: var(--gold);
+  background: var(--gold-dim);
+}
+.tab-btn-num {
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  display: block;
+}
+.tab-btn-title {
+  font-family: var(--serif);
+  font-size: 0.88rem;
+  color: var(--ink);
+  line-height: 1.2;
+  display: block;
+  white-space: nowrap;
+}
+.tab-btn-sub {
+  font-size: 0.62rem;
+  color: var(--text-light);
+  display: block;
+  white-space: nowrap;
+}
+
+/* ── CONTENT PANEL ── */
+.content-panel {
+  padding: 2.5rem 3.5rem;
+  scroll-margin-top: 7rem;
+}
+
+.proj-detail { display: none; animation: fadeIn 0.3s ease; }
+.proj-detail.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.detail-eyebrow {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+  margin-bottom: 0.6rem;
+}
+.detail-title {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.15;
+  margin-bottom: 0.35rem;
+}
+.detail-title em { font-style: italic; }
+.detail-meta {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.kw-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 2rem; }
+.kw {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--rule);
+  color: var(--text);
+}
+.kw-gold { border-color: var(--gold); color: var(--gold); }
+
+/* ── WELCOME PANEL ── */
+.welcome-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100%;
+  min-height: 60vh;
+  padding: 2rem 0;
+}
+.welcome-panel h2 {
+  font-family: var(--serif);
+  font-size: 1.8rem;
+  color: var(--ink);
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.welcome-panel p {
+  font-size: 0.88rem;
+  color: var(--text);
+  max-width: 40ch;
+  line-height: 1.75;
+}
+.welcome-arrow {
+  margin-top: 2rem;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ── WIP PANEL ── */
+.wip-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 52vh;
+  margin-top: 2rem;
+  border: 1.5px dashed var(--rule);
+  background: var(--bg2);
+  gap: 1.25rem;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.wip-icon {
+  opacity: 0.55;
+}
+.wip-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+}
+.wip-title {
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.wip-sub {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  max-width: 38ch;
+  line-height: 1.7;
+}
+
+/* ── CTA ── */
+.cta-strip {
+  background: var(--ink);
+  padding: 2.5rem 3.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.cta-text {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: #fff;
+}
+.cta-links { display: flex; gap: 0.75rem; }
+.btn-white { background: #fff; color: var(--ink); }
+.btn-white:hover { background: var(--bg); }
+.btn-ghost { border: 1.5px solid rgba(255,255,255,0.35); color: #fff; }
+.btn-ghost:hover { background: rgba(255,255,255,0.1); }
+
+footer {
+  padding: 1.25rem 3.5rem;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+footer p { font-size: 0.72rem; color: var(--text-light); }
+footer a { color: var(--text-light); text-decoration: none; }
+footer a:hover { color: var(--gold); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  nav { padding: 0.8rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { border-right: none; border-bottom: 1px solid var(--rule); padding: 1.75rem 1.5rem; }
+  .hero-right { padding: 1.5rem 1.5rem; }
+  .content-panel { padding: 1.75rem 1.5rem; }
+  .cta-strip { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+  footer { padding: 1.25rem 1.5rem; flex-direction: column; gap: 0.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-name">Doron Anhang</a>
+  <ul class="nav-links">
+    <li><a href="#top">About</a></li>
+    <li><a href="#projects-section">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Portfolio — 2026</p>
+    <h1 class="hero-name">Doron<br><em>Anhang</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-role">Architectural R&amp;D · Spatial Research · Data Engineering</p>
+    <p class="hero-statement">
+      B.Arch. graduate with <strong>4+ years of advanced technical experience</strong> in Big Tech. I use empirical methods to understand how space shapes human behaviour — and build the analytical infrastructure to prove it.<br><br>
+      Bridging <strong>quantitative research, parametric design, and data engineering</strong> to connect the rigour of experimental science with the complexity of the built environment.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects-section" class="btn btn-gold">View Work</a>
+      <a href="mailto:doron.anhang@gmail.com" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <span class="hero-right-label">Technical &amp; Design Stack</span>
+    <div class="stack-row">
+      <span class="stack-cat">Design</span>
+      <span class="stack-vals">Revit, Rhino &amp; Grasshopper, GIS, AutoCAD, SketchUp, SolidEdge, Photoshop</span>
+    </div>
+    <div class="stack-row">
+      <span class="stack-cat">Engineering</span>
+      <span class="stack-vals">Python, PySpark, Pandas, NumPy, SQL/HiveQL, Airflow, AWS, Looker, Splunk, Git</span>
+    </div>
+    <div class="stack-row">
+      <span class="stack-cat">AI &amp; Automation</span>
+      <span class="stack-vals">Claude Code, LLM workflow integration, GenAI tooling</span>
+    </div>
+    <div class="stack-row">
+      <span class="stack-cat">Methods</span>
+      <span class="stack-vals">Experimental Design, A/B Testing, Causal Inference, Quantitative Spatial Analysis, Data Integrity</span>
+    </div>
+    <div class="hero-contact">
+      <a href="mailto:doron.anhang@gmail.com">doron.anhang@gmail.com</a>
+      <a href="tel:+972542330059">+972-54-233-0059</a>
+      <a href="https://linkedin.com/in/doron-anhang" target="_blank">LinkedIn ↗</a>
+      <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank">Published Paper ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECT TABS BAR -->
+<div class="tabs-scroll-outer" id="projects-section">
+<div class="proj-tabs-bar">
+
+  <div class="tab-group-sep">Research</div>
+  <button class="tab-btn" onclick="show('research')" id="tab-research">
+    <span class="tab-btn-num">02</span>
+    <span class="tab-btn-title">Quantitative Spatial Analysis</span>
+    <span class="tab-btn-sub">Student Dorms Archetype</span>
+  </button>
+
+  <div class="tab-group-sep">Design</div>
+  <button class="tab-btn" onclick="show('nkdt')" id="tab-nkdt">
+    <span class="tab-btn-num">01</span>
+    <span class="tab-btn-title">NKDT</span>
+    <span class="tab-btn-sub">Dynamic System</span>
+  </button>
+  <button class="tab-btn" onclick="show('acre')" id="tab-acre">
+    <span class="tab-btn-num">03</span>
+    <span class="tab-btn-title">Acre</span>
+    <span class="tab-btn-sub">Urban Fabric</span>
+  </button>
+  <button class="tab-btn" onclick="show('telaviv')" id="tab-telaviv">
+    <span class="tab-btn-num">04</span>
+    <span class="tab-btn-title">Tel Aviv</span>
+    <span class="tab-btn-sub">Adaptive Environment</span>
+  </button>
+  <button class="tab-btn" onclick="show('nomad')" id="tab-nomad">
+    <span class="tab-btn-num">05</span>
+    <span class="tab-btn-title">Nomad Hotel</span>
+    <span class="tab-btn-sub">Flexible In-Between</span>
+  </button>
+  <button class="tab-btn" onclick="show('kibbutz')" id="tab-kibbutz">
+    <span class="tab-btn-num">06</span>
+    <span class="tab-btn-title">Kibbutz Merchavia</span>
+    <span class="tab-btn-sub">Renovation</span>
+  </button>
+
+  <div class="tab-group-sep">Industry</div>
+  <button class="tab-btn" onclick="show('yahoo')" id="tab-yahoo">
+    <span class="tab-btn-num">07</span>
+    <span class="tab-btn-title">Yahoo!</span>
+    <span class="tab-btn-sub">Research &amp; Automation</span>
+  </button>
+
+  <div class="tab-group-sep">More</div>
+  <button class="tab-btn" onclick="show('pubs')" id="tab-pubs">
+    <span class="tab-btn-num"></span>
+    <span class="tab-btn-title">Publications</span>
+    <span class="tab-btn-sub">Papers &amp; Presentations</span>
+  </button>
+
+</div><!-- /proj-tabs-bar -->
+</div><!-- /tabs-scroll-outer -->
+
+<!-- CONTENT -->
+<div class="main-wrap">
+  <div class="content-panel">
+
+    <!-- Welcome state -->
+    <div class="proj-detail active" id="detail-welcome">
+      <div class="welcome-panel">
+        <h2>Select a project<br>to explore.</h2>
+        <p>Research, design, and industry work — all connected by a single thread: using empirical methods to understand how space shapes human behaviour.</p>
+        <div class="welcome-arrow">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+          Choose a project from the bar above
+        </div>
+      </div>
+    </div>
+
+    <!-- WIP SVG — reused across all panels -->
+    <svg id="wip-svg-def" style="display:none">
+      <symbol id="wip-icon" viewBox="0 0 56 56" fill="none">
+        <circle cx="28" cy="28" r="26" stroke="#E6A855" stroke-width="1.5" stroke-dasharray="5 3"/>
+        <path d="M28 14v14l9 5" stroke="#E6A855" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="28" cy="28" r="2.5" fill="#E6A855"/>
+      </symbol>
+    </svg>
+
+    <!-- RESEARCH -->
+    <div class="proj-detail" id="detail-research">
+      <p class="detail-eyebrow">Academic Seminar Paper · Ariel University, 2022</p>
+      <h2 class="detail-title">Quantitative Spatial Analysis:<br><em>Student Dorms Archetype</em></h2>
+      <p class="detail-meta">Advisor: Dr. Arch. Gilad Schweid &nbsp;·&nbsp; <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank">Published Paper ↗</a></p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Spatial Analytics</span>
+        <span class="kw kw-gold">SCI-2 Framework</span>
+        <span class="kw">Android Dev</span>
+        <span class="kw">Geofencing</span>
+        <span class="kw">Privacy Engineering</span>
+        <span class="kw">Comparative Modelling</span>
+      </div>
+      <div class="wip-panel">
+        <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
+        <span class="wip-label">Work in Progress</span>
+        <p class="wip-title">Full case study<br>coming soon</p>
+        <p class="wip-sub">Detailed write-up of the quantitative spatial methodology, Android data pipeline, and SCI-2 findings is being prepared.</p>
+      </div>
+    </div>
+
+    <!-- NKDT -->
+    <div class="proj-detail" id="detail-nkdt">
+      <p class="detail-eyebrow">B.Arch. Final Project · Academic Thesis &amp; Design Lab</p>
+      <h2 class="detail-title">NKDT — Architecture as a<br><em>Dynamic System</em></h2>
+      <p class="detail-meta">Advisor: Arch. Daniel Azerrad &nbsp;·&nbsp; Ariel University</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Systemic Design</span>
+        <span class="kw kw-gold">Parametric Modularity</span>
+        <span class="kw">Structural Surplus</span>
+        <span class="kw">Dynamic Configurations</span>
+        <span class="kw">Architectural Laboratory</span>
+      </div>
+      <div class="wip-panel">
+        <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
+        <span class="wip-label">Work in Progress</span>
+        <p class="wip-title">Full case study<br>coming soon</p>
+        <p class="wip-sub">Drawings, renders, and system documentation for the NKDT modular housing laboratory are being compiled.</p>
+      </div>
+    </div>
+
+    <!-- ACRE -->
+    <div class="proj-detail" id="detail-acre">
+      <p class="detail-eyebrow">Urban Studio · Year 3</p>
+      <h2 class="detail-title">Acre —<br><em>Symbiotic Urban Fabric</em></h2>
+      <p class="detail-meta">Studio Urban · Advisors: Arch. David Aharoni &amp; Kobi Zik &nbsp;·&nbsp; Collaboration with Chen Ponces &amp; Hila Zahrihan</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Urban Design</span>
+        <span class="kw">Mixed-Use</span>
+        <span class="kw">Urban Fabric</span>
+        <span class="kw">Symbiosis</span>
+      </div>
+      <div class="wip-panel">
+        <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
+        <span class="wip-label">Work in Progress</span>
+        <p class="wip-title">Full case study<br>coming soon</p>
+        <p class="wip-sub">Site plans, urban diagrams, and project documentation are being prepared.</p>
+      </div>
+    </div>
+
+    <!-- TEL AVIV -->
+    <div class="proj-detail" id="detail-telaviv">
+      <p class="detail-eyebrow">Digital Studio · Year 3</p>
+      <h2 class="detail-title">Tel Aviv —<br><em>Adaptive Environment</em></h2>
+      <p class="detail-meta">Studio Digital · Advisor: Arch. Yoav Lanir</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Parametric Design</span>
+        <span class="kw">Adaptive Systems</span>
+        <span class="kw">Dynamic Topology</span>
+        <span class="kw">Environmental Response</span>
+      </div>
+      <div class="wip-panel">
+        <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
+        <span class="wip-label">Work in Progress</span>
+        <p class="wip-title">Full case study<br>coming soon</p>
+        <p class="wip-sub">Parametric diagrams, Grasshopper logic, and simulation outputs are being documented.</p>
+      </div>
+    </div>
+
+    <!-- NOMAD -->
+    <div class="proj-detail" id="detail-nomad">
+      <p class="detail-eyebrow">Interior Studio · Year 4</p>
+      <h2 class="detail-title">Nomad Hotel —<br><em>Flexible In-Between</em></h2>
+      <p class="detail-meta">Studio Interior · Advisor: Arch. Dana Oberzon</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Interior Design</span>
+        <span class="kw">Hospitality</span>
+        <span class="kw">Modularity</span>
+        <span class="kw">In-Between Space</span>
+      </div>
+      <div class="wip-panel">
+        <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
+        <span class="wip-label">Work in Progress</span>
+        <p class="wip-title">Full case study<br>coming soon</p>
+        <p class="wip-sub">Interior renders, section drawings, and material studies are being compiled.</p>
+      </div>
+    </div>
+
+    <!-- KIBBUTZ -->
+    <div class="proj-detail" id="detail-kibbutz">
+      <p class="detail-eyebrow">Applied Design · Ongoing · Professional Practice</p>
+      <h2 class="detail-title">Kibbutz Merchavia —<br><em>Renovation &amp; Expansion</em></h2>
+      <p class="detail-meta">Revit · Construction Documentation</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Revit</span>
+        <span class="kw">BIM</span>
+        <span class="kw">Construction Docs</span>
+        <span class="kw">Renovation</span>
+        <span class="kw">Professional Practice</span>
+      </div>
+      <div class="wip-panel">
+        <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
+        <span class="wip-label">Work in Progress</span>
+        <p class="wip-title">Full case study<br>coming soon</p>
+        <p class="wip-sub">Revit model screenshots, floor plans, and construction documentation are being prepared.</p>
+      </div>
+    </div>
+
+    <!-- YAHOO -->
+    <div class="proj-detail" id="detail-yahoo">
+      <p class="detail-eyebrow">Professional Experience · 2015 – Present</p>
+      <h2 class="detail-title">Yahoo! —<br><em>Research Automation &amp; Integrity</em></h2>
+      <p class="detail-meta">Tel Aviv · Research Analyst, Data Analyst, Technical Analyst</p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Python</span>
+        <span class="kw kw-gold">PySpark</span>
+        <span class="kw">SQL</span>
+        <span class="kw">Airflow</span>
+        <span class="kw">AWS</span>
+        <span class="kw">A/B Testing</span>
+        <span class="kw">Causal Inference</span>
+        <span class="kw">Claude Code</span>
+      </div>
+      <div class="wip-panel">
+        <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
+        <span class="wip-label">Work in Progress</span>
+        <p class="wip-title">Full case study<br>coming soon</p>
+        <p class="wip-sub">A detailed breakdown of the automation framework, data integrity pipeline, and A/B methodology is being written up.</p>
+      </div>
+    </div>
+
+    <!-- PUBLICATIONS -->
+    <div class="proj-detail" id="detail-pubs">
+      <p class="detail-eyebrow">Academic &amp; Professional</p>
+      <h2 class="detail-title">Publications &amp;<br><em>Presentations</em></h2>
+      <p class="detail-meta">Papers, posters, and presented research</p>
+      <div class="wip-panel">
+        <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
+        <span class="wip-label">Work in Progress</span>
+        <p class="wip-title">Full list<br>coming soon</p>
+        <p class="wip-sub">A complete bibliography of papers, conference posters, and presentations is being compiled.</p>
+      </div>
+    </div>
+
+  </div><!-- /content-panel -->
+</div><!-- /main-wrap -->
+
+<!-- CTA -->
+<div class="cta-strip" id="contact">
+  <p class="cta-text">Looking to bridge analytics engineering and architectural practice.</p>
+  <div class="cta-links">
+    <a href="mailto:doron.anhang@gmail.com" class="btn btn-white">Email Me</a>
+    <a href="https://linkedin.com/in/doron-anhang" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+  </div>
+</div>
+
+<footer>
+  <p>Doron Anhang · Architectural R&D · 2026</p>
+  <p>+972-54-233-0059 · <a href="mailto:doron.anhang@gmail.com">doron.anhang@gmail.com</a></p>
+</footer>
+
+<script>
+function show(id) {
+  const panel = document.querySelector('.content-panel');
+  const navH  = document.querySelector('nav').offsetHeight;
+  const tabsH = document.querySelector('.tabs-scroll-outer').offsetHeight;
+  const targetTop = panel.getBoundingClientRect().top + window.scrollY - navH - tabsH;
+
+  document.querySelectorAll('.proj-detail').forEach(d => d.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('detail-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    });
+  });
+}
+</script>
+</body>
+</html>
