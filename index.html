@@ -22,9 +22,11 @@
   --rule: #e0dbd0;
   --sans: 'Assistant', 'Helvetica Neue', sans-serif;
   --serif: 'Times New Roman', Times, serif;
+  --nav-h: 3.5rem;
+  --tab-h: 3rem;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-anchor: none; }
 body {
   font-family: var(--sans);
   background: var(--bg);
@@ -191,7 +193,7 @@ nav {
 /* ── MAIN LAYOUT ── */
 .main-wrap {
   border-top: none;
-  overflow-x: hidden;
+  overflow-x: clip; /* clip without creating a scroll container (preserves sticky) */
 }
 
 /* ── PROJECT TABS BAR ── */
@@ -205,17 +207,47 @@ nav {
   border-bottom: 2px solid var(--rule);
   overflow: hidden; /* clips sides only; inner div drives horizontal scroll */
 }
-/* Inner: actual flex row, wide enough to never wrap */
+/* Inner: actual flex row that scrolls horizontally when its children overflow.
+   Note: do NOT set min-width: max-content here — that makes the element grow to
+   fit all children, so scrollWidth === clientWidth and overflow-x:auto has nothing
+   to scroll. Children are flex-shrink:0 so they keep their natural width and the
+   row overflows the bar, which then scrolls. */
 .proj-tabs-bar {
   display: flex;
   align-items: stretch;
-  min-width: max-content;
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 .proj-tabs-bar::-webkit-scrollbar { display: none; }
+
+/* Arrow buttons that nudge the tabs bar horizontally; visible only when there's
+   room to scroll in that direction (toggled by JS via .is-visible). */
+.tabs-arrow {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border: none;
+  border-left: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  color: var(--text);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0.95;
+  transition: background 0.15s, color 0.15s;
+}
+.tabs-arrow:hover { background: var(--bg2); color: var(--gold); }
+.tabs-arrow.is-visible { display: flex; }
+.tabs-arrow--left  { left: 0;  box-shadow: 4px 0 6px -4px rgba(0,0,0,0.15); }
+.tabs-arrow--right { right: 0; box-shadow: -4px 0 6px -4px rgba(0,0,0,0.15); }
 
 /* Group separator — horizontal text, no writing-mode tricks */
 .tab-group-sep {
@@ -305,6 +337,13 @@ nav {
 @keyframes slideOutRight { from { transform: translateX(0); }     to { transform: translateX(100%);  } }
 @keyframes slideInRight  { from { transform: translateX(100%); }  to { transform: translateX(0); }    }
 @keyframes slideInLeft   { from { transform: translateX(-100%); } to { transform: translateX(0); }    }
+
+/* Sidebar pane slide — used on both desktop (fixed sidebar) and mobile (sticky header) */
+#pvSidebarPane.slide-in-right { animation: slideInRight 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+#pvSidebarPane.slide-in-left  { animation: slideInLeft  0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-sl-leaving { position: absolute; inset: 0; pointer-events: none; }
+.pv-sl-leaving.slide-out-left  { animation: slideOutLeft  0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-sl-leaving.slide-out-right { animation: slideOutRight 0.6s cubic-bezier(0.4,0,0.2,1) both; }
 
 .detail-eyebrow {
   font-size: 0.68rem;
@@ -839,6 +878,269 @@ footer a:hover { color: var(--gold); }
 #detail-nkdt .nk-explode-specs span:first-child::before {
   display: none;
 }
+
+/* ── PROJECT 3-COLUMN VIEW (pv-*) ── */
+
+.pv-head { padding-right: 0.5rem; }
+.pv-eyebrow {
+  font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--gold); margin-bottom: 0.55rem;
+}
+.pv-title {
+  font-family: var(--serif); font-size: 1.5rem;
+  font-weight: 400; color: var(--ink); line-height: 1.2; margin-bottom: 0.5rem;
+}
+.pv-title em { font-style: italic; }
+.pv-meta { font-size: 0.76rem; color: var(--text-light); line-height: 1.5; }
+.pv-meta a { color: var(--gold); text-decoration: none; }
+
+.pv-head-banner .pv-eyebrow { font-size: 0.68rem; margin-bottom: 0.6rem; }
+.pv-head-banner .pv-title { font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; margin-bottom: 0.35rem; }
+.pv-head-banner .pv-meta { font-size: 0.78rem; margin-bottom: 1.5rem; }
+
+.pv-divider { height: 1px; background: var(--rule); margin: 1.5rem 0; }
+
+.pv-body {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  padding: 1.5rem 3.5rem 0;
+  align-items: start;
+}
+
+.pv-sidebar { align-self: start; }
+.pv-chapter-link {
+  display: flex; gap: 0.7rem; align-items: baseline;
+  width: 100%; background: none; border: none; cursor: pointer;
+  text-align: left; padding: 0.55rem 0.9rem;
+  border-left: 2px solid var(--rule);
+  transition: border-color 0.25s, background 0.25s;
+}
+.pv-chapter-link:hover { background: var(--bg2); }
+.pv-chapter-link .pv-cl-num {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--text-light); flex-shrink: 0; transition: color 0.25s;
+}
+.pv-chapter-link .pv-cl-title {
+  font-family: var(--serif); font-size: 0.92rem; line-height: 1.25;
+  color: var(--text); transition: color 0.25s;
+}
+.pv-chapter-link.active { border-left-color: var(--gold); background: var(--gold-dim); }
+.pv-chapter-link.active .pv-cl-num { color: var(--gold); }
+.pv-chapter-link.active .pv-cl-title { color: var(--ink); }
+
+.pv-text { padding: 2rem 0 4rem; }
+.pv-chapter {
+  min-height: 70vh; padding: 1.5rem 0;
+  scroll-margin-top: calc(var(--nav-h) + var(--tab-h) + 1.5rem);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.pv-chapter:first-child { padding-top: 0; }
+.pv-ch-num {
+  font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--gold); margin-bottom: 0.5rem;
+}
+.pv-ch-title {
+  font-family: var(--serif); font-size: 1.6rem; font-weight: 400;
+  color: var(--ink); line-height: 1.2; margin-bottom: 1rem;
+}
+.pv-chapter p { font-size: 0.92rem; color: var(--text); line-height: 1.85; }
+.pv-chapter p + p { margin-top: 0.85rem; }
+.pv-chapter p strong { color: var(--ink); font-weight: 600; }
+.pv-chapter em { font-style: italic; }
+
+.pv-stage-col { align-self: stretch; }
+.pv-stage {
+  position: sticky;
+  top: calc(var(--nav-h) + var(--tab-h) + 2rem);
+  height: calc(100vh - var(--nav-h) - var(--tab-h) - 4rem);
+  overflow: hidden;
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+}
+.pv-imgset {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  gap: 0.5rem; padding: 0.75rem;
+  opacity: 0;
+}
+.pv-imgset.is-active { opacity: 1; }
+.pv-imgset.anim { opacity: 1; }
+.pv-imgset.in-up    { animation: pvSlideInUp    0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-imgset.in-down  { animation: pvSlideInDown  0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-imgset.out-up   { animation: pvSlideOutUp   0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-imgset.out-down { animation: pvSlideOutDown 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+@keyframes pvSlideInUp    { from { transform: translateY(100%);  } to { transform: translateY(0); } }
+@keyframes pvSlideInDown  { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+@keyframes pvSlideOutUp   { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+@keyframes pvSlideOutDown { from { transform: translateY(0); } to { transform: translateY(100%);  } }
+
+
+.pv-fig {
+  flex: 1 1 0; min-height: 0;
+  display: flex; flex-direction: column;
+  background: var(--white); border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.pv-fig img {
+  flex: 1 1 0; min-height: 0; width: 100%;
+  object-fit: contain; object-position: center; display: block; padding: 0.4rem;
+}
+.pv-fig figcaption {
+  font-size: 0.66rem; color: var(--text-light); line-height: 1.35;
+  padding: 0.4rem 0.55rem; border-top: 1px solid var(--rule); flex-shrink: 0;
+}
+
+/* The content-panel is now the middle column of pv-body — no extra margin needed */
+.pv-body > .content-panel { margin: 0; scroll-margin-top: 0; }
+
+/* Bullet lists inside pv-chapters (e.g. Yahoo roles) */
+.subsec-list { margin-left: 1.1rem; }
+.subsec-list li { font-size: 0.9rem; color: var(--text); line-height: 1.75; margin-bottom: 0.4rem; }
+.subsec-list li strong { color: var(--ink); font-weight: 600; }
+
+/* Mobile-only elements — hidden on desktop */
+.pv-rail--h  { display: none; }
+.pv-inline-imgs { display: none; }
+
+/* Desktop: head + rail are fixed, top set by JS each frame */
+@media (min-width: 721px) {
+  .pv-body .proj-detail { padding: 0; }
+  .pv-divider { display: none; }
+
+  /* Grid column spacer */
+  .pv-sidebar { align-self: start; padding: 0; }
+
+  /* Fixed clip box — same role as .content-panel for the text column */
+  #pvSidebarClip {
+    position: fixed;
+    /* left, width, top, height: set by JS */
+    z-index: 50;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s;
+  }
+  .pv-body.pv-active #pvSidebarClip { opacity: 1; pointer-events: auto; }
+
+  /* Sliding pane — same role as .proj-detail */
+  #pvSidebarPane {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Head — normal flow inside pvSidebarPane, no fixed positioning */
+  .pv-head { padding: 0.75rem 0.5rem 0.75rem 0; }
+
+  .pv-head .pv-title   { font-size: 1.05rem; line-height: 1.25; margin-bottom: 0.3rem; }
+  .pv-head .pv-eyebrow { margin-bottom: 0.35rem; }
+  .pv-head .pv-meta    { font-size: 0.72rem; }
+  .pv-head .kw-row     { margin-top: 0.5rem; gap: 0.25rem; }
+  .pv-head .kw         { font-size: 0.65rem; padding: 0.15rem 0.45rem; }
+
+  /* Rail — absolutely positioned inside pvSidebarPane at a fixed offset */
+  #pvRail {
+    position: absolute;
+    top: calc(16rem - 1.5rem); /* = 14.5rem from pane top → 16rem from nav+tab */
+    left: 0; right: 0;
+  }
+
+  .pv-head-banner { display: none !important; }
+  .pv-stage { top: calc(var(--nav-h) + var(--tab-h) + 2rem); }
+}
+
+/* Mobile project view */
+@media (max-width: 720px) {
+  .pv-body {
+    grid-template-columns: 1fr;
+    gap: 0; padding: 0 1.5rem 0;
+  }
+
+  /* Sticky below both fixed nav and sticky tab bar */
+  .pv-sidebar {
+    position: sticky;
+    top: calc(var(--nav-h) + var(--tab-h));
+    z-index: 80;
+    align-self: stretch;
+    margin: 0 -1.5rem; padding: 0.55rem 1.5rem;
+    background: var(--bg); border-bottom: 1px solid var(--rule);
+  }
+
+  /* Clip box for leaving/entering slide.
+     transform: translateZ(0) promotes this to a GPU compositing layer so that
+     overflow:hidden is enforced at the compositor level — without it, the
+     animated leaving clone (which gets its own GPU layer) ignores the clip
+     and slides visibly over the page content to the right. */
+  #pvSidebarClip { position: relative; overflow: hidden; transform: translateZ(0); }
+
+  /* Divider has 1.5rem margins — too large on mobile, just hide it */
+  .pv-divider { display: none; }
+
+  .pv-sidebar #pvRail { display: none; }
+  .pv-head { padding-right: 0; }
+  .pv-title { font-size: 1.05rem; margin-bottom: 0; }
+
+  /* Collapsible elements: eyebrow, meta, keywords */
+  .pv-eyebrow { max-height: 2rem; margin-bottom: 0.3rem; }
+  .pv-meta    { max-height: 4rem; margin-top: 0.35rem; }
+  .pv-sidebar .kw-row { max-height: 7rem; margin-top: 0.5rem; margin-bottom: 0; }
+  .pv-eyebrow, .pv-meta, .pv-sidebar .kw-row {
+    overflow: hidden;
+    transition: opacity 0.25s, max-height 0.3s ease, margin 0.25s;
+  }
+  .pv-sidebar.is-collapsed .pv-eyebrow,
+  .pv-sidebar.is-collapsed .pv-meta,
+  .pv-sidebar.is-collapsed .kw-row {
+    opacity: 0; max-height: 0; margin-top: 0; margin-bottom: 0;
+  }
+
+  /* Chapter chips row */
+  .pv-rail--h {
+    display: flex; gap: 0.4rem; overflow-x: auto;
+    scrollbar-width: none; margin-top: 0.5rem;
+    transition: margin-top 0.25s;
+  }
+  .pv-rail--h::-webkit-scrollbar { display: none; }
+  /* Tighter gap between title and chips when collapsed */
+  .pv-sidebar.is-collapsed .pv-rail--h { margin-top: 0.3rem; }
+
+  .pv-rail--h .pv-chapter-link {
+    flex: 0 0 auto; width: auto;
+    flex-direction: row; align-items: center; gap: 0.4rem;
+    border: 1px solid var(--rule); border-radius: 2px;
+    padding: 0.28rem 0.6rem; white-space: nowrap;
+  }
+  .pv-rail--h .pv-cl-title {
+    display: inline-block;
+    font-size: 0.78rem;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    white-space: nowrap;
+    transition: width 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s;
+  }
+  .pv-rail--h .pv-chapter-link.active { background: var(--gold-dim); border-color: var(--gold); }
+  .pv-rail--h .pv-chapter-link.active .pv-cl-title {
+    opacity: 1;
+    /* width is set as an inline style by JS to the exact measured pixel value */
+  }
+
+  /* Right column hidden; text + inline images fill the single column */
+  .pv-stage-col { display: none; }
+  .pv-text { padding: 0.5rem 0 2rem; }
+  .pv-chapter {
+    display: block; min-height: 0; padding: 1.25rem 0;
+    scroll-margin-top: calc(var(--nav-h) + var(--tab-h) + 5rem);
+  }
+  .pv-inline-imgs {
+    display: grid; gap: 0.6rem; margin-top: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .pv-inline-imgs .pv-fig { display: block; }
+  .pv-inline-imgs .pv-fig img {
+    flex: none; width: 100%; max-height: 240px; object-fit: contain; padding: 0.4rem;
+  }
+}
 </style>
 </head>
 <body>
@@ -899,6 +1201,8 @@ footer a:hover { color: var(--gold); }
 
 <!-- PROJECT TABS BAR -->
 <div class="tabs-scroll-outer" id="projects-section">
+<button class="tabs-arrow tabs-arrow--left" aria-label="Scroll projects left" type="button">&#8249;</button>
+<button class="tabs-arrow tabs-arrow--right" aria-label="Scroll projects right" type="button">&#8250;</button>
 <div class="proj-tabs-bar">
 
   <div class="tab-group-sep">Research</div>
@@ -953,10 +1257,30 @@ footer a:hover { color: var(--gold); }
 </div><!-- /tabs-scroll-outer -->
 
 <!-- CONTENT -->
-<div class="main-wrap">
-  <div class="content-panel">
 
-    <!-- Welcome state -->
+<!-- Fixed banner: spans all 3 columns, populated + shown by JS when a project is active -->
+<div class="pv-head-banner" id="pvBanner" aria-hidden="true"></div>
+
+<!-- 3-column project view shell -->
+<div class="main-wrap">
+<div class="pv-body" id="pvBody">
+
+  <!-- LEFT: sidebar — pvSidebarClip is the fixed clip box; pvSidebarPane slides inside it -->
+  <div class="pv-sidebar">
+    <div id="pvSidebarClip">
+      <div id="pvSidebarPane">
+        <div class="pv-head" id="pvHead"></div>
+        <div class="pv-divider"></div>
+        <div id="pvRail" role="navigation" aria-label="Chapters"></div>
+        <div id="pvRailMobile" class="pv-rail--h" role="navigation" aria-label="Chapters"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MIDDLE: project panels slide in/out here -->
+  <div class="content-panel" id="pvTextWrap">
+
+    <!-- Welcome state (no chapters) -->
     <div class="proj-detail active" id="detail-welcome">
       <div class="welcome-panel">
         <h2>Select a project<br>to explore.</h2>
@@ -968,676 +1292,297 @@ footer a:hover { color: var(--gold); }
       </div>
     </div>
 
-<!-- RESEARCH: Student Dorms Archetype — Seminary Paper -->
-<div class="proj-detail" id="detail-research">
+    <!-- RESEARCH: Quantitative Spatial Analysis -->
+    <div class="proj-detail" id="detail-research">
 
-  <p class="detail-eyebrow">Academic Seminar Paper · Ariel University, 2022</p>
-  <h2 class="detail-title">Quantitative Spatial Data Analysis:<br><em>Student Dorms Archetype</em></h2>
-  <p class="detail-meta">Advisor: Dr. Arch. Gilad Schweid &nbsp;·&nbsp; <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank" rel="noopener noreferrer">Published Paper ↗</a></p>
+      <section class="pv-chapter" id="ch-context"
+               data-title="Context &amp; Challenge"
+               data-images='[
+                 {"src":"images/ariel_map.jpg","cap":"Ariel University campus, 2018 — dormitory compounds mapped."},
+                 {"src":"images/compound_comparison.jpg","cap":"Layout comparison — Caravan sub-plots vs Mid-rise corridor blocks."}
+               ]'>
+        <span class="pv-ch-num">01 — Context</span>
+        <h2 class="pv-ch-title">Context &amp; Challenge</h2>
+        <p>Architectural theory frequently claims that physical environments shape human communities, yet these assertions often rely on subjective intuition rather than empirical, verifiable validation. This research seminar transitions architectural design into the realm of quantitative science.</p>
+        <p>Under the supervision of Dr. Arch. Gilad Schweid, this study establishes a rigorous empirical methodology to analyse, measure, and map exactly how micro-architectural and environmental features drive or restrict a psychological <strong>"<em>Sense of Community</em>" (SoC)</strong> within institutional student housing.</p>
+        <p>The core of the research evaluated a comparative dataset between two polarised housing archetypes at Ariel University: a structured <strong>Mid-rise Compound</strong> versus a decentralised <strong>Caravan Compound</strong>.</p>
+      </section>
 
-  <div class="kw-row">
-    <span class="kw kw-gold">Spatial Analytics</span>
-    <span class="kw kw-gold">SCI-2 Framework</span>
-    <span class="kw">Android Dev</span>
-    <span class="kw">Geofencing</span>
-    <span class="kw">Privacy Engineering</span>
-    <span class="kw">Comparative Modelling</span>
-    <span class="kw">Incremental Optimisation</span>
-  </div>
+      <section class="pv-chapter" id="ch-archetypes"
+               data-title="The Three Archetypes"
+               data-images='[
+                 {"src":"images/corridor_plex.png","cap":"Corridor Plex archetype."},
+                 {"src":"images/cluster_plex.png","cap":"Cluster Plex archetype."},
+                 {"src":"images/scattered_plex.png","cap":"Scattered Plex archetype."}
+               ]'>
+        <span class="pv-ch-num">02 — Typology</span>
+        <h2 class="pv-ch-title">The Three Archetypes</h2>
+        <p>The study positions each compound within a studied taxonomy of dorm archetypes — from the inward-facing <strong>cluster plex</strong>, to the <strong>corridor hybrid</strong>, to the decentralised <strong>scattered plex</strong>.</p>
+        <p>Each typology generates a distinct social ecology. The mid-rise compound reads as a cluster/corridor hybrid; the caravan compound as a scattered plex — two ends of a spectrum chosen precisely because they polarise the variables under test.</p>
+      </section>
 
-  <!-- ── Hero: compound comparison ──────────────────────────── -->
-  <figure class="rs-figure rs-figure--hero">
-    <img loading="lazy" src="images/compound_comparison.jpg"
-         alt="Side-by-side layout diagram: Caravan compound (top) vs Mid-rise compound (bottom)"
-         style="width:100%; display:block;">
-    <figcaption>Layout comparison — Caravan sub-plots (top) vs Mid-rise corridor blocks (bottom), Ariel University</figcaption>
-  </figure>
+      <section class="pv-chapter" id="ch-sites"
+               data-title="Case Study Sites"
+               data-images='[
+                 {"src":"images/caravan_site.jpg","cap":"Caravan compound — ~350 scattered units, 0.106 km², pedestrian-first."},
+                 {"src":"images/midrise_site.jpg","cap":"Mid-rise compound — Buildings 101–116, 1,550 students at 46,969/km²."}
+               ]'>
+        <span class="pv-ch-num">03 — Sites</span>
+        <h2 class="pv-ch-title">Case Study Sites</h2>
+        <p>The <strong>Caravan compound</strong> spreads roughly 350 scattered units across 0.106 km² in an organic, pedestrian-first layout that prioritises informal contact and buffered outdoor space.</p>
+        <p>The <strong>Mid-rise compound</strong> concentrates 1,550 students across numbered building blocks 101–116 on just 0.033 km² — a density of 46,969 students per km², organised around efficient internal corridors.</p>
+      </section>
 
-  <!-- ── Campus context ─────────────────────────────────────── -->
-  <figure class="rs-figure">
-    <img loading="lazy" src="images/ariel_map.jpg"
-         alt="Ariel University campus map 2018 showing dormitory compounds"
-         style="width:100%; display:block;">
-    <figcaption>Ariel University campus — 2018. Red = university buildings, Green = caravans (study compound), Purple = mid-rise dorms (study compound), Blue = other facilities</figcaption>
-  </figure>
+      <section class="pv-chapter" id="ch-infrastructure"
+               data-title="Research Infrastructure"
+               data-images='[
+                 {"src":"images/building_102.jpg","cap":"Building 102 — mid-rise unit layout."},
+                 {"src":"images/buildings_111_114.jpg","cap":"Buildings 111–114 — corridor block cluster."}
+               ]'>
+        <span class="pv-ch-num">04 — Infrastructure</span>
+        <h2 class="pv-ch-title">Research Infrastructure</h2>
+        <p>To orchestrate remote data collection during the pandemic, I designed and co-developed a custom native <strong>Android mobile application</strong>. The app functioned as a live research platform, capturing standardised psychometric metrics alongside passive background geospatial telemetry.</p>
+        <p><strong>Privacy-by-Design</strong> governed the data pipeline: survey responses were isolated from spatial location metrics. User identities were obfuscated at device edge using a client-side cryptographic hash function. Hyper-local data masking ignored a student's precise coordinate when inside their immediate residential cluster, logging a default centralised anchor instead.</p>
+      </section>
 
-  <!-- ── Context & archetype diagrams ──────────────────────── -->
-  <div style="display:flex; gap:1.5rem; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap;">
-    <div class="subsec" style="flex:1 1 320px; margin-bottom:0;">
-      <span class="subsec-label">Context &amp; Challenge</span>
-      <p>Architectural theory frequently claims that physical environments shape human communities, yet these assertions often rely on subjective intuition rather than empirical, verifiable validation. This research seminar transitions architectural design into the realm of quantitative science. Under the supervision of Dr. Arch Gilad Schweid, this study establishes a rigorous empirical methodology to analyze, measure, and map exactly how micro-architectural and environmental features drive or restrict a psychological <strong>"<em>Sense of Community</em>" (SoC)</strong> within institutional student housing.</p>
-      <p>The core of the research evaluated a comparative dataset between two polarized housing archetypes at Ariel University: a structured Mid-rise Compound of a cluster/corridor hybrid archetype versus a decentralized Caravan Compound of the scattered plex archetype.</p>
-    </div>
+      <section class="pv-chapter" id="ch-findings"
+               data-title="Empirical Findings"
+               data-images='[
+                 {"src":"images/compound_comparison.jpg","cap":"Caravan (top) outperforms Mid-rise (bottom) on Sense of Community."},
+                 {"src":"images/caravan_site.jpg","cap":"Decentralised layout — the higher-scoring archetype."}
+               ]'>
+        <span class="pv-ch-num">05 — Findings</span>
+        <h2 class="pv-ch-title">Empirical Findings</h2>
+        <p>Counter to conventional density-driven assumptions, the analysis revealed a <strong>clear statistical advantage for the decentralised Caravan Compound</strong> over the structured Mid-rise Compound in driving Sense of Community.</p>
+        <p>Micro-spatial elements — specifically <strong>nature integration, visual appeal, and spatial buffer features</strong> — proved high-impact drivers of interpersonal trust, outperforming rigid structural density. The study is architected as a modular framework: student housing is the <em>ultimate live testing sandbox</em> for continuous spatial experimentation.</p>
+      </section>
 
-    <div style="flex:0 0 auto; display:flex; gap:0.75rem; align-items:flex-start; flex-wrap:wrap;">
-      <div style="flex:0 0 140px; min-width:0;">
-        <img loading="lazy" src="images/corridor_plex.png" alt="Corridor Plex archetype diagram"
-             style="width:100%; max-height:140px; object-fit:contain; display:block; border:1px solid #d8d4c8; mix-blend-mode:multiply;">
-        <p style="font-size:0.72rem; color:#7a7a74; margin-top:0.4rem;">Corridor Plex archetype</p>
-      </div>
-      <div style="flex:0 0 140px; min-width:0;">
-        <img loading="lazy" src="images/cluster_plex.png" alt="Cluster Plex archetype diagram"
-             style="width:100%; max-height:140px; object-fit:contain; display:block; border:1px solid #d8d4c8; mix-blend-mode:multiply;">
-        <p style="font-size:0.72rem; color:#7a7a74; margin-top:0.4rem;">Cluster Plex archetype</p>
-      </div>
-      <div style="flex:0 0 140px; min-width:0;">
-        <img loading="lazy" src="images/scattered_plex.png" alt="Scattered Plex archetype diagram"
-             style="width:100%; max-height:140px; object-fit:contain; display:block; border:1px solid #d8d4c8; mix-blend-mode:multiply;">
-        <p style="font-size:0.72rem; color:#7a7a74; margin-top:0.4rem;">Scattered Plex archetype</p>
-      </div>
-    </div>
-  </div>
+    </div><!-- /detail-research -->
 
-  <!-- ── Case Study Site Plans ──────────────────────────────── -->
-  <div class="rs-two-col rs-two-col--labeled" style="margin-bottom:1.5rem;">
-    <div class="rs-compound-panel rs-compound-panel--caravan">
-      <div class="rs-compound-badge rs-compound-badge--caravan">Caravan Compound</div>
-      <figure class="rs-figure" style="margin-bottom:0;">
-        <img loading="lazy" src="images/caravan_site.jpg"
-             alt="Caravan compound site plan — scattered caravan units across landscape"
-             style="width:100%; display:block;">
-        <figcaption>Caravan compound site plan — ~350 scattered units, 0.106 km², organic pedestrian-first layout</figcaption>
-      </figure>
-    </div>
-    <div class="rs-compound-panel rs-compound-panel--midrise">
-      <div class="rs-compound-badge rs-compound-badge--midrise">Mid-rise Compound</div>
-      <figure class="rs-figure" style="margin-bottom:0;">
-        <img loading="lazy" src="images/midrise_site.jpg"
-             alt="Mid-rise compound site plan — numbered building blocks 101–116"
-             style="width:100%; display:block;">
-        <figcaption>Mid-rise compound site plan — Buildings 101–116, 0.033 km², 1,550 students at 46,969/km²</figcaption>
-      </figure>
-    </div>
-  </div>
+    <!-- NKDT: Architecture as a Dynamic System -->
+    <div class="proj-detail" id="detail-nkdt">
 
-  <!-- ── Unit-level floor plans ─────────────────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">Unit-Level Spatial Breakdown</span>
-    <div class="rs-floor-grid">
-      <figure class="rs-figure">
-        <img loading="lazy" src="images/caravan_floor_plan.jpg"
-             alt="Caravan unit floor plans — men's unit (blue) and women's unit (green)"
-             style="width:100%; display:block;">
-        <figcaption>Caravan unit plans — men's variant (blue) &amp; women's variant (green)</figcaption>
-      </figure>
-      <figure class="rs-figure">
-        <img loading="lazy" src="images/building_101.jpg"
-             alt="Building 101 floor plan"
-             style="width:100%; display:block;">
-        <figcaption>Building 101 — curved cluster plan with central lobby</figcaption>
-      </figure>
-      <figure class="rs-figure">
-        <img loading="lazy" src="images/building_103.jpg"
-             alt="Building 103 floor plan — large block with multiple unit types"
-             style="width:100%; display:block;">
-        <figcaption>Building 103 — large block, unit types A1, A2, B, C, D1/2/3</figcaption>
-      </figure>
-    </div>
-  </div>
+      <section class="pv-chapter" id="nk-concept"
+               data-title="Concept"
+               data-images='[
+                 {"src":"images/nkdt_combined.png","cap":"Full site render — Type A (urban), Type B (mixed), Type C (rural/scattered)."}
+               ]'>
+        <span class="pv-ch-num">01 — Concept</span>
+        <h2 class="pv-ch-title">Concept</h2>
+        <p>Traditional residential architecture treats institutional housing as a static, unyielding container — failing to adapt to the fluid needs of its users or address the growing crisis of urban loneliness. NKDT (פרויקט נקודות — "Project Points") reimagines student housing not as a fixed building, but as a <strong>live, data-rich architectural laboratory and responsive system</strong>.</p>
+        <p>The project operates on three simultaneous scales — the <strong>architectural design laboratory</strong> (a dynamic system capable of receiving spatial modifications), the <strong>community laboratory</strong> (a social environment that reinforces communal bonds against loneliness), and the <strong>student dorms</strong> (a platform of temporary residents who are unwitting participants in the institutional experiment).</p>
+      </section>
 
-  <!-- ── Full-Stack Research Infrastructure ─────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">Full-Stack Research Infrastructure</span>
-    <p>To orchestrate remote data collection during the pandemic, I designed and co-developed a custom native <strong>Android mobile application</strong> ("פרויקט נקודות - מעונות אריאל"). The app functioned as a live research platform, capturing standardised psychometric metrics (calibrated Hebrew translations of the SCI-2 and URES environmental scales) alongside passive background geospatial telemetry.</p>
-    <p>Privacy-by-Design governed the data pipeline: survey responses were isolated from spatial location metrics across decoupled database tables. User identities were obfuscated at device edge using a client-side cryptographic hash function (crossing device hardware IDs with registration timestamps) generating a unique anonymous join-index token. Telemetry points were streamed to the server only if the participant was within the city limits. Hyper-Local data masking was used by the app to ignore a student's precise coordinate when he/she was inside their immediate residential cluster and log a default centralized anchor pointing to the middle of the cluster instead.</p>
-  </div>
-
-  <!-- ── DATA VISUALISATION ─────────────────────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">Research Results</span>
-
-    <!-- Study overview metrics -->
-    <div class="rs-metrics">
-      <div class="rs-metric"><div class="rs-metric-val">38</div><div class="rs-metric-lbl">app downloads</div></div>
-      <div class="rs-metric"><div class="rs-metric-val">25</div><div class="rs-metric-lbl">valid participants</div></div>
-      <div class="rs-metric"><div class="rs-metric-val">22</div><div class="rs-metric-lbl">SCI-2 responses</div></div>
-      <div class="rs-metric"><div class="rs-metric-val">3,955</div><div class="rs-metric-lbl">GPS datapoints</div></div>
-    </div>
-
-    <!-- Legend -->
-    <div class="rs-legend">
-      <span class="rs-legend-item">
-        <span class="rs-swatch" style="background:#2A9D5C;"></span>
-        Caravan compound
-      </span>
-      <span class="rs-legend-item">
-        <span class="rs-swatch" style="background:#C0392B;"></span>
-        Mid-rise compound
-      </span>
-    </div>
-
-    <!-- Charts row 1: SCI-2 + URES -->
-    <div class="rs-chart-row">
-      <div class="rs-chart-card">
-        <div class="rs-chart-title">Sense of Community Index (SCI-2)</div>
-        <div class="rs-chart-sub">Normalized scores — Caravan n=18, Mid-rise n=3</div>
-        <div class="rs-chart-wrap" style="height:220px;">
-          <canvas id="rs-sci-chart" role="img"
-            aria-label="Grouped bar chart: Caravan scores higher than Mid-rise on all SCI-2 subscales">
-            Caravan outscores Mid-rise on all SCI-2 subscales.
-          </canvas>
-        </div>
-      </div>
-      <div class="rs-chart-card">
-        <div class="rs-chart-title">University Residence Environment (URES)</div>
-        <div class="rs-chart-sub">Standardized scores · * marks significant differences (p&lt;0.1)</div>
-        <div class="rs-chart-wrap" style="height:220px;">
-          <canvas id="rs-ures-chart" role="img"
-            aria-label="Horizontal grouped bar chart of URES subscale scores">
-            Caravan higher on involvement, emotional support, academic achievement. Mid-rise higher on independence.
-          </canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Charts row 2: Qualitative spatial scores -->
-    <div class="rs-chart-row">
-      <div class="rs-chart-card rs-chart-card--caravan">
-        <div class="rs-compound-badge rs-compound-badge--caravan" style="margin-bottom:10px;">Caravan — qualitative spatial scores</div>
-        <div class="rs-chart-sub">Place attachment &amp; informal contact parameters (out of 5) · overall avg 3.9</div>
-        <div class="rs-chart-wrap" style="height:180px;">
-          <canvas id="rs-qual-caravan" role="img"
-            aria-label="Bar chart of caravan spatial quality scores — all parameters above 3.3">
-            Caravan scores strong across all spatial parameters, with Nature (4.5), Buffers (4.5) and Scale (4.3) highest.
-          </canvas>
-        </div>
-      </div>
-      <div class="rs-chart-card rs-chart-card--midrise">
-        <div class="rs-compound-badge rs-compound-badge--midrise" style="margin-bottom:10px;">Mid-rise — qualitative spatial scores</div>
-        <div class="rs-chart-sub">Place attachment &amp; informal contact parameters (out of 5) · overall avg 2.9</div>
-        <div class="rs-chart-wrap" style="height:180px;">
-          <canvas id="rs-qual-midrise" role="img"
-            aria-label="Bar chart of mid-rise spatial quality scores — all parameters below 3.5">
-            Mid-rise scores weakest on Views (2.2), Strollability (2.8) and Perception (2.8).
-          </canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Overall score bars -->
-    <div class="rs-overall-row">
-      <div class="rs-overall-card rs-overall-card--caravan">
-        <div class="rs-overall-label">Caravan compound · overall architectural viability</div>
-        <div class="rs-overall-score-row">
-          <span class="rs-overall-score" style="color:#2A9D5C;">3.9</span>
-          <span class="rs-overall-detail">/ 5 &nbsp;·&nbsp; SD = 0.38 &nbsp;·&nbsp; p &lt; 0.01</span>
-        </div>
-        <div class="rs-bar-bg"><div class="rs-bar-fill" style="width:78%; background:#2A9D5C;"></div></div>
-        <div class="rs-overall-note">High viability — significantly above midpoint</div>
-      </div>
-      <div class="rs-overall-card rs-overall-card--midrise">
-        <div class="rs-overall-label">Mid-rise compound · overall architectural viability</div>
-        <div class="rs-overall-score-row">
-          <span class="rs-overall-score" style="color:#C0392B;">2.9</span>
-          <span class="rs-overall-detail">/ 5 &nbsp;·&nbsp; SD = 0.35 &nbsp;·&nbsp; p &lt; 0.05</span>
-        </div>
-        <div class="rs-bar-bg"><div class="rs-bar-fill" style="width:58%; background:#C0392B;"></div></div>
-        <div class="rs-overall-note">Medium viability — above midpoint, but limited community potential</div>
-      </div>
-    </div>
-
-  </div><!-- /subsec results -->
-
-  <!-- ── Empirical Finding ──────────────────────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">Empirical Finding</span>
-    <div class="finding">
-      <span class="finding-lbl">Key Result</span>
-      <p>Counter to conventional density-driven assumptions, the mixed-method analysis revealed a <strong>clear statistical advantage for the decentralised Caravan Compound</strong> over the structured Mid-rise Compound in driving Sense of Community. Micro-spatial elements — specifically <strong>nature integration, visual appeal, and spatial buffer features</strong> — proved to be high-impact drivers of interpersonal trust, outperforming rigid structural density.</p>
-    </div>
-  </div>
-
-  <!-- ── R&D Framework ──────────────────────────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">R&amp;D Framework &amp; Scaling Path</span>
-    <p>The study is intentionally architected as a modular methodology framework. Because universities maintain total institutional control over students' physical boundaries, student housing represents the <strong>ultimate live testing sandbox</strong> for continuous spatial experimentation — running predictive modelling to discover optimal dormitory structures and deploying incremental spatial feature updates to systematically optimise human well-being and community resilience.</p>
-  </div>
-
-</div><!-- /proj-detail #detail-research -->
-
-
-<!-- CHARTS SCRIPT — styles for this section live in the <head> block -->
-<script>
-(function () {
-  /* ── color constants ── */
-  var C = '#2A9D5C';   /* caravan green  */
-  var M = '#C0392B';   /* midrise red    */
-  var CA = '#D5EEE0';  /* caravan tint   */
-  var MA = '#F5D0CC';  /* midrise tint   */
-  var TICK = { color: '#888', font: { size: 10 } };
-  var GRID = { color: 'rgba(0,0,0,0.07)' };
-
-  function initCharts() {
-    /* 1 — SCI-2 */
-    new Chart(document.getElementById('rs-sci-chart'), {
-      type: 'bar',
-      data: {
-        labels: ['Total SCI', 'Reinf. of needs', 'Membership', 'Influence', 'Shared emotion'],
-        datasets: [
-          { label: 'Caravan', data: [0.566, 0.627, 0.534, 0.500, 0.602], backgroundColor: C },
-          { label: 'Mid-rise', data: [0.407, 0.519, 0.278, 0.407, 0.426], backgroundColor: M }
-        ]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false },
-          tooltip: { callbacks: { label: function(c){ return ' ' + c.dataset.label + ': ' + c.parsed.y.toFixed(3); } } } },
-        scales: {
-          x: { ticks: Object.assign({}, TICK, { maxRotation: 35 }), grid: { display: false } },
-          y: { ticks: TICK, grid: GRID, min: 0, max: 0.75,
-               title: { display: true, text: 'Normalized score', color: '#888', font: { size: 9 } } }
-        }
-      }
-    });
-
-    /* 2 — URES */
-    new Chart(document.getElementById('rs-ures-chart'), {
-      type: 'bar',
-      data: {
-        labels: ['Involvement *', 'Emot. support', 'Independence *', 'Traditional social',
-                 'Competition', 'Academic achiev. *', 'Intellectuality',
-                 'Order & org. *', 'Student influence', 'Innovation'],
-        datasets: [
-          { label: 'Caravan', data: [58, 54, 29, 64, 58, 50, 49, 43, 50, 30], backgroundColor: C },
-          { label: 'Mid-rise', data: [35, 35, 60, 67, 62, 25, 45, 30, 50, 33], backgroundColor: M }
-        ]
-      },
-      options: {
-        indexAxis: 'y',
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false } },
-        scales: {
-          x: { ticks: TICK, grid: GRID,
-               title: { display: true, text: 'Standardized score', color: '#888', font: { size: 9 } } },
-          y: { ticks: Object.assign({}, TICK, { font: { size: 9 } }), grid: { display: false } }
-        }
-      }
-    });
-
-    /* 3 — Qualitative caravan */
-    new Chart(document.getElementById('rs-qual-caravan'), {
-      type: 'bar',
-      data: {
-        labels: ['Control', 'Views', 'Scale', 'Nature', 'Appeal', 'Safety', 'Strollability', 'Buffers', 'Opportunities', 'Perception'],
-        datasets: [{
-          label: 'Caravan', backgroundColor: C,
-          data: [4.0, 4.0, 4.3, 4.5, 3.5, 3.5, 4.0, 4.5, 3.7, 3.3]
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false },
-          tooltip: { callbacks: { label: function(c){ return ' ' + c.parsed.y.toFixed(1) + ' / 5'; } } } },
-        scales: {
-          x: { ticks: Object.assign({}, TICK, { maxRotation: 45, font: { size: 9 } }), grid: { display: false } },
-          y: { ticks: TICK, grid: GRID, min: 0, max: 5,
-               title: { display: true, text: 'Score / 5', color: '#888', font: { size: 9 } } }
-        }
-      }
-    });
-
-    /* 4 — Qualitative midrise */
-    new Chart(document.getElementById('rs-qual-midrise'), {
-      type: 'bar',
-      data: {
-        labels: ['Control', 'Views', 'Scale', 'Nature', 'Appeal', 'Safety', 'Strollability', 'Buffers', 'Opportunities', 'Perception'],
-        datasets: [{
-          label: 'Mid-rise', backgroundColor: M,
-          data: [3.0, 2.2, 3.3, 2.5, 2.5, 3.0, 2.8, 3.0, 3.0, 2.8]
-        }]
-      },
-      options: {
-        responsive: true, maintainAspectRatio: false,
-        plugins: { legend: { display: false },
-          tooltip: { callbacks: { label: function(c){ return ' ' + c.parsed.y.toFixed(1) + ' / 5'; } } } },
-        scales: {
-          x: { ticks: Object.assign({}, TICK, { maxRotation: 45, font: { size: 9 } }), grid: { display: false } },
-          y: { ticks: TICK, grid: GRID, min: 0, max: 5,
-               title: { display: true, text: 'Score / 5', color: '#888', font: { size: 9 } } }
-        }
-      }
-    });
-  }
-
-  /* Deferred: only load Chart.js + draw when the Research tab is first opened.
-     Exposed globally so the tab switcher can trigger it. */
-  var chartsLoaded = false;
-  window.loadResearchCharts = function () {
-    if (chartsLoaded) return;
-    chartsLoaded = true;
-    if (window.Chart) {
-      initCharts();
-    } else {
-      var s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js';
-      s.integrity = 'sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg==';
-      s.crossOrigin = 'anonymous';
-      s.onload = initCharts;
-      document.head.appendChild(s);
-    }
-  };
-})();
-</script>
-
-<!-- NKDT — Architecture as a Dynamic System -->
-<div class="proj-detail" id="detail-nkdt">
-
-  <p class="detail-eyebrow">B.Arch. Final Project · Academic Thesis &amp; Design Lab</p>
-  <h2 class="detail-title">NKDT — Architecture as a<br><em>Dynamic System</em></h2>
-  <p class="detail-meta">Advisor: Arch. Daniel Azerrad &nbsp;·&nbsp; Ariel University</p>
-
-  <div class="kw-row">
-    <span class="kw kw-gold">Systemic Design</span>
-    <span class="kw kw-gold">Parametric Modularity</span>
-    <span class="kw">Structural Surplus</span>
-    <span class="kw">Dynamic Configurations</span>
-    <span class="kw">Architectural Laboratory</span>
-  </div>
-
-  <!-- ── Hero: 3D aerial render ──────────────────────────────── -->
-  <figure class="nk-figure nk-figure--hero">
-    <img loading="lazy" src="images/nkdt_combined.png"
-         alt="NKDT project — aerial 3D render showing all three building typologies on site"
-         style="width:100%; display:block;">
-    <figcaption>Full site render — Type A (urban, top), Type B (mixed, centre), Type C (rural/scattered, bottom). Ariel University dormitory precinct.</figcaption>
-  </figure>
-
-  <!-- ── Concept ──────────────────────────────────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">Concept</span>
-    <p>Traditional residential architecture treats institutional housing as a static, unyielding container — failing to adapt to the fluid needs of its users or address the growing crisis of urban loneliness. NKDT (פרויקט נקודות — "Project Points") reimagines student housing not as a fixed building, but as a <strong>live, data-rich architectural laboratory and responsive system</strong>. The central question it asks: <em>should architecture not continue to help us find our place and way in an ever more disorienting world?</em></p>
-    <p>The project operates on three simultaneous scales — the <strong>architectural design laboratory</strong> (a dynamic system capable of receiving spatial modifications), the <strong>community laboratory</strong> (a social environment that reinforces communal bonds against loneliness), and the <strong>student dorms</strong> (a platform of temporary residents who are unwitting participants in the institutional experiment).</p>
-  </div>
-
-  <!-- ── Dorm typology context ────────────────────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">Dormitory Typology Spectrum</span>
-    <p>The project is positioned within a studied taxonomy of three dominant dorm archetypes — from the inward-facing cluster plex, to the corridor hybrid, to the decentralised scattered plex. Each typology generates a distinct social ecology, and each is embedded as one of the three testable building types within the NKDT precinct.</p>
-    <div class="nk-three-col" style="margin-top:0.85rem;">
-      <div class="nk-type-card nk-type-card--a">
-        <img loading="lazy" src="images/cluster_plex.png"
-             alt="Cluster plex archetype — enclosed courtyard arrangement"
-             style="width:100%; display:block;">
-        <div class="nk-type-label">Type A · Cluster plex</div>
-        <p class="nk-type-desc">Urban character · enclosed courtyard · inward social focus · public ground floor</p>
-      </div>
-      <div class="nk-type-card nk-type-card--b">
-        <img loading="lazy" src="images/corridor_plex.png"
-             alt="Corridor hybrid archetype — mixed internal street typology"
-             style="width:100%; display:block;">
-        <div class="nk-type-label">Type B · Corridor hybrid</div>
-        <p class="nk-type-desc">Mixed character · internal spine · ~2.8 dunams · follows topography</p>
-      </div>
-      <div class="nk-type-card nk-type-card--c">
-        <img loading="lazy" src="images/scattered_plex.png"
-             alt="Scattered plex archetype — dispersed sub-plot layout"
-             style="width:100%; display:block;">
-        <div class="nk-type-label">Type C · Scattered plex</div>
-        <p class="nk-type-desc">Rural/organic character · no central building · inward-facing plots · topography-led</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── System Architecture ──────────────────────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">System Architecture &amp; Structural Surplus</span>
-    <div style="display:flex; gap:1.5rem; align-items:flex-start; flex-wrap:wrap;">
-      <div style="flex:1 1 300px;">
-        <p>The design is structured around three distinct architectural typologies, each engineered with unique spatial attributes to expand the matrix of testable environments. At its core: the <strong>"Spatial &amp; Structural Surplus"</strong> — an intentional structural over-engineering of the grid allowing the infrastructure to support far more spatial permutations than strictly required.</p>
-        <p>This surplus manifests as calculated programmatic voids within floor levels. As units expand or contract, these voids dynamically shift — mutating internal pathways, changing degrees of physical intimacy between residents, and transforming the building's external facade. The module is the atom of the system: each dorm room is a composite of 2–4 module units, a self-contained workspace, sleeping complex and ventilated space.</p>
-        <p>Modular flexibility deconstructs traditional corridors, transforming them into shared communal living nodes — <em>the corridor as a living room.</em> Community spaces are layered at the apartment, neighbourhood, and precinct level: shared lounge, laundry and terrace → laundry room, fitness and lounge → lecture hall, dining and management.</p>
-      </div>
-      <figure class="nk-figure" style="flex:0 0 340px; margin-bottom:0;">
-        <img loading="lazy" src="images/nkdt_unit_detail.jpg"
-             alt="NKDT unit module — floor plan, section and exploded isometric"
-             style="width:100%; display:block;">
-        <figcaption>Unit module — floor plan (top left), section A-A (bottom left), explosion / partition / cut (centre), isometric module assembly (right)</figcaption>
-      </figure>
-    </div>
-  </div>
-
-  <!-- ── Unit sheet ────────────────────────────────────────────── -->
-  <figure class="nk-figure">
-    <img loading="lazy" src="images/nkdt_unit_sheet.jpg"
-         alt="Building unit layout sheet showing plan and facade variations"
-         style="width:100%; display:block;">
-    <figcaption>Unit layout sheet — plan variants and facade compositions across module configurations</figcaption>
-  </figure>
-
-  <!-- ── Three building types + perspective ───────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">Three Building Typologies</span>
-    <p>The precinct is divided into three building types, each exploring a different spatial character. The diversity of typologies is itself the testing mechanism — it allows the project to run spatial experiments across a wider matrix of conditions simultaneously.</p>
-
-    <div class="nk-persp-types">
-
-      <!-- Left: street perspective -->
-      <figure class="nk-figure nk-figure--hero" style="margin-bottom:0;">
-        <img loading="lazy" src="images/nkdt_perspective.jpg"
-             alt="NKDT project — street-level perspective render"
-             style="width:100%; display:block;">
-        <figcaption>Street-level perspective — NKDT dormitory precinct, Ariel University</figcaption>
-      </figure>
-
-      <!-- Right: three axon images stacked -->
-      <div class="nk-types-col">
-
-        <div class="nk-explode-card nk-explode-card--a">
-          <div class="nk-explode-header">
-            <span class="nk-explode-badge nk-explode-badge--a">Type A</span>
-            <div class="nk-explode-specs">
-              <span>Urban</span><span>2 bldgs</span><span>~6 storeys</span>
-            </div>
+      <section class="pv-chapter" id="nk-typology"
+               data-title="Typology Spectrum"
+               data-images='[
+                 {"src":"images/cluster_plex.png","cap":"Type A · Cluster plex — urban, enclosed courtyard."},
+                 {"src":"images/corridor_plex.png","cap":"Type B · Corridor hybrid — mixed, follows topography."},
+                 {"src":"images/scattered_plex.png","cap":"Type C · Scattered plex — rural, organic, inward-facing."}
+               ]'>
+        <span class="pv-ch-num">02 — Typology</span>
+        <h2 class="pv-ch-title">Dormitory Typology Spectrum</h2>
+        <p>The project is positioned within a studied taxonomy of three dominant dorm archetypes — from the inward-facing cluster plex, to the corridor hybrid, to the decentralised scattered plex. Each typology generates a distinct social ecology, and each is embedded as one of the three testable building types within the NKDT precinct.</p>
+        <div class="nk-three-col" style="margin-top:0.85rem;">
+          <div class="nk-type-card nk-type-card--a">
+            <img loading="lazy" src="images/cluster_plex.png" alt="Cluster plex" style="width:100%; display:block;">
+            <div class="nk-type-label">Type A · Cluster plex</div>
+            <p class="nk-type-desc">Urban character · enclosed courtyard · inward social focus · public ground floor</p>
           </div>
-          <figure class="nk-figure" style="margin-bottom:0;">
-            <img loading="lazy" src="images/nkdt_type_a.jpg"
-                 alt="Building Type A — urban cluster exploded axonometric"
-                 style="width:100%; display:block;">
-            <figcaption>Type A — exploded axonometric &amp; floor-by-floor breakdown</figcaption>
-          </figure>
-        </div>
-
-        <div class="nk-explode-card nk-explode-card--b">
-          <div class="nk-explode-header">
-            <span class="nk-explode-badge nk-explode-badge--b">Type B</span>
-            <div class="nk-explode-specs">
-              <span>Mixed</span><span>3 bldgs</span><span>~4 storeys</span>
-            </div>
+          <div class="nk-type-card nk-type-card--b">
+            <img loading="lazy" src="images/corridor_plex.png" alt="Corridor hybrid" style="width:100%; display:block;">
+            <div class="nk-type-label">Type B · Corridor hybrid</div>
+            <p class="nk-type-desc">Mixed character · internal spine · ~2.8 dunams · follows topography</p>
           </div>
-          <figure class="nk-figure" style="margin-bottom:0;">
-            <img loading="lazy" src="images/nkdt_type_b.jpg"
-                 alt="Building Type B — mixed hybrid exploded axonometric"
-                 style="width:100%; display:block;">
-            <figcaption>Type B — spine layout &amp; topographic adaptation</figcaption>
-          </figure>
-        </div>
-
-        <div class="nk-explode-card nk-explode-card--c">
-          <div class="nk-explode-header">
-            <span class="nk-explode-badge nk-explode-badge--c">Type C</span>
-            <div class="nk-explode-specs">
-              <span>Rural</span><span>scattered</span><span>~3 storeys</span>
-            </div>
+          <div class="nk-type-card nk-type-card--c">
+            <img loading="lazy" src="images/scattered_plex.png" alt="Scattered plex" style="width:100%; display:block;">
+            <div class="nk-type-label">Type C · Scattered plex</div>
+            <p class="nk-type-desc">Rural/organic character · no central building · inward-facing plots · topography-led</p>
           </div>
-          <figure class="nk-figure" style="margin-bottom:0;">
-            <img loading="lazy" src="images/nkdt_type_c.jpg"
-                 alt="Building Type C — scattered rural exploded axonometric"
-                 style="width:100%; display:block;">
-            <figcaption>Type C — scattered sub-plot arrangement</figcaption>
-          </figure>
         </div>
+      </section>
 
-      </div><!-- /nk-types-col -->
-    </div><!-- /nk-persp-types -->
-  </div>
+      <section class="pv-chapter" id="nk-system"
+               data-title="System Architecture"
+               data-images='[
+                 {"src":"images/nkdt_unit_detail.jpg","cap":"Unit module — floor plan, section A-A, explosion, isometric assembly."},
+                 {"src":"images/nkdt_unit_sheet.jpg","cap":"Unit layout sheet — plan variants and facade compositions."}
+               ]'>
+        <span class="pv-ch-num">03 — System</span>
+        <h2 class="pv-ch-title">System Architecture &amp; Structural Surplus</h2>
+        <p>At its core: the <strong>"Spatial &amp; Structural Surplus"</strong> — an intentional structural over-engineering of the grid allowing the infrastructure to support far more spatial permutations than strictly required. This surplus manifests as calculated programmatic voids within floor levels.</p>
+        <p>As units expand or contract, these voids dynamically shift — mutating internal pathways, changing degrees of physical intimacy between residents, and transforming the building's external facade. The module is the atom of the system: each dorm room is a composite of 2–4 module units, a self-contained workspace, sleeping complex and ventilated space.</p>
+        <p>Modular flexibility deconstructs traditional corridors, transforming them into shared communal living nodes — <em>the corridor as a living room.</em></p>
+      </section>
 
-  <!-- ── Research Connection ──────────────────────────────────── -->
-  <div class="subsec">
-    <span class="subsec-label">Research Connection</span>
-    <div class="finding">
-      <span class="finding-lbl">Design responds to data</span>
-      <p>NKDT directly embeds the empirical findings from the seminar research into its design logic. The quantitative study showed that <strong>spatial buffers, nature integration, and local resident autonomy</strong> are the primary drivers of Sense of Community — outperforming raw density. The design operationalises each finding as a physical, reconfigurable architectural system: buffer zones are encoded as the structural surplus voids; nature is woven through the topography-following Type B and C layouts; autonomy is preserved through modular unit control. The precinct functions as the <strong>ultimate live testing sandbox</strong> — where incremental spatial modifications can be deployed and their community effects measured in real time.</p>
-    </div>
-  </div>
+      <section class="pv-chapter" id="nk-typologies"
+               data-title="Three Building Types"
+               data-images='[
+                 {"src":"images/nkdt_perspective.png","cap":"Street-level perspective — NKDT dormitory precinct, Ariel University."},
+                 {"src":"images/nkdt_type_a.jpg","cap":"Type A — exploded axonometric & floor-by-floor breakdown."},
+                 {"src":"images/nkdt_type_b.jpg","cap":"Type B — spine layout & topographic adaptation."},
+                 {"src":"images/nkdt_type_c.jpg","cap":"Type C — scattered sub-plot arrangement."}
+               ]'>
+        <span class="pv-ch-num">04 — Buildings</span>
+        <h2 class="pv-ch-title">Three Building Typologies</h2>
+        <p>The precinct is divided into three building types, each exploring a different spatial character. The diversity of typologies is itself the testing mechanism — it allows the project to run spatial experiments across a wider matrix of conditions simultaneously.</p>
+        <div class="nk-three-col" style="margin-top:0.85rem;">
+          <div class="nk-explode-card nk-explode-card--a">
+            <div class="nk-explode-header"><span class="nk-explode-badge nk-explode-badge--a">Type A</span>
+              <div class="nk-explode-specs"><span>Urban</span><span>2 bldgs</span><span>~6 storeys</span></div>
+            </div>
+            <figure class="nk-figure" style="margin-bottom:0;"><img loading="lazy" src="images/nkdt_type_a.jpg" alt="Type A" style="width:100%; display:block;"><figcaption>Exploded axonometric &amp; floor-by-floor breakdown</figcaption></figure>
+          </div>
+          <div class="nk-explode-card nk-explode-card--b">
+            <div class="nk-explode-header"><span class="nk-explode-badge nk-explode-badge--b">Type B</span>
+              <div class="nk-explode-specs"><span>Mixed</span><span>3 bldgs</span><span>~4 storeys</span></div>
+            </div>
+            <figure class="nk-figure" style="margin-bottom:0;"><img loading="lazy" src="images/nkdt_type_b.jpg" alt="Type B" style="width:100%; display:block;"><figcaption>Spine layout &amp; topographic adaptation</figcaption></figure>
+          </div>
+          <div class="nk-explode-card nk-explode-card--c">
+            <div class="nk-explode-header"><span class="nk-explode-badge nk-explode-badge--c">Type C</span>
+              <div class="nk-explode-specs"><span>Rural</span><span>scattered</span><span>~3 storeys</span></div>
+            </div>
+            <figure class="nk-figure" style="margin-bottom:0;"><img loading="lazy" src="images/nkdt_type_c.jpg" alt="Type C" style="width:100%; display:block;"><figcaption>Scattered sub-plot arrangement</figcaption></figure>
+          </div>
+        </div>
+      </section>
 
-</div><!-- /proj-detail #detail-nkdt -->
+      <section class="pv-chapter" id="nk-research"
+               data-title="Research Connection"
+               data-images='[
+                 {"src":"images/nkdt_combined.png","cap":"The precinct as live testing sandbox — all three typologies on site."}
+               ]'>
+        <span class="pv-ch-num">05 — Research</span>
+        <h2 class="pv-ch-title">Research Connection</h2>
+        <div class="finding">
+          <span class="finding-lbl">Design responds to data</span>
+          <p>NKDT directly embeds the empirical findings from the seminar research into its design logic. The quantitative study showed that <strong>spatial buffers, nature integration, and local resident autonomy</strong> are the primary drivers of Sense of Community — outperforming raw density. The design operationalises each finding as a physical, reconfigurable architectural system: buffer zones are encoded as the structural surplus voids; nature is woven through the topography-following Type B and C layouts; autonomy is preserved through modular unit control.</p>
+        </div>
+      </section>
+
+    </div><!-- /detail-nkdt -->
 
     <!-- ACRE -->
     <div class="proj-detail" id="detail-acre">
-      <p class="detail-eyebrow">Urban Studio · Year 3</p>
-      <h2 class="detail-title">Acre —<br><em>Symbiotic Urban Fabric</em></h2>
-      <p class="detail-meta">Studio Urban · Advisors: Arch. David Aharoni &amp; Kobi Zik &nbsp;·&nbsp; Collaboration with Chen Ponces &amp; Hila Zahrihan</p>
-      <div class="kw-row">
-        <span class="kw kw-gold">Urban Design</span>
-        <span class="kw">Mixed-Use</span>
-        <span class="kw">Urban Fabric</span>
-        <span class="kw">Symbiosis</span>
-      </div>
-      <div class="img-slot">
-        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
-        Add site plans or urban diagrams here.
-      </div>
-      <div class="subsec">
-        <span class="subsec-label">Concept</span>
+      <section class="pv-chapter" data-title="Overview" data-images='[]'>
+        <span class="pv-ch-num">Concept</span>
+        <h2 class="pv-ch-title">Acre — <em>Symbiotic Urban Fabric</em></h2>
+        <p class="pv-meta" style="margin-bottom:1rem;">Urban Studio · Year 3 · Advisors: Arch. David Aharoni &amp; Kobi Zik · Collaboration with Chen Ponces &amp; Hila Zahrihan</p>
+        <div class="kw-row" style="margin-bottom:1.5rem;">
+          <span class="kw kw-gold">Urban Design</span><span class="kw">Mixed-Use</span><span class="kw">Urban Fabric</span><span class="kw">Symbiosis</span>
+        </div>
         <p>A proposal allowing Acre to grow as a settlement containing both city and suburb — each reinforcing its distinct character while mutually sustaining the other. The intervention is structured around a symbiotic reading of daily-life opportunities embedded in the urban fabric, proposing a layered spatial system that allows both typologies to coexist and reinforce one another over time.</p>
-      </div>
+      </section>
     </div>
 
     <!-- TEL AVIV -->
     <div class="proj-detail" id="detail-telaviv">
-      <p class="detail-eyebrow">Digital Studio · Year 3</p>
-      <h2 class="detail-title">Tel Aviv —<br><em>Adaptive Environment</em></h2>
-      <p class="detail-meta">Studio Digital · Advisor: Arch. Yoav Lanir</p>
-      <div class="kw-row">
-        <span class="kw kw-gold">Parametric Design</span>
-        <span class="kw">Adaptive Systems</span>
-        <span class="kw">Dynamic Topology</span>
-        <span class="kw">Environmental Response</span>
-      </div>
-      <div class="img-slot">
-        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
-        Add parametric diagrams or renderings here.
-      </div>
-      <div class="subsec">
-        <span class="subsec-label">Concept</span>
+      <section class="pv-chapter" data-title="Overview" data-images='[]'>
+        <span class="pv-ch-num">Concept</span>
+        <h2 class="pv-ch-title">Tel Aviv — <em>Adaptive Environment</em></h2>
+        <p class="pv-meta" style="margin-bottom:1rem;">Digital Studio · Year 3 · Advisor: Arch. Yoav Lanir</p>
+        <div class="kw-row" style="margin-bottom:1.5rem;">
+          <span class="kw kw-gold">Parametric Design</span><span class="kw">Adaptive Systems</span><span class="kw">Dynamic Topology</span><span class="kw">Environmental Response</span>
+        </div>
         <p>An environment that adapts to field conditions through learning and prediction. A dynamic garden enabling high-quality spatial use by changing topology in real time — responding to live analysis of environmental conditions, expected user configurations, and planned activity. The project explores how rule-based computational geometry can generate architecture that behaves rather than merely exists.</p>
-      </div>
+      </section>
     </div>
 
     <!-- NOMAD -->
     <div class="proj-detail" id="detail-nomad">
-      <p class="detail-eyebrow">Interior Studio · Year 4</p>
-      <h2 class="detail-title">Nomad Hotel —<br><em>Flexible In-Between</em></h2>
-      <p class="detail-meta">Studio Interior · Advisor: Arch. Dana Oberzon</p>
-      <div class="kw-row">
-        <span class="kw kw-gold">Interior Design</span>
-        <span class="kw">Hospitality</span>
-        <span class="kw">Modularity</span>
-        <span class="kw">In-Between Space</span>
-      </div>
-      <div class="img-slot">
-        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
-        Add interior renders or section drawings here.
-      </div>
-      <div class="subsec">
-        <span class="subsec-label">Concept</span>
+      <section class="pv-chapter" data-title="Overview" data-images='[]'>
+        <span class="pv-ch-num">Concept</span>
+        <h2 class="pv-ch-title">Nomad Hotel — <em>Flexible In-Between</em></h2>
+        <p class="pv-meta" style="margin-bottom:1rem;">Interior Studio · Year 4 · Advisor: Arch. Dana Oberzon</p>
+        <div class="kw-row" style="margin-bottom:1.5rem;">
+          <span class="kw kw-gold">Interior Design</span><span class="kw">Hospitality</span><span class="kw">Modularity</span><span class="kw">In-Between Space</span>
+        </div>
         <p>A hospitality experience designed to release guests from the boundaries of daily routine — enabling direct, honest encounter with place, moment, and self. The design focuses on flexible intermediate spaces under a repetitive modular framework, where the quality of the in-between defines the experience rather than the private room itself.</p>
-      </div>
+      </section>
     </div>
 
     <!-- KIBBUTZ -->
     <div class="proj-detail" id="detail-kibbutz">
-      <p class="detail-eyebrow">Applied Design · Ongoing · Professional Practice</p>
-      <h2 class="detail-title">Kibbutz Merchavia —<br><em>Renovation &amp; Expansion</em></h2>
-      <p class="detail-meta">Revit · Construction Documentation</p>
-      <div class="kw-row">
-        <span class="kw kw-gold">Revit</span>
-        <span class="kw">BIM</span>
-        <span class="kw">Construction Docs</span>
-        <span class="kw">Renovation</span>
-        <span class="kw">Professional Practice</span>
-      </div>
-      <div class="img-slot">
-        <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 16l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="8.5" r="1.5"/></svg>
-        Add Revit model screenshots or floor plans here.
-      </div>
-      <div class="subsec">
-        <span class="subsec-label">Scope</span>
+      <section class="pv-chapter" data-title="Scope" data-images='[]'>
+        <span class="pv-ch-num">Scope</span>
+        <h2 class="pv-ch-title">Kibbutz Merchavia — <em>Renovation &amp; Expansion</em></h2>
+        <p class="pv-meta" style="margin-bottom:1rem;">Applied Design · Ongoing · Professional Practice · Revit · Construction Documentation</p>
+        <div class="kw-row" style="margin-bottom:1.5rem;">
+          <span class="kw kw-gold">Revit</span><span class="kw">BIM</span><span class="kw">Construction Docs</span><span class="kw">Renovation</span><span class="kw">Professional Practice</span>
+        </div>
         <p>Developing full building layouts, construction documentation, and high-fidelity 3D architectural models for a 1950s house renovation and expansion. Directly managing real-world spatial, structural, and regulatory constraints within a live professional context — applying BIM methodology in an applied setting rather than academic.</p>
-      </div>
+      </section>
     </div>
 
     <!-- YAHOO -->
     <div class="proj-detail" id="detail-yahoo">
-      <p class="detail-eyebrow">Professional Experience · 2015 – Present</p>
-      <h2 class="detail-title">Yahoo! —<br><em>Research Automation &amp; Integrity</em></h2>
-      <p class="detail-meta">Tel Aviv · Research Analyst, Data Analyst, Technical Analyst</p>
 
-      <div class="kw-row">
-        <span class="kw kw-gold">Python</span>
-        <span class="kw kw-gold">PySpark</span>
-        <span class="kw">SQL</span>
-        <span class="kw">Airflow</span>
-        <span class="kw">AWS</span>
-        <span class="kw">A/B Testing</span>
-        <span class="kw">Causal Inference</span>
-        <span class="kw">Claude Code</span>
-      </div>
-
-      <div class="subsec">
-        <span class="subsec-label">Research Analyst · 2023 – Present</span>
-        <ul>
+      <section class="pv-chapter" data-title="Research Analyst" data-images='[]'>
+        <span class="pv-ch-num">2023 – Present</span>
+        <h2 class="pv-ch-title">Research Analyst</h2>
+        <ul class="subsec-list">
           <li><strong>Engineered a core Python/PySpark automation framework</strong> that unified disparate workflow systems into a single automated pipeline, reducing total runtime by 90% and ensuring complete execution validity.</li>
           <li><strong>Architected an end-to-end automation pipeline</strong> for self-service systems, eliminating manual engineering intervention and democratising access for non-technical stakeholders.</li>
           <li><strong>Led methodology alignment</strong> across a family of analytics products, establishing standardised experimental protocols.</li>
           <li><strong>Partnered with Research Scientists and Engineering teams</strong> on backend infrastructure, making architectural decisions balancing performance, efficiency, and scientific rigour.</li>
           <li><strong>Utilised LLM workflows</strong> (Claude Code) to accelerate technical knowledge acquisition and streamline complex debugging.</li>
         </ul>
-      </div>
+      </section>
 
-      <div class="subsec">
-        <span class="subsec-label">Data Analyst — Systems &amp; Methodology · 2021 – 2023</span>
-        <ul>
+      <section class="pv-chapter" data-title="Data Analyst" data-images='[]'>
+        <span class="pv-ch-num">2021 – 2023</span>
+        <h2 class="pv-ch-title">Data Analyst — Systems &amp; Methodology</h2>
+        <ul class="subsec-list">
           <li><strong>Managed end-to-end execution of a $10M+/year technical testing roadmap</strong>, ensuring strict algorithmic validity and data integrity across continuous operational pipelines.</li>
           <li><strong>Implemented multi-layered SQL and data automation workflows</strong> to guarantee data quality and detect pipeline contamination.</li>
           <li>Collaborated with Research teams to refine methodologies, automate pipelines, and present papers at Yahoo's internal Tech Pulse conference.</li>
         </ul>
-      </div>
+      </section>
 
-      <div class="subsec">
-        <span class="subsec-label">Technical Analyst (Student) · 2015 – 2021</span>
-        <ul>
+      <section class="pv-chapter" data-title="Technical Analyst" data-images='[]'>
+        <span class="pv-ch-num">2015 – 2021</span>
+        <h2 class="pv-ch-title">Technical Analyst (Student)</h2>
+        <ul class="subsec-list">
           <li><strong>Automated deployment validation pipelines</strong>, reducing time-to-production by ~3 days and saving 25+ developer hours per release.</li>
           <li><strong>Conducted machine learning validation research</strong> using Python-based validation methodologies.</li>
         </ul>
-      </div>
-    </div>
+      </section>
+
+    </div><!-- /detail-yahoo -->
 
     <!-- PUBLICATIONS -->
     <div class="proj-detail" id="detail-pubs">
-      <p class="detail-eyebrow">Academic &amp; Professional</p>
-      <h2 class="detail-title">Publications &amp;<br><em>Presentations</em></h2>
-      <p class="detail-meta" style="margin-bottom: 2rem;">Papers, posters, and presented research</p>
-
-      <div class="pub">
-        <span class="pub-label">Submitted Paper · Tech Pulse 2023</span>
-        <p class="pub-title">Overcoming A/B Test Discrepancy Using Nearest Neighbour Data Imputation</p>
-        <p class="pub-note">Yahoo internal conference — content confidential</p>
-      </div>
-      <div class="pub">
-        <span class="pub-label">Presented Poster · Tech Pulse 2022</span>
-        <p class="pub-title">Assessing the Incrementality of Enhanced CPC as a Bidding Strategy in the Gemini Platform</p>
-        <p class="pub-note">Yahoo internal conference — content confidential</p>
-      </div>
-      <div class="pub">
-        <span class="pub-label">Architectural Seminar Paper</span>
-        <p class="pub-title">Student Dorms Archetype as a Driving Factor in the Formation of a Sense of Community</p>
-        <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank" rel="noopener noreferrer" class="pub-link">dx.doi.org/10.13140/RG.2.2.32000.00001 ↗</a>
-        <p class="pub-note">A quantitative data study analysing spatial data and its relation to community formation metrics</p>
-      </div>
+      <section class="pv-chapter" data-title="Publications" data-images='[]'>
+        <span class="pv-ch-num">Academic &amp; Professional</span>
+        <h2 class="pv-ch-title">Publications &amp; <em>Presentations</em></h2>
+        <div class="pub">
+          <span class="pub-label">Submitted Paper · Tech Pulse 2023</span>
+          <p class="pub-title">Overcoming A/B Test Discrepancy Using Nearest Neighbour Data Imputation</p>
+          <p class="pub-note">Yahoo internal conference — content confidential</p>
+        </div>
+        <div class="pub">
+          <span class="pub-label">Presented Poster · Tech Pulse 2022</span>
+          <p class="pub-title">Assessing the Incrementality of Enhanced CPC as a Bidding Strategy in the Gemini Platform</p>
+          <p class="pub-note">Yahoo internal conference — content confidential</p>
+        </div>
+        <div class="pub">
+          <span class="pub-label">Architectural Seminar Paper</span>
+          <p class="pub-title">Student Dorms Archetype as a Driving Factor in the Formation of a Sense of Community</p>
+          <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank" rel="noopener noreferrer" class="pub-link">dx.doi.org/10.13140/RG.2.2.32000.00001 ↗</a>
+          <p class="pub-note">A quantitative data study analysing spatial data and its relation to community formation metrics</p>
+        </div>
+      </section>
     </div>
 
-  </div><!-- /content-panel -->
+  </div><!-- /content-panel #pvTextWrap -->
+
+  <!-- RIGHT: sticky image stage (populated by JS per chapter) -->
+  <div class="pv-stage-col">
+    <div class="pv-stage" id="pvStage"></div>
+  </div>
+
+</div><!-- /pv-body -->
 </div><!-- /main-wrap -->
 
 <!-- CTA -->
@@ -1715,8 +1660,50 @@ function scrollBarToTop(onDone) {
   requestAnimationFrame(step);
 }
 
+// ── Tabs bar arrow controls ──────────────────────────────────────────────────
+const tabsBar      = document.querySelector('.proj-tabs-bar');
+const tabsArrowL   = document.querySelector('.tabs-arrow--left');
+const tabsArrowR   = document.querySelector('.tabs-arrow--right');
+
+function updateTabsArrows() {
+  if (!tabsBar || !tabsArrowL || !tabsArrowR) return;
+  const max = tabsBar.scrollWidth - tabsBar.clientWidth;
+  tabsArrowL.classList.toggle('is-visible', tabsBar.scrollLeft > 2);
+  tabsArrowR.classList.toggle('is-visible', tabsBar.scrollLeft < max - 2);
+}
+
+function easedScrollTabsBy(delta) {
+  if (!tabsBar) return;
+  const startX = tabsBar.scrollLeft;
+  const max    = tabsBar.scrollWidth - tabsBar.clientWidth;
+  const target = Math.max(0, Math.min(max, startX + delta));
+  const dist   = target - startX;
+  if (Math.abs(dist) < 1) return;
+  const dur = 350;
+  let t0 = null;
+  function step(now) {
+    if (!t0) t0 = now;
+    const p = Math.min((now - t0) / dur, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    tabsBar.scrollLeft = Math.round(startX + dist * ease);
+    if (p < 1) requestAnimationFrame(step);
+    else updateTabsArrows();
+  }
+  requestAnimationFrame(step);
+}
+
+if (tabsArrowL) tabsArrowL.addEventListener('click', function() { easedScrollTabsBy(-tabsBar.clientWidth * 0.7); });
+if (tabsArrowR) tabsArrowR.addEventListener('click', function() { easedScrollTabsBy( tabsBar.clientWidth * 0.7); });
+if (tabsBar) tabsBar.addEventListener('scroll', updateTabsArrows, { passive: true });
+window.addEventListener('resize', updateTabsArrows);
+updateTabsArrows();
+// Re-check after fonts load (changes tab widths → may toggle arrow visibility)
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateTabsArrows);
+
 // ── One delegated listener for every tab click ────────────────────────────────
 document.querySelector('.tabs-scroll-outer').addEventListener('click', function(e) {
+  // Ignore clicks on the arrow buttons themselves (they have their own handler).
+  if (e.target.closest('.tabs-arrow')) return;
   const btn = e.target.closest('.tab-btn');
   if (!btn) return;
   if (transitioning) return;
@@ -1765,11 +1752,11 @@ function doSlide(id, fromRight) {
   }
 
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
+  const activeTabBtn = document.getElementById('tab-' + id);
+  activeTabBtn.classList.add('active');
   currentTab = id;
 
-  // Lazy-init the research charts the first time that panel becomes visible
-  if (id === 'research' && window.loadResearchCharts) window.loadResearchCharts();
+  pvActivate(id, fromRight);
 
   oldDetail.addEventListener('animationend', function() {
     oldDetail.classList.remove('active', 'leaving', 'slide-out-left', 'slide-out-right');
@@ -1777,6 +1764,305 @@ function doSlide(id, fromRight) {
     transitioning = false;
   }, { once: true });
 }
+
+// ── PROJECT VIEW ─────────────────────────────────────────────────────────────
+
+var PROJECTS = {
+  research: {
+    eyebrow: 'Academic Seminar Paper · Ariel University, 2022',
+    title: 'Quantitative Spatial Data Analysis:<br><em>Student Dorms Archetype</em>',
+    titleShort: 'Quantitative Spatial Data Analysis: <em>Student Dorms Archetype</em>',
+    meta: 'Advisor: Dr. Arch. Gilad Schweid &nbsp;·&nbsp; <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank" rel="noopener noreferrer">Published Paper ↗</a>',
+    kw: [{l:'Spatial Analytics',g:1},{l:'SCI-2 Framework',g:1},{l:'Android Dev'},{l:'Geofencing'},{l:'Privacy Engineering'},{l:'Comparative Modelling'},{l:'Incremental Optimisation'}]
+  },
+  nkdt: {
+    eyebrow: 'B.Arch. Final Project · Academic Thesis &amp; Design Lab',
+    title: 'NKDT — Architecture as a<br><em>Dynamic System</em>',
+    titleShort: 'NKDT — Architecture as a <em>Dynamic System</em>',
+    meta: 'Advisor: Arch. Daniel Azerrad &nbsp;·&nbsp; Ariel University',
+    kw: [{l:'Systemic Design',g:1},{l:'Parametric Modularity',g:1},{l:'Structural Surplus'},{l:'Dynamic Configurations'},{l:'Architectural Laboratory'}]
+  },
+  acre: {
+    eyebrow: 'Urban Studio · Year 3',
+    title: 'Acre —<br><em>Symbiotic Urban Fabric</em>',
+    titleShort: 'Acre — <em>Symbiotic Urban Fabric</em>',
+    meta: 'Studio Urban · Advisors: Arch. David Aharoni &amp; Kobi Zik &nbsp;·&nbsp; with Chen Ponces &amp; Hila Zahrihan',
+    kw: [{l:'Urban Design',g:1},{l:'Mixed-Use'},{l:'Urban Fabric'},{l:'Symbiosis'}]
+  },
+  telaviv: {
+    eyebrow: 'Digital Studio · Year 3',
+    title: 'Tel Aviv —<br><em>Adaptive Environment</em>',
+    titleShort: 'Tel Aviv — <em>Adaptive Environment</em>',
+    meta: 'Studio Digital · Advisor: Arch. Yoav Lanir',
+    kw: [{l:'Parametric Design',g:1},{l:'Adaptive Systems'},{l:'Dynamic Topology'},{l:'Environmental Response'}]
+  },
+  nomad: {
+    eyebrow: 'Interior Studio · Year 4',
+    title: 'Nomad Hotel —<br><em>Flexible In-Between</em>',
+    titleShort: 'Nomad Hotel — <em>Flexible In-Between</em>',
+    meta: 'Studio Interior · Advisor: Arch. Dana Oberzon',
+    kw: [{l:'Interior Design',g:1},{l:'Hospitality'},{l:'Modularity'},{l:'In-Between Space'}]
+  },
+  kibbutz: {
+    eyebrow: 'Applied Design · Ongoing · Professional Practice',
+    title: 'Kibbutz Merchavia —<br><em>Renovation &amp; Expansion</em>',
+    titleShort: 'Kibbutz Merchavia — <em>Renovation &amp; Expansion</em>',
+    meta: 'Revit · Construction Documentation',
+    kw: [{l:'Revit',g:1},{l:'BIM'},{l:'Construction Docs'},{l:'Renovation'},{l:'Professional Practice'}]
+  },
+  yahoo: {
+    eyebrow: 'Professional Experience · 2015 – Present',
+    title: 'Yahoo! —<br><em>Research Automation &amp; Integrity</em>',
+    titleShort: 'Yahoo! — <em>Research Automation &amp; Integrity</em>',
+    meta: 'Tel Aviv · Research Analyst, Data Analyst, Technical Analyst',
+    kw: [{l:'Python',g:1},{l:'PySpark',g:1},{l:'SQL'},{l:'Airflow'},{l:'AWS'},{l:'A/B Testing'},{l:'Causal Inference'},{l:'Claude Code'}]
+  },
+  pubs: {
+    eyebrow: 'Academic &amp; Professional',
+    title: 'Publications &amp;<br><em>Presentations</em>',
+    titleShort: 'Publications &amp; <em>Presentations</em>',
+    meta: 'Papers, posters, and presented research',
+    kw: []
+  }
+};
+
+var pvBodyEl      = document.getElementById('pvBody');
+var pvSidebarEl   = pvBodyEl ? pvBodyEl.firstElementChild : null; // .pv-sidebar
+var pvSidebarClip = document.getElementById('pvSidebarClip');
+var pvSidebarPane = document.getElementById('pvSidebarPane');
+var pvHeadEl      = document.getElementById('pvHead');
+var pvRailD       = document.getElementById('pvRail');
+var pvRailM       = document.getElementById('pvRailMobile');
+var pvStageEl     = document.getElementById('pvStage');
+
+var pvState = {
+  active: false, current: -1, chapters: [], imgsets: [], links: [], ticking: false
+};
+
+function pvIsMobile() { return window.matchMedia('(max-width: 720px)').matches; }
+function pvNavH()     { return document.querySelector('nav').offsetHeight; }
+function pvTabH()     { return document.querySelector('.tabs-scroll-outer').offsetHeight; }
+function pvTopOffset(){ return pvNavH() + pvTabH(); }
+function pvSetTabH()  { document.documentElement.style.setProperty('--tab-h', pvTabH() + 'px'); }
+
+function pvUpdateMobileHeader() {
+  if (!pvIsMobile() || !pvSidebarEl) return;
+  if (!pvState.active) { pvSidebarEl.classList.remove('is-collapsed'); return; }
+  var threshold = barScrollTarget();
+  var collapsed = pvSidebarEl.classList.contains('is-collapsed');
+  // Dead band: collapse only when clearly past the threshold, expand only when clearly above it.
+  if (!collapsed && window.scrollY > threshold + 30) pvSidebarEl.classList.add('is-collapsed');
+  else if (collapsed && window.scrollY < threshold - 10) pvSidebarEl.classList.remove('is-collapsed');
+}
+
+function pvPositionClip() {
+  if (!pvSidebarClip || pvIsMobile()) return;
+  var r = pvBodyEl.firstElementChild.getBoundingClientRect();
+  pvSidebarClip.style.left  = r.left + 'px';
+  pvSidebarClip.style.width = r.width + 'px';
+}
+function pvPositionAll() { pvSetTabH(); pvPositionClip(); }
+
+function pvUpdatePosition() {
+  if (!pvState.active || pvIsMobile() || !pvSidebarClip) return;
+  // Pixels the scroll is above the section start (0 when in section, positive toward hero).
+  var above  = Math.max(0, barScrollTarget() - window.scrollY);
+  var topPx  = pvTopOffset() + 24 + above; // ~1.5rem below nav+tab, pushed down when above section
+  pvSidebarClip.style.top    = topPx + 'px';
+  pvSidebarClip.style.height = (window.innerHeight - topPx) + 'px';
+}
+
+function pvMakeKw(kws) {
+  return kws.map(function(k){ return '<span class="kw'+(k.g?' kw-gold':'')+'">' + k.l + '</span>'; }).join('');
+}
+function pvSetHead(id) {
+  var p = PROJECTS[id]; if (!p) { pvHeadEl.innerHTML = ''; return; }
+  var kw = p.kw.length ? '<div class="kw-row">' + pvMakeKw(p.kw) + '</div>' : '';
+  pvHeadEl.innerHTML = '<p class="pv-eyebrow">'+p.eyebrow+'</p><h2 class="pv-title">'+(p.titleShort||p.title)+'</h2><p class="pv-meta">'+p.meta+'</p>'+kw;
+}
+
+function pvSetActive(index, dir) {
+  if (index === pvState.current) return;
+  var inc = pvState.imgsets[index], out = pvState.imgsets[pvState.current];
+  pvState.links.forEach(function(l) {
+    var isActive = parseInt(l.dataset.index,10) === index;
+    l.classList.toggle('active', isActive);
+    if (l.parentNode && l.parentNode.classList.contains('pv-rail--h')) {
+      var t = l.querySelector('.pv-cl-title');
+      if (t) t.style.width = isActive ? (l.dataset.titleW || '0') + 'px' : '0';
+    }
+  });
+  if (pvIsMobile() && !pvState.suppressChipScroll) { var chip = pvRailM.children[index]; if (chip && chip.scrollIntoView) chip.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
+  if (out) { out.classList.remove('is-active','in-up','in-down','out-up','out-down'); out.classList.add('anim', dir==='down'?'out-up':'out-down'); out.addEventListener('animationend',function clr(){ out.classList.remove('anim','out-up','out-down'); out.removeEventListener('animationend',clr); }); }
+  if (inc) { inc.classList.remove('in-up','in-down','out-up','out-down'); void inc.offsetWidth; inc.classList.add('anim','is-active',dir==='down'?'in-up':'in-down'); inc.addEventListener('animationend',function clr(){ inc.classList.remove('anim','in-up','in-down'); inc.removeEventListener('animationend',clr); }); }
+
+  pvState.current = index;
+}
+
+function pvActiveChapterIndex() {
+  var top = pvTopOffset(), line = top + (window.innerHeight - top) * 0.4, idx = 0;
+  pvState.chapters.forEach(function(ch, i){ if (ch.getBoundingClientRect().top <= line) idx = i; });
+  return idx;
+}
+
+function pvOnScroll() {
+  if (!pvState.active || pvState.ticking) return;
+  pvState.ticking = true;
+  requestAnimationFrame(function() {
+    pvUpdatePosition();
+    pvUpdateMobileHeader();
+    if (pvState.chapters.length > 0) {
+      var idx = pvActiveChapterIndex();
+      if (idx !== pvState.current) pvSetActive(idx, idx > pvState.current ? 'down' : 'up');
+    }
+    pvState.ticking = false;
+  });
+}
+
+function pvEasedScrollTo(targetY) {
+  var startY = window.scrollY, dist = targetY - startY;
+  if (Math.abs(dist) <= 2) return;
+  var dur = Math.min(700, Math.max(300, Math.abs(dist) * 0.5)), t0 = null;
+  document.documentElement.style.scrollBehavior = 'auto';
+  function step(now) {
+    if (!t0) t0 = now;
+    var p = Math.min((now - t0) / dur, 1);
+    window.scrollTo(0, Math.round(startY + dist * (1 - Math.pow(1 - p, 3))));
+    if (p < 1) requestAnimationFrame(step);
+    else { document.documentElement.style.scrollBehavior = ''; }
+  }
+  requestAnimationFrame(step);
+}
+
+function pvOnRailClick(e) {
+  var btn = e.target.closest('.pv-chapter-link'); if (!btn) return;
+  var i = parseInt(btn.dataset.index, 10);
+  // Collapse the mobile header immediately on any chapter tap
+  if (pvIsMobile() && pvSidebarEl) pvSidebarEl.classList.add('is-collapsed');
+  var offset = pvIsMobile()
+    ? (pvNavH() + pvTabH() + (pvSidebarEl ? pvSidebarEl.offsetHeight : 70) + 8)
+    : (pvTopOffset() + 40);
+  var target = window.scrollY + pvState.chapters[i].getBoundingClientRect().top - offset;
+  pvEasedScrollTo(Math.max(barScrollTarget(), target));
+}
+
+pvRailD.addEventListener('click', pvOnRailClick);
+pvRailM.addEventListener('click', pvOnRailClick);
+
+function pvActivate(id, fromRight) {
+  var isWelcome = (id === 'welcome' || !PROJECTS[id]);
+  pvState.active = !isWelcome; pvState.current = -1;
+  // If the mobile header was collapsed coming into this project change, keep it
+  // collapsed for now and animate it open AFTER the new content is rendered (below),
+  // so the user sees the full expand transition instead of a snap.
+  var wasCollapsed = pvSidebarEl && pvSidebarEl.classList.contains('is-collapsed');
+  if (isWelcome) {
+    if (pvSidebarEl) pvSidebarEl.classList.remove('is-collapsed');
+    pvBodyEl.classList.remove('has-chapters', 'pv-active');
+    if (pvSidebarClip) { pvSidebarClip.style.top=''; pvSidebarClip.style.height=''; }
+    pvRailD.innerHTML=''; pvRailM.innerHTML=''; pvStageEl.innerHTML=''; pvHeadEl.innerHTML='';
+    pvState.chapters=[]; return;
+  }
+  // Snapshot old pane HTML before any DOM updates (used for the leaving slide clone below)
+  var oldPaneHTML = (fromRight !== undefined && pvSidebarPane && pvHeadEl.innerHTML.trim())
+                    ? pvSidebarPane.innerHTML : '';
+
+  pvSetHead(id);
+  var panel = document.getElementById('detail-' + id);
+  pvState.chapters = Array.prototype.slice.call(panel.querySelectorAll('.pv-chapter'));
+  pvRailD.innerHTML=''; pvRailM.innerHTML=''; pvStageEl.innerHTML='';
+  if (pvState.chapters.length > 0) {
+    pvBodyEl.classList.add('has-chapters');
+    pvState.imgsets = pvState.chapters.map(function(ch, i) {
+      var imgs = JSON.parse(ch.dataset.images||'[]');
+      var figHtml = imgs.map(function(im){ return '<figure class="pv-fig"><img loading="lazy" src="'+im.src+'" alt="">'+(im.cap?'<figcaption>'+im.cap+'</figcaption>':'')+'</figure>'; }).join('');
+      [pvRailD, pvRailM].forEach(function(rail) {
+        var btn = document.createElement('button'); btn.className='pv-chapter-link'; btn.dataset.index=i;
+        btn.innerHTML='<span class="pv-cl-num">'+String(i+1).padStart(2,'0')+'</span><span class="pv-cl-title">'+ch.dataset.title+'</span>';
+        rail.appendChild(btn);
+      });
+      var set = document.createElement('div'); set.className='pv-imgset'; set.innerHTML=figHtml; pvStageEl.appendChild(set);
+      if (!ch.querySelector('.pv-inline-imgs') && imgs.length > 0) {
+        var inl = document.createElement('div'); inl.className='pv-inline-imgs'; inl.innerHTML=figHtml; ch.appendChild(inl);
+      }
+      return set;
+    });
+  } else {
+    pvBodyEl.classList.remove('has-chapters'); pvState.imgsets=[];
+  }
+  pvState.links = Array.prototype.slice.call(document.querySelectorAll('.pv-chapter-link'));
+
+  // Measure exact pixel widths for mobile chip expand animation (max-width approach causes jitter).
+  // Temporarily reveal titles to read their natural offsetWidth, then hide again in one batch.
+  var mBtns = pvRailM.querySelectorAll('.pv-chapter-link');
+  mBtns.forEach(function(btn) {
+    btn.querySelector('.pv-cl-title').style.cssText = 'width:auto;overflow:visible;opacity:0';
+  });
+  void pvRailM.offsetWidth; // single forced reflow
+  mBtns.forEach(function(btn) {
+    var t = btn.querySelector('.pv-cl-title');
+    btn.dataset.titleW = t.offsetWidth + 1; // +1px anti-clip buffer
+    t.style.cssText = '';
+  });
+
+  pvPositionAll();
+  pvUpdatePosition();
+
+  pvBodyEl.classList.add('pv-active');
+
+  // Position the incoming pane off-screen first (fill-mode:both snaps it to the first keyframe)
+  // BEFORE appending the leaving clone — prevents a one-frame flash of the new content at x=0
+  // that would otherwise be revealed as the clone starts sliding away.
+  if (fromRight !== undefined && pvSidebarPane) {
+    pvSidebarPane.classList.remove('slide-in-left', 'slide-in-right');
+    void pvSidebarPane.offsetWidth;
+    pvSidebarPane.classList.add(fromRight ? 'slide-in-right' : 'slide-in-left');
+    pvSidebarPane.addEventListener('animationend', function() {
+      pvSidebarPane.classList.remove('slide-in-left', 'slide-in-right');
+    }, { once: true });
+  }
+
+  // Clone is appended after pane is already off-screen; both animations run together.
+  if (oldPaneHTML && pvSidebarClip) {
+    var leaving = document.createElement('div');
+    leaving.className = 'pv-sl-leaving ' + (fromRight ? 'slide-out-left' : 'slide-out-right');
+    leaving.innerHTML = oldPaneHTML;
+    pvSidebarClip.appendChild(leaving);
+    leaving.addEventListener('animationend', function() {
+      if (leaving.parentNode) leaving.parentNode.removeChild(leaving);
+    }, { once: true });
+  }
+
+  if (pvState.chapters.length > 0) {
+    // Suppress scrollIntoView on the active chip during the pane slide — while the pane
+    // is at translateX(-100%/+100%), the chip's bounding box is far off-screen, and
+    // scrollIntoView would animate the chips rail to chase it, fighting the pane animation.
+    pvState.suppressChipScroll = true;
+    pvSetActive(pvActiveChapterIndex(), 'down');
+    pvState.suppressChipScroll = false;
+  }
+
+  // Animate the header expanding open if it was collapsed before the project change.
+  // We waited until after pvSetHead populated the new content (collapsed = max-height:0)
+  // so the CSS transition on max-height/opacity/margin fires from collapsed→expanded.
+  if (wasCollapsed && pvSidebarEl) {
+    pvSidebarEl.classList.add('is-collapsed');
+    void pvSidebarEl.offsetWidth;
+    requestAnimationFrame(function() {
+      pvSidebarEl.classList.remove('is-collapsed');
+    });
+  }
+}
+
+window.addEventListener('scroll', pvOnScroll, { passive: true });
+window.addEventListener('resize', function(){
+  pvPositionAll();
+  pvUpdatePosition();
+  pvUpdateMobileHeader();
+  pvOnScroll();
+});
+
+pvPositionAll();
 </script>
 </body>
 </html>
