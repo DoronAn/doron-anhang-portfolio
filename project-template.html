@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project View — Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f7f5f0;
+  --bg2: #f0ede6;
+  --white: #ffffff;
+  --gold: #E6A855;
+  --gold-dim: rgba(230,168,85,0.15);
+  --ink: #2a2a28;
+  --text: #808080;
+  --text-light: #aaaaaa;
+  --rule: #e0dbd0;
+  --sans: 'Assistant', 'Helvetica Neue', sans-serif;
+  --serif: 'Times New Roman', Times, serif;
+  --nav-h: 3.5rem;
+}
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  padding-top: var(--nav-h);
+}
+
+/* ── NAV (mirrors main page) ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  padding: 0.8rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.nav-name {
+  font-family: var(--serif);
+  font-size: 1.1rem; font-weight: 400; color: var(--ink);
+  text-decoration: none; letter-spacing: 0.02em;
+}
+.nav-back {
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text); text-decoration: none;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--gold); }
+
+/* ── PROJECT HEADER (now lives at the top of the left sidebar) ── */
+.pv-head { padding-right: 0.5rem; }
+.pv-eyebrow {
+  font-size: 0.66rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--gold); margin-bottom: 0.55rem;
+}
+.pv-title {
+  font-family: var(--serif); font-size: 1.5rem;
+  font-weight: 400; color: var(--ink); line-height: 1.2; margin-bottom: 0.5rem;
+}
+.pv-title em { font-style: italic; }
+.pv-meta { font-size: 0.76rem; color: var(--text-light); line-height: 1.5; }
+.pv-meta a { color: var(--gold); text-decoration: none; }
+
+/* banner-only overrides: match index.html detail-panel sizing */
+.pv-head-banner .pv-eyebrow { font-size: 0.68rem; margin-bottom: 0.6rem; }
+.pv-head-banner .pv-title { font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; margin-bottom: 0.35rem; }
+.pv-head-banner .pv-meta {
+  font-size: 0.78rem;
+  margin-bottom: 1.5rem;
+}
+
+/* keyword chips — copied from index.html (.kw-row / .kw / .kw-gold) */
+.kw-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1rem; }
+.kw {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 0.2rem 0.6rem;
+  border: 1px solid var(--rule); color: var(--text);
+}
+.kw-gold { border-color: var(--gold); color: var(--gold); }
+
+.pv-divider { height: 1px; background: var(--rule); margin: 1.5rem 0; }
+
+/* ── 3-COLUMN BODY ── */
+.pv-body {
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  padding: 1.5rem 3.5rem 0;
+  align-items: start;
+}
+
+/* ── LEFT: sidebar (chapter rail; on desktop the header docks above it — see desktop block) ── */
+.pv-sidebar { align-self: start; }
+/* chapter list — the sidebar owns the sticky pinning */
+.pv-chapter-link {
+  display: flex; gap: 0.7rem; align-items: baseline;
+  width: 100%; background: none; border: none; cursor: pointer;
+  text-align: left; padding: 0.55rem 0.9rem;
+  border-left: 2px solid var(--rule);
+  transition: border-color 0.25s, background 0.25s;
+}
+.pv-chapter-link:hover { background: var(--bg2); }
+.pv-chapter-link .pv-cl-num {
+  font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em;
+  color: var(--text-light); flex-shrink: 0; transition: color 0.25s;
+}
+.pv-chapter-link .pv-cl-title {
+  font-family: var(--serif); font-size: 0.92rem; line-height: 1.25;
+  color: var(--text); transition: color 0.25s;
+}
+.pv-chapter-link.active {
+  border-left-color: var(--gold);
+  background: var(--gold-dim);
+}
+.pv-chapter-link.active .pv-cl-num { color: var(--gold); }
+.pv-chapter-link.active .pv-cl-title { color: var(--ink); }
+
+/* ── MIDDLE: tall scrolling text ── */
+.pv-text { padding: 2rem 0 4rem; }
+.pv-chapter {
+  min-height: 70vh;
+  padding: 1.5rem 0;
+  scroll-margin-top: calc(var(--nav-h) + 1.5rem);
+  display: flex; flex-direction: column; justify-content: center;
+}
+.pv-chapter:first-child { padding-top: 0; }
+.pv-ch-num {
+  font-size: 0.68rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--gold); margin-bottom: 0.5rem;
+}
+.pv-ch-title {
+  font-family: var(--serif); font-size: 1.6rem; font-weight: 400;
+  color: var(--ink); line-height: 1.2; margin-bottom: 1rem;
+}
+.pv-chapter p { font-size: 0.92rem; color: var(--text); line-height: 1.85; }
+.pv-chapter p + p { margin-top: 0.85rem; }
+.pv-chapter p strong { color: var(--ink); font-weight: 600; }
+.pv-chapter em { font-style: italic; }
+
+/* ── RIGHT: sticky image stage ── */
+/* outer column carries the dock margin-transition (kept off the sticky element so the
+   image slides with the header instead of snapping to its sticky spot) */
+.pv-stage-col { align-self: stretch; }
+.pv-stage {
+  position: sticky;
+  top: calc(var(--nav-h) + 2rem);
+  height: calc(100vh - var(--nav-h) - 4rem);
+  overflow: hidden;
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+}
+.pv-imgset {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  gap: 0.5rem; padding: 0.75rem;
+  opacity: 0;
+}
+.pv-imgset.is-active { opacity: 1; }
+.pv-imgset.anim { opacity: 1; }   /* keep visible during the slide */
+
+/* slide keyframes share the main page's easing + 0.6s feel */
+.pv-imgset.in-up    { animation: pvSlideInUp    0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-imgset.in-down  { animation: pvSlideInDown  0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-imgset.out-up   { animation: pvSlideOutUp   0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-imgset.out-down { animation: pvSlideOutDown 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+
+@keyframes pvSlideInUp    { from { transform: translateY(100%);  } to { transform: translateY(0); } }
+@keyframes pvSlideInDown  { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+@keyframes pvSlideOutUp   { from { transform: translateY(0); } to { transform: translateY(-100%); } }
+@keyframes pvSlideOutDown { from { transform: translateY(0); } to { transform: translateY(100%);  } }
+
+.pv-fig {
+  flex: 1 1 0; min-height: 0;
+  display: flex; flex-direction: column;
+  background: var(--white); border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.pv-fig img {
+  flex: 1 1 0; min-height: 0; width: 100%;
+  object-fit: contain; object-position: center; display: block;
+  padding: 0.4rem;
+}
+.pv-fig figcaption {
+  font-size: 0.66rem; color: var(--text-light); line-height: 1.35;
+  padding: 0.4rem 0.55rem; border-top: 1px solid var(--rule);
+  flex-shrink: 0;
+}
+
+/* ── DESKTOP: header slides up out of text area and simultaneously down into left column ── */
+@media (min-width: 721px) {
+  .pv-divider { display: none; }
+
+  /* ── Left sidebar: chapter bar always vertically centered, never moves ── */
+  .pv-sidebar {
+    position: sticky;
+    top: calc(var(--nav-h) + 1.5rem); /* match natural initial offset → sidebar never moves */
+    height: 100vh;
+    padding: 0;
+  }
+
+  /* vertical rule — fixed so it never moves regardless of sidebar sticky/release behaviour */
+  .pv-sidebar::after {
+    content: '';
+    position: fixed;
+    left: var(--sep-left, 340px); /* set by JS: sidebar-right + 1.25rem gap offset */
+    top: 50vh;
+    transform: translateY(-50%);
+    width: 1px;
+    height: var(--sep-h, 35vh);
+    background: var(--rule);
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  /* Rail: fixed so it stays at viewport centre regardless of sidebar sticky/release */
+  #pvRail {
+    position: fixed;
+    top: 50vh;
+    /* left and width set by JS to align with the sidebar column */
+    transform: translateY(-50%);
+    z-index: 10;
+  }
+
+  /* sidebar header: fixed above the left column, hides behind the nav bar when not docked */
+  .pv-head {
+    position: fixed;
+    top: var(--nav-h);
+    /* left and width set by JS to align with the sidebar column */
+    z-index: 50;
+    background: var(--bg);
+    padding: 1rem 0.5rem 1rem 0;
+    border-bottom: 1px solid var(--rule);
+    transform: translateY(-110%);
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+  }
+  .pv-body.docked .pv-head {
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  /* fixed banner: floats above the text+images, slides up and out when docked */
+  .pv-head-banner {
+    position: fixed;
+    top: var(--nav-h);
+    /* left and width set by JS to align with text+images columns */
+    z-index: 70;
+    background: var(--bg);
+    border-bottom: 1px solid var(--rule);
+    padding: 1rem 0 1rem 2rem;
+    transform: translateY(0);
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: auto;
+  }
+  .pv-head-banner.docked {
+    transform: translateY(calc(-100% - var(--nav-h)));
+    pointer-events: none;
+  }
+
+  /* text: shift down visually to clear the banner — transform avoids any layout reflow
+     that would disturb the sidebar's sticky snap and make the rail appear to jump */
+  .pv-text {
+    transform: translateY(var(--banner-h, 0px));
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+  }
+  .pv-body.docked .pv-text { transform: translateY(0); }
+
+  /* image stage: shift its sticky top instead of the outer column's margin,
+     same reason — column margin causes layout reflow, top change does not */
+  .pv-stage {
+    top: calc(var(--nav-h) + var(--banner-h, 0px) + 2rem);
+    transition: top 0.55s cubic-bezier(0.4,0,0.2,1);
+  }
+  .pv-body.docked .pv-stage { top: calc(var(--nav-h) + 2rem); }
+}
+
+/* mobile-only elements — hidden on desktop */
+.pv-rail--h { display: none; }
+.pv-inline-imgs { display: none; }
+
+/* ── RESPONSIVE: collapsing sticky header (name persists, fluff fades) + inline images ── */
+@media (max-width: 720px) {
+  .pv-body {
+    grid-template-columns: 1fr;
+    gap: 0; padding: 1rem 1.5rem 0;
+  }
+
+  /* the sidebar doubles as a sticky header: full header at the top of the page,
+     collapsing to just the name + chapter bar once the user scrolls */
+  .pv-sidebar {
+    position: sticky; top: var(--nav-h); z-index: 80;
+    align-self: stretch; max-height: none; overflow: visible;
+    margin: 0 -1.5rem; padding: 0.55rem 1.5rem;
+    background: var(--bg); border-bottom: 1px solid var(--rule);
+  }
+  .pv-sidebar .pv-divider,
+  .pv-sidebar #pvRail { display: none; }   /* desktop vertical rail hidden */
+  .pv-head { padding-right: 0; }
+  .pv-title { font-size: 1.05rem; margin-bottom: 0.4rem; }
+
+  /* the "fluff" — eyebrow, meta, keywords — fades + collapses on scroll, leaving the name */
+  .pv-eyebrow { max-height: 2rem; }
+  .pv-meta    { max-height: 4rem; margin-top: 0.4rem; }
+  .kw-row     { max-height: 7rem; margin-top: 0.6rem; margin-bottom: 0.1rem; }
+  .pv-eyebrow, .pv-meta, .kw-row {
+    overflow: hidden;
+    transition: opacity 0.3s ease, max-height 0.35s ease, margin 0.3s ease;
+  }
+  .pv-sidebar.is-collapsed .pv-eyebrow,
+  .pv-sidebar.is-collapsed .pv-meta,
+  .pv-sidebar.is-collapsed .kw-row {
+    opacity: 0; max-height: 0; margin-top: 0; margin-bottom: 0;
+  }
+
+  /* horizontal chapter rail — collapsed to numbers; the active chip reveals its title */
+  .pv-rail--h {
+    display: flex; gap: 0.4rem; overflow-x: auto;
+    scrollbar-width: none; margin-top: 0.55rem;
+  }
+  .pv-rail--h::-webkit-scrollbar { display: none; }
+  .pv-rail--h .pv-chapter-link {
+    flex: 0 0 auto; width: auto;
+    flex-direction: row; align-items: center; gap: 0.4rem;
+    border: 1px solid var(--rule); border-radius: 2px;
+    padding: 0.28rem 0.6rem; white-space: nowrap;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .pv-rail--h .pv-cl-title { display: none; font-size: 0.78rem; }
+  .pv-rail--h .pv-chapter-link.active { background: var(--gold-dim); border-color: var(--gold); }
+  .pv-rail--h .pv-chapter-link.active .pv-cl-title { display: inline; }
+
+  /* images move inline to the bottom of each chapter; sticky stage drops out */
+  .pv-stage-col { display: none; }
+  .pv-text { padding: 0.5rem 0 2rem; }
+  .pv-chapter {
+    display: block; min-height: 0; padding: 1.25rem 0;
+    scroll-margin-top: calc(var(--nav-h) + 6rem);
+  }
+  .pv-inline-imgs {
+    display: grid; gap: 0.6rem; margin-top: 1.25rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .pv-inline-imgs .pv-fig { display: block; }
+  .pv-inline-imgs .pv-fig img {
+    flex: none; min-height: 0;
+    width: 100%; max-height: 240px; object-fit: contain; padding: 0.4rem;
+  }
+
+  nav { padding: 0.8rem 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-name">Doron Anhang</a>
+  <a href="index.html" class="nav-back">← All Work</a>
+</nav>
+
+<!-- fixed banner (desktop only): header above text+images, slides out when docked -->
+<div class="pv-head-banner" id="pvBanner" aria-hidden="true">
+  <p class="pv-eyebrow">Academic Seminar Paper · Ariel University, 2022</p>
+  <h1 class="pv-title">Quantitative Spatial Data Analysis:<br><em>Student Dorms Archetype</em></h1>
+  <p class="pv-meta">Advisor: Dr. Arch. Gilad Schweid &nbsp;·&nbsp; <a href="#" target="_blank" rel="noopener">Published Paper ↗</a></p>
+  <div class="kw-row">
+    <span class="kw kw-gold">Spatial Analytics</span>
+    <span class="kw kw-gold">SCI-2 Framework</span>
+    <span class="kw">Android Dev</span>
+    <span class="kw">Geofencing</span>
+    <span class="kw">Privacy Engineering</span>
+    <span class="kw">Comparative Modelling</span>
+    <span class="kw">Incremental Optimisation</span>
+  </div>
+</div>
+
+<!-- 3-COLUMN BODY -->
+<div class="pv-body">
+
+  <!-- LEFT: sidebar — project header stacked above the chapter rail -->
+  <div class="pv-sidebar">
+    <div class="pv-head">
+      <p class="pv-eyebrow">Academic Seminar Paper · Ariel University, 2022</p>
+      <h1 class="pv-title">Quantitative Spatial Data Analysis: <em>Student Dorms Archetype</em></h1>
+      <p class="pv-meta">Advisor: Dr. Arch. Gilad Schweid &nbsp;·&nbsp; <a href="#" target="_blank" rel="noopener">Published Paper ↗</a></p>
+      <div class="kw-row">
+        <span class="kw kw-gold">Spatial Analytics</span>
+        <span class="kw kw-gold">SCI-2 Framework</span>
+        <span class="kw">Android Dev</span>
+        <span class="kw">Geofencing</span>
+        <span class="kw">Privacy Engineering</span>
+        <span class="kw">Comparative Modelling</span>
+        <span class="kw">Incremental Optimisation</span>
+      </div>
+    </div>
+    <div class="pv-divider"></div>
+    <!-- chapter links injected by script: vertical rail (desktop) + horizontal rail (mobile) -->
+    <div class="pv-rail" id="pvRail" role="navigation" aria-label="Chapters"></div>
+    <div class="pv-rail pv-rail--h" id="pvRailMobile" role="navigation" aria-label="Chapters"></div>
+  </div>
+
+  <!-- MIDDLE: scrolling text -->
+  <div class="pv-text" id="pvText">
+
+    <section class="pv-chapter" id="ch-context"
+             data-title="Context &amp; Challenge"
+             data-images='[
+               {"src":"images/ariel_map.jpg","cap":"Ariel University campus, 2018 — dormitory compounds mapped."},
+               {"src":"images/compound_comparison.jpg","cap":"Layout comparison — Caravan sub-plots vs Mid-rise corridor blocks."}
+             ]'>
+      <span class="pv-ch-num">01 — Context</span>
+      <h2 class="pv-ch-title">Context &amp; Challenge</h2>
+      <p>Architectural theory frequently claims that physical environments shape human communities, yet these assertions often rely on subjective intuition rather than empirical, verifiable validation. This research seminar transitions architectural design into the realm of quantitative science.</p>
+      <p>Under the supervision of Dr. Arch. Gilad Schweid, this study establishes a rigorous empirical methodology to analyse, measure, and map exactly how micro-architectural and environmental features drive or restrict a psychological <strong>"<em>Sense of Community</em>" (SoC)</strong> within institutional student housing.</p>
+      <p>The core of the research evaluated a comparative dataset between two polarised housing archetypes at Ariel University: a structured <strong>Mid-rise Compound</strong> versus a decentralised <strong>Caravan Compound</strong>.</p>
+    </section>
+
+    <section class="pv-chapter" id="ch-archetypes"
+             data-title="The Three Archetypes"
+             data-images='[
+               {"src":"images/corridor_plex.png","cap":"Corridor Plex archetype."},
+               {"src":"images/cluster_plex.png","cap":"Cluster Plex archetype."},
+               {"src":"images/scattered_plex.png","cap":"Scattered Plex archetype."}
+             ]'>
+      <span class="pv-ch-num">02 — Typology</span>
+      <h2 class="pv-ch-title">The Three Archetypes</h2>
+      <p>The study positions each compound within a studied taxonomy of dorm archetypes — from the inward-facing <strong>cluster plex</strong>, to the <strong>corridor hybrid</strong>, to the decentralised <strong>scattered plex</strong>.</p>
+      <p>Each typology generates a distinct social ecology. The mid-rise compound reads as a cluster/corridor hybrid; the caravan compound as a scattered plex — two ends of a spectrum chosen precisely because they polarise the variables under test.</p>
+    </section>
+
+    <section class="pv-chapter" id="ch-sites"
+             data-title="Case Study Sites"
+             data-images='[
+               {"src":"images/caravan_site.jpg","cap":"Caravan compound — ~350 scattered units, 0.106 km², pedestrian-first."},
+               {"src":"images/midrise_site.jpg","cap":"Mid-rise compound — Buildings 101–116, 1,550 students at 46,969/km²."}
+             ]'>
+      <span class="pv-ch-num">03 — Sites</span>
+      <h2 class="pv-ch-title">Case Study Sites</h2>
+      <p>The <strong>Caravan compound</strong> spreads roughly 350 scattered units across 0.106 km² in an organic, pedestrian-first layout that prioritises informal contact and buffered outdoor space.</p>
+      <p>The <strong>Mid-rise compound</strong> concentrates 1,550 students across numbered building blocks 101–116 on just 0.033 km² — a density of 46,969 students per km², organised around efficient internal corridors.</p>
+    </section>
+
+    <section class="pv-chapter" id="ch-units"
+             data-title="Unit-Level Breakdown"
+             data-images='[
+               {"src":"images/caravan_floor_plan.jpg","cap":"Caravan unit plans — men&apos;s variant (blue) &amp; women&apos;s variant (green)."},
+               {"src":"images/building_101.jpg","cap":"Building 101 — curved cluster plan with central lobby."},
+               {"src":"images/building_103.jpg","cap":"Building 103 — large block, unit types A1–D3."}
+             ]'>
+      <span class="pv-ch-num">04 — Units</span>
+      <h2 class="pv-ch-title">Unit-Level Breakdown</h2>
+      <p>Drilling from compound to unit reveals how each archetype shapes daily proximity. Caravan units pair gendered variants around shared outdoor thresholds; mid-rise blocks stack standardised unit types along shared corridors.</p>
+      <p>This unit-level resolution is what lets the study connect a measurable spatial feature — a buffer, a shared threshold, a window orientation — to a specific shift in the community metrics.</p>
+    </section>
+
+    <section class="pv-chapter" id="ch-findings"
+             data-title="Empirical Findings"
+             data-images='[
+               {"src":"images/compound_comparison.jpg","cap":"Caravan (top) outperforms Mid-rise (bottom) on Sense of Community."},
+               {"src":"images/caravan_site.jpg","cap":"Decentralised layout — the higher-scoring archetype."}
+             ]'>
+      <span class="pv-ch-num">05 — Findings</span>
+      <h2 class="pv-ch-title">Empirical Findings</h2>
+      <p>Counter to conventional density-driven assumptions, the analysis revealed a <strong>clear statistical advantage for the decentralised Caravan Compound</strong> over the structured Mid-rise Compound in driving Sense of Community.</p>
+      <p>Micro-spatial elements — specifically <strong>nature integration, visual appeal, and spatial buffer features</strong> — proved high-impact drivers of interpersonal trust, outperforming rigid structural density.</p>
+    </section>
+
+  </div><!-- /pv-text -->
+
+  <!-- RIGHT: sticky image stage (image sets injected by script) -->
+  <div class="pv-stage-col">
+    <div class="pv-stage" id="pvStage"></div>
+  </div>
+
+</div><!-- /pv-body -->
+
+<script>
+(function () {
+  var navText  = document.getElementById('pvText');
+  var railD    = document.getElementById('pvRail');        // desktop vertical rail
+  var railM    = document.getElementById('pvRailMobile');  // mobile horizontal rail
+  var sidebar  = document.querySelector('.pv-sidebar');    // doubles as the mobile sticky header
+  var pvBody   = document.querySelector('.pv-body');
+  var stage    = document.getElementById('pvStage');
+  var chapters = Array.prototype.slice.call(navText.querySelectorAll('.pv-chapter'));
+
+  var current = -1;
+  var ticking = false;
+  var programmaticScroll = false;
+  var prevScrollY = window.scrollY;
+
+  function navHpx() {
+    return parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) * 16 || 56;
+  }
+  function isMobile() { return window.matchMedia('(max-width: 720px)').matches; }
+
+  var banner  = document.getElementById('pvBanner');
+  var pvHead  = document.querySelector('.pv-head');
+
+  // Position the fixed banner to span only the text+images columns (not the left sidebar).
+  function positionBanner() {
+    if (!banner || isMobile()) return;
+    var sidebarRect = pvBody.firstElementChild.getBoundingClientRect();
+    var lastColRect = pvBody.lastElementChild.getBoundingClientRect();
+    banner.style.left  = sidebarRect.left + 'px';
+    banner.style.width = (lastColRect.right - sidebarRect.left) + 'px';
+  }
+
+  // Position the fixed sidebar header to align with the left column.
+  function positionHead() {
+    if (!pvHead) return;
+    if (isMobile()) { pvHead.style.left = ''; pvHead.style.width = ''; return; }
+    var sidebarRect = pvBody.firstElementChild.getBoundingClientRect();
+    pvHead.style.left  = sidebarRect.left + 'px';
+    pvHead.style.width = sidebarRect.width + 'px';
+  }
+
+  // Keep --banner-h in sync so text+images margin clears the banner.
+  function setBannerH() {
+    if (banner) document.documentElement.style.setProperty('--banner-h', banner.offsetHeight + 'px');
+  }
+
+  // Dock: banner slides up, sidebar header slides down — simultaneously, no scroll-jack.
+  // Once docked, only undock when the user is actively scrolling UP through the threshold —
+  // not from programmatic jumps (rail clicks) and not from just sitting at a low scrollY.
+  function updateDesktopDock() {
+    if (!pvBody) return;
+    if (isMobile()) { pvBody.classList.remove('docked'); if (banner) banner.classList.remove('docked'); return; }
+    var isDocked = pvBody.classList.contains('docked');
+    var belowThreshold = window.scrollY <= 60;
+    var scrollingUp = window.scrollY < prevScrollY;
+    prevScrollY = window.scrollY;
+    var shouldDock = isDocked
+      ? (!belowThreshold || programmaticScroll || !scrollingUp)
+      : window.scrollY > 60;
+    pvBody.classList.toggle('docked', shouldDock);
+    if (banner) banner.classList.toggle('docked', shouldDock);
+  }
+
+  // Position the fixed rail and separator to align with the sidebar column.
+  function positionRail() {
+    if (!railD || isMobile()) { railD.style.left = ''; railD.style.width = ''; return; }
+    var sidebarRect = pvBody.firstElementChild.getBoundingClientRect();
+    var remPx = parseFloat(getComputedStyle(document.documentElement).fontSize);
+    railD.style.left  = sidebarRect.left + 'px';
+    railD.style.width = sidebarRect.width + 'px';
+    document.documentElement.style.setProperty('--sep-left', (sidebarRect.right + remPx * 1.25 - 1) + 'px');
+  }
+
+  // Set the separator height to 120% of the chapter rail's rendered height.
+  function setSepH() {
+    if (!railD || isMobile()) return;
+    document.documentElement.style.setProperty('--sep-h', (railD.offsetHeight * 1.2) + 'px');
+  }
+
+  if (window.ResizeObserver && banner) {
+    new ResizeObserver(function () { setBannerH(); positionBanner(); positionHead(); }).observe(banner);
+  }
+
+  // Collapsed mobile header = name + horizontal chapter bar + the sidebar's own padding.
+  function mobileHeaderH() {
+    var titleEl = sidebar.querySelector('.pv-title');
+    var cs = getComputedStyle(sidebar);
+    var pad = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    return (titleEl ? titleEl.offsetHeight : 0) + (railM ? railM.offsetHeight : 0) + pad + 12;
+  }
+  // Fixed/sticky chrome at the top (nav, plus the collapsed header on mobile).
+  function topOffset() {
+    return navHpx() + (isMobile() ? mobileHeaderH() : 0);
+  }
+  // Fade + collapse the "fluff" (eyebrow, meta, keywords) once the user scrolls.
+  function updateCollapse() {
+    if (!sidebar) return;
+    sidebar.classList.toggle('is-collapsed', isMobile() && window.scrollY > 24);
+  }
+
+  function figuresHTML(imgs) {
+    return imgs.map(function (im) {
+      return '<figure class="pv-fig">' +
+               '<img loading="lazy" src="' + im.src + '" alt="">' +
+               (im.cap ? '<figcaption>' + im.cap + '</figcaption>' : '') +
+             '</figure>';
+    }).join('');
+  }
+  function makeLink(i, title) {
+    var btn = document.createElement('button');
+    btn.className = 'pv-chapter-link';
+    btn.dataset.index = i;
+    btn.innerHTML =
+      '<span class="pv-cl-num">' + String(i + 1).padStart(2, '0') + '</span>' +
+      '<span class="pv-cl-title">' + title + '</span>';
+    return btn;
+  }
+
+  // ── Build both rails, the desktop sticky image sets, and the inline mobile images ──
+  var imgsets = chapters.map(function (ch, i) {
+    var figs = figuresHTML(JSON.parse(ch.dataset.images || '[]'));
+
+    railD.appendChild(makeLink(i, ch.dataset.title));
+    railM.appendChild(makeLink(i, ch.dataset.title));
+
+    // desktop: sliding sticky stage set
+    var set = document.createElement('div');
+    set.className = 'pv-imgset';
+    set.innerHTML = figs;
+    stage.appendChild(set);
+
+    // mobile: same images, inline at the bottom of the chapter
+    var inline = document.createElement('div');
+    inline.className = 'pv-inline-imgs';
+    inline.innerHTML = figs;
+    ch.appendChild(inline);
+
+    return set;
+  });
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.pv-chapter-link'));
+
+  // ── Set active chapter: highlight both rails + slide the desktop stage ──────
+  function setActive(index, dir) {
+    if (index === current) return;
+    var incoming = imgsets[index];
+    var outgoing = imgsets[current];
+
+    links.forEach(function (l) {
+      l.classList.toggle('active', parseInt(l.dataset.index, 10) === index);
+    });
+
+    // keep the expanded chip in view within the horizontal mobile bar
+    if (isMobile()) {
+      var chip = railM.children[index];
+      if (chip && chip.scrollIntoView) chip.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+    }
+
+    if (outgoing) {
+      outgoing.classList.remove('is-active', 'in-up', 'in-down', 'out-up', 'out-down');
+      outgoing.classList.add('anim', dir === 'down' ? 'out-up' : 'out-down');
+      outgoing.addEventListener('animationend', function clr() {
+        outgoing.classList.remove('anim', 'out-up', 'out-down');
+        outgoing.removeEventListener('animationend', clr);
+      });
+    }
+
+    incoming.classList.remove('in-up', 'in-down', 'out-up', 'out-down');
+    void incoming.offsetWidth; // reflow so the fill-mode applies before paint
+    incoming.classList.add('anim', 'is-active', dir === 'down' ? 'in-up' : 'in-down');
+    incoming.addEventListener('animationend', function clr() {
+      incoming.classList.remove('anim', 'in-up', 'in-down');
+      incoming.removeEventListener('animationend', clr);
+    });
+
+    current = index;
+  }
+
+  // ── Which chapter owns the trigger line (40% below the top chrome)? ─────────
+  function activeChapterIndex() {
+    var top  = topOffset();
+    var line = top + (window.innerHeight - top) * 0.4;
+    var idx = 0;
+    chapters.forEach(function (ch, i) {
+      if (ch.getBoundingClientRect().top <= line) idx = i;
+    });
+    return idx;
+  }
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      updateCollapse();
+      updateDesktopDock();
+      var idx = activeChapterIndex();
+      if (idx !== current) setActive(idx, idx > current ? 'down' : 'up');
+      ticking = false;
+    });
+  }
+
+  // ── Click a chapter → eased scroll to its section (matches main page feel) ──
+  function easedScrollTo(targetY) {
+    var startY = window.scrollY;
+    var dist   = targetY - startY;
+    if (Math.abs(dist) <= 2) return;
+    var dur = Math.min(700, Math.max(300, Math.abs(dist) * 0.5));
+    var t0  = null;
+    programmaticScroll = true;
+    document.documentElement.style.scrollBehavior = 'auto';
+    function step(now) {
+      if (!t0) t0 = now;
+      var p = Math.min((now - t0) / dur, 1);
+      var ease = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      window.scrollTo(0, Math.round(startY + dist * ease));
+      if (p < 1) requestAnimationFrame(step);
+      else { document.documentElement.style.scrollBehavior = ''; programmaticScroll = false; }
+    }
+    requestAnimationFrame(step);
+  }
+
+  function onRailClick(e) {
+    var btn = e.target.closest('.pv-chapter-link');
+    if (!btn) return;
+    var i = parseInt(btn.dataset.index, 10);
+    var bannerOffset = (!isMobile() && banner && !pvBody.classList.contains('docked'))
+      ? banner.offsetHeight : 0;
+    // Always dock the banner on a rail click — measure offset first (before toggling classes)
+    if (bannerOffset > 0) {
+      pvBody.classList.add('docked');
+      if (banner) banner.classList.add('docked');
+    }
+    var targetY = window.scrollY + chapters[i].getBoundingClientRect().top - (topOffset() + bannerOffset + 16);
+    easedScrollTo(targetY);
+  }
+  railD.addEventListener('click', onRailClick);
+  railM.addEventListener('click', onRailClick);
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', function () { positionBanner(); positionHead(); positionRail(); setBannerH(); setSepH(); onScroll(); });
+
+  // initial state
+  updateCollapse();
+  positionBanner();
+  positionHead();
+  positionRail();
+  setBannerH();
+  setSepH();
+  updateDesktopDock();
+  setActive(activeChapterIndex(), 'down');
+})();
+</script>
+</body>
+</html>
