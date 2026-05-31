@@ -1768,13 +1768,17 @@ document.querySelector('.tabs-scroll-outer').addEventListener('click', function(
   const sameTab = (id === currentTab);
   const fromRight = TAB_ORDER.indexOf(id) > TAB_ORDER.indexOf(currentTab);
   transitioning = true;
-  // Always scroll the bar to the top first. If a different project was clicked,
-  // slide it in afterwards; if the already-open project was clicked, the scroll
-  // is the whole interaction.
-  scrollBarToTop(() => {
-    if (sameTab) { transitioning = false; }
-    else { doSlide(id, fromRight); }
-  });
+  if (sameTab) {
+    // Clicking the already-open tab scrolls back to the top of its content.
+    scrollBarToTop(() => { transitioning = false; });
+  } else {
+    // Snap the page to the bar's sticky threshold instantly (no animated scroll)
+    // so the user lands on chapter 1 of the new project — without the visible
+    // "current project scrolls up before sliding away" pre-roll.
+    var targetY = barScrollTarget();
+    if (window.scrollY > targetY) window.scrollTo(0, targetY);
+    doSlide(id, fromRight);
+  }
 });
 
 function doSlide(id, fromRight) {
@@ -1910,7 +1914,22 @@ function pvSetHead(id) {
 
 function pvSetActive(index, dir) {
   if (index === pvState.current) return;
+
+  // Coalesce rapid calls during eased scroll, but only on desktop — on mobile
+  // the stage column is display:none so its animationend never fires, which
+  // would lock the coalesce flag forever and freeze the chip updates.
+  if (!pvIsMobile() && pvState.animatingTo !== undefined) {
+    pvState.pendingIndex = index;
+    pvState.pendingDir   = dir;
+    return;
+  }
+  pvApplySetActive(index, dir);
+}
+
+function pvApplySetActive(index, dir) {
+  if (index === pvState.current) return;
   var inc = pvState.imgsets[index], out = pvState.imgsets[pvState.current];
+
   pvState.links.forEach(function(l) {
     var isActive = parseInt(l.dataset.index,10) === index;
     l.classList.toggle('active', isActive);
@@ -1919,9 +1938,38 @@ function pvSetActive(index, dir) {
       if (t) t.style.width = isActive ? (l.dataset.titleW || '0') + 'px' : '0';
     }
   });
-  if (pvIsMobile() && !pvState.suppressChipScroll) { var chip = pvRailM.children[index]; if (chip && chip.scrollIntoView) chip.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'}); }
-  if (out) { out.classList.remove('is-active','in-up','in-down','out-up','out-down'); out.classList.add('anim', dir==='down'?'out-up':'out-down'); out.addEventListener('animationend',function clr(){ out.classList.remove('anim','out-up','out-down'); out.removeEventListener('animationend',clr); }); }
-  if (inc) { inc.classList.remove('in-up','in-down','out-up','out-down'); void inc.offsetWidth; inc.classList.add('anim','is-active',dir==='down'?'in-up':'in-down'); inc.addEventListener('animationend',function clr(){ inc.classList.remove('anim','in-up','in-down'); inc.removeEventListener('animationend',clr); }); }
+  if (pvIsMobile() && !pvState.suppressChipScroll) {
+    var chip = pvRailM.children[index];
+    if (chip && chip.scrollIntoView) chip.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+  }
+
+  if (out) {
+    out.classList.remove('is-active','in-up','in-down','out-up','out-down');
+    out.classList.add('anim', dir==='down'?'out-up':'out-down');
+    out.addEventListener('animationend', function clr(){
+      out.classList.remove('anim','out-up','out-down');
+      out.removeEventListener('animationend', clr);
+    });
+  }
+  if (inc) {
+    inc.classList.remove('in-up','in-down','out-up','out-down');
+    void inc.offsetWidth;
+    inc.classList.add('anim','is-active', dir==='down'?'in-up':'in-down');
+    pvState.animatingTo = index;
+    inc.addEventListener('animationend', function clr(){
+      inc.classList.remove('anim','in-up','in-down');
+      inc.removeEventListener('animationend', clr);
+      pvState.animatingTo = undefined;
+      // If scroll requested a newer target while we were animating, apply it now.
+      if (pvState.pendingIndex !== undefined && pvState.pendingIndex !== pvState.current) {
+        var pi = pvState.pendingIndex, pd = pvState.pendingDir;
+        pvState.pendingIndex = pvState.pendingDir = undefined;
+        pvApplySetActive(pi, pd);
+      } else {
+        pvState.pendingIndex = pvState.pendingDir = undefined;
+      }
+    });
+  }
 
   pvState.current = index;
 }
@@ -1938,7 +1986,7 @@ function pvOnScroll() {
   requestAnimationFrame(function() {
     pvUpdatePosition();
     pvUpdateMobileHeader();
-    if (pvState.chapters.length > 0) {
+    if (pvState.chapters.length > 0 && !pvState.suppressScrollSync) {
       var idx = pvActiveChapterIndex();
       if (idx !== pvState.current) pvSetActive(idx, idx > pvState.current ? 'down' : 'up');
     }
@@ -1946,9 +1994,9 @@ function pvOnScroll() {
   });
 }
 
-function pvEasedScrollTo(targetY) {
+function pvEasedScrollTo(targetY, onDone) {
   var startY = window.scrollY, dist = targetY - startY;
-  if (Math.abs(dist) <= 2) return;
+  if (Math.abs(dist) <= 2) { if (onDone) onDone(); return; }
   var dur = Math.min(PV_CHAPTER_SCROLL_MAX_MS, Math.max(PV_BAR_SCROLL_MIN_MS, Math.abs(dist) * 0.5)), t0 = null;
   document.documentElement.style.scrollBehavior = 'auto';
   function step(now) {
@@ -1956,7 +2004,7 @@ function pvEasedScrollTo(targetY) {
     var p = Math.min((now - t0) / dur, 1);
     window.scrollTo(0, Math.round(startY + dist * (1 - Math.pow(1 - p, 3))));
     if (p < 1) requestAnimationFrame(step);
-    else { document.documentElement.style.scrollBehavior = ''; }
+    else { document.documentElement.style.scrollBehavior = ''; if (onDone) onDone(); }
   }
   requestAnimationFrame(step);
 }
@@ -1964,13 +2012,23 @@ function pvEasedScrollTo(targetY) {
 function pvOnRailClick(e) {
   var btn = e.target.closest('.pv-chapter-link'); if (!btn) return;
   var i = parseInt(btn.dataset.index, 10);
+  if (i === pvState.current) return;
   // Collapse the mobile header immediately on any chapter tap
   if (pvIsMobile() && pvSidebarEl) pvSidebarEl.classList.add('is-collapsed');
   var offset = pvIsMobile()
     ? (pvNavH() + pvTabH() + (pvSidebarEl ? pvSidebarEl.offsetHeight : 70) + 8)
     : (pvTopOffset() + 40);
   var target = window.scrollY + pvState.chapters[i].getBoundingClientRect().top - offset;
-  pvEasedScrollTo(Math.max(barScrollTarget(), target));
+
+  // Jump straight to the clicked chapter: set it active now (one slide animation),
+  // and suppress the scroll-driven sync while the eased scroll plays so we don't
+  // strobe through every chapter the scroll crosses on the way.
+  var dir = i > pvState.current ? 'down' : 'up';
+  pvState.suppressScrollSync = true;
+  pvSetActive(i, dir);
+  pvEasedScrollTo(Math.max(barScrollTarget(), target), function() {
+    pvState.suppressScrollSync = false;
+  });
 }
 
 pvRailD.addEventListener('click', pvOnRailClick);
@@ -1980,6 +2038,7 @@ function pvActivate(id, fromRight) {
   var panel = document.getElementById('detail-' + id);
   var isWelcome = (id === 'welcome' || !panel || !panel.dataset.title);
   pvState.active = !isWelcome; pvState.current = -1;
+  pvState.animatingTo = undefined; pvState.pendingIndex = undefined; pvState.pendingDir = undefined;
   // If the mobile header was collapsed coming into this project change, keep it
   // collapsed for now and animate it open AFTER the new content is rendered (below),
   // so the user sees the full expand transition instead of a snap.
@@ -2000,11 +2059,14 @@ function pvActivate(id, fromRight) {
   pvRailD.innerHTML=''; pvRailM.innerHTML=''; pvStageEl.innerHTML='';
   if (pvState.chapters.length > 0) {
     pvBodyEl.classList.add('has-chapters');
+    // Build rail buttons + stage imgsets synchronously (needed for the slide animation).
+    // Defer inline image grids until after the pane slide so the first click is snappy.
+    var pendingInline = [];
     pvState.imgsets = pvState.chapters.map(function(ch, i) {
       var imgs = [];
       try { imgs = JSON.parse(ch.dataset.images || '[]'); }
       catch (err) { console.warn('pv: bad data-images on chapter', ch, err); }
-      var figHtml = imgs.map(function(im){ return '<figure class="pv-fig"><img loading="lazy" src="'+pvEsc(im.src)+'" alt="">'+(im.cap?'<figcaption>'+pvEsc(im.cap)+'</figcaption>':'')+'</figure>'; }).join('');
+      var figHtml = imgs.map(function(im){ return '<figure class="pv-fig"><img loading="lazy" decoding="async" src="'+pvEsc(im.src)+'" alt="">'+(im.cap?'<figcaption>'+pvEsc(im.cap)+'</figcaption>':'')+'</figure>'; }).join('');
       [pvRailD, pvRailM].forEach(function(rail) {
         var btn = document.createElement('button'); btn.className='pv-chapter-link'; btn.dataset.index=i;
         btn.innerHTML='<span class="pv-cl-num">'+String(i+1).padStart(2,'0')+'</span><span class="pv-cl-title">'+pvEsc(ch.dataset.title)+'</span>';
@@ -2012,10 +2074,28 @@ function pvActivate(id, fromRight) {
       });
       var set = document.createElement('div'); set.className='pv-imgset'; set.innerHTML=figHtml; pvStageEl.appendChild(set);
       if (!ch.querySelector('.pv-inline-imgs') && imgs.length > 0) {
-        var inl = document.createElement('div'); inl.className='pv-inline-imgs'; inl.innerHTML=figHtml; ch.appendChild(inl);
+        pendingInline.push({ ch: ch, html: figHtml });
       }
       return set;
     });
+    // Drain the pending list off the critical path. Each chapter is appended in
+    // its own idle/raf slot so the work is sliced — the browser can interleave
+    // image decode and paint between chapters instead of stalling on one big batch.
+    var schedule = window.requestIdleCallback
+      ? function(fn) { requestIdleCallback(fn, { timeout: 500 }); }
+      : function(fn) { setTimeout(fn, 0); };
+    function drainOne() {
+      var job = pendingInline.shift();
+      if (!job) return;
+      if (!job.ch.querySelector('.pv-inline-imgs')) {
+        var inl = document.createElement('div');
+        inl.className = 'pv-inline-imgs';
+        inl.innerHTML = job.html;
+        job.ch.appendChild(inl);
+      }
+      if (pendingInline.length) schedule(drainOne);
+    }
+    if (pendingInline.length) schedule(drainOne);
   } else {
     pvBodyEl.classList.remove('has-chapters'); pvState.imgsets=[];
   }
