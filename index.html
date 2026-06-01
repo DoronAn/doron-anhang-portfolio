@@ -3261,7 +3261,7 @@ pvPositionAll();
   var scale = 1, minScale = 1, maxScale = 5;
   var panX = 0, panY = 0;
   var dragStartX = 0, dragStartY = 0, dragStartPanX = 0, dragStartPanY = 0;
-  var isDragging = false;
+  var isDragging = false, dragMoved = false, suppressBackdropClick = false;
   var pinchStartDist = 0, pinchStartScale = 1;
   var gallery = [], galleryIdx = 0;
 
@@ -3373,7 +3373,12 @@ pvPositionAll();
       lbCounter = lb.querySelector('.pv-lightbox-counter');
 
       lb.querySelector('.pv-lightbox-close').addEventListener('click', closeLightbox);
-      lb.addEventListener('click', function(e){ if (e.target === lb) closeLightbox(); });
+      // Backdrop click closes — but only if it wasn't the tail end of a pan-drag that
+      // started on the image and released over the backdrop (synthesized click target = lb).
+      lb.addEventListener('click', function(e){
+        if (suppressBackdropClick) { suppressBackdropClick = false; return; }
+        if (e.target === lb) closeLightbox();
+      });
       lbPrev.addEventListener('click', function(e){ e.stopPropagation(); showGalleryItem(galleryIdx - 1); });
       lbNext.addEventListener('click', function(e){ e.stopPropagation(); showGalleryItem(galleryIdx + 1); });
 
@@ -3389,17 +3394,25 @@ pvPositionAll();
       // Mouse drag
       lbFrame.addEventListener('mousedown', function(e){
         if (scale <= 1) return;
-        isDragging = true; dragStartX = e.clientX; dragStartY = e.clientY;
+        isDragging = true; dragMoved = false;
+        dragStartX = e.clientX; dragStartY = e.clientY;
         dragStartPanX = panX; dragStartPanY = panY;
         e.preventDefault();
       });
       window.addEventListener('mousemove', function(e){
         if (!isDragging) return;
-        panX = dragStartPanX + (e.clientX - dragStartX);
-        panY = dragStartPanY + (e.clientY - dragStartY);
+        var dx = e.clientX - dragStartX, dy = e.clientY - dragStartY;
+        if (!dragMoved && (dx*dx + dy*dy) > 9) dragMoved = true;  // >3px threshold
+        panX = dragStartPanX + dx;
+        panY = dragStartPanY + dy;
         clampPan(); applyTransform();
       });
-      window.addEventListener('mouseup', function(){ isDragging = false; });
+      window.addEventListener('mouseup', function(){
+        // If the user actually panned, swallow the synthetic click that follows on
+        // whatever element the mouseup landed over (often the backdrop).
+        if (isDragging && dragMoved) suppressBackdropClick = true;
+        isDragging = false;
+      });
 
       // Touch: pinch-zoom + drag
       lbFrame.addEventListener('touchstart', function(e){
