@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="960px" height="502.5px" viewBox="0 0 960 502.5" enable-background="new 0 0 960 502.5" xml:space="preserve">
+<g>
+	<rect x="0.55" y="36" fill="#EBD7BD" stroke="#D4B998" width="490" height="34"/>
+	<text transform="matrix(1 0 0 1 191.6855 55.6475)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Android Device</text>
+</g>
+<g>
+	<rect x="490.127" y="36" fill="#D6E4F0" stroke="#A8C2DC" width="469.727" height="34"/>
+	<text transform="matrix(1 0 0 1 675.1846 55.6475)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="11">AWS RDS (MySQL)</text>
+</g>
+<rect x="0.55" y="70.599" fill="#FDF8F0" stroke="#D4B998" width="490" height="356.368"/>
+<rect x="490.266" y="70.599" fill="#F0F4FA" stroke="#A8C2DC" width="469.449" height="356.368"/>
+<text transform="matrix(1 0 0 1 319.0576 22)" fill="#8E867A" font-family="'ArialMT'" font-size="11">PRIVACY-BY-DESIGN - ANONYMISATION ARCHITECTURE</text>
+<g>
+	<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M76,129.75h138c3.313,0,6,2.687,6,6v40c0,3.313-2.687,6-6,6H76
+		c-3.313,0-6-2.687-6-6v-40C70,132.437,72.687,129.75,76,129.75z"/>
+	<text transform="matrix(1 0 0 1 117.9854 151.75)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Device ID</text>
+	<text transform="matrix(1 0 0 1 110.8179 166.75)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">hardware serial</text>
+</g>
+<g>
+	<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M246,129.75h138c3.313,0,6,2.687,6,6v40c0,3.313-2.688,6-6,6H246
+		c-3.313,0-6-2.687-6-6v-40C240,132.437,242.687,129.75,246,129.75z"/>
+	<text transform="matrix(1 0 0 1 289.6611 151.75)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Reg time</text>
+	<text transform="matrix(1 0 0 1 291.9385 166.75)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">timestamp</text>
+</g>
+<g>
+	<path fill="#FAF4E8" stroke="#8E867A" stroke-width="1.5" d="M96,222.358h268c3.313,0,6,2.687,6,6v40c0,3.313-2.688,6-6,6H96
+		c-3.313,0-6-2.687-6-6v-40C90,225.045,92.687,222.358,96,222.358z"/>
+	<g>
+		<text transform="matrix(1 0 0 1 208.3262 244.3584)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Hash.kt</text>
+	</g>
+	<g>
+		<text transform="matrix(1 0 0 1 159.6899 259.3584)" fill="#5A554E" font-family="'ArialMT'" font-size="10">SHA on-device - never sent raw</text>
+	</g>
+</g>
+<g>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="370" y1="248.358" x2="401.5" y2="248.358"/>
+	<polygon fill="#5A554E" points="408.5,248.333 401.5,251.034 401.5,245.633 	"/>
+</g>
+<g>
+	<path fill="#FAF4E8" stroke="#8E867A" stroke-width="1.5" d="M414.5,221.208h148c3.313,0,6,2.687,6,6v40c0,3.313-2.688,6-6,6h-148
+		c-3.313,0-6-2.687-6-6v-40C408.5,223.895,411.188,221.208,414.5,221.208z"/>
+	<text transform="matrix(1 0 0 1 455.5029 243.208)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Anon token</text>
+	<g>
+		<text transform="matrix(1 0 0 1 446.8179 258.208)" fill="#5A554E" font-family="'ArialMT'" font-size="10">only ID transmitted</text>
+	</g>
+</g>
+<g>
+	<path fill="#F5D9D2" stroke="#D45645" stroke-width="1.5" d="M96,318.05h268c3.313,0,6,2.687,6,6v40c0,3.313-2.688,6-6,6H96
+		c-3.313,0-6-2.687-6-6v-40C90,320.736,92.687,318.05,96,318.05z"/>
+	<text transform="matrix(1 0 0 1 179.6563 340.0498)" fill="#6B2218" font-family="'Arial-BoldMT'" font-size="12">Email (raffle only)</text>
+	<text transform="matrix(1 0 0 1 146.6211 355.0498)" fill="#8E2E20" font-family="'ArialMT'" font-size="10">Server-hashed - never linked to token</text>
+</g>
+<text transform="matrix(1 0 0 1 155.6899 383.0498)" fill="#C9C0B2" font-family="'ArialMT'" font-size="9">isolated - not transmitted to main DB</text>
+<g>
+	<g>
+		<polyline fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" points="611.917,163.873 611.917,104.727 838.063,104.727 
+			838.063,163.873 		"/>
+		<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M611.917,163.873c0,6.732,50.623,12.177,113.073,12.177
+			c62.449,0,113.072-5.445,113.072-12.177"/>
+		<ellipse fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" cx="724.99" cy="104.727" rx="113.072" ry="12.177"/>
+	</g>
+	<text transform="matrix(1 0 0 1 692.6406 133.5)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="12">Users table</text>
+	<text transform="matrix(1 0 0 1 661.9043 148.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">token - age - major - area_id</text>
+	<text transform="matrix(1 0 0 1 665.7813 163.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">Joined via anon token only</text>
+</g>
+<g>
+	<g>
+		<polyline fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" points="611.917,273.873 611.917,214.727 838.063,214.727 
+			838.063,273.873 		"/>
+		<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M611.917,273.873c0,6.732,50.623,12.177,113.073,12.177
+			c62.449,0,113.072-5.444,113.072-12.177"/>
+		<ellipse fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" cx="724.99" cy="214.727" rx="113.072" ry="12.177"/>
+	</g>
+	<text transform="matrix(1 0 0 1 684.3203 245.5)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="12">Location table</text>
+	<text transform="matrix(1 0 0 1 659.1367 260.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">token - lat - lng - accuracy - ts</text>
+	<text transform="matrix(1 0 0 1 690.2471 275.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">No identity data</text>
+</g>
+<g>
+	<g>
+		<polyline fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" points="611.917,389.373 611.917,330.227 838.063,330.227 
+			838.063,389.373 		"/>
+		<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M611.917,389.373c0,6.732,50.623,12.177,113.073,12.177
+			c62.449,0,113.072-5.443,113.072-12.177"/>
+		<ellipse fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" cx="724.99" cy="330.227" rx="113.072" ry="12.177"/>
+	</g>
+	<text transform="matrix(1 0 0 1 689.3066 359.5)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="12">Survey table</text>
+	<text transform="matrix(1 0 0 1 657.1934 374.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">token - SCI-2 - URES answers</text>
+	<text transform="matrix(1 0 0 1 662.4541 389.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">Separate from location table</text>
+</g>
+<path fill="#FFFFFF" stroke="#8E867A" stroke-width="1.5" d="M64,436h832c2.209,0,4,1.791,4,4v22c0,2.209-1.791,4-4,4H64
+	c-2.209,0-4-1.791-4-4v-22C60,437.791,61.791,436,64,436z"/>
+<g>
+	<text transform="matrix(1 0 0 1 245.5498 455)" fill="#8E867A" font-family="'ArialMT'" font-size="11">No personal identifiers stored - Tables joined only via anon token - Email hashed separately</text>
+</g>
+<g>
+	<g>
+		<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M189.686,478h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
+			c-1.104,0-2-0.896-2-2v-8C187.686,478.896,188.581,478,189.686,478z"/>
+		<text transform="matrix(1 0 0 1 205.6855 487)" fill="#5A554E" font-family="'ArialMT'" font-size="10">Device-side processing</text>
+	</g>
+	<g>
+		<path fill="#FAF4E8" stroke="#8E867A" stroke-width="1.5" d="M363.352,478h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
+			c-1.104,0-2-0.896-2-2v-8C361.352,478.896,362.248,478,363.352,478z"/>
+		<text transform="matrix(1 0 0 1 379.3521 487)" fill="#5A554E" font-family="'ArialMT'" font-size="10">Hashing / anonymisation</text>
+	</g>
+	<g>
+		<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M537.019,478h8c1.105,0,2,0.896,2,2v8c0,1.104-0.895,2-2,2h-8
+			c-1.104,0-2-0.896-2-2v-8C535.019,478.896,535.915,478,537.019,478z"/>
+		<text transform="matrix(1 0 0 1 553.0195 487)" fill="#5A554E" font-family="'ArialMT'" font-size="10">Server storage</text>
+	</g>
+	<g>
+		<path fill="#F5D9D2" stroke="#D45645" stroke-width="1.5" d="M710.686,478h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
+			c-1.104,0-2-0.896-2-2v-8C708.686,478.896,709.581,478,710.686,478z"/>
+		<text transform="matrix(1 0 0 1 726.6855 487)" fill="#5A554E" font-family="'ArialMT'" font-size="10">Isolated (email)</text>
+	</g>
+</g>
+<g>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="590.5" y1="231.5" x2="590.5" y2="135.1"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="590.5" y1="135.1" x2="610.179" y2="135.1"/>
+	<polygon fill="#5A554E" points="612.179,135.1 605.179,137.8 605.179,132.4 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="568.5" y1="231.5" x2="590.839" y2="231.5"/>
+</g>
+<g>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="145" y1="200.15" x2="229.69" y2="200.15"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="229.69" y1="200.15" x2="229.69" y2="219.75"/>
+	<polygon fill="#5A554E" points="229.69,221.75 226.99,214.75 232.39,214.75 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="229.69" y1="200.15" x2="314.38" y2="200.15"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="314.38" y1="181.763" x2="314.38" y2="200.15"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="145" y1="181.763" x2="145" y2="200.15"/>
+</g>
+<g>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="591" y1="360.301" x2="591" y2="263.9"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="610.679" y1="360.301" x2="591" y2="360.301"/>
+	<polygon fill="#5A554E" points="605.679,363 605.679,357.6 612.679,360.301 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="591.339" y1="263.9" x2="569" y2="263.9"/>
+</g>
+<g>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="568.75" y1="248.384" x2="605.179" y2="248.384"/>
+	<polygon fill="#5A554E" points="612.179,248.359 605.179,251.059 605.179,245.658 	"/>
+</g>
+</svg>

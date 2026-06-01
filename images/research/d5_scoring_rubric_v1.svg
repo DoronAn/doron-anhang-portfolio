@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="711px" height="424.5px" viewBox="0 0 711 424.5" enable-background="new 0 0 711 424.5" xml:space="preserve">
+<text transform="matrix(1 0 0 1 172.4814 22)" fill="#8E867A" font-family="'ArialMT'" font-size="11">QUALITATIVE SPATIAL SCORING RUBRIC - 7 PARAMETERS · SCALE 1-5</text>
+<rect x="69.333" y="36" fill="#FAF4E8" stroke="#8E867A" width="95.917" height="24"/>
+<g>
+	<path fill="#FDF8F0" stroke="#E8B872" stroke-width="1.5" d="M33.5,197.948V64.053c0-1.129,3.314-2.044,7.402-2.044h629.195
+		c4.089,0,7.402,0.916,7.402,2.044v133.896c0,1.129-3.314,2.044-7.402,2.044H40.902C36.814,199.993,33.5,199.077,33.5,197.948z"/>
+	<path fill="#EBD7BD" stroke="#E8B872" stroke-width="1.5" d="M33.5,197.932V64.036c0-1.128,1.791-2.043,4-2.043h28
+		c2.209,0,4,0.915,4,2.043v133.896c0,1.129-1.791,2.044-4,2.044h-28C35.291,199.977,33.5,199.062,33.5,197.932z"/>
+	<rect x="51.5" y="62.75" fill="#EBD7BD" width="18.75" height="136.438"/>
+</g>
+<text transform="matrix(1 0 0 1 81.3335 52)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">Parameter</text>
+<rect x="167.5" y="36" fill="#FAF4E8" stroke="#8E867A" width="356" height="24"/>
+<text transform="matrix(1 0 0 1 179.5 52)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">What is scored</text>
+<rect x="525.5" y="36" fill="#FAF4E8" stroke="#8E867A" width="152" height="24"/>
+<text transform="matrix(1 0 0 1 538.5 52)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">Scale</text>
+<g>
+	<text transform="matrix(6.123234e-017 -1 1 6.123234e-017 57.5 186)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="13">Place Attachment</text>
+</g>
+<text transform="matrix(1 0 0 1 81.3335 80)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Control</text>
+<text transform="matrix(1 0 0 1 81.3335 94)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">PA — 1</text>
+<text transform="matrix(1 0 0 1 179.5 80)" fill="#3A3024" font-family="'ArialMT'" font-size="10">Degree of resident agency over private, semi-private and</text>
+<text transform="matrix(1 0 0 1 179.5 94)" fill="#3A3024" font-family="'ArialMT'" font-size="10">shared spaces; personalisation opportunities</text>
+<text transform="matrix(1 0 0 1 538.5 85)" fill="#5A554E" font-family="'ArialMT'" font-size="10">1 (none) → 5 (full)</text>
+<text transform="matrix(1 0 0 1 81.3335 126)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Views</text>
+<text transform="matrix(1 0 0 1 81.3335 140)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">PA — 2</text>
+<text transform="matrix(1 0 0 1 179.5 126)" fill="#3A3024" font-family="'ArialMT'" font-size="10">Quality and variety of visual outlook from units and communal</text>
+<text transform="matrix(1 0 0 1 179.5 140)" fill="#3A3024" font-family="'ArialMT'" font-size="10">areas; natural vs. built ratio in the field of view</text>
+<text transform="matrix(1 0 0 1 538.5 131)" fill="#5A554E" font-family="'ArialMT'" font-size="10">1 (poor) → 5 (rich)</text>
+<text transform="matrix(1 0 0 1 81.3335 172)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Scale</text>
+<g>
+	<path fill="#F0F4FA" stroke="#5A95C8" stroke-width="1.5" d="M33.5,387.289V209.711c0-1.497,3.314-2.711,7.402-2.711h629.195
+		c4.089,0,7.402,1.214,7.402,2.711v177.578c0,1.497-3.314,2.711-7.402,2.711H40.902C36.814,390,33.5,388.786,33.5,387.289z"/>
+	<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M33.5,387.289V209.711c0-1.497,1.791-2.711,4-2.711h28
+		c2.209,0,4,1.214,4,2.711v177.578c0,1.497-1.791,2.711-4,2.711h-28C35.291,390,33.5,388.786,33.5,387.289z"/>
+	<rect x="51.5" y="207.75" fill="#D6E4F0" width="18.75" height="181.5"/>
+</g>
+<text transform="matrix(1 0 0 1 81.3335 186)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">PA — 3</text>
+<text transform="matrix(1 0 0 1 179.5 172)" fill="#3A3024" font-family="'ArialMT'" font-size="10">Building mass and height relative to human scale; perceived</text>
+<text transform="matrix(1 0 0 1 179.5 186)" fill="#3A3024" font-family="'ArialMT'" font-size="10">intimacy vs. institutional dominance of the compound</text>
+<text transform="matrix(1 0 0 1 538.5 177)" fill="#5A554E" font-family="'ArialMT'" font-size="10">1 (imposing) → 5 (human)</text>
+<g>
+	<text transform="matrix(6.123234e-017 -1 1 6.123234e-017 57.5 350)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="13">Informal Contact</text>
+</g>
+<text transform="matrix(1 0 0 1 81.3335 224)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Strollability</text>
+<g>
+	<text transform="matrix(1 0 0 1 81.3335 238)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">IC — 1</text>
+</g>
+<text transform="matrix(1 0 0 1 179.5 224)" fill="#3A3024" font-family="'ArialMT'" font-size="10">Legibility and enjoyability of circulation paths; degree to which</text>
+<text transform="matrix(1 0 0 1 179.5 238)" fill="#3A3024" font-family="'ArialMT'" font-size="10">layout encourages spontaneous pedestrian movement</text>
+<text transform="matrix(1 0 0 1 538.5 229)" fill="#5A554E" font-family="'ArialMT'" font-size="10">1 (hostile) → 5 (inviting)</text>
+<text transform="matrix(1 0 0 1 81.3335 270)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Buffers</text>
+<g>
+	<text transform="matrix(1 0 0 1 81.3335 284)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">IC — 2</text>
+</g>
+<text transform="matrix(1 0 0 1 179.5 270)" fill="#3A3024" font-family="'ArialMT'" font-size="10">Layering of private → semi-private → communal → campus</text>
+<text transform="matrix(1 0 0 1 179.5 284)" fill="#3A3024" font-family="'ArialMT'" font-size="10">zones; resident control over social exposure gradient</text>
+<text transform="matrix(1 0 0 1 538.5 275)" fill="#5A554E" font-family="'ArialMT'" font-size="10">1 (binary) → 5 (transitional)</text>
+<text transform="matrix(1 0 0 1 81.3335 316)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Opportunities</text>
+<g>
+	<text transform="matrix(1 0 0 1 81.3335 330)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">IC — 3</text>
+</g>
+<text transform="matrix(1 0 0 1 179.5 316)" fill="#3A3024" font-family="'ArialMT'" font-size="10">Density and variety of shared programme nodes (lounges,</text>
+<text transform="matrix(1 0 0 1 179.5 330)" fill="#3A3024" font-family="'ArialMT'" font-size="10">kitchens, outdoor seating) that generate chance encounters</text>
+<text transform="matrix(1 0 0 1 538.5 321)" fill="#5A554E" font-family="'ArialMT'" font-size="10">1 (scarce) → 5 (abundant)</text>
+<text transform="matrix(1 0 0 1 81.3335 362)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Perception</text>
+<g>
+	<text transform="matrix(1 0 0 1 81.3335 376)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">IC — 4</text>
+</g>
+<text transform="matrix(1 0 0 1 179.5 362)" fill="#3A3024" font-family="'ArialMT'" font-size="10">Overall aesthetic quality, sense of distinctiveness and character;</text>
+<text transform="matrix(1 0 0 1 179.5 376)" fill="#3A3024" font-family="'ArialMT'" font-size="10">whether the compound feels like a place worth inhabiting</text>
+<text transform="matrix(1 0 0 1 538.5 367)" fill="#5A554E" font-family="'ArialMT'" font-size="10">1 (bleak) → 5 (remarkable)</text>
+<text transform="matrix(1 0 0 1 51.5 410)" fill="#C9C0B2" font-family="'ArialMT'" font-size="10">Scores assigned through direct architectural observation · benchmarked against literature on Place Attachment and Informal Contact theory</text>
+<line fill="none" stroke="#A8C2DC" x1="77.333" y1="252" x2="671.417" y2="252"/>
+<line fill="none" stroke="#A8C2DC" x1="77.333" y1="298.5" x2="671.417" y2="298.5"/>
+<line fill="none" stroke="#A8C2DC" x1="77.333" y1="344" x2="671.417" y2="344"/>
+<line fill="none" stroke="#D4B998" x1="77.333" y1="108" x2="673.084" y2="108"/>
+<line fill="none" stroke="#D4B998" x1="77.333" y1="154" x2="673.084" y2="154"/>
+</svg>
