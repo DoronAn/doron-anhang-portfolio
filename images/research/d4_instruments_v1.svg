@@ -3,124 +3,124 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="960px" height="420px" viewBox="0 0 960 420" enable-background="new 0 0 960 420" xml:space="preserve">
-<text transform="matrix(1 0 0 1 302 22)" fill="#999999" font-family="'ArialMT'" font-size="11">QUANTITATIVE INSTRUMENTS - URES · SCI-2 · GPS TELEMETRY</text>
+<text transform="matrix(1 0 0 1 302 22)" fill="#8E867A" font-family="'ArialMT'" font-size="11">QUANTITATIVE INSTRUMENTS - URES · SCI-2 · GPS TELEMETRY</text>
 <g>
-	<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M44.039,38h262c2.209,0,4,1.791,4,4v340c0,2.209-1.791,4-4,4h-262
+	<path fill="#F0F4FA" stroke="#5A95C8" stroke-width="1.5" d="M44.039,38h262c2.209,0,4,1.791,4,4v340c0,2.209-1.791,4-4,4h-262
 		c-2.209,0-4-1.791-4-4V42C40.039,39.791,41.83,38,44.039,38z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M174.771,284h121.707c0.84,0,1.521,0.984,1.521,2.2v17.6c0,1.216-0.681,2.2-1.521,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M174.771,284h121.707c0.84,0,1.521,0.984,1.521,2.2v17.6c0,1.216-0.681,2.2-1.521,2.2
 		H174.771c-0.84,0-1.521-0.984-1.521-2.2v-17.6C173.25,284.984,173.931,284,174.771,284z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M53.378,284h110.244c0.761,0,1.378,0.984,1.378,2.2v17.6c0,1.216-0.617,2.2-1.378,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M53.378,284h110.244c0.761,0,1.378,0.984,1.378,2.2v17.6c0,1.216-0.617,2.2-1.378,2.2
 		H53.378c-0.761,0-1.378-0.984-1.378-2.2v-17.6C52,284.984,52.617,284,53.378,284z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M174.771,254.125h121.707c0.84,0,1.521,0.984,1.521,2.2v17.6c0,1.216-0.681,2.2-1.521,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M174.771,254.125h121.707c0.84,0,1.521,0.984,1.521,2.2v17.6c0,1.216-0.681,2.2-1.521,2.2
 		H174.771c-0.84,0-1.521-0.984-1.521-2.2v-17.6C173.25,255.109,173.931,254.125,174.771,254.125z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M53.378,254.125h110.244c0.761,0,1.378,0.984,1.378,2.2v17.6c0,1.216-0.617,2.2-1.378,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M53.378,254.125h110.244c0.761,0,1.378,0.984,1.378,2.2v17.6c0,1.216-0.617,2.2-1.378,2.2
 		H53.378c-0.761,0-1.378-0.984-1.378-2.2v-17.6C52,255.109,52.617,254.125,53.378,254.125z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M174.771,224.25h121.707c0.84,0,1.521,0.984,1.521,2.2v17.6c0,1.216-0.681,2.2-1.521,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M174.771,224.25h121.707c0.84,0,1.521,0.984,1.521,2.2v17.6c0,1.216-0.681,2.2-1.521,2.2
 		H174.771c-0.84,0-1.521-0.984-1.521-2.2v-17.6C173.25,225.234,173.931,224.25,174.771,224.25z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M53.378,224.25h110.244c0.761,0,1.378,0.984,1.378,2.2v17.6c0,1.216-0.617,2.2-1.378,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M53.378,224.25h110.244c0.761,0,1.378,0.984,1.378,2.2v17.6c0,1.216-0.617,2.2-1.378,2.2
 		H53.378c-0.761,0-1.378-0.984-1.378-2.2v-17.6C52,225.234,52.617,224.25,53.378,224.25z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M174.771,194.375h121.707c0.84,0,1.521,0.985,1.521,2.2v17.6c0,1.216-0.681,2.2-1.521,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M174.771,194.375h121.707c0.84,0,1.521,0.985,1.521,2.2v17.6c0,1.216-0.681,2.2-1.521,2.2
 		H174.771c-0.84,0-1.521-0.984-1.521-2.2v-17.6C173.25,195.36,173.931,194.375,174.771,194.375z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M53.378,194.375h110.244c0.761,0,1.378,0.985,1.378,2.2v17.6c0,1.216-0.617,2.2-1.378,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M53.378,194.375h110.244c0.761,0,1.378,0.985,1.378,2.2v17.6c0,1.216-0.617,2.2-1.378,2.2
 		H53.378c-0.761,0-1.378-0.984-1.378-2.2v-17.6C52,195.36,52.617,194.375,53.378,194.375z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M174.771,164.5h121.707c0.84,0,1.521,0.985,1.521,2.2v17.6c0,1.215-0.681,2.2-1.521,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M174.771,164.5h121.707c0.84,0,1.521,0.985,1.521,2.2v17.6c0,1.215-0.681,2.2-1.521,2.2
 		H174.771c-0.84,0-1.521-0.985-1.521-2.2v-17.6C173.25,165.485,173.931,164.5,174.771,164.5z"/>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M53.378,164.5h110.244c0.761,0,1.378,0.985,1.378,2.2v17.6c0,1.215-0.617,2.2-1.378,2.2
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M53.378,164.5h110.244c0.761,0,1.378,0.985,1.378,2.2v17.6c0,1.215-0.617,2.2-1.378,2.2
 		H53.378c-0.761,0-1.378-0.985-1.378-2.2v-17.6C52,165.485,52.617,164.5,53.378,164.5z"/>
-	<path fill="#D8E6F5" stroke="#7A9EC8" stroke-width="1.5" d="M44,38h262c2.209,0,4,1.791,4,4v28c0,2.209-1.791,4-4,4H44
+	<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M44,38h262c2.209,0,4,1.791,4,4v28c0,2.209-1.791,4-4,4H44
 		c-2.209,0-4-1.791-4-4V42C40,39.791,41.791,38,44,38z"/>
-	<rect x="40.75" y="55.167" fill="#D8E6F5" width="268.458" height="19.667"/>
-	<text transform="matrix(1 0 0 1 156.9795 55)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="13">URES</text>
-	<text transform="matrix(1 0 0 1 93.7529 67)" fill="#0A1E3A" font-family="'ArialMT'" font-size="9">University Residence Environment Scale</text>
-	<text transform="matrix(1 0 0 1 52 90)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">What it measures</text>
-	<text transform="matrix(1 0 0 1 52 105)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">Social climate of student housing across</text>
-	<text transform="matrix(1 0 0 1 52 119)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">10 validated subscales.</text>
-	<text transform="matrix(1 0 0 1 52 133)" fill="#4A6A9A" font-family="'ArialMT'" font-size="8">*Translated to Hebrew for this study.</text>
-	<line fill="none" stroke="#C0D0E8" x1="52" y1="145" x2="298" y2="145"/>
-	<text transform="matrix(1 0 0 1 52 160)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">10 Subscales</text>
-	<text transform="matrix(1 0 0 1 58 179)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">1  Involvement</text>
-	<text transform="matrix(1 0 0 1 58 209)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">2  Emotional support</text>
-	<text transform="matrix(1 0 0 1 58 239)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">3  Independence</text>
-	<text transform="matrix(1 0 0 1 58 269)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">4  Traditional social</text>
-	<text transform="matrix(1 0 0 1 58 299)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">5  Competition</text>
-	<text transform="matrix(1 0 0 1 179 179)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">6  Academic achievement</text>
-	<text transform="matrix(1 0 0 1 179 209)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">7  Intellectuality</text>
-	<text transform="matrix(1 0 0 1 179 239)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">8  Order &amp; organisation</text>
-	<text transform="matrix(1 0 0 1 179 269)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">9  Student influence</text>
-	<text transform="matrix(1 0 0 1 179 299)" fill="#0A1E3A" font-family="'ArialMT'" font-size="10">10  Innovation</text>
-	<line fill="none" stroke="#C0D0E8" x1="52" y1="318" x2="298" y2="318"/>
-	<text transform="matrix(1 0 0 1 52 334)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">Format</text>
-	<text transform="matrix(1 0 0 1 52 349)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">86-item true/false questionnaire</text>
-	<text transform="matrix(1 0 0 1 52 363)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">Scores normalised 0–1 per subscale</text>
+	<rect x="40.75" y="55.167" fill="#D6E4F0" width="268.458" height="19.667"/>
+	<text transform="matrix(1 0 0 1 156.9795 55)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="13">URES</text>
+	<text transform="matrix(1 0 0 1 93.7529 67)" fill="#0F4A82" font-family="'ArialMT'" font-size="9">University Residence Environment Scale</text>
+	<text transform="matrix(1 0 0 1 52 90)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">What it measures</text>
+	<text transform="matrix(1 0 0 1 52 105)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">Social climate of student housing across</text>
+	<text transform="matrix(1 0 0 1 52 119)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">10 validated subscales.</text>
+	<text transform="matrix(1 0 0 1 52 133)" fill="#2E7CB8" font-family="'ArialMT'" font-size="8">*Translated to Hebrew for this study.</text>
+	<line fill="none" stroke="#A8C2DC" x1="52" y1="145" x2="298" y2="145"/>
+	<text transform="matrix(1 0 0 1 52 160)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">10 Subscales</text>
+	<text transform="matrix(1 0 0 1 58 179)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">1  Involvement</text>
+	<text transform="matrix(1 0 0 1 58 209)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">2  Emotional support</text>
+	<text transform="matrix(1 0 0 1 58 239)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">3  Independence</text>
+	<text transform="matrix(1 0 0 1 58 269)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">4  Traditional social</text>
+	<text transform="matrix(1 0 0 1 58 299)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">5  Competition</text>
+	<text transform="matrix(1 0 0 1 179 179)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">6  Academic achievement</text>
+	<text transform="matrix(1 0 0 1 179 209)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">7  Intellectuality</text>
+	<text transform="matrix(1 0 0 1 179 239)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">8  Order &amp; organisation</text>
+	<text transform="matrix(1 0 0 1 179 269)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">9  Student influence</text>
+	<text transform="matrix(1 0 0 1 179 299)" fill="#0F4A82" font-family="'ArialMT'" font-size="10">10  Innovation</text>
+	<line fill="none" stroke="#A8C2DC" x1="52" y1="318" x2="298" y2="318"/>
+	<text transform="matrix(1 0 0 1 52 334)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">Format</text>
+	<text transform="matrix(1 0 0 1 52 349)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">86-item true/false questionnaire</text>
+	<text transform="matrix(1 0 0 1 52 363)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">Scores normalised 0–1 per subscale</text>
 </g>
 <g>
-	<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M349,38h262c2.209,0,4,1.791,4,4v340c0,2.209-1.791,4-4,4H349
+	<path fill="#F0F4FA" stroke="#5A95C8" stroke-width="1.5" d="M349,38h262c2.209,0,4,1.791,4,4v340c0,2.209-1.791,4-4,4H349
 		c-2.209,0-4-1.791-4-4V42C345,39.791,346.791,38,349,38z"/>
-	<path fill="#D8E6F5" stroke="#7A9EC8" stroke-width="1.5" d="M349,38h262c2.209,0,4,1.791,4,4v28c0,2.209-1.791,4-4,4H349
+	<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M349,38h262c2.209,0,4,1.791,4,4v28c0,2.209-1.791,4-4,4H349
 		c-2.209,0-4-1.791-4-4V42C345,39.791,346.791,38,349,38z"/>
-	<rect x="345.75" y="56" fill="#D8E6F5" width="268.5" height="18.75"/>
-	<text transform="matrix(1 0 0 1 463.3848 55)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="13">SCI-2</text>
-	<text transform="matrix(1 0 0 1 396.9541 67)" fill="#0A1E3A" font-family="'ArialMT'" font-size="9">Sense of Community Index — 2nd edition</text>
-	<text transform="matrix(1 0 0 1 357 90)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">What it measures</text>
-	<text transform="matrix(1 0 0 1 357 105)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">Residents&apos; subjective sense of community</text>
-	<text transform="matrix(1 0 0 1 357 119)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">across 4 dimensions.</text>
-	<text transform="matrix(1 0 0 1 357 133)" fill="#4A6A9A" font-family="'ArialMT'" font-size="8">*Translated to Hebrew for this study.</text>
-	<line fill="none" stroke="#C0D0E8" x1="357" y1="145" x2="603" y2="145"/>
-	<text transform="matrix(1 0 0 1 357 160)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">4 Dimensions</text>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M360,168h240c1.657,0,3,1.343,3,3v24c0,1.657-1.343,3-3,3H360c-1.657,0-3-1.343-3-3v-24
+	<rect x="345.75" y="56" fill="#D6E4F0" width="268.5" height="18.75"/>
+	<text transform="matrix(1 0 0 1 463.3848 55)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="13">SCI-2</text>
+	<text transform="matrix(1 0 0 1 396.9541 67)" fill="#0F4A82" font-family="'ArialMT'" font-size="9">Sense of Community Index — 2nd edition</text>
+	<text transform="matrix(1 0 0 1 357 90)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">What it measures</text>
+	<text transform="matrix(1 0 0 1 357 105)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">Residents&apos; subjective sense of community</text>
+	<text transform="matrix(1 0 0 1 357 119)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">across 4 dimensions.</text>
+	<text transform="matrix(1 0 0 1 357 133)" fill="#2E7CB8" font-family="'ArialMT'" font-size="8">*Translated to Hebrew for this study.</text>
+	<line fill="none" stroke="#A8C2DC" x1="357" y1="145" x2="603" y2="145"/>
+	<text transform="matrix(1 0 0 1 357 160)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">4 Dimensions</text>
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M360,168h240c1.657,0,3,1.343,3,3v24c0,1.657-1.343,3-3,3H360c-1.657,0-3-1.343-3-3v-24
 		C357,169.343,358.343,168,360,168z"/>
-	<text transform="matrix(1 0 0 1 365 181)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="10">1  Membership</text>
-	<text transform="matrix(1 0 0 1 365 192)" fill="#4A6A9A" font-family="'ArialMT'" font-size="9">sense of belonging to the group</text>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M360,204h240c1.657,0,3,1.343,3,3v24c0,1.657-1.343,3-3,3H360c-1.657,0-3-1.343-3-3v-24
+	<text transform="matrix(1 0 0 1 365 181)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="10">1  Membership</text>
+	<text transform="matrix(1 0 0 1 365 192)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">sense of belonging to the group</text>
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M360,204h240c1.657,0,3,1.343,3,3v24c0,1.657-1.343,3-3,3H360c-1.657,0-3-1.343-3-3v-24
 		C357,205.343,358.343,204,360,204z"/>
-	<text transform="matrix(1 0 0 1 365 217)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="10">2  Influence</text>
-	<text transform="matrix(1 0 0 1 365 228)" fill="#4A6A9A" font-family="'ArialMT'" font-size="9">mattering to and being shaped by the group</text>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M360,240h240c1.657,0,3,1.344,3,3v24c0,1.656-1.343,3-3,3H360c-1.657,0-3-1.344-3-3v-24
+	<text transform="matrix(1 0 0 1 365 217)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="10">2  Influence</text>
+	<text transform="matrix(1 0 0 1 365 228)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">mattering to and being shaped by the group</text>
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M360,240h240c1.657,0,3,1.344,3,3v24c0,1.656-1.343,3-3,3H360c-1.657,0-3-1.344-3-3v-24
 		C357,241.344,358.343,240,360,240z"/>
-	<text transform="matrix(1 0 0 1 365 253)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="10">3  Integration &amp; Fulfilment of Needs</text>
-	<text transform="matrix(1 0 0 1 365 264)" fill="#4A6A9A" font-family="'ArialMT'" font-size="9">shared values; needs met through membership</text>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M360,276h240c1.657,0,3,1.344,3,3v24c0,1.656-1.343,3-3,3H360c-1.657,0-3-1.344-3-3v-24
+	<text transform="matrix(1 0 0 1 365 253)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="10">3  Integration &amp; Fulfilment of Needs</text>
+	<text transform="matrix(1 0 0 1 365 264)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">shared values; needs met through membership</text>
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M360,276h240c1.657,0,3,1.344,3,3v24c0,1.656-1.343,3-3,3H360c-1.657,0-3-1.344-3-3v-24
 		C357,277.344,357,275.636,360,276L360,276z"/>
-	<text transform="matrix(1 0 0 1 365 289)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="10">4  Shared Emotional Connection</text>
-	<text transform="matrix(1 0 0 1 365 300)" fill="#4A6A9A" font-family="'ArialMT'" font-size="9">shared history, investment, bond</text>
-	<line fill="none" stroke="#C0D0E8" x1="357" y1="318" x2="603" y2="318"/>
-	<text transform="matrix(1 0 0 1 357 334)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">Format</text>
-	<text transform="matrix(1 0 0 1 357 349)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">24-item Likert scale (1–4)</text>
-	<text transform="matrix(1 0 0 1 357 363)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">Scores normalised 0–1 per dimension</text>
+	<text transform="matrix(1 0 0 1 365 289)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="10">4  Shared Emotional Connection</text>
+	<text transform="matrix(1 0 0 1 365 300)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">shared history, investment, bond</text>
+	<line fill="none" stroke="#A8C2DC" x1="357" y1="318" x2="603" y2="318"/>
+	<text transform="matrix(1 0 0 1 357 334)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">Format</text>
+	<text transform="matrix(1 0 0 1 357 349)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">24-item Likert scale (1–4)</text>
+	<text transform="matrix(1 0 0 1 357 363)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">Scores normalised 0–1 per dimension</text>
 </g>
 <g>
-	<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M653.969,38h262c2.209,0,4,1.791,4,4v340c0,2.209-1.791,4-4,4h-262
+	<path fill="#FDF8F0" stroke="#E8B872" stroke-width="1.5" d="M653.969,38h262c2.209,0,4,1.791,4,4v340c0,2.209-1.791,4-4,4h-262
 		c-2.209,0-4-1.791-4-4V42C649.969,39.791,651.76,38,653.969,38z"/>
-	<path fill="#F5E8D0" stroke="#C8A96E" stroke-width="1.5" d="M654,38h262c2.209,0,4,1.791,4,4v28c0,2.209-1.791,4-4,4H654
+	<path fill="#EBD7BD" stroke="#E8B872" stroke-width="1.5" d="M654,38h262c2.209,0,4,1.791,4,4v28c0,2.209-1.791,4-4,4H654
 		c-2.209,0-4-1.791-4-4V42C650,39.791,651.791,38,654,38z"/>
-	<rect x="650.75" y="56" fill="#F5E8D0" width="268.438" height="18.75"/>
-	<text transform="matrix(1 0 0 1 771.2422 55)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="13">GPS</text>
-	<text transform="matrix(1 0 0 1 695.0938 67)" fill="#3A2A0A" font-family="'ArialMT'" font-size="9">Passive Background Telemetry — NKDT App</text>
-	<text transform="matrix(1 0 0 1 662 90)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">What it measures</text>
-	<text transform="matrix(1 0 0 1 662 105)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">Actual movement patterns of participants</text>
-	<text transform="matrix(1 0 0 1 662 119)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">through and between compounds over</text>
-	<text transform="matrix(1 0 0 1 662 133)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">the study period. Runs in background.</text>
-	<line fill="none" stroke="#DDD0B8" x1="662" y1="145" x2="908" y2="145"/>
-	<text transform="matrix(1 0 0 1 662 160)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">Collection parameters</text>
-	<path fill="#FDF8F0" stroke="#C8A96E" d="M665,168h240c1.657,0,3,1.343,3,3v16c0,1.657-1.343,3-3,3H665c-1.657,0-3-1.343-3-3v-16
+	<rect x="650.75" y="56" fill="#EBD7BD" width="268.438" height="18.75"/>
+	<text transform="matrix(1 0 0 1 771.2422 55)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="13">GPS</text>
+	<text transform="matrix(1 0 0 1 695.0938 67)" fill="#3A3024" font-family="'ArialMT'" font-size="9">Passive Background Telemetry — NKDT App</text>
+	<text transform="matrix(1 0 0 1 662 90)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">What it measures</text>
+	<text transform="matrix(1 0 0 1 662 105)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">Actual movement patterns of participants</text>
+	<text transform="matrix(1 0 0 1 662 119)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">through and between compounds over</text>
+	<text transform="matrix(1 0 0 1 662 133)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">the study period. Runs in background.</text>
+	<line fill="none" stroke="#D4B998" x1="662" y1="145" x2="908" y2="145"/>
+	<text transform="matrix(1 0 0 1 662 160)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">Collection parameters</text>
+	<path fill="#F5E6D3" stroke="#E8B872" d="M665,168h240c1.657,0,3,1.343,3,3v16c0,1.657-1.343,3-3,3H665c-1.657,0-3-1.343-3-3v-16
 		C662,169.343,663.343,168,665,168z"/>
-	<text transform="matrix(1 0 0 1 670 183)" fill="#3A2A0A" font-family="'ArialMT'" font-size="10">10-minute polling interval · persists on reboot</text>
-	<path fill="#FDF8F0" stroke="#C8A96E" d="M665,196h240c1.657,0,3,1.343,3,3v16c0,1.657-1.343,3-3,3H665c-1.657,0-3-1.343-3-3v-16
+	<text transform="matrix(1 0 0 1 670 183)" fill="#3A3024" font-family="'ArialMT'" font-size="10">10-minute polling interval · persists on reboot</text>
+	<path fill="#F5E6D3" stroke="#E8B872" d="M665,196h240c1.657,0,3,1.343,3,3v16c0,1.657-1.343,3-3,3H665c-1.657,0-3-1.343-3-3v-16
 		C662,197.343,663.343,196,665,196z"/>
-	<text transform="matrix(1 0 0 1 670 211)" fill="#3A2A0A" font-family="'ArialMT'" font-size="10">Geofenced to Ariel city limits</text>
-	<path fill="#FDF8F0" stroke="#C8A96E" d="M665,224h240c1.657,0,3,1.343,3,3v16c0,1.656-1.343,3-3,3H665c-1.657,0-3-1.344-3-3v-16
+	<text transform="matrix(1 0 0 1 670 211)" fill="#3A3024" font-family="'ArialMT'" font-size="10">Geofenced to Ariel city limits</text>
+	<path fill="#F5E6D3" stroke="#E8B872" d="M665,224h240c1.657,0,3,1.343,3,3v16c0,1.656-1.343,3-3,3H665c-1.657,0-3-1.344-3-3v-16
 		C662,225.343,663.343,224,665,224z"/>
-	<text transform="matrix(1 0 0 1 670 239)" fill="#3A2A0A" font-family="'ArialMT'" font-size="10">On-campus: coordinate → cluster centroid</text>
-	<path fill="#FDF8F0" stroke="#C8A96E" d="M665,252h240c1.657,0,3,1.344,3,3v16c0,1.656-1.343,3-3,3H665c-1.657,0-3-1.344-3-3v-16
+	<text transform="matrix(1 0 0 1 670 239)" fill="#3A3024" font-family="'ArialMT'" font-size="10">On-campus: coordinate → cluster centroid</text>
+	<path fill="#F5E6D3" stroke="#E8B872" d="M665,252h240c1.657,0,3,1.344,3,3v16c0,1.656-1.343,3-3,3H665c-1.657,0-3-1.344-3-3v-16
 		C662,253.344,663.343,252,665,252z"/>
-	<text transform="matrix(1 0 0 1 670 267)" fill="#3A2A0A" font-family="'ArialMT'" font-size="10">3,955 datapoints across 25 participants</text>
-	<line fill="none" stroke="#DDD0B8" x1="662" y1="288" x2="908" y2="288"/>
-	<text transform="matrix(1 0 0 1 662 304)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">Role in the methodology</text>
-	<text transform="matrix(1 0 0 1 662 319)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">Calibrates survey results: confirms</text>
-	<text transform="matrix(1 0 0 1 662 333)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">or challenges self-reported SoC by</text>
-	<text transform="matrix(1 0 0 1 662 347)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">showing actual spatial behaviour.</text>
+	<text transform="matrix(1 0 0 1 670 267)" fill="#3A3024" font-family="'ArialMT'" font-size="10">3,955 datapoints across 25 participants</text>
+	<line fill="none" stroke="#D4B998" x1="662" y1="288" x2="908" y2="288"/>
+	<text transform="matrix(1 0 0 1 662 304)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">Role in the methodology</text>
+	<text transform="matrix(1 0 0 1 662 319)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">Calibrates survey results: confirms</text>
+	<text transform="matrix(1 0 0 1 662 333)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">or challenges self-reported SoC by</text>
+	<text transform="matrix(1 0 0 1 662 347)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">showing actual spatial behaviour.</text>
 </g>
-<text transform="matrix(1 0 0 1 58 402)" fill="#BBBBBB" font-family="'ArialMT'" font-size="10">URES and SCI-2 are validated psychometric instruments · translated to Hebrew and administered via the NKDT (&quot;</text>
-<text transform="matrix(1 0 0 1 611.043 402)" fill="#BBBBBB" font-family="'ArialMT'" font-size="10">תודוקנ טקיורפ</text>
-<text transform="matrix(1 0 0 1 617.2676 402)" fill="#BBBBBB" font-family="'ArialMT'" font-size="10">&quot;) Android app · GPS collected passively with participant consent</text>
+<text transform="matrix(1 0 0 1 58 402)" fill="#C9C0B2" font-family="'ArialMT'" font-size="10">URES and SCI-2 are validated psychometric instruments · translated to Hebrew and administered via the NKDT (&quot;</text>
+<text transform="matrix(1 0 0 1 659.7441 402)" fill="#C9C0B2" font-family="'ArialMT'" font-size="10">תודוקנ טקיורפ</text>
+<text transform="matrix(1 0 0 1 617.2676 402)" fill="#C9C0B2" font-family="'ArialMT'" font-size="10">&quot;) Android app · GPS collected passively with participant consent</text>
 </svg>

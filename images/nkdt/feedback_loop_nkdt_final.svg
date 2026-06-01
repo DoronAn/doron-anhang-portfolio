@@ -8,7 +8,7 @@
 <desc  style="fill:rgb(0, 0, 0);stroke:none;color:rgb(0, 0, 0);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">
 	Five-stage circular feedback loop: spatial design leads to residents living, data collection, statistical analysis, and design iteration, which feeds back into spatial design.
 	</desc>
-<path fill="#3B6D11" enable-background="new    " d="M0,0"/>
+<path fill="#6CB68A" enable-background="new    " d="M0,0"/>
 <g>
 	<defs>
 		<polygon id="SVGID_2_" points="1,1 2,1 1,2 		"/>
@@ -92,35 +92,35 @@
 </g>
 <g>
 	
-		<circle fill="none" stroke="#F7D6CB" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="4,5" cx="322.089" cy="207.112" r="120.251"/>
-	<text transform="matrix(1 0 0 1 272.75 201.9116)" fill="#141413" font-family="'ArialMT'" font-size="20">Architecture</text>
+		<circle fill="none" stroke="#F5D9D2" stroke-width="2" stroke-miterlimit="10" stroke-dasharray="4,5" cx="322.089" cy="207.112" r="120.251"/>
+	<text transform="matrix(1 0 0 1 272.75 201.9116)" fill="#3A3024" font-family="'ArialMT'" font-size="20">Architecture</text>
 	
-		<text transform="matrix(1 0 0 1 276.479 219.9126)" opacity="0.7" fill="#3D3D3A" enable-background="new    " font-family="'ArialMT'" font-size="15">as a laboratory</text>
+		<text transform="matrix(1 0 0 1 276.479 219.9126)" opacity="0.7" fill="#3A3024" enable-background="new    " font-family="'ArialMT'" font-size="15">as a laboratory</text>
 	<g onclick="sendPrompt('How are spatial design decisions made in NKDT?')">
-		<path fill="#FAECE7" stroke="#993C1D" stroke-width="0.5" d="M344.284,62.537h220.542c3.206,0,5.806,2.416,5.806,5.399v39.601
+		<path fill="#F5D9D2" stroke="#8E2E20" stroke-width="0.5" d="M344.284,62.537h220.542c3.206,0,5.806,2.416,5.806,5.399v39.601
 			c0,2.981-2.6,5.399-5.806,5.399H344.284c-3.205,0-5.805-2.417-5.805-5.399V67.936C338.479,64.955,341.078,62.537,344.284,62.537z"
 			/>
-		<text transform="matrix(1 0 0 1 414.9775 81.437)" fill="#712B13" font-family="'ArialMT'" font-size="12.6">Spatial design</text>
-		<text transform="matrix(1 0 0 1 350.1045 97.6353)" fill="#993C1D" font-family="'ArialMT'" font-size="10.8">Module placement · void strategy · typology</text>
+		<text transform="matrix(1 0 0 1 414.9775 81.437)" fill="#8E2E20" font-family="'ArialMT'" font-size="12.6">Spatial design</text>
+		<text transform="matrix(1 0 0 1 350.1045 97.6353)" fill="#8E2E20" font-family="'ArialMT'" font-size="10.8">Module placement · void strategy · typology</text>
 	</g>
 	<g onclick="sendPrompt('How do residents move through and interact with the NKDT building?')">
-		<path fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5" d="M420.382,226.012h131.399c2.982,0,5.4,2.418,5.4,5.4v39.6
+		<path fill="#D6E4F0" stroke="#2E7CB8" stroke-width="0.5" d="M420.382,226.012h131.399c2.982,0,5.4,2.418,5.4,5.4v39.6
 			c0,2.982-2.418,5.4-5.4,5.4H420.382c-2.982,0-5.4-2.418-5.4-5.4v-39.6C414.981,228.43,417.399,226.012,420.382,226.012z"/>
-		<text transform="matrix(1 0 0 1 446.8633 244.9121)" fill="#0C447C" font-family="'ArialMT'" font-size="12.6">Residents live</text>
-		<text transform="matrix(1 0 0 1 423.3574 261.1133)" fill="#185FA5" font-family="'ArialMT'" font-size="10.8">Movement · social contact</text>
+		<text transform="matrix(1 0 0 1 446.8633 244.9121)" fill="#0F4A82" font-family="'ArialMT'" font-size="12.6">Residents live</text>
+		<text transform="matrix(1 0 0 1 423.3574 261.1133)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10.8">Movement · social contact</text>
 	</g>
 	<g onclick="sendPrompt('What data does the NKDT Points app collect?')">
-		<path fill="#FAEEDA" stroke="#854F0B" stroke-width="0.5" d="M120.544,300.932h178.2c2.982,0,5.4,2.418,5.4,5.398v39.602
+		<path fill="#F5E6D3" stroke="#B07A2A" stroke-width="0.5" d="M120.544,300.932h178.2c2.982,0,5.4,2.418,5.4,5.398v39.602
 			c0,2.98-2.418,5.398-5.4,5.398h-178.2c-2.982,0-5.399-2.418-5.399-5.398V306.33C115.146,303.35,117.563,300.932,120.544,300.932z"
 			/>
-		<text transform="matrix(1 0 0 1 169.7227 319.832)" fill="#633806" font-family="'ArialMT'" font-size="12.6">Data collected</text>
-		<text transform="matrix(1 0 0 1 131.124 336.0313)" fill="#854F0B" font-family="'ArialMT'" font-size="10.8">GPS · SCI-2 · URES · GPA delta</text>
+		<text transform="matrix(1 0 0 1 169.7227 319.832)" fill="#6B4A14" font-family="'ArialMT'" font-size="12.6">Data collected</text>
+		<text transform="matrix(1 0 0 1 131.124 336.0313)" fill="#B07A2A" font-family="'ArialMT'" font-size="10.8">GPS · SCI-2 · URES · GPA delta</text>
 	</g>
 	<g onclick="sendPrompt('How is NKDT spatial data statistically analysed?')">
-		<path fill="#EAF3DE" stroke="#3B6D11" stroke-width="0.5" d="M42.846,143.535h178.2c2.982,0,5.4,2.418,5.4,5.4v39.602
+		<path fill="#DCEEDC" stroke="#6CB68A" stroke-width="0.5" d="M42.846,143.535h178.2c2.982,0,5.4,2.418,5.4,5.4v39.602
 			c0,2.981-2.417,5.399-5.4,5.399h-178.2c-2.982,0-5.4-2.418-5.4-5.399v-39.602C37.446,145.953,39.864,143.535,42.846,143.535z"/>
-		<text transform="matrix(1 0 0 1 80.4751 162.436)" fill="#27500A" font-family="'ArialMT'" font-size="12.6">Statistical analysis</text>
-		<text transform="matrix(1 0 0 1 62.6157 178.6362)" fill="#3B6D11" font-family="'ArialMT'" font-size="10.8">Patterns · correlations · gaps</text>
+		<text transform="matrix(1 0 0 1 80.4751 162.436)" fill="#2A8550" font-family="'ArialMT'" font-size="12.6">Statistical analysis</text>
+		<text transform="matrix(1 0 0 1 62.6157 178.6362)" fill="#6CB68A" font-family="'ArialMT'" font-size="10.8">Patterns · correlations · gaps</text>
 	</g>
 	<path fill="none" d="M454.445,162.688l4.536,3.024l-4.536,3.023"/>
 	<path fill="none" d="M473.346,304.889l4.536,3.021l-4.536,3.025"/>
@@ -131,10 +131,10 @@
 	<path marker-end="url(#arrow)" fill="none" d="M168.461,347.332"/>
 	<path fill="none" d="M209.646,56.488l4.536,3.024l-4.536,3.024"/>
 	
-		<text transform="matrix(1 0 0 1 172.1021 401.5117)" opacity="0.45" fill="#3D3D3A" enable-background="new    " font-family="'ArialMT'" font-size="10.8">Each iteration is simultaneously intervention and measurement</text>
-	<polygon fill="#F7D6CB" points="440.479,228.158 437.947,217.513 445.751,218.572 	"/>
-	<polygon fill="#F7D6CB" points="301.898,325.557 312.543,323.025 311.485,330.828 	"/>
-	<polygon fill="#F7D6CB" points="205.752,201.602 197.923,200.757 202.933,191.031 	"/>
-	<polygon fill="#F7D6CB" points="342.057,88.73 331.412,91.263 332.471,83.458 	"/>
+		<text transform="matrix(1 0 0 1 172.1021 401.5117)" opacity="0.45" fill="#3A3024" enable-background="new    " font-family="'ArialMT'" font-size="10.8">Each iteration is simultaneously intervention and measurement</text>
+	<polygon fill="#F5D9D2" points="440.479,228.158 437.947,217.513 445.751,218.572 	"/>
+	<polygon fill="#F5D9D2" points="301.898,325.557 312.543,323.025 311.485,330.828 	"/>
+	<polygon fill="#F5D9D2" points="205.752,201.602 197.923,200.757 202.933,191.031 	"/>
+	<polygon fill="#F5D9D2" points="342.057,88.73 331.412,91.263 332.471,83.458 	"/>
 </g>
 </svg>

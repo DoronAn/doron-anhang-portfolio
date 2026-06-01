@@ -3,271 +3,271 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="980px" height="1020px" viewBox="0 0 980 1020" enable-background="new 0 0 980 1020" xml:space="preserve">
-<text transform="matrix(1 0 0 1 379.9189 22)" fill="#999999" font-family="'ArialMT'" font-size="11">FULL DATA PIPELINE - NKDT APP + API</text>
+<text transform="matrix(1 0 0 1 379.9189 22)" fill="#8E867A" font-family="'ArialMT'" font-size="11">FULL DATA PIPELINE - NKDT APP + API</text>
 <g>
-	<rect x="28.676" y="38" fill="#F0F0EE" stroke="#999999" stroke-width="1.5" width="34" height="958"/>
+	<rect x="28.676" y="38" fill="#FAF4E8" stroke="#8E867A" stroke-width="1.5" width="34" height="958"/>
 	
-		<text transform="matrix(6.123234e-017 -1 1 6.123234e-017 48.3242 588.8115)" fill="#666666" font-family="'Arial-BoldMT'" font-size="11">NKDT RESEARCH SYSTEM</text>
+		<text transform="matrix(6.123234e-017 -1 1 6.123234e-017 48.3242 588.8115)" fill="#5A554E" font-family="'Arial-BoldMT'" font-size="11">NKDT RESEARCH SYSTEM</text>
 </g>
-<rect x="63.095" y="38" fill="#FDF8F0" stroke="#DDD0B8" width="886.905" height="491.905"/>
+<rect x="63.095" y="38" fill="#FDF8F0" stroke="#D4B998" width="886.905" height="491.905"/>
 <g>
-	<rect x="62.676" y="38" fill="#F5E8D0" stroke="#DDD0B8" width="34" height="490"/>
+	<rect x="62.676" y="38" fill="#EBD7BD" stroke="#D4B998" width="34" height="490"/>
 	
-		<text transform="matrix(6.123234e-017 -1 1 6.123234e-017 82.3242 336.8643)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="11">Android App (Kotlin)</text>
+		<text transform="matrix(6.123234e-017 -1 1 6.123234e-017 82.3242 336.8643)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="11">Android App (Kotlin)</text>
 </g>
-<rect x="72" y="528" fill="#F0F4FA" stroke="#C0D0E8" width="878" height="468"/>
+<rect x="72" y="528" fill="#F0F4FA" stroke="#A8C2DC" width="878" height="468"/>
 <g>
-	<rect x="62.676" y="528" fill="#D8E6F5" stroke="#C0D0E8" width="34" height="468"/>
+	<rect x="62.676" y="528" fill="#D6E4F0" stroke="#A8C2DC" width="34" height="468"/>
 	
-		<text transform="matrix(6.123234e-017 -1 1 6.123234e-017 82.3242 841.4121)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="11">ASP.NET Core API + AWS RDS</text>
+		<text transform="matrix(6.123234e-017 -1 1 6.123234e-017 82.3242 841.4121)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="11">ASP.NET Core API + AWS RDS</text>
 </g>
-<line fill="none" stroke="#CCCCCC" stroke-width="1.5" x1="64" y1="528" x2="950" y2="528"/>
+<line fill="none" stroke="#C9C0B2" stroke-width="1.5" x1="64" y1="528" x2="950" y2="528"/>
 <g>
-	<circle fill="#FDF8F0" stroke="#555555" stroke-width="2" cx="163.295" cy="101" r="12"/>
-	<text transform="matrix(1 0 0 1 142.5332 124)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">App install</text>
-</g>
-<g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="175.812" y1="101" x2="226.246" y2="101"/>
-	<polygon fill="#555555" points="233.246,101 226.246,103.7 226.246,98.3 	"/>
+	<circle fill="#F5E6D3" stroke="#5A554E" stroke-width="2" cx="163.295" cy="101" r="12"/>
+	<text transform="matrix(1 0 0 1 142.5332 124)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">App install</text>
 </g>
 <g>
-	<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M239.246,78h108c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6h-108
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="175.812" y1="101" x2="226.246" y2="101"/>
+	<polygon fill="#5A554E" points="233.246,101 226.246,103.7 226.246,98.3 	"/>
+</g>
+<g>
+	<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M239.246,78h108c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6h-108
 		c-3.313,0-6-2.687-6-6V84C233.246,80.687,235.933,78,239.246,78z"/>
-	<text transform="matrix(1 0 0 1 252.5586 97)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">Splash screen</text>
-	<text transform="matrix(1 0 0 1 269.7339 112)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">1 sec load</text>
+	<text transform="matrix(1 0 0 1 252.5586 97)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Splash screen</text>
+	<text transform="matrix(1 0 0 1 269.7339 112)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">1 sec load</text>
 </g>
 <g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="353.246" y1="101" x2="360.746" y2="101"/>
-	<polygon fill="#555555" points="367.246,101 360.246,103.7 360.246,98.3 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="353.246" y1="101" x2="360.746" y2="101"/>
+	<polygon fill="#5A554E" points="367.246,101 360.246,103.7 360.246,98.3 	"/>
 </g>
 <g>
-	<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M373.246,78h118c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6h-118
+	<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M373.246,78h118c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6h-118
 		c-3.313,0-6-2.687-6-6V84C367.246,80.687,369.933,78,373.246,78z"/>
-	<text transform="matrix(1 0 0 1 394.2305 97)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">Accept terms</text>
-	<text transform="matrix(1 0 0 1 390.2759 112)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">participant consent</text>
+	<text transform="matrix(1 0 0 1 394.2305 97)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Accept terms</text>
+	<text transform="matrix(1 0 0 1 390.2759 112)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">participant consent</text>
 </g>
 <g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="497.246" y1="101" x2="504.746" y2="101"/>
-	<polygon fill="#555555" points="511.246,101 504.246,103.7 504.246,98.3 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="497.246" y1="101" x2="504.746" y2="101"/>
+	<polygon fill="#5A554E" points="511.246,101 504.246,103.7 504.246,98.3 	"/>
 </g>
 <g>
-	<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M517.246,78h138c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6h-138
+	<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M517.246,78h138c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6h-138
 		c-3.313,0-6-2.687-6-6V84C511.246,80.687,513.933,78,517.246,78z"/>
-	<text transform="matrix(1 0 0 1 551.2422 97)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">Registration</text>
-	<text transform="matrix(1 0 0 1 540.3887 112)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">demographics - area</text>
+	<text transform="matrix(1 0 0 1 551.2422 97)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Registration</text>
+	<text transform="matrix(1 0 0 1 540.3887 112)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">demographics - area</text>
 </g>
 <g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="661.246" y1="101" x2="668.746" y2="101"/>
-	<polygon fill="#555555" points="675.246,101 668.246,103.7 668.246,98.3 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="661.246" y1="101" x2="668.746" y2="101"/>
+	<polygon fill="#5A554E" points="675.246,101 668.246,103.7 668.246,98.3 	"/>
 </g>
 <g>
-	<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M681.246,78h138c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6h-138
+	<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M681.246,78h138c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6h-138
 		c-3.313,0-6-2.687-6-6V84C675.246,80.687,677.933,78,681.246,78z"/>
-	<text transform="matrix(1 0 0 1 707.5605 97)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">Hash device ID</text>
-	<text transform="matrix(1 0 0 1 715.793 112)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">Hash.kt - id x ts</text>
+	<text transform="matrix(1 0 0 1 707.5605 97)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Hash device ID</text>
+	<text transform="matrix(1 0 0 1 715.793 112)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">Hash.kt - id x ts</text>
 </g>
 <g>
-	<path fill="#FDF8F0" stroke="#C8A96E" stroke-dasharray="4,2" d="M238.111,247.208h110.27c2.688,0,4.865,2.9,4.865,6.477v34.546
+	<path fill="#F5E6D3" stroke="#E8B872" stroke-dasharray="4,2" d="M238.111,247.208h110.27c2.688,0,4.865,2.9,4.865,6.477v34.546
 		c0,3.577-2.178,6.477-4.865,6.477h-110.27c-2.687,0-4.865-2.9-4.865-6.477v-34.546
 		C233.246,250.109,235.424,247.208,238.111,247.208z"/>
-	<text transform="matrix(1 0 0 1 254.0688 266.709)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="10">OnBootReceiver</text>
-	<text transform="matrix(1 0 0 1 247.2246 280.709)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">restarts GPS on reboot</text>
+	<text transform="matrix(1 0 0 1 254.0688 266.709)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="10">OnBootReceiver</text>
+	<text transform="matrix(1 0 0 1 247.2246 280.709)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">restarts GPS on reboot</text>
 </g>
-<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="654.748" y1="426.833" x2="654.748" y2="454"/>
-<text transform="matrix(1 0 0 1 434.9648 150.5)" fill="#999999" font-family="'ArialMT'" font-size="9">POST /user/create</text>
-<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="840" y1="231" x2="840" y2="503.5"/>
-<text transform="matrix(1 0 0 1 777.4219 498.667)" fill="#999999" font-family="'ArialMT'" font-size="9">POST /survey</text>
-<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="726.295" y1="123.858" x2="726.295" y2="154.858"/>
-<text transform="matrix(1 0 0 1 659.748 449.5)" fill="#999999" font-family="'ArialMT'" font-size="9">POST /location</text>
-<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="726.294" y1="154.858" x2="218" y2="154.858"/>
+<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="654.748" y1="426.833" x2="654.748" y2="454"/>
+<text transform="matrix(1 0 0 1 434.9648 150.5)" fill="#8E867A" font-family="'ArialMT'" font-size="9">POST /user/create</text>
+<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="840" y1="231" x2="840" y2="503.5"/>
+<text transform="matrix(1 0 0 1 777.4219 498.667)" fill="#8E867A" font-family="'ArialMT'" font-size="9">POST /survey</text>
+<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="726.295" y1="123.858" x2="726.295" y2="154.858"/>
+<text transform="matrix(1 0 0 1 659.748 449.5)" fill="#8E867A" font-family="'ArialMT'" font-size="9">POST /location</text>
+<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="726.294" y1="154.858" x2="218" y2="154.858"/>
 <g>
-	<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="218" y1="154.858" x2="218" y2="579.929"/>
-	<polygon fill="#999999" points="218,586.429 215.3,579.429 220.7,579.429 	"/>
+	<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="218" y1="154.858" x2="218" y2="579.929"/>
+	<polygon fill="#8E867A" points="218,586.429 215.3,579.429 220.7,579.429 	"/>
 </g>
 <g>
-	<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M144,586.429h148c3.313,0,6,2.688,6,6v40c0,3.313-2.687,6-6,6H144
+	<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M144,586.429h148c3.313,0,6,2.688,6,6v40c0,3.313-2.687,6-6,6H144
 		c-3.313,0-6-2.687-6-6v-40C138,589.115,140.687,586.429,144,586.429z"/>
-	<text transform="matrix(1 0 0 1 184.9824 608.4287)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="12">Create user</text>
-	<text transform="matrix(1 0 0 1 154.9141 623.4287)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">token - age - major - area_id</text>
+	<text transform="matrix(1 0 0 1 184.9824 608.4287)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="12">Create user</text>
+	<text transform="matrix(1 0 0 1 154.9141 623.4287)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">token - age - major - area_id</text>
 </g>
 <g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="218" y1="638.429" x2="218" y2="676"/>
-	<polygon fill="#555555" points="218,682.5 215.3,675.5 220.7,675.5 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="218" y1="638.429" x2="218" y2="676"/>
+	<polygon fill="#5A554E" points="218,682.5 215.3,675.5 220.7,675.5 	"/>
 </g>
-<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="840" y1="503.5" x2="464.543" y2="503.5"/>
+<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="840" y1="503.5" x2="464.543" y2="503.5"/>
 <g>
 	
-		<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="464.543" y1="503.5" x2="464.543" y2="579.929"/>
-	<polygon fill="#999999" points="464.543,586.429 461.843,579.429 467.243,579.429 	"/>
+		<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="464.543" y1="503.5" x2="464.543" y2="579.929"/>
+	<polygon fill="#8E867A" points="464.543,586.429 461.843,579.429 467.243,579.429 	"/>
 </g>
 <g>
-	<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M390.543,586.429h148c3.313,0,6,2.688,6,6v40c0,3.313-2.688,6-6,6
+	<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M390.543,586.429h148c3.313,0,6,2.688,6,6v40c0,3.313-2.688,6-6,6
 		h-148c-3.313,0-6-2.687-6-6v-40C384.543,589.115,387.229,586.429,390.543,586.429z"/>
-	<text transform="matrix(1 0 0 1 420.8438 608.4287)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="12">Receive survey</text>
-	<text transform="matrix(1 0 0 1 398.1221 623.4287)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">validate token - store answers</text>
+	<text transform="matrix(1 0 0 1 420.8438 608.4287)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="12">Receive survey</text>
+	<text transform="matrix(1 0 0 1 398.1221 623.4287)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">validate token - store answers</text>
 </g>
 <g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="464.543" y1="638.429" x2="464.543" y2="676"/>
-	<polygon fill="#555555" points="464.543,682.5 461.843,675.5 467.243,675.5 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="464.543" y1="638.429" x2="464.543" y2="676"/>
+	<polygon fill="#5A554E" points="464.543,682.5 461.843,675.5 467.243,675.5 	"/>
 </g>
-<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="655" y1="454" x2="710" y2="454"/>
+<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="655" y1="454" x2="710" y2="454"/>
 <g>
-	<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="710" y1="454.25" x2="710" y2="579.429"/>
-	<polygon fill="#999999" points="710,586.429 707.3,579.429 712.7,579.429 	"/>
+	<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="710" y1="454.25" x2="710" y2="579.429"/>
+	<polygon fill="#8E867A" points="710,586.429 707.3,579.429 712.7,579.429 	"/>
 </g>
 <g>
-	<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M636,586.429h148c3.313,0,6,2.688,6,6v40c0,3.313-2.688,6-6,6H636
+	<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M636,586.429h148c3.313,0,6,2.688,6,6v40c0,3.313-2.688,6-6,6H636
 		c-3.313,0-6-2.687-6-6v-40C630,589.115,632.688,586.429,636,586.429z"/>
-	<text transform="matrix(1 0 0 1 662.6475 608.4287)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="12">Receive location</text>
-	<text transform="matrix(1 0 0 1 659.1523 623.4287)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">re-check cluster - store</text>
+	<text transform="matrix(1 0 0 1 662.6475 608.4287)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="12">Receive location</text>
+	<text transform="matrix(1 0 0 1 659.1523 623.4287)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">re-check cluster - store</text>
 </g>
 <g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="710" y1="638.429" x2="710" y2="676"/>
-	<polygon fill="#555555" points="710,682.5 707.3,675.5 712.7,675.5 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="710" y1="638.429" x2="710" y2="676"/>
+	<polygon fill="#5A554E" points="710,682.5 707.3,675.5 712.7,675.5 	"/>
 </g>
 <g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="710" y1="730.5" x2="710" y2="768"/>
-	<polygon fill="#555555" points="710,774.5 707.3,767.5 712.7,767.5 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="710" y1="730.5" x2="710" y2="768"/>
+	<polygon fill="#5A554E" points="710,774.5 707.3,767.5 712.7,767.5 	"/>
 </g>
 <g>
-	<line fill="none" stroke="#555555" stroke-width="1.5" x1="710" y1="823.5" x2="710" y2="867"/>
-	<polygon fill="#555555" points="710,873.5 707.3,866.5 712.7,866.5 	"/>
+	<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="710" y1="823.5" x2="710" y2="867"/>
+	<polygon fill="#5A554E" points="710,873.5 707.3,866.5 712.7,866.5 	"/>
 </g>
 <g>
 	<g>
-		<circle fill="#FDF8F0" stroke="#555555" stroke-width="2.5" cx="710" cy="886.5" r="12"/>
-		<circle fill="#555555" cx="710" cy="886.5" r="7"/>
+		<circle fill="#F5E6D3" stroke="#5A554E" stroke-width="2.5" cx="710" cy="886.5" r="12"/>
+		<circle fill="#5A554E" cx="710" cy="886.5" r="7"/>
 	</g>
-	<text transform="matrix(1 0 0 1 686.7373 909.5)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">Data stored</text>
+	<text transform="matrix(1 0 0 1 686.7373 909.5)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">Data stored</text>
 </g>
 <g>
-	<path fill="#E8EEF8" stroke="#C0D0E8" d="M141.004,746.5H540.56c1.658,0,3.005,1.791,3.005,4v20c0,2.209-1.347,4-3.005,4H141.004
+	<path fill="#D6E4F0" stroke="#A8C2DC" d="M141.004,746.5H540.56c1.658,0,3.006,1.791,3.006,4v20c0,2.209-1.348,4-3.006,4H141.004
 		c-1.659,0-3.004-1.791-3.004-4v-20C138,748.291,139.345,746.5,141.004,746.5z"/>
-	<text transform="matrix(1 0 0 1 210.936 764.5)" fill="#4A6A9A" font-family="'ArialMT'" font-size="10">Tables joined only via anon token - no personal identifiers stored</text>
+	<text transform="matrix(1 0 0 1 210.936 764.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="10">Tables joined only via anon token - no personal identifiers stored</text>
 </g>
 <g>
 	<g>
-		<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M298.762,1001h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
+		<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M298.762,1001h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
 			c-1.104,0-2-0.896-2-2v-8C296.762,1001.896,297.657,1001,298.762,1001z"/>
-		<text transform="matrix(1 0 0 1 314.7617 1010)" fill="#555555" font-family="'ArialMT'" font-size="10">App (Kotlin)</text>
+		<text transform="matrix(1 0 0 1 314.7617 1010)" fill="#5A554E" font-family="'ArialMT'" font-size="10">App (Kotlin)</text>
 	</g>
 	<g>
-		<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M422.107,1001h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
+		<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M422.107,1001h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
 			c-1.104,0-2-0.896-2-2v-8C420.107,1001.896,421.003,1001,422.107,1001z"/>
-		<text transform="matrix(1 0 0 1 438.1079 1010)" fill="#555555" font-family="'ArialMT'" font-size="10">API / server</text>
+		<text transform="matrix(1 0 0 1 438.1079 1010)" fill="#5A554E" font-family="'ArialMT'" font-size="10">API / server</text>
 	</g>
 	<g>
-		<line fill="none" stroke="#999999" stroke-width="1.5" stroke-dasharray="5,3" x1="540.762" y1="1006" x2="572.762" y2="1006"/>
-		<text transform="matrix(1 0 0 1 578.7617 1010)" fill="#555555" font-family="'ArialMT'" font-size="10">Message flow (API call)</text>
+		<line fill="none" stroke="#8E867A" stroke-width="1.5" stroke-dasharray="5,3" x1="540.762" y1="1006" x2="572.762" y2="1006"/>
+		<text transform="matrix(1 0 0 1 578.7617 1010)" fill="#5A554E" font-family="'ArialMT'" font-size="10">Message flow (API call)</text>
 	</g>
 </g>
 <g>
-	<path fill="none" stroke="#C8A96E" stroke-dasharray="3,3" d="M353.246,270.958h222.595H353.246z"/>
-	<polygon fill="#C8A96E" points="578.703,270.958 572.979,273.659 572.979,268.258 	"/>
+	<path fill="none" stroke="#E8B872" stroke-dasharray="3,3" d="M353.246,270.958h222.595H353.246z"/>
+	<polygon fill="#E8B872" points="578.703,270.958 572.979,273.659 572.979,268.258 	"/>
 </g>
 <g>
 	<g>
-		<polygon fill="#FDF8F0" stroke="#555555" stroke-width="1.5" points="751.843,181.5 769.843,199.5 751.843,217.5 733.843,199.5 		
+		<polygon fill="#F5E6D3" stroke="#5A554E" stroke-width="1.5" points="751.843,181.5 769.843,199.5 751.843,217.5 733.843,199.5 		
 			"/>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="751.843" y1="190.5" x2="751.843" y2="208.5"/>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="742.843" y1="199.5" x2="760.843" y2="199.5"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="751.843" y1="190.5" x2="751.843" y2="208.5"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="742.843" y1="199.5" x2="760.843" y2="199.5"/>
 	</g>
 	<g>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="733.748" y1="199.5" x2="654.748" y2="199.5"/>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="654.748" y1="199.5" x2="654.748" y2="247.858"/>
-		<polygon fill="#555555" points="654.748,249.858 652.048,242.858 657.448,242.858 		"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="733.748" y1="199.5" x2="654.748" y2="199.5"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="654.748" y1="199.5" x2="654.748" y2="247.858"/>
+		<polygon fill="#5A554E" points="654.748,249.858 652.048,242.858 657.448,242.858 		"/>
 	</g>
-	<text transform="matrix(1 0 0 1 685.1523 192.5)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">GPS</text>
+	<text transform="matrix(1 0 0 1 685.1523 192.5)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">GPS</text>
 	<g>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="769.748" y1="199.5" x2="839.748" y2="199.5"/>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="839.748" y1="199.5" x2="839.748" y2="247.858"/>
-		<polygon fill="#555555" points="839.748,249.858 837.048,242.858 842.448,242.858 		"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="769.748" y1="199.5" x2="839.748" y2="199.5"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="839.748" y1="199.5" x2="839.748" y2="247.858"/>
+		<polygon fill="#5A554E" points="839.748,249.858 837.048,242.858 842.448,242.858 		"/>
 	</g>
-	<text transform="matrix(1 0 0 1 790.748 192.5)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">survey</text>
+	<text transform="matrix(1 0 0 1 790.748 192.5)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">survey</text>
 	<g>
-		<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M585.748,247.858h138c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6
+		<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M585.748,247.858h138c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6
 			h-138c-3.313,0-6-2.687-6-6v-34C579.748,250.544,582.435,247.858,585.748,247.858z"/>
-		<text transform="matrix(1 0 0 1 619.7236 266.8574)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">GPS service</text>
-		<text transform="matrix(1 0 0 1 599.7207 281.8574)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">LocationService - 10 min</text>
+		<text transform="matrix(1 0 0 1 619.7236 266.8574)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">GPS service</text>
+		<text transform="matrix(1 0 0 1 599.7207 281.8574)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">LocationService - 10 min</text>
 	</g>
 	<g>
-		<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M775.748,247.858h128c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6
+		<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M775.748,247.858h128c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6
 			h-128c-3.313,0-6-2.687-6-6v-34C769.748,250.544,772.435,247.858,775.748,247.858z"/>
-		<text transform="matrix(1 0 0 1 791.3965 266.8574)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">Complete survey</text>
-		<text transform="matrix(1 0 0 1 780.4219 281.8574)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">SCI-2 + URES - 3 sections</text>
+		<text transform="matrix(1 0 0 1 791.3965 266.8574)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Complete survey</text>
+		<text transform="matrix(1 0 0 1 780.4219 281.8574)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">SCI-2 + URES - 3 sections</text>
 	</g>
 	<g>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="654.748" y1="293.858" x2="654.748" y2="312.358"/>
-		<polygon fill="#555555" points="654.748,318.858 652.048,311.858 657.448,311.858 		"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="654.748" y1="293.858" x2="654.748" y2="312.358"/>
+		<polygon fill="#5A554E" points="654.748,318.858 652.048,311.858 657.448,311.858 		"/>
 	</g>
 	<g>
-		<polygon fill="#FDF8F0" stroke="#555555" stroke-width="1.5" points="654.748,318.858 672.748,336.858 654.748,354.858 
+		<polygon fill="#F5E6D3" stroke="#5A554E" stroke-width="1.5" points="654.748,318.858 672.748,336.858 654.748,354.858 
 			636.748,336.858 		"/>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="646.748" y1="328.858" x2="662.748" y2="344.858"/>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="662.748" y1="328.858" x2="646.748" y2="344.858"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="646.748" y1="328.858" x2="662.748" y2="344.858"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="662.748" y1="328.858" x2="646.748" y2="344.858"/>
 	</g>
-	<text transform="matrix(1 0 0 1 678.748 340.8574)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">on campus?</text>
+	<text transform="matrix(1 0 0 1 678.748 340.8574)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">on campus?</text>
 	<g>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="636.748" y1="336.858" x2="558.5" y2="336.858"/>
-		<polygon fill="#555555" points="552.5,336.858 559.5,334.158 559.5,339.558 		"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="636.748" y1="336.858" x2="558.5" y2="336.858"/>
+		<polygon fill="#5A554E" points="552.5,336.858 559.5,334.158 559.5,339.558 		"/>
 	</g>
 	<g>
-		<circle fill="#FDF8F0" stroke="#555555" stroke-width="2.5" cx="540.5" cy="336.858" r="12"/>
-		<circle fill="#555555" cx="540.5" cy="336.858" r="7"/>
+		<circle fill="#F5E6D3" stroke="#5A554E" stroke-width="2.5" cx="540.5" cy="336.858" r="12"/>
+		<circle fill="#5A554E" cx="540.5" cy="336.858" r="7"/>
 	</g>
-	<text transform="matrix(1 0 0 1 508.7598 360.8574)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">no location data</text>
+	<text transform="matrix(1 0 0 1 508.7598 360.8574)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">no location data</text>
 	<g>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="654.748" y1="354.858" x2="654.748" y2="374.358"/>
-		<polygon fill="#555555" points="654.748,380.858 652.048,373.858 657.448,373.858 		"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="654.748" y1="354.858" x2="654.748" y2="374.358"/>
+		<polygon fill="#5A554E" points="654.748,380.858 652.048,373.858 657.448,373.858 		"/>
 	</g>
-	<text transform="matrix(1 0 0 1 659.748 372.8574)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">yes</text>
+	<text transform="matrix(1 0 0 1 659.748 372.8574)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">yes</text>
 	<g>
-		<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M585.748,380.858h138c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6
+		<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M585.748,380.858h138c3.313,0,6,2.687,6,6v34c0,3.313-2.688,6-6,6
 			h-138c-3.313,0-6-2.688-6-6v-34C579.748,383.544,582.435,380.858,585.748,380.858z"/>
-		<text transform="matrix(1 0 0 1 617.3154 399.8574)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">Cluster mask</text>
-		<text transform="matrix(1 0 0 1 607.2285 414.8574)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">own cluster - centroid</text>
+		<text transform="matrix(1 0 0 1 617.3154 399.8574)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Cluster mask</text>
+		<text transform="matrix(1 0 0 1 607.2285 414.8574)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">own cluster - centroid</text>
 	</g>
 	<g>
-		<line fill="none" stroke="#555555" stroke-width="1.5" x1="751.843" y1="154.858" x2="751.843" y2="177.797"/>
-		<polygon fill="#555555" points="751.718,181.5 749.018,174.5 754.418,174.5 		"/>
+		<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="751.843" y1="154.858" x2="751.843" y2="177.797"/>
+		<polygon fill="#5A554E" points="751.718,181.5 749.018,174.5 754.418,174.5 		"/>
 	</g>
-	<text transform="matrix(1 0 0 1 594.5469 329.8584)" fill="#9A7A4A" font-family="'ArialMT'" font-size="9">no</text>
+	<text transform="matrix(1 0 0 1 594.5469 329.8584)" fill="#B07A2A" font-family="'ArialMT'" font-size="9">no</text>
 </g>
 <g>
-	<polyline fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" points="153,723.5 153,689.5 283,689.5 283,723.5 	"/>
-	<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M153,723.5c0,3.87,29.1,7,65,7s65-3.13,65-7"/>
-	<text transform="matrix(1 0 0 1 188.3462 709.5)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="11">Users table</text>
-	<text transform="matrix(1 0 0 1 182.479 723.5)" fill="#4A6A9A" font-family="'ArialMT'" font-size="9">token - age - area</text>
-	<ellipse fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" cx="218" cy="689.5" rx="65" ry="7"/>
+	<polyline fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" points="153,723.5 153,689.5 283,689.5 283,723.5 	"/>
+	<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M153,723.5c0,3.87,29.1,7,65,7s65-3.13,65-7"/>
+	<text transform="matrix(1 0 0 1 188.3462 709.5)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="11">Users table</text>
+	<text transform="matrix(1 0 0 1 182.479 723.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">token - age - area</text>
+	<ellipse fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" cx="218" cy="689.5" rx="65" ry="7"/>
 </g>
 <g>
-	<polyline fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" points="399.543,723.5 399.543,689.5 529.543,689.5 529.543,723.5 	
+	<polyline fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" points="399.543,723.5 399.543,689.5 529.543,689.5 529.543,723.5 	
 		"/>
-	<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M399.543,723.5c0,3.87,29.1,7,65,7s65-3.13,65-7"/>
-	<text transform="matrix(1 0 0 1 431.833 709.5)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="11">Survey table</text>
-	<text transform="matrix(1 0 0 1 421.5313 723.5)" fill="#4A6A9A" font-family="'ArialMT'" font-size="9">token - SCI-2 - URES</text>
-	<ellipse fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" cx="464.543" cy="689.5" rx="65" ry="7"/>
+	<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M399.543,723.5c0,3.87,29.1,7,65,7s65-3.13,65-7"/>
+	<text transform="matrix(1 0 0 1 431.833 709.5)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="11">Survey table</text>
+	<text transform="matrix(1 0 0 1 421.5313 723.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">token - SCI-2 - URES</text>
+	<ellipse fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" cx="464.543" cy="689.5" rx="65" ry="7"/>
 </g>
 <g>
 	<g>
-		<polyline fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" points="645.125,723.5 645.125,689.5 775.125,689.5 775.125,723.5 
+		<polyline fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" points="645.125,723.5 645.125,689.5 775.125,689.5 775.125,723.5 
 					"/>
-		<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M645.125,723.5c0,3.87,29.1,7,65,7c35.898,0,65-3.13,65-7"/>
-		<ellipse fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" cx="710.125" cy="689.5" rx="65" ry="7"/>
+		<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M645.125,723.5c0,3.87,29.1,7,65,7c35.898,0,65-3.13,65-7"/>
+		<ellipse fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" cx="710.125" cy="689.5" rx="65" ry="7"/>
 	</g>
-	<text transform="matrix(1 0 0 1 675.5439 709.5)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="11">Location table</text>
-	<text transform="matrix(1 0 0 1 675.5605 723.5)" fill="#4A6A9A" font-family="'ArialMT'" font-size="9">token - lat - lng - ts</text>
+	<text transform="matrix(1 0 0 1 675.5439 709.5)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="11">Location table</text>
+	<text transform="matrix(1 0 0 1 675.5605 723.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">token - lat - lng - ts</text>
 </g>
 <g>
 	<g>
-		<polyline fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" points="645.125,816.5 645.125,782.5 775.125,782.5 775.125,816.5 
+		<polyline fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" points="645.125,816.5 645.125,782.5 775.125,782.5 775.125,816.5 
 					"/>
-		<path fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" d="M645.125,816.5c0,3.87,29.1,7,65,7c35.898,0,65-3.13,65-7"/>
-		<ellipse fill="#F0F4FA" stroke="#7A9EC8" stroke-width="1.5" cx="710.125" cy="782.5" rx="65" ry="7"/>
+		<path fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" d="M645.125,816.5c0,3.87,29.1,7,65,7c35.898,0,65-3.13,65-7"/>
+		<ellipse fill="#D6E4F0" stroke="#5A95C8" stroke-width="1.5" cx="710.125" cy="782.5" rx="65" ry="7"/>
 	</g>
-	<text transform="matrix(1 0 0 1 674.6563 802.5)" fill="#0A1E3A" font-family="'Arial-BoldMT'" font-size="11">Elasticsearch</text>
-	<text transform="matrix(1 0 0 1 668.7793 816.5)" fill="#4A6A9A" font-family="'ArialMT'" font-size="9">analytics - AWS EC2</text>
+	<text transform="matrix(1 0 0 1 674.6563 802.5)" fill="#0F4A82" font-family="'Arial-BoldMT'" font-size="11">Elasticsearch</text>
+	<text transform="matrix(1 0 0 1 668.7793 816.5)" fill="#2E7CB8" font-family="'ArialMT'" font-size="9">analytics - AWS EC2</text>
 </g>
-<line fill="none" stroke="#555555" stroke-width="1.5" x1="777.343" y1="154.858" x2="751.843" y2="154.858"/>
-<line fill="none" stroke="#555555" stroke-width="1.5" x1="777.343" y1="124" x2="777.343" y2="154.858"/>
+<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="777.343" y1="154.858" x2="751.843" y2="154.858"/>
+<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="777.343" y1="124" x2="777.343" y2="154.858"/>
 </svg>

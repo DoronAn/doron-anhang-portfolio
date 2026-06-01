@@ -2,67 +2,69 @@
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="1020px" height="213.5px" viewBox="0 6.5 1020 213.5" enable-background="new 0 6.5 1020 213.5" xml:space="preserve">
-<text transform="matrix(1 0 0 1 418.4941 28)" fill="#999999" font-family="'ArialMT'" font-size="11">PARTICIPANT FLOW - NKDT APP</text>
-<text transform="matrix(1 0 0 1 107.4971 52)" fill="#AAAAAA" font-family="'ArialMT'" font-size="9">1</text>
-<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M46,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.687,6-6,6H46
-	c-3.313,0-6-2.687-6-6V64C40,60.687,42.687,58,46,58z"/>
-<text transform="matrix(1 0 0 1 90.3271 104)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">Splash</text>
-<text transform="matrix(1 0 0 1 92.4878 119)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">1 s load</text>
-<line fill="none" stroke="#555555" stroke-width="1.5" x1="180" y1="108" x2="193.5" y2="108"/>
-<polygon fill="#555555" points="200,108 193,110.7 193,105.3 "/>
-<text transform="matrix(1 0 0 1 267.4971 52)" fill="#AAAAAA" font-family="'ArialMT'" font-size="9">2</text>
-<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M206,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.687,6-6,6H206
-	c-3.313,0-6-2.687-6-6V64C200,60.687,202.687,58,206,58z"/>
-<text transform="matrix(1 0 0 1 252.6738 96.5)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">About</text>
-<text transform="matrix(1 0 0 1 231.0913 111.5)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">Research context</text>
-<text transform="matrix(1 0 0 1 244.4312 126.5)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">and privacy</text>
-<line fill="none" stroke="#555555" stroke-width="1.5" x1="340" y1="108" x2="353.5" y2="108"/>
-<polygon fill="#555555" points="360,108 353,110.7 353,105.3 "/>
-<text transform="matrix(1 0 0 1 427.4971 52)" fill="#AAAAAA" font-family="'ArialMT'" font-size="9">3</text>
-<path fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1.5" d="M366,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.687,6-6,6H366
-	c-3.313,0-6-2.687-6-6V64C360,60.687,362.687,58,366,58z"/>
-<text transform="matrix(1 0 0 1 412.4365 96.5)" fill="#3C3489" font-family="'Arial-BoldMT'" font-size="12">Terms</text>
-<text transform="matrix(1 0 0 1 404.9878 111.5)" fill="#534AB7" font-family="'ArialMT'" font-size="10">Must agree</text>
-<text transform="matrix(1 0 0 1 406.3721 126.5)" fill="#534AB7" font-family="'ArialMT'" font-size="10">to proceed</text>
-<line fill="none" stroke="#555555" stroke-width="1.5" x1="500" y1="108" x2="513.5" y2="108"/>
-<polygon fill="#555555" points="520,108 513,110.7 513,105.3 "/>
-<text transform="matrix(1 0 0 1 587.4971 52)" fill="#AAAAAA" font-family="'ArialMT'" font-size="9">4</text>
-<path fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1.5" d="M526,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.687,6-6,6H526
-	c-3.313,0-6-2.687-6-6V64C520,60.687,522.687,58,526,58z"/>
-<text transform="matrix(1 0 0 1 560.6621 89)" fill="#3C3489" font-family="'Arial-BoldMT'" font-size="12">Questions</text>
-<text transform="matrix(1 0 0 1 557.7637 104)" fill="#534AB7" font-family="'ArialMT'" font-size="10">Demographics</text>
-<text transform="matrix(1 0 0 1 559.1602 119)" fill="#534AB7" font-family="'ArialMT'" font-size="10">SCI-2 / URES</text>
-<text transform="matrix(1 0 0 1 567.4883 134)" fill="#534AB7" font-family="'ArialMT'" font-size="10">3 sections</text>
-<line fill="none" stroke="#555555" stroke-width="1.5" x1="660" y1="108" x2="673.5" y2="108"/>
-<polygon fill="#555555" points="680,108 673,110.7 673,105.3 "/>
-<text transform="matrix(1 0 0 1 747.4971 52)" fill="#AAAAAA" font-family="'ArialMT'" font-size="9">5</text>
-<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M686,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.687,6-6,6H686
-	c-3.313,0-6-2.687-6-6V64C680,60.687,682.687,58,686,58z"/>
-<text transform="matrix(1 0 0 1 732.3223 104)" fill="#3A2A0A" font-family="'Arial-BoldMT'" font-size="12">Prizes</text>
-<text transform="matrix(1 0 0 1 722.0234 119)" fill="#9A7A4A" font-family="'ArialMT'" font-size="10">BuyMe raffle</text>
-<line fill="none" stroke="#555555" stroke-width="1.5" x1="820" y1="108" x2="833.5" y2="108"/>
-<polygon fill="#555555" points="840,108 833,110.7 833,105.3 "/>
-<text transform="matrix(1 0 0 1 887.4824 52)" fill="#AAAAAA" font-family="'ArialMT'" font-size="9">6 - ongoing</text>
-<path fill="#E1F5EE" stroke="#5DCAA5" stroke-width="1.5" d="M846,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.687,6-6,6H846
-	c-3.313,0-6-2.687-6-6V64C840,60.687,842.687,58,846,58z"/>
-<text transform="matrix(1 0 0 1 878.6494 96.5)" fill="#085041" font-family="'Arial-BoldMT'" font-size="12">GPS active</text>
-<text transform="matrix(1 0 0 1 866.9189 111.5)" fill="#0F6E56" font-family="'ArialMT'" font-size="10">Background 10 min</text>
-<text transform="matrix(1 0 0 1 869.7021 126.5)" fill="#0F6E56" font-family="'ArialMT'" font-size="10">Persists on reboot</text>
-<text transform="matrix(1 0 0 1 282.2974 185)" fill="#BBBBBB" font-family="'ArialMT'" font-size="10">Location service activates after Terms acceptance | OnBootBroadcastReceiver.kt restarts it after reboot</text>
+	 width="1020px" height="213.5px" viewBox="0 0 1020 213.5" enable-background="new 0 0 1020 213.5" xml:space="preserve">
+<text transform="matrix(1 0 0 1 418.4941 28)" fill="#8E867A" font-family="'ArialMT'" font-size="11">PARTICIPANT FLOW - NKDT APP</text>
+<text transform="matrix(1 0 0 1 107.4971 52)" fill="#8E867A" font-family="'ArialMT'" font-size="9">1</text>
+<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M46,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.687,6-6,6H46
+	c-3.313,0-6-2.688-6-6V64C40,60.687,42.687,58,46,58z"/>
+<text transform="matrix(1 0 0 1 90.3271 104)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Splash</text>
+<text transform="matrix(1 0 0 1 92.4878 119)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">1 s load</text>
+<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="180" y1="108" x2="193.5" y2="108"/>
+<polygon fill="#5A554E" points="200,108 193,110.7 193,105.3 "/>
+<text transform="matrix(1 0 0 1 267.4971 52)" fill="#8E867A" font-family="'ArialMT'" font-size="9">2</text>
+<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M206,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.688,6-6,6H206
+	c-3.313,0-6-2.688-6-6V64C200,60.687,202.687,58,206,58z"/>
+<text transform="matrix(1 0 0 1 252.6738 96.5)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">About</text>
+<text transform="matrix(1 0 0 1 231.0913 111.5)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">Research context</text>
+<text transform="matrix(1 0 0 1 244.4312 126.5)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">and privacy</text>
+<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="340" y1="108" x2="353.5" y2="108"/>
+<polygon fill="#5A554E" points="360,108 353,110.7 353,105.3 "/>
+<text transform="matrix(1 0 0 1 427.4971 52)" fill="#8E867A" font-family="'ArialMT'" font-size="9">3</text>
+<path fill="#E8DFEE" stroke="#9B7FB8" stroke-width="1.5" d="M366,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.688,6-6,6H366
+	c-3.313,0-6-2.688-6-6V64C360,60.687,362.688,58,366,58z"/>
+<text transform="matrix(1 0 0 1 412.4365 96.5)" fill="#5E4582" font-family="'Arial-BoldMT'" font-size="12">Terms</text>
+<text transform="matrix(1 0 0 1 404.9878 111.5)" fill="#7A5FA3" font-family="'ArialMT'" font-size="10">Must agree</text>
+<text transform="matrix(1 0 0 1 406.3721 126.5)" fill="#7A5FA3" font-family="'ArialMT'" font-size="10">to proceed</text>
+<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="500" y1="108" x2="513.5" y2="108"/>
+<polygon fill="#5A554E" points="520,108 513,110.7 513,105.3 "/>
+<text transform="matrix(1 0 0 1 587.4971 52)" fill="#8E867A" font-family="'ArialMT'" font-size="9">4</text>
+<path fill="#E8DFEE" stroke="#9B7FB8" stroke-width="1.5" d="M526,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.688,6-6,6H526
+	c-3.313,0-6-2.688-6-6V64C520,60.687,522.688,58,526,58z"/>
+<text transform="matrix(1 0 0 1 560.6621 89)" fill="#5E4582" font-family="'Arial-BoldMT'" font-size="12">Questions</text>
+<text transform="matrix(1 0 0 1 557.7637 104)" fill="#7A5FA3" font-family="'ArialMT'" font-size="10">Demographics</text>
+<text transform="matrix(1 0 0 1 559.1602 119)" fill="#7A5FA3" font-family="'ArialMT'" font-size="10">SCI-2 / URES</text>
+<text transform="matrix(1 0 0 1 567.4883 134)" fill="#7A5FA3" font-family="'ArialMT'" font-size="10">3 sections</text>
+<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="660" y1="108" x2="673.5" y2="108"/>
+<polygon fill="#5A554E" points="680,108 673,110.7 673,105.3 "/>
+<text transform="matrix(1 0 0 1 747.4971 52)" fill="#8E867A" font-family="'ArialMT'" font-size="9">5</text>
+<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M686,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.688,6-6,6H686
+	c-3.313,0-6-2.688-6-6V64C680,60.687,682.688,58,686,58z"/>
+<text transform="matrix(1 0 0 1 732.3223 104)" fill="#3A3024" font-family="'Arial-BoldMT'" font-size="12">Prizes</text>
+<text transform="matrix(1 0 0 1 722.0234 119)" fill="#B07A2A" font-family="'ArialMT'" font-size="10">BuyMe raffle</text>
+<line fill="none" stroke="#5A554E" stroke-width="1.5" x1="820" y1="108" x2="833.5" y2="108"/>
+<polygon fill="#5A554E" points="840,108 833,110.7 833,105.3 "/>
+<text transform="matrix(1 0 0 1 887.4824 52)" fill="#8E867A" font-family="'ArialMT'" font-size="9">6 - ongoing</text>
+<path fill="#DCEEDC" stroke="#6CB68A" stroke-width="1.5" d="M846,58h128c3.313,0,6,2.687,6,6v88c0,3.313-2.688,6-6,6H846
+	c-3.313,0-6-2.688-6-6V64C840,60.687,842.688,58,846,58z"/>
+<text transform="matrix(1 0 0 1 878.6494 96.5)" fill="#2A8550" font-family="'Arial-BoldMT'" font-size="12">GPS active</text>
+<text transform="matrix(1 0 0 1 866.9189 111.5)" fill="#2A8550" font-family="'ArialMT'" font-size="10">Background 10 min</text>
+<text transform="matrix(1 0 0 1 869.7021 126.5)" fill="#2A8550" font-family="'ArialMT'" font-size="10">Persists on reboot</text>
+<text transform="matrix(1 0 0 1 506.75 190.3955)" fill="#C9C0B2" font-family="'ArialMT'" font-size="10">*Location service activates after Terms acceptance | OnBootBroadcastReceiver.kt restarts it after reboot</text>
 <g>
-	<path fill="#FDF8F0" stroke="#C8A96E" stroke-width="1.5" d="M42,197h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
-		c-1.104,0-2-0.896-2-2v-8C40,197.896,40.896,197,42,197z"/>
-	<text transform="matrix(1 0 0 1 58 206)" fill="#555555" font-family="'ArialMT'" font-size="10">App screen</text>
-</g>
-<g>
-	<path fill="#EEEDFE" stroke="#AFA9EC" stroke-width="1.5" d="M171.745,197h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
-		c-1.104,0-2-0.896-2-2v-8C169.745,197.896,170.641,197,171.745,197z"/>
-	<text transform="matrix(1 0 0 1 187.7451 206)" fill="#555555" font-family="'ArialMT'" font-size="10">Requires user action</text>
-</g>
-<g>
-	<path fill="#E1F5EE" stroke="#5DCAA5" stroke-width="1.5" d="M324,197h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
-		c-1.104,0-2-0.896-2-2v-8C322,197.896,322.896,197,324,197z"/>
-	<text transform="matrix(1 0 0 1 340 206)" fill="#555555" font-family="'ArialMT'" font-size="10">Background service</text>
+	<g>
+		<path fill="#F5E6D3" stroke="#E8B872" stroke-width="1.5" d="M67.044,181.604h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
+			c-1.104,0-2-0.896-2-2v-8C65.044,182.501,65.94,181.604,67.044,181.604z"/>
+		<text transform="matrix(1 0 0 1 83.0444 190.6045)" fill="#5A554E" font-family="'ArialMT'" font-size="10">App screen</text>
+	</g>
+	<g>
+		<path fill="#E8DFEE" stroke="#9B7FB8" stroke-width="1.5" d="M196.79,181.604h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
+			c-1.104,0-2-0.896-2-2v-8C194.79,182.501,195.686,181.604,196.79,181.604z"/>
+		<text transform="matrix(1 0 0 1 212.7896 190.6045)" fill="#5A554E" font-family="'ArialMT'" font-size="10">Requires user action</text>
+	</g>
+	<g>
+		<path fill="#DCEEDC" stroke="#6CB68A" stroke-width="1.5" d="M349.045,181.604h8c1.104,0,2,0.896,2,2v8c0,1.104-0.896,2-2,2h-8
+			c-1.104,0-2-0.896-2-2v-8C347.045,182.501,347.941,181.604,349.045,181.604z"/>
+		<text transform="matrix(1 0 0 1 365.0444 190.6045)" fill="#5A554E" font-family="'ArialMT'" font-size="10">Background service</text>
+	</g>
 </g>
 </svg>
