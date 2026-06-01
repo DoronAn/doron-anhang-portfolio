@@ -536,15 +536,15 @@ footer a:hover { color: var(--gold); }
 
 /* ── RESEARCH SECTION (scoped: #detail-research / .rs-) ── */
 /* ── Figures & captions ── */
-#detail-research .rs-figure {
+.rs-figure {
   margin: 0 0 1.25rem;
   border: 1px solid #d8d4c8;
   background: #f5f2ec;
 }
-#detail-research .rs-figure--hero {
+.rs-figure--hero {
   border-width: 2px;
 }
-#detail-research .rs-figure figcaption {
+.rs-figure figcaption {
   font-size: 0.72rem;
   color: #7a7a74;
   padding: 0.45rem 0.65rem;
@@ -552,33 +552,33 @@ footer a:hover { color: var(--gold); }
   line-height: 1.4;
 }
 /* cap image height so they support text rather than dominate it */
-#detail-research .rs-figure img {
+.rs-figure img {
   max-height: 240px;
   object-fit: contain;
   object-position: center;
 }
-#detail-research .rs-figure--hero img {
+.rs-figure--hero img {
   max-height: 280px;
 }
 
 /* ── Two-column compound panels ── */
-#detail-research .rs-two-col {
+.rs-two-col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 @media (max-width: 700px) {
-  #detail-research .rs-two-col { grid-template-columns: 1fr; }
+  .rs-two-col { grid-template-columns: 1fr; }
 }
-#detail-research .rs-compound-panel {
+.rs-compound-panel {
   border: 2px solid #d8d4c8;
   padding: 0;
   overflow: hidden;
 }
-#detail-research .rs-compound-panel--caravan { border-color: #2A9D5C; }
-#detail-research .rs-compound-panel--midrise  { border-color: #C0392B; }
+.rs-compound-panel--caravan { border-color: #2A9D5C; }
+.rs-compound-panel--midrise  { border-color: #C0392B; }
 
-#detail-research .rs-compound-badge {
+.rs-compound-badge {
   display: inline-block;
   font-size: 0.7rem;
   font-weight: 600;
@@ -587,48 +587,48 @@ footer a:hover { color: var(--gold); }
   padding: 5px 10px;
   border-radius: 0;
 }
-#detail-research .rs-compound-badge--caravan {
+.rs-compound-badge--caravan {
   background: #2A9D5C;
   color: #fff;
 }
-#detail-research .rs-compound-badge--midrise {
+.rs-compound-badge--midrise {
   background: #C0392B;
   color: #fff;
 }
 
 /* ── Floor plan grid ── */
-#detail-research .rs-floor-grid {
+.rs-floor-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
   margin-top: 0.75rem;
 }
 @media (max-width: 700px) {
-  #detail-research .rs-floor-grid { grid-template-columns: 1fr; }
+  .rs-floor-grid { grid-template-columns: 1fr; }
 }
 
 /* ── Metrics strip ── */
-#detail-research .rs-metrics {
+.rs-metrics {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   margin-bottom: 1rem;
 }
 @media (max-width: 600px) {
-  #detail-research .rs-metrics { grid-template-columns: repeat(2,1fr); }
+  .rs-metrics { grid-template-columns: repeat(2,1fr); }
 }
-#detail-research .rs-metric {
+.rs-metric {
   background: #f0ece4;
   border: 1px solid #d8d4c8;
   padding: 12px 14px;
 }
-#detail-research .rs-metric-val {
+.rs-metric-val {
   font-size: 1.75rem;
   font-weight: 700;
   line-height: 1;
   color: #1a1a1a;
 }
-#detail-research .rs-metric-lbl {
+.rs-metric-lbl {
   font-size: 0.7rem;
   color: #7a7a74;
   margin-top: 4px;
@@ -636,7 +636,7 @@ footer a:hover { color: var(--gold); }
 }
 
 /* ── Legend ── */
-#detail-research .rs-legend {
+.rs-legend {
   display: flex;
   gap: 1.25rem;
   flex-wrap: wrap;
@@ -644,12 +644,12 @@ footer a:hover { color: var(--gold); }
   font-size: 0.78rem;
   color: #555;
 }
-#detail-research .rs-legend-item {
+.rs-legend-item {
   display: flex;
   align-items: center;
   gap: 6px;
 }
-#detail-research .rs-swatch {
+.rs-swatch {
   width: 12px;
   height: 12px;
   flex-shrink: 0;
@@ -657,90 +657,238 @@ footer a:hover { color: var(--gold); }
 }
 
 /* ── Chart rows ── */
-#detail-research .rs-chart-row {
+.rs-chart-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 12px;
 }
 @media (max-width: 700px) {
-  #detail-research .rs-chart-row { grid-template-columns: 1fr; }
+  .rs-chart-row { grid-template-columns: 1fr; }
 }
-#detail-research .rs-chart-card {
-  border: 1px solid #d8d4c8;
+.rs-chart-card {
+  border: 1px solid #e2dccd;
   padding: 14px 16px;
-  background: #fff;
+  background: #fdfbf7;
 }
-#detail-research .rs-chart-card--caravan { border-left: 3px solid #2A9D5C; }
-#detail-research .rs-chart-card--midrise  { border-left: 3px solid #C0392B; }
-#detail-research .rs-chart-title {
+.rs-chart-card--caravan { border-left: 3px solid #2A9D5C; }
+.rs-chart-card--midrise  { border-left: 3px solid #C0392B; }
+.rs-chart-title {
   font-size: 0.82rem;
   font-weight: 600;
   color: #1a1a1a;
   margin-bottom: 2px;
 }
-#detail-research .rs-chart-sub {
+.rs-chart-sub {
   font-size: 0.68rem;
   color: #7a7a74;
   margin-bottom: 10px;
   line-height: 1.4;
 }
-#detail-research .rs-chart-wrap {
+.rs-chart-wrap {
   position: relative;
   width: 100%;
 }
 
 /* ── Overall score cards ── */
-#detail-research .rs-overall-row {
+.rs-overall-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-top: 4px;
 }
 @media (max-width: 700px) {
-  #detail-research .rs-overall-row { grid-template-columns: 1fr; }
+  .rs-overall-row { grid-template-columns: 1fr; }
 }
-#detail-research .rs-overall-card {
+.rs-overall-card {
   border: 1px solid #d8d4c8;
   padding: 14px 16px;
   background: #faf8f4;
 }
-#detail-research .rs-overall-card--caravan { border-top: 3px solid #2A9D5C; }
-#detail-research .rs-overall-card--midrise  { border-top: 3px solid #C0392B; }
-#detail-research .rs-overall-label {
+.rs-overall-card--caravan { border-top: 3px solid #2A9D5C; }
+.rs-overall-card--midrise  { border-top: 3px solid #C0392B; }
+.rs-overall-label {
   font-size: 0.7rem;
   color: #7a7a74;
   margin-bottom: 6px;
 }
-#detail-research .rs-overall-score-row {
+.rs-overall-score-row {
   display: flex;
   align-items: baseline;
   gap: 8px;
   margin-bottom: 8px;
 }
-#detail-research .rs-overall-score {
+.rs-overall-score {
   font-size: 2.2rem;
   font-weight: 700;
   line-height: 1;
 }
-#detail-research .rs-overall-detail {
+.rs-overall-detail {
   font-size: 0.72rem;
   color: #7a7a74;
 }
-#detail-research .rs-bar-bg {
+.rs-bar-bg {
   height: 6px;
   background: #e8e4da;
   border-radius: 3px;
   overflow: hidden;
   margin-bottom: 6px;
 }
-#detail-research .rs-bar-fill {
+.rs-bar-fill {
   height: 100%;
   border-radius: 3px;
 }
-#detail-research .rs-overall-note {
+.rs-overall-note {
   font-size: 0.68rem;
   color: #7a7a74;
+}
+
+/* ── Spatial-quality hero (stacked horizontal bars, head-to-head) ── */
+.rs-viab {
+  display: flex; flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+.rs-viab--compact {
+  gap: 0.35rem;
+  margin-top: 0.4rem;
+  margin-bottom: 0.1rem;
+}
+/* Two-row grid: top row holds name + score + bar + side stats;
+   bottom row spans full width for the plain-language detail line. */
+.rs-viab-row {
+  display: grid;
+  grid-template-columns: 90px auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 0.85rem;
+  row-gap: 0.45rem;
+  padding: 0.85rem 1rem;
+  background: #faf8f4;
+  border: 1px solid #e6e0d3;
+  border-left: 4px solid transparent;
+  border-radius: 6px;
+}
+.rs-viab-row--caravan { border-left-color: #2A9D5C; }
+.rs-viab-row--midrise { border-left-color: #C0392B; }
+.rs-viab-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #1a1a1a;
+}
+.rs-viab-score {
+  font-family: var(--serif);
+  font-size: 2.6rem;
+  font-weight: 400;
+  line-height: 1;
+}
+.rs-viab-denom {
+  font-size: 0.9rem;
+  color: #7a7a74;
+  margin-left: 2px;
+  font-family: var(--sans);
+}
+.rs-viab-bar {
+  height: 14px;
+  background: #ebe5d8;
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+}
+.rs-viab-fill {
+  height: 100%;
+  border-radius: 7px;
+  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+.rs-viab-side {
+  text-align: right;
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+.rs-viab-stat { color: #7a7a74; }
+.rs-viab-note {
+  color: #1a1a1a;
+  font-weight: 600;
+  font-size: 0.74rem;
+  margin-top: 1px;
+}
+/* Detail row spans the full width below the score/bar row */
+.rs-viab-detail {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed #e6e0d3;
+}
+.rs-viab-detail-text {
+  font-size: 0.78rem;
+  color: #3a3a36;
+  font-style: italic;
+  flex: 1 1 240px;
+  min-width: 0;
+}
+.rs-viab-extremes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+.rs-viab-up { color: #1d6e3f; }
+.rs-viab-dn { color: #8e2418; }
+.rs-viab-caption {
+  font-size: 0.72rem !important;
+  color: #7a7a74 !important;
+  line-height: 1.55 !important;
+  padding: 0.6rem 0.2rem 0;
+  border-top: 1px solid #e6e0d3;
+  margin-top: 0.2rem !important;
+}
+.rs-viab-caption strong { color: #1a1a1a; font-weight: 600; }
+.rs-viab-scale { display: none; }
+
+/* Compact form for narrow containers (mobile, inline-imgs) */
+@media (max-width: 700px) {
+  .rs-viab-row {
+    grid-template-columns: 1fr auto;
+    column-gap: 0.6rem; row-gap: 0.4rem;
+    padding: 0.7rem 0.85rem;
+  }
+  .rs-viab-name { grid-column: 1 / -1; }
+  .rs-viab-bar  { grid-column: 1 / -1; order: 3; }
+  .rs-viab-side { text-align: right; order: 4; }
+  .rs-viab-detail { gap: 0.3rem; }
+  .rs-viab-extremes { flex-direction: column; }
+}
+
+/* Thumb-size preview in the strip rail: just colour-coded scores + slim bars */
+.pv-strip-thumbs .pv-strip-item--chart .rs-viab { display: none; }
+.pv-strip-thumbs .pv-strip-item--static .rs-viab { gap: 3px; margin: 2px 0 0; }
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-row {
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto;
+  gap: 4px;
+  padding: 2px 4px;
+  background: transparent; border: none;
+  border-left: 3px solid transparent;
+}
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-row--caravan { border-left-color: #2A9D5C; }
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-row--midrise { border-left-color: #C0392B; }
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-name,
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-side,
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-detail,
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-caption,
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-scale { display: none; }
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-score {
+  font-size: 0.95rem; line-height: 1;
+}
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-denom { display: none; }
+.pv-strip-thumbs .pv-strip-item--static .rs-viab-bar {
+  height: 5px; align-self: center;
 }
 
 /* ── NKDT SECTION (scoped: #detail-nkdt / .nk-) ── */
@@ -963,6 +1111,242 @@ footer a:hover { color: var(--gold); }
   display: flex; flex-direction: column;
   gap: 0.5rem; padding: 0.75rem;
   opacity: 0;
+  pointer-events: none; /* inactive imgsets must not steal clicks from the active one */
+}
+.pv-imgset.is-active, .pv-imgset.anim { pointer-events: auto; }
+/* ── STRIP MODE ──────────────────────────────────────────────────
+   Opt-in stage layout (chapter sets data-stage-mode="strip"):
+   one large hero slot on top, horizontal thumbnail rail below.
+   Clicking a thumb swaps it into the hero with a FLIP animation.
+   Works for both <img>/<figure> items and chart canvases. */
+.pv-imgset > .pv-strip {
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column;
+  gap: 0.55rem;
+}
+.pv-strip-hero {
+  flex: 1 1 0; min-height: 0;
+  background: #fdfbf7; border: 1px solid #e2dccd;
+  border-radius: 6px;
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column;
+  box-shadow: 0 2px 8px -4px rgba(0,0,0,0.12);
+}
+.pv-strip-thumbs {
+  flex: 0 0 auto;
+  display: flex; gap: 0.45rem;
+  overflow-x: auto; overflow-y: hidden;
+  padding-bottom: 0.2rem; /* room for scrollbar */
+  scrollbar-width: thin;
+}
+.pv-strip-thumbs::-webkit-scrollbar { height: 6px; }
+.pv-strip-thumbs::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
+
+.pv-strip-item {
+  background: #fdfbf7; border: 1px solid #e2dccd;
+  border-radius: 6px;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  font: inherit; color: inherit; text-align: left;
+}
+/* Hero variant: fills the hero slot */
+.pv-strip-hero > .pv-strip-item {
+  flex: 1 1 auto; width: 100%; height: 100%;
+  border: none; border-radius: 6px;
+}
+/* Thumb variant: fixed-width tiles, clickable */
+.pv-strip-thumbs > .pv-strip-item {
+  flex: 0 0 110px; height: 90px;
+  cursor: pointer; padding: 0;
+  position: relative;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s, opacity 0.15s;
+}
+.pv-strip-thumbs > .pv-strip-item:hover {
+  border-color: var(--gold);
+  box-shadow: 0 2px 6px -2px rgba(0,0,0,0.18);
+}
+.pv-strip-thumbs > .pv-strip-item:active { transform: scale(0.97); }
+/* Active thumb: highlighted, can't be reclicked */
+.pv-strip-thumbs > .pv-strip-item.is-active {
+  border: 2px solid var(--gold);
+  box-shadow: 0 0 0 1px var(--gold-dim);
+  cursor: default;
+}
+.pv-strip-thumbs > .pv-strip-item.is-active::after {
+  content: '';
+  position: absolute;
+  left: 50%; transform: translateX(-50%);
+  top: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--gold);
+}
+
+/* Item shapes — image item */
+/* Image strip item: the card fills the item; rules below in .pv-card-* block. */
+.pv-strip-item--img,
+.pv-strip-hero > .pv-strip-item--img {
+  padding: 0;
+}
+/* Thumb size: hide the chart-card chrome, let the image fill the tile. */
+.pv-strip-thumbs .pv-strip-item--img .pv-card-head,
+.pv-strip-thumbs .pv-strip-item--img .pv-card-rule,
+.pv-strip-thumbs .pv-strip-item--img .pv-card-foot { display: none; }
+.pv-strip-thumbs .pv-strip-item--img .pv-card { border-left-width: 3px; }
+.pv-strip-thumbs .pv-strip-item--img .pv-card-media { padding: 2px; }
+
+/* Item shapes — chart item */
+.pv-strip-item--chart {
+  padding: 14px 18px 12px;
+  border-left: 4px solid var(--gold);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  row-gap: 0.45rem;
+}
+.pv-strip-item--chart .pv-strip-chart-head { flex: 0 0 auto; }
+.pv-strip-item--chart .pv-strip-chart-title {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.2;
+  letter-spacing: 0.005em;
+}
+.pv-strip-item--chart .pv-strip-chart-sub {
+  font-size: 0.72rem; color: #7a7a74;
+  line-height: 1.45; margin-top: 4px;
+}
+.pv-strip-item--chart .pv-strip-chart-sub strong { color: #1a1a1a; font-weight: 600; }
+.pv-strip-item--chart .pv-strip-chart-rule {
+  height: 1px;
+  border-top: 1px dashed #d8d4c8;
+  margin: 0 -2px;
+}
+.pv-strip-item--chart .pv-strip-chart-wrap {
+  min-height: 0; position: relative;
+}
+.pv-strip-item--chart canvas {
+  position: absolute; inset: 0;
+  max-width: 100%; max-height: 100%;
+}
+.pv-strip-item--chart .pv-strip-chart-foot {
+  display: flex; align-items: baseline;
+  gap: 0.6rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid #ece6d5;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+.pv-strip-item--chart .pv-strip-chart-takeaway {
+  color: #3a3a36;
+  font-style: italic;
+  flex: 1 1 auto; min-width: 0;
+}
+.pv-strip-item--chart .pv-strip-chart-takeaway::before {
+  content: '→';
+  color: var(--gold);
+  margin-right: 0.4rem;
+  font-style: normal;
+  font-weight: 600;
+}
+.pv-strip-item--chart .pv-strip-chart-howto {
+  color: #aaa;
+  font-size: 0.66rem;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+/* Thumb-size chart: shrink header, smaller padding, axes hidden via JS */
+.pv-strip-thumbs .pv-strip-item--chart {
+  padding: 4px 6px;
+  border-left-width: 3px;
+  display: flex;
+  flex-direction: column;
+  grid-template-rows: none;
+  row-gap: 0;
+}
+.pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-head {
+  flex: 0 0 auto;
+}
+.pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-wrap {
+  flex: 1 1 auto; min-height: 0; position: relative;
+}
+.pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-title {
+  font-family: var(--sans);
+  font-size: 0.6rem; font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  margin-bottom: 2px;
+}
+.pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-sub,
+.pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-rule,
+.pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-foot { display: none; }
+
+/* Item shapes — static content item (e.g. the overall-viability cards) */
+.pv-strip-item--static {
+  padding: 14px 18px 12px;
+  overflow: auto;
+  border-left: 4px solid var(--gold);
+}
+.pv-strip-item--static .pv-strip-chart-head { margin-bottom: 8px; }
+.pv-strip-item--static .pv-strip-chart-title {
+  font-family: var(--serif);
+  font-size: 1.05rem; font-weight: 400; color: var(--ink); line-height: 1.2;
+}
+.pv-strip-item--static .pv-strip-chart-sub {
+  font-size: 0.72rem; color: #7a7a74; margin-top: 4px; line-height: 1.45;
+}
+.pv-strip-item--static .pv-strip-chart-sub strong { color: #1a1a1a; font-weight: 600; }
+.pv-strip-thumbs .pv-strip-item--static { padding: 5px 7px; overflow: hidden; }
+.pv-strip-thumbs .pv-strip-item--static .pv-strip-chart-title {
+  font-size: 0.62rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.pv-strip-thumbs .pv-strip-item--static .pv-strip-chart-sub { display: none; }
+/* Thumb preview of the viability cards: just the two big scores side-by-side */
+.pv-strip-thumbs .pv-strip-item--static .rs-overall-row {
+  display: flex; gap: 4px; margin-top: 2px;
+}
+.pv-strip-thumbs .pv-strip-item--static .rs-overall-card {
+  flex: 1; padding: 2px 4px; border-top-width: 2px;
+}
+.pv-strip-thumbs .pv-strip-item--static .rs-overall-label,
+.pv-strip-thumbs .pv-strip-item--static .rs-overall-detail,
+.pv-strip-thumbs .pv-strip-item--static .rs-overall-note { display: none; }
+.pv-strip-thumbs .pv-strip-item--static .rs-overall-score { font-size: 1.1rem; }
+.pv-strip-thumbs .pv-strip-item--static .rs-overall-score-row { margin: 0; }
+.pv-strip-thumbs .pv-strip-item--static .rs-bar-bg { display: none; }
+
+/* Inline mode (mobile, .pv-inline-imgs) — show strip stacked */
+.pv-inline-imgs .pv-strip {
+  display: flex; flex-direction: column; gap: 0.5rem;
+}
+/* Mobile: parent has no constrained height, so the hero's flex:1 collapses to 0.
+   The chart item uses a grid with 1fr wrap row — that collapses too when height is
+   auto. Switch to flex-column so the wrap can hold an explicit min-height. */
+.pv-inline-imgs .pv-strip-hero {
+  flex: 0 0 auto;
+  height: auto;
+}
+.pv-inline-imgs .pv-strip-hero .pv-strip-item--chart {
+  display: flex; flex-direction: column;
+  grid-template-rows: none;
+}
+.pv-inline-imgs .pv-strip-hero .pv-strip-item--chart .pv-strip-chart-wrap {
+  flex: none;
+  min-height: 260px;
+  height: 260px;
+  position: relative;
+}
+.pv-inline-imgs .pv-strip-hero .pv-strip-item--chart canvas {
+  position: absolute; inset: 0;
+}
+.pv-inline-imgs .pv-strip-thumbs > .pv-strip-item {
+  flex: 0 0 90px; height: 72px;
+}
+
+/* FLIP animation helper class — applied during swap so transforms ease */
+.pv-strip-item.is-animating {
+  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
 }
 .pv-imgset.is-active { opacity: 1; }
 .pv-imgset.anim { opacity: 1; }
@@ -976,20 +1360,246 @@ footer a:hover { color: var(--gold); }
 @keyframes pvSlideOutDown { from { transform: translateY(0); } to { transform: translateY(100%);  } }
 
 
-.pv-fig {
+/* ── Unified image card (.pv-card / .pv-card--img) ──
+   Matches the chart-card visual language: warm off-white surface, gold
+   left-border, serif title, dashed-rule separator, optional takeaway foot.
+   Used in swap-mode stage, strip-mode stage, and mobile inline-imgs. */
+.pv-card {
   flex: 1 1 0; min-height: 0;
   display: flex; flex-direction: column;
-  background: var(--white); border: 1px solid var(--rule);
+  background: #fdfbf7; border: 1px solid #e2dccd;
+  border-left: 4px solid var(--gold);
+  border-radius: 6px;
   overflow: hidden;
 }
-.pv-fig img {
-  flex: 1 1 0; min-height: 0; width: 100%;
-  object-fit: contain; object-position: center; display: block; padding: 0.4rem;
+.pv-card-head { padding: 12px 16px 8px; }
+.pv-card-title {
+  font-family: var(--serif);
+  font-size: 1rem; font-weight: 400;
+  color: var(--ink); line-height: 1.2;
 }
-.pv-fig figcaption {
-  font-size: 0.66rem; color: var(--text-light); line-height: 1.35;
-  padding: 0.4rem 0.55rem; border-top: 1px solid var(--rule); flex-shrink: 0;
+.pv-card-sub {
+  font-size: 0.72rem; color: #7a7a74;
+  line-height: 1.45; margin-top: 4px;
 }
+.pv-card-sub strong { color: #1a1a1a; font-weight: 600; }
+.pv-card-rule {
+  height: 1px; border-top: 1px dashed #d8d4c8;
+  margin: 0 14px;
+}
+.pv-card-media {
+  flex: 1 1 0; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  padding: 8px; background: var(--bg2);
+}
+.pv-card-media img {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain; display: block;
+}
+.pv-card-foot {
+  display: flex; align-items: baseline; gap: 0.6rem;
+  padding: 8px 16px 12px;
+  border-top: 1px solid #ece6d5;
+  font-size: 0.72rem; line-height: 1.45;
+}
+.pv-card-takeaway {
+  color: #3a3a36; font-style: italic;
+  flex: 1 1 auto; min-width: 0;
+}
+.pv-card-takeaway::before {
+  content: '→'; color: var(--gold);
+  margin-right: 0.4rem; font-style: normal; font-weight: 600;
+}
+
+/* Colour-coded compound cards */
+.pv-card--caravan { border-left-color: #2A9D5C; }
+.pv-card--midrise  { border-left-color: #C0392B; }
+
+/* ── Context chapter custom layout: campus top, pair below ── */
+.pv-ctx-layout {
+  display: flex; flex-direction: column;
+  gap: 0.55rem;
+  width: 100%; height: 100%;
+}
+.pv-ctx-main {
+  flex: 1 1 0 !important; min-height: 0; width: 100%;
+}
+.pv-ctx-pair {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+  height: 42%;      /* compound cards take ~42% of the stage height */
+  min-height: 160px;
+}
+.pv-ctx-pair .pv-card { min-height: 0; }
+/* Slightly smaller typography in the pair cards */
+.pv-ctx-pair .pv-card-title { font-size: 0.88rem; }
+.pv-ctx-pair .pv-card-sub   { font-size: 0.66rem; }
+.pv-ctx-pair .pv-card-head  { padding: 8px 12px 6px; }
+.pv-ctx-pair .pv-card-foot  { padding: 5px 12px 8px; display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; }
+.pv-ctx-pair .pv-card-foot .pv-card-takeaway { font-size: 0.68rem; }
+
+/* Archetypes chapter layout */
+.pv-arch-layout { display: flex; flex-direction: column; gap: 0.55rem; width: 100%; height: 100%; }
+.pv-arch-trio   { flex: 0 0 38%; min-height: 0; display: grid; grid-template-columns: 2fr 1fr; gap: 0.55rem; }
+.pv-arch-plans  { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
+.pv-arch-trio .pv-card, .pv-arch-plans .pv-card { min-height: 0; }
+.pv-arch-trio .pv-card-title  { font-size: 0.82rem; }
+.pv-arch-trio .pv-card-head   { padding: 7px 10px 5px; }
+.pv-arch-trio .pv-card-foot   { padding: 5px 10px 7px; display: flex; align-items: baseline; gap: 0.4rem; }
+.pv-arch-trio .pv-card-foot .pv-card-takeaway { font-size: 0.72rem; }
+.pv-arch-trio .pv-card-media  { margin: 0 8px; border-radius: 3px; border: 1px solid #e2dccd; }
+.pv-arch-plans .pv-card-title { font-size: 0.88rem; }
+.pv-arch-plans .pv-card-head  { padding: 8px 12px 6px; }
+.pv-arch-plans .pv-card-media img { object-fit: contain; }
+.pv-arch-plans .pv-card-foot  { display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; }
+/* Archetype colour coding */
+.pv-card--scattered { border-left-color: #2A9D5C; }
+/* Connector tags */
+.pv-arch-link { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.03em; padding: 2px 5px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
+.pv-arch-link--bldg    { color: #C0392B; background: rgba(192,57,43,0.10); }
+.pv-arch-link--caravan { color: #2A9D5C; background: rgba(42,157,92,0.10); }
+/* Floor plan top-border accents */
+.pv-arch-plan--caravan { border-top: 2px solid #2A9D5C; }
+.pv-arch-plan--bldg    { border-top: 2px solid #C0392B; }
+/* Fused corridor+cluster duo frame — matches .pv-card visual language, red accent = Bldg 101 */
+.pv-arch-duo { display: flex; flex-direction: column; height: 100%; border: 1px solid #e2dccd; border-left: 4px solid #C0392B; border-radius: 6px; background: #fdfbf7; overflow: hidden; }
+.pv-arch-duo-inner { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr auto 1fr; }
+.pv-arch-duo-item  { display: flex; flex-direction: column; min-height: 0; padding: 7px 10px 0; }
+.pv-arch-duo-item-title { font-family: var(--serif); font-size: 0.82rem; font-weight: 400; color: var(--ink); line-height: 1.2; padding-bottom: 5px; flex-shrink: 0; }
+.pv-arch-duo-rule { height: 1px; border-top: 1px dashed #d8d4c8; margin: 0 0 0; flex-shrink: 0; }
+.pv-arch-duo-item .pv-card-media { flex: 1 1 0; min-height: 0; padding: 8px; background: var(--bg2); display: flex; align-items: center; justify-content: center; }
+.pv-arch-duo-item .pv-card-media img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+.pv-arch-duo-cap   { font-size: 0.72rem; color: #3a3a36; font-style: italic; line-height: 1.45; padding: 5px 10px 7px; flex-shrink: 0; border-top: 1px solid #ece6d5; }
+.pv-arch-duo-cap::before { content: '→'; color: var(--gold); margin-right: 0.4rem; font-style: normal; font-weight: 600; }
+.pv-arch-duo-divider { width: 1px; background: #e2dccd; margin: 8px 0; align-self: stretch; flex-shrink: 0; }
+
+/* ── Mobile inline overrides ──────────────────────────────────────
+   All complex stage layouts use height:100% / flex:1 which collapses
+   when placed in normal document flow. These rules replace absolute
+   sizing with explicit min-heights so content is visible on mobile. */
+
+/* Simple data-images cards (Methodology, Framework, NKDT chapters etc.) */
+.pv-inline-imgs .pv-card {
+  flex: none;
+}
+.pv-inline-imgs .pv-card-media {
+  flex: none;
+  height: 240px;
+}
+.pv-inline-imgs .pv-card-media img {
+  max-height: 100%; width: auto; max-width: 100%;
+}
+
+/* Context chapter */
+.pv-inline-imgs .pv-ctx-layout {
+  height: auto;
+}
+.pv-inline-imgs .pv-ctx-main {
+  flex: none !important;
+}
+.pv-inline-imgs .pv-ctx-main .pv-card-media {
+  height: 220px;
+}
+.pv-inline-imgs .pv-ctx-pair {
+  height: auto; min-height: 0;
+  grid-template-columns: 1fr 1fr;
+}
+.pv-inline-imgs .pv-ctx-pair .pv-card-media {
+  height: 140px;
+}
+
+/* Archetypes chapter */
+.pv-inline-imgs .pv-arch-layout {
+  height: auto;
+}
+.pv-inline-imgs .pv-arch-trio {
+  flex: none; height: auto;
+  grid-template-columns: 2fr 1fr;
+}
+.pv-inline-imgs .pv-arch-trio .pv-card-media,
+.pv-inline-imgs .pv-arch-trio .pv-arch-duo-item .pv-card-media {
+  height: 140px;
+}
+.pv-inline-imgs .pv-arch-plans {
+  flex: none; height: auto;
+  grid-template-columns: 1fr 1fr;
+}
+.pv-inline-imgs .pv-arch-plans .pv-card-media {
+  height: 140px;
+}
+
+/* App chapter */
+.pv-inline-imgs .pv-app-stage {
+  height: auto;
+}
+.pv-inline-imgs .pv-app-stage .app-diagram-card {
+  flex: none;
+}
+.pv-inline-imgs .pv-app-stage .pv-card-media {
+  height: 180px;
+}
+
+/* Mobile: hide chart sub/foot and expand hint; show truncated card captions */
+.pv-inline-imgs .pv-card-sub,
+.pv-inline-imgs .app-expand-hint,
+.pv-inline-imgs .pv-strip-chart-sub,
+.pv-inline-imgs .pv-strip-chart-foot,
+.pv-inline-imgs .pv-strip-item--static .pv-strip-chart-sub { display: none; }
+.pv-inline-imgs .pv-card-foot {
+  display: block;
+  padding: 4px 12px 6px;
+}
+.pv-inline-imgs .pv-card-takeaway {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.68rem;
+}
+.pv-inline-imgs .pv-arch-duo-item {
+  min-width: 0;
+  overflow: hidden;
+}
+.pv-inline-imgs .pv-arch-duo-cap {
+  font-size: 0.68rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Mobile: leaner composite bars — single-row flex, no detail row */
+.pv-inline-imgs .rs-viab--compact {
+  gap: 0.2rem;
+  margin-top: 0.2rem;
+  margin-bottom: 0;
+}
+.pv-inline-imgs .rs-viab-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  grid-template-rows: none;
+}
+.pv-inline-imgs .rs-viab-name {
+  flex: 0 0 52px;
+  font-size: 0.62rem;
+}
+.pv-inline-imgs .rs-viab-score {
+  flex: 0 0 auto;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+.pv-inline-imgs .rs-viab-bar {
+  flex: 1 1 0;
+  height: 8px;
+}
+.pv-inline-imgs .rs-viab-side,
+.pv-inline-imgs .rs-viab-detail { display: none; }
 
 /* The content-panel is now the middle column of pv-body — no extra margin needed */
 .pv-body > .content-panel { margin: 0; scroll-margin-top: 0; }
@@ -1134,12 +1744,93 @@ footer a:hover { color: var(--gold); }
   }
   .pv-inline-imgs {
     display: grid; gap: 0.6rem; margin-top: 1.25rem;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: 1fr;
   }
-  .pv-inline-imgs .pv-fig { display: block; }
-  .pv-inline-imgs .pv-fig img {
-    flex: none; width: 100%; max-height: 240px; object-fit: contain; padding: 0.4rem;
-  }
+}
+
+/* ── App chapter inline layouts ── */
+.app-flow-wrap { margin: 1.2rem 0 1rem; padding: 0; }
+.app-flow-figure { margin: 0; cursor: pointer; }
+.app-flow-figure img { width: 100%; height: auto; display: block; border-radius: 5px; transition: opacity 0.15s; }
+.app-flow-figure:hover img { opacity: 0.88; }
+.app-flow-figure figcaption { font-size: 0.72rem; color: #9a8a7a; margin-top: 0.4rem; font-style: italic; display: flex; justify-content: space-between; align-items: baseline; }
+.app-diagrams-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 1rem 0; }
+.app-diagram-card {
+  flex: none; cursor: pointer; text-align: left;
+  transition: box-shadow 0.15s, transform 0.1s;
+}
+.app-diagram-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); }
+.app-diagram-card .pv-card-foot { display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; }
+.app-expand-hint { font-size: 0.6rem; color: var(--gold); opacity: 0.8; white-space: nowrap; flex-shrink: 0; }
+/* Stage: two cards stacked vertically, each taking half the height */
+.pv-app-stage { display: flex; flex-direction: column; gap: 0.55rem; width: 100%; height: 100%; }
+.pv-app-stage .app-diagram-card { flex: 1 1 0; min-height: 0; }
+
+/* ── Lightbox ── */
+.pv-lightbox {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(10,8,5,0.82);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.22s ease;
+  backdrop-filter: blur(3px);
+  touch-action: none;
+}
+.pv-lightbox.is-open { opacity: 1; pointer-events: auto; }
+.pv-lightbox-inner {
+  position: relative;
+  max-width: 92vw; max-height: 88vh;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0.6rem;
+}
+.pv-lightbox-frame {
+  overflow: hidden;
+  border-radius: 8px;
+  background: #fdfbf7;
+  border: 1px solid #e2dccd;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+.pv-lightbox-frame:active { cursor: grabbing; }
+.pv-lightbox-frame img {
+  display: block;
+  max-width: 88vw; max-height: 80vh;
+  transform-origin: 0 0;
+  transition: transform 0.1s ease;
+  pointer-events: none;
+  user-select: none;
+}
+.pv-lightbox-caption {
+  color: #e8e0d0; font-size: 0.8rem; letter-spacing: 0.04em;
+  text-align: center; opacity: 0.75;
+}
+.pv-lightbox-close {
+  position: absolute; top: -2.2rem; right: 0;
+  background: none; border: none; cursor: pointer;
+  color: #e8e0d0; font-size: 1.4rem; line-height: 1;
+  opacity: 0.7; padding: 4px 8px;
+  transition: opacity 0.15s;
+}
+.pv-lightbox-close:hover { opacity: 1; }
+.pv-lightbox-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(20,15,8,0.55); border: 1px solid rgba(255,255,255,0.12);
+  color: #e8e0d0; font-size: 1.5rem; line-height: 1;
+  width: 2.8rem; height: 2.8rem;
+  border-radius: 50%; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.15s, opacity 0.15s;
+  opacity: 0.7; padding: 0; z-index: 1;
+}
+.pv-lightbox-nav:hover { background: rgba(20,15,8,0.85); opacity: 1; }
+.pv-lightbox-nav.is-hidden { opacity: 0; pointer-events: none; }
+.pv-lightbox-prev { left: 1.5rem; }
+.pv-lightbox-next { right: 1.5rem; }
+.pv-lightbox-counter {
+  position: absolute; top: -2.2rem; left: 0;
+  color: #e8e0d0; font-size: 0.72rem; opacity: 0.5;
+  letter-spacing: 0.06em;
 }
 </style>
 </head>
@@ -1207,14 +1898,14 @@ footer a:hover { color: var(--gold); }
 
   <div class="tab-group-sep">Research</div>
   <button class="tab-btn" id="tab-research">
-    <span class="tab-btn-num">02</span>
+    <span class="tab-btn-num">01</span>
     <span class="tab-btn-title">Quantitative Spatial Analysis</span>
     <span class="tab-btn-sub">Student Dorms Archetype</span>
   </button>
 
   <div class="tab-group-sep">Design</div>
   <button class="tab-btn" id="tab-nkdt">
-    <span class="tab-btn-num">01</span>
+    <span class="tab-btn-num">02</span>
     <span class="tab-btn-title">NKDT</span>
     <span class="tab-btn-sub">Dynamic System</span>
   </button>
@@ -1292,74 +1983,273 @@ footer a:hover { color: var(--gold); }
       </div>
     </div>
 
-    <!-- RESEARCH: Quantitative Spatial Analysis -->
+    <!-- RESEARCH: Student Dorms Archetype -->
     <div class="proj-detail" id="detail-research"
          data-eyebrow="Academic Seminar Paper · Ariel University, 2022"
-         data-title="Quantitative Spatial Data Analysis:<br><em>Student Dorms Archetype</em>"
-         data-title-short="Quantitative Spatial Data Analysis: <em>Student Dorms Archetype</em>"
-         data-meta='Advisor: Dr. Arch. Gilad Schweid &nbsp;·&nbsp; <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank" rel="noopener noreferrer">Published Paper ↗</a>'
-         data-kw='[{"l":"Spatial Analytics","g":1},{"l":"SCI-2 Framework","g":1},{"l":"Android Dev"},{"l":"Geofencing"},{"l":"Privacy Engineering"},{"l":"Comparative Modelling"},{"l":"Incremental Optimisation"}]'>
+         data-title="Student Dorms Archetype<br><em>as a Driving Factor in Sense of Community</em>"
+         data-title-short="Student Dorms Archetype &amp; <em>Sense of Community</em>"
+         data-meta='Supervisor: Dr. Arch. Gilad Schweid &nbsp;·&nbsp; <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank" rel="noopener noreferrer">Published Paper ↗</a>'
+         data-kw='[{"l":"Mixed-Method Research","g":1},{"l":"SCI-2 &amp; URES","g":1},{"l":"Android Dev"},{"l":"GPS Telemetry"},{"l":"Privacy-by-Design"},{"l":"Comparative Field Study"}]'>
 
       <section class="pv-chapter" id="ch-context"
                data-title="Context &amp; Challenge"
-               data-images='[
-                 {"src":"images/research/ariel_map.jpg","cap":"Ariel University campus, 2018 — dormitory compounds mapped."},
-                 {"src":"images/research/compound_comparison.jpg","cap":"Layout comparison — Caravan sub-plots vs Mid-rise corridor blocks."}
-               ]'>
+               data-stage-ref="#ch-context-template">
         <span class="pv-ch-num">01 — Context</span>
         <h2 class="pv-ch-title">Context &amp; Challenge</h2>
-        <p>Architectural theory frequently claims that physical environments shape human communities, yet these assertions often rely on subjective intuition rather than empirical, verifiable validation. This research seminar transitions architectural design into the realm of quantitative science.</p>
-        <p>Under the supervision of Dr. Arch. Gilad Schweid, this study establishes a rigorous empirical methodology to analyse, measure, and map exactly how micro-architectural and environmental features drive or restrict a psychological <strong>"<em>Sense of Community</em>" (SoC)</strong> within institutional student housing.</p>
-        <p>The core of the research evaluated a comparative dataset between two polarised housing archetypes at Ariel University: a structured <strong>Mid-rise Compound</strong> versus a decentralised <strong>Caravan Compound</strong>.</p>
+        <p>Architectural theory frequently claims that physical environments shape human communities — yet these assertions rarely move beyond intuition into verifiable, empirical validation. This study aims to tackle this issue.</p>
+        <p>Under the supervision of <strong>Dr. Arch. Gilad Schweid</strong>, it establishes a rigorous mixed-method framework to measure how specific micro-spatial features drive or suppress a <strong>Sense of Community (SoC)</strong> within institutional student housing.</p>
+        <p>The research leverages a rare natural experiment: Ariel University operates <strong>two dormitory compounds on the same campus</strong>, serving the same student population, built on <strong>radically opposing architectural philosophies</strong>, controlling for the social confounders that normally make this kind of research inconclusive.</p>
+
+        <template id="ch-context-template">
+          <div class="pv-ctx-layout">
+            <button class="pv-card pv-card--img pv-ctx-main app-diagram-card" data-lightbox="images/research/ariel_map.jpg" data-lightbox-title="Ariel University Campus">
+              <div class="pv-card-head">
+                <div class="pv-card-title">Ariel University Campus</div>
+              </div>
+              <div class="pv-card-rule"></div>
+              <div class="pv-card-media"><img loading="lazy" src="images/research/ariel_map.jpg" alt="Ariel University campus map"></div>
+              <div class="pv-card-foot"><span class="pv-card-takeaway">Two opposing compounds, one shared campus.</span><span class="app-expand-hint">↗ click to expand</span></div>
+            </button>
+            <div class="pv-ctx-pair">
+              <button class="pv-card pv-card--img pv-card--caravan app-diagram-card" data-lightbox="images/research/caravan_site.jpg" data-lightbox-title="Caravan Compound">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Caravan Compound</div>
+                  <div class="pv-card-sub">~350 scattered units, 0.106 km², pedestrian-first.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media"><img loading="lazy" src="images/research/caravan_site.jpg" alt="Caravan compound"></div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Decentralised: every unit faces shared green space.</span><span class="app-expand-hint">↗ click to expand</span></div>
+              </button>
+              <button class="pv-card pv-card--img pv-card--midrise app-diagram-card" data-lightbox="images/research/midrise_site.jpg" data-lightbox-title="Mid-rise Compound">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Mid-rise Compound</div>
+                  <div class="pv-card-sub">1,550 students, Buildings 101–116, 0.033 km².</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media"><img loading="lazy" src="images/research/midrise_site.jpg" alt="Mid-rise compound"></div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Dense and institutional — corridors replace communal space.</span><span class="app-expand-hint">↗ click to expand</span></div>
+              </button>
+            </div>
+          </div>
+        </template>
       </section>
 
       <section class="pv-chapter" id="ch-archetypes"
-               data-title="The Three Archetypes"
-               data-images='[
-                 {"src":"images/shared/corridor_plex.png","cap":"Corridor Plex archetype."},
-                 {"src":"images/shared/cluster_plex.png","cap":"Cluster Plex archetype."},
-                 {"src":"images/shared/scattered_plex.png","cap":"Scattered Plex archetype."}
-               ]'>
-        <span class="pv-ch-num">02 — Typology</span>
-        <h2 class="pv-ch-title">The Three Archetypes</h2>
-        <p>The study positions each compound within a studied taxonomy of dorm archetypes — from the inward-facing <strong>cluster plex</strong>, to the <strong>corridor hybrid</strong>, to the decentralised <strong>scattered plex</strong>.</p>
-        <p>Each typology generates a distinct social ecology. The mid-rise compound reads as a cluster/corridor hybrid; the caravan compound as a scattered plex — two ends of a spectrum chosen precisely because they polarise the variables under test.</p>
+               data-title="The Archetypes"
+               data-stage-ref="#ch-archetypes-template">
+        <span class="pv-ch-num">02 — Archetypes</span>
+        <h2 class="pv-ch-title">The Archetypes</h2>
+        <p>Student dormitory design has evolved through three canonical archetypes. The <strong>Corridor Plex</strong> lines rooms along a shared hallway with communal bathrooms per floor — consistently linked to social overload and withdrawal. The <strong>Cluster Plex</strong>, still the dominant contemporary model, groups rooms around a small shared suite; it improves privacy but paradoxically scores worse on campus-wide community metrics. The <strong>Scattered Plex</strong> organizes autonomous units across shared communal grounds, with the spatial relationship between each unit and the landscape defining the compound&rsquo;s social character — the least studied, and the most promising.</p>
+        <p>Ariel&rsquo;s two compounds map directly onto this. The <strong>mid-rise compound</strong> is a cluster-corridor hybrid: densely packed towers with consolidated indoor amenities — ~1,550 students across 0.033 km². The <strong>caravan compound</strong> is a scattered plex: ~350 low-rise units distributed across 0.106 km² of organic, pedestrian-first grounds, organised into semi-private sub-clusters surrounded by greenery and shared outdoor space.</p>
+
+        <template id="ch-archetypes-template">
+          <div class="pv-arch-layout">
+            <div class="pv-arch-trio">
+              <div class="pv-arch-duo">
+                <div class="pv-arch-duo-inner">
+                  <div class="pv-arch-duo-item">
+                    <div class="pv-arch-duo-item-title">Corridor Plex</div>
+                    <div class="pv-arch-duo-rule"></div>
+                    <div class="pv-card-media"><img loading="lazy" src="images/shared/corridor_plex.png" alt="Corridor plex diagram"></div>
+                    <div class="pv-arch-duo-cap">Rooms along a shared hallway — linked to social overload &amp; withdrawal.</div>
+                  </div>
+                  <div class="pv-arch-duo-divider"></div>
+                  <div class="pv-arch-duo-item">
+                    <div class="pv-arch-duo-item-title">Cluster Plex</div>
+                    <div class="pv-arch-duo-rule"></div>
+                    <div class="pv-card-media"><img loading="lazy" src="images/shared/cluster_plex.png" alt="Cluster plex diagram"></div>
+                    <div class="pv-arch-duo-cap">Rooms around a shared suite — better privacy, weaker campus community.</div>
+                  </div>
+                </div>
+              </div>
+              <div class="pv-card pv-card--img pv-card--scattered">
+                <div class="pv-card-head"><div class="pv-card-title">Scattered Plex</div></div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media"><img loading="lazy" src="images/shared/scattered_plex.png" alt="Scattered plex diagram"></div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Autonomous units across open grounds — least studied, most spatially promising.</span></div>
+              </div>
+            </div>
+            <div class="pv-arch-plans">
+              <button class="pv-card pv-card--img pv-card--midrise pv-arch-plan--bldg app-diagram-card" data-lightbox="images/research/building_101.jpg" data-lightbox-title="Building 101 Floor Plan">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Building 101 Floor Plan</div>
+                  <div class="pv-card-sub">Cluster-corridor hybrid · 1,550 students · 0.033 km²</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media"><img loading="lazy" src="images/research/building_101.jpg" alt="Building 101 floor plan"></div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Dense towers; corridors replace communal outdoor space.</span><span class="app-expand-hint">↗ click to expand</span></div>
+              </button>
+              <button class="pv-card pv-card--img pv-card--caravan pv-arch-plan--caravan app-diagram-card" data-lightbox="images/research/caravan_floor_plan.jpg" data-lightbox-title="Caravan Unit Floor Plan">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Caravan Unit Floor Plan</div>
+                  <div class="pv-card-sub">Scattered plex · ~350 units · 0.106 km²</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media"><img loading="lazy" src="images/research/caravan_floor_plan.jpg" alt="Caravan unit floor plan"></div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Autonomous unit; every door opens onto shared green space.</span><span class="app-expand-hint">↗ click to expand</span></div>
+              </button>
+            </div>
+          </div>
+        </template>
       </section>
 
-      <section class="pv-chapter" id="ch-sites"
-               data-title="Case Study Sites"
-               data-images='[
-                 {"src":"images/research/caravan_site.jpg","cap":"Caravan compound — ~350 scattered units, 0.106 km², pedestrian-first."},
-                 {"src":"images/research/midrise_site.jpg","cap":"Mid-rise compound — Buildings 101–116, 1,550 students at 46,969/km²."}
-               ]'>
-        <span class="pv-ch-num">03 — Sites</span>
-        <h2 class="pv-ch-title">Case Study Sites</h2>
-        <p>The <strong>Caravan compound</strong> spreads roughly 350 scattered units across 0.106 km² in an organic, pedestrian-first layout that prioritises informal contact and buffered outdoor space.</p>
-        <p>The <strong>Mid-rise compound</strong> concentrates 1,550 students across numbered building blocks 101–116 on just 0.033 km² — a density of 46,969 students per km², organised around efficient internal corridors.</p>
+      <section class="pv-chapter" id="ch-method"
+               data-title="Methodology"
+               data-images='[{"src":"images/research/d4_instruments_v1.svg","title":"Quantitative Instruments","cap":"URES, SCI-2, and GPS telemetry — the three instruments used to measure social climate, sense of community, and spatial behaviour.","takeaway":"Three complementary instruments: URES captures social climate across 10 subscales, SCI-2 measures subjective sense of community across 4 dimensions, and GPS telemetry tracks actual movement patterns to calibrate the survey data."},{"src":"images/research/d5_scoring_rubric_v1.svg","title":"Qualitative Instrument","cap":"Seven parameters scored 1–5 through direct architectural observation, grouped by Place Attachment and Informal Contact theory.","takeaway":"Qualitative track: a predicted SoC score built from the built environment alone, before any resident data was collected."}]'>
+        <span class="pv-ch-num">03 — Method</span>
+        <h2 class="pv-ch-title">Methodology — Two Parallel Tracks</h2>
+        <p>The analysis ran on <strong>two parallel tracks designed to cross-validate each other</strong>. The <strong>qualitative track</strong> scored each compound against seven spatial parameters — <em>control, views, and scale</em> (Place Attachment) and <em>strollability, buffers, opportunities, and perception</em> (Informal Contact) — on a 1–5 scale through direct architectural observation benchmarked against the academic literature. The goal: a predicted Sense of Community score based purely on spatial merit.</p>
+        <p>The <strong>quantitative track</strong> measured what residents actually experienced, using two validated instruments translated to Hebrew: the <strong>University Residence Environment Scale (URES)</strong>, assessing social climate across ten subscales, and the <strong>Sense of Community Index 2 (SCI-2)</strong>, measuring SoC across four dimensions. Passive <strong>GPS telemetry</strong>, collected continuously over 47 days via the same app, added a behavioural layer — tracking actual movement through and between compounds to calibrate the self-report data.</p>
+        <p>Comparing predicted against measured outcomes both validated the spatial framework and surfaced where the two diverged — and why.</p>
       </section>
 
-      <section class="pv-chapter" id="ch-infrastructure"
-               data-title="Research Infrastructure"
-               data-images='[
-                 {"src":"images/research/building_102.jpg","cap":"Building 102 — mid-rise unit layout."},
-                 {"src":"images/research/buildings_111_114.jpg","cap":"Buildings 111–114 — corridor block cluster."}
-               ]'>
-        <span class="pv-ch-num">04 — Infrastructure</span>
-        <h2 class="pv-ch-title">Research Infrastructure</h2>
-        <p>To orchestrate remote data collection during the pandemic, I designed and co-developed a custom native <strong>Android mobile application</strong>. The app functioned as a live research platform, capturing standardised psychometric metrics alongside passive background geospatial telemetry.</p>
-        <p><strong>Privacy-by-Design</strong> governed the data pipeline: survey responses were isolated from spatial location metrics. User identities were obfuscated at device edge using a client-side cryptographic hash function. Hyper-local data masking ignored a student's precise coordinate when inside their immediate residential cluster, logging a default centralised anchor instead.</p>
+      <section class="pv-chapter" id="ch-app"
+               data-title="The App"
+               data-stage-ref="#ch-app-template">
+        <span class="pv-ch-num">04 — The App</span>
+        <h2 class="pv-ch-title">The App — NKDT Points</h2>
+        <p>To orchestrate data collection during the pandemic, I co-developed a custom native <strong>Android application — NKDT Points</strong> — functioning as a live research platform. The app simultaneously administered the psychometric questionnaires remotely and captured <strong>continuous passive background GPS telemetry</strong>, mapping how residents actually moved through and between the compounds over time.</p>
+
+        <div class="app-flow-wrap">
+          <span class="subsec-label">Participant Flow</span>
+          <figure class="app-flow-figure" data-lightbox="images/research/d1_participant_flow_v2.svg" data-lightbox-title="Participant Flow">
+            <img loading="lazy" src="images/research/d1_participant_flow_v2.svg" alt="Participant flow diagram">
+            <figcaption>Onboarding through passive GPS collection. <span class="app-expand-hint">↗ click to expand</span></figcaption>
+          </figure>
+        </div>
+
+        <p><strong>Privacy-by-Design</strong> governed the entire pipeline. Survey responses and spatial telemetry were isolated across decoupled databases from the outset. User identities were obfuscated at device edge via a client-side cryptographic hash crossing hardware IDs with registration timestamps — the only identifier ever transmitted. GPS data was geofenced to city limits; when a participant was detected within their own residential cluster, the app substituted their precise coordinate with a cluster-centroid anchor, preventing hyper-local tracking while preserving compound-level movement data.</p>
+
+        <p style="font-size:0.82rem; margin-top:0.85rem;">
+          Source code:&nbsp;
+          <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer" style="color:var(--gold); text-decoration:none;">App ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer" style="color:var(--gold); text-decoration:none;">API ↗</a>
+        </p>
+
+        <template id="ch-app-template">
+          <div class="pv-app-stage">
+            <button class="pv-card pv-card--img app-diagram-card" data-lightbox="images/research/d2_anonymisation_v2.svg" data-lightbox-title="Anonymisation at the Edge">
+              <div class="pv-card-head">
+                <div class="pv-card-title">Anonymisation at the Edge</div>
+                <div class="pv-card-sub">Client-side SHA hash: hardware ID × registration timestamp.</div>
+              </div>
+              <div class="pv-card-rule"></div>
+              <div class="pv-card-media"><img loading="lazy" src="images/research/d2_anonymisation_v2.svg" alt="Anonymisation architecture diagram"></div>
+              <div class="pv-card-foot"><span class="pv-card-takeaway">No personal data ever leaves the device unhashed.</span><span class="app-expand-hint">↗ click to expand</span></div>
+            </button>
+            <button class="pv-card pv-card--img app-diagram-card" data-lightbox="images/research/d3_pipeline_v2.svg" data-lightbox-title="Data Pipeline">
+              <div class="pv-card-head">
+                <div class="pv-card-title">Data Pipeline</div>
+                <div class="pv-card-sub">Device → geofence → decoupled survey &amp; spatial DBs.</div>
+              </div>
+              <div class="pv-card-rule"></div>
+              <div class="pv-card-media"><img loading="lazy" src="images/research/d3_pipeline_v2.svg" alt="Data pipeline diagram"></div>
+              <div class="pv-card-foot"><span class="pv-card-takeaway">Privacy-by-design end-to-end.</span><span class="app-expand-hint">↗ click to expand</span></div>
+            </button>
+          </div>
+        </template>
       </section>
 
-      <section class="pv-chapter" id="ch-findings"
-               data-title="Empirical Findings"
+      <section class="pv-chapter" id="ch-results"
+               data-title="Results"
+               data-stage-mode="strip"
+               data-stage-ref="#rs-charts-template">
+        <span class="pv-ch-num">05 — Results</span>
+        <h2 class="pv-ch-title">Results</h2>
+        <p>The <strong>qualitative analysis</strong> produced a clear verdict: the caravan compound scored <strong>3.9 / 5</strong> (SD = 0.38, p &lt; 0.01) against the mid-rise&rsquo;s <strong>2.9 / 5</strong> (SD = 0.35, p &lt; 0.05). Three spatial families accounted for most of the gap: <strong>Nature</strong> features (free-flowing layout, tree canopy, green sub-clusters), <strong>Appeal</strong> features (distinctive unit character, resident personalisation, village aesthetic), and <strong>Buffer</strong> features — the layered private → semi-private → communal → campus hierarchy that gives residents fine-grained control over social exposure. The mid-rise&rsquo;s inside/outside binary collapses that gradient entirely.</p>
+        <p>The <strong>quantitative results</strong> confirmed the direction: caravan residents scored 0.566 normalised on the SCI-2 total index (p &lt; 0.05), mid-rise scored 0.407 — with <em>Membership</em> and <em>Shared Emotional Connection</em> driving the largest differences. GPS telemetry added a calibrating layer: residents spent <strong>83.5% of recorded time within their own building or sub-cluster</strong>, reflecting COVID-19&rsquo;s compression of social opportunity and explaining why both compounds scored lower than the spatial model predicted. The mid-rise cohort was small (n = 3–5), making comparative findings directional — a larger longitudinal follow-up remains the natural next step.</p>
+
+        <div class="subsec" style="margin-top:1.5rem;">
+          <span class="subsec-label">Study Metrics</span>
+          <div class="rs-metrics">
+            <div class="rs-metric"><div class="rs-metric-val">38</div><div class="rs-metric-lbl">app downloads</div></div>
+            <div class="rs-metric"><div class="rs-metric-val">25</div><div class="rs-metric-lbl">valid participants</div></div>
+            <div class="rs-metric"><div class="rs-metric-val">22</div><div class="rs-metric-lbl">SCI-2 responses</div></div>
+            <div class="rs-metric"><div class="rs-metric-val">3,955</div><div class="rs-metric-lbl">GPS datapoints</div></div>
+          </div>
+        </div>
+
+        <div class="finding" style="margin-top:1.25rem;">
+          <span class="finding-lbl">Empirical finding</span>
+          <p>Counter to conventional density-driven assumptions, the analysis revealed a <strong>clear statistical advantage for the decentralised Caravan compound</strong>. Micro-spatial elements — <strong>nature integration, visual appeal, and spatial buffers</strong> — proved to be the high-impact drivers of community formation, outperforming structural density.</p>
+        </div>
+
+        <!-- Stage items: built into a hero+thumbnail strip by pvBuildStrip().
+             First item is the default hero. -->
+        <template id="rs-charts-template">
+          <div class="pv-strip-item pv-strip-item--chart"
+               style="grid-template-rows: auto auto auto 1fr auto;"
+               data-strip-key="chart-qual" data-strip-kind="chart" data-chart-key="qual">
+            <div class="pv-strip-chart-head">
+              <div class="pv-strip-chart-title">Qualitative Spatial Scores — Caravan vs Mid-rise</div>
+              <div class="pv-strip-chart-sub">Per-parameter breakdown of 7 architectural parameters scored 1–5 against literature benchmarks. Each bar is a component of the composite.</div>
+            </div>
+            <div class="rs-viab rs-viab--compact">
+              <div class="rs-viab-row rs-viab-row--caravan">
+                <div class="rs-viab-name">Caravan</div>
+                <div class="rs-viab-score" style="color:#2A9D5C;">3.9<span class="rs-viab-denom">/5</span></div>
+                <div class="rs-viab-bar"><div class="rs-viab-fill" style="width:78%; background:#2A9D5C;"></div></div>
+                <div class="rs-viab-side">
+                  <div class="rs-viab-stat">SD 0.38 &nbsp;·&nbsp; p &lt; 0.01</div>
+                  <div class="rs-viab-note">composite avg.</div>
+                </div>
+              </div>
+              <div class="rs-viab-row rs-viab-row--midrise">
+                <div class="rs-viab-name">Mid-rise</div>
+                <div class="rs-viab-score" style="color:#C0392B;">2.9<span class="rs-viab-denom">/5</span></div>
+                <div class="rs-viab-bar"><div class="rs-viab-fill" style="width:58%; background:#C0392B;"></div></div>
+                <div class="rs-viab-side">
+                  <div class="rs-viab-stat">SD 0.35 &nbsp;·&nbsp; p &lt; 0.05</div>
+                  <div class="rs-viab-note">composite avg.</div>
+                </div>
+              </div>
+            </div>
+            <div class="pv-strip-chart-rule"></div>
+            <div class="pv-strip-chart-wrap"><canvas data-chart="qual"></canvas></div>
+            <div class="pv-strip-chart-foot">
+              <span class="pv-strip-chart-takeaway">Caravan wins on every parameter; gap widens most on <em>Nature</em>, <em>Buffers</em>, and <em>Views</em>.</span>
+              <span class="pv-strip-chart-howto">Score / 5</span>
+            </div>
+          </div>
+          <div class="pv-strip-item pv-strip-item--chart"
+               data-strip-key="chart-sci" data-strip-kind="chart" data-chart-key="sci">
+            <div class="pv-strip-chart-head">
+              <div class="pv-strip-chart-title">Quantitative - Sense of Community Index (SCI-2)</div>
+              <div class="pv-strip-chart-sub">Self-report psychometric instrument measuring residents&rsquo; <strong>actual</strong> sense of community across 4 subscales. Scores normalised 0–1; Caravan n=18, Mid-rise n=3.</div>
+            </div>
+            <div class="pv-strip-chart-rule"></div>
+            <div class="pv-strip-chart-wrap"><canvas data-chart="sci"></canvas></div>
+            <div class="pv-strip-chart-foot">
+              <span class="pv-strip-chart-takeaway">Caravan leads on every subscale; biggest gap on <em>Membership</em> (0.534 vs 0.278).</span>
+              <span class="pv-strip-chart-howto">Higher = stronger SoC</span>
+            </div>
+          </div>
+          <div class="pv-strip-item pv-strip-item--chart"
+               data-strip-key="chart-ures" data-strip-kind="chart" data-chart-key="ures">
+            <div class="pv-strip-chart-head">
+              <div class="pv-strip-chart-title">Quantitative - University Residence Environment (URES)</div>
+              <div class="pv-strip-chart-sub">Validated 10-subscale instrument profiling the <strong>social climate</strong> of student housing. * marks statistically significant differences (p&lt;0.1).</div>
+            </div>
+            <div class="pv-strip-chart-rule"></div>
+            <div class="pv-strip-chart-wrap"><canvas data-chart="ures"></canvas></div>
+            <div class="pv-strip-chart-foot">
+              <span class="pv-strip-chart-takeaway">Caravan higher on involvement, emotional support, academic achievement. Mid-rise higher on <em>independence</em> — the lone reversal.</span>
+              <span class="pv-strip-chart-howto">Standardised score</span>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <section class="pv-chapter" id="ch-framework"
+               data-title="R&amp;D Framework"
                data-images='[
-                 {"src":"images/research/compound_comparison.jpg","cap":"Caravan (top) outperforms Mid-rise (bottom) on Sense of Community."},
-                 {"src":"images/research/caravan_site.jpg","cap":"Decentralised layout — the higher-scoring archetype."}
+                 {"src":"images/shared/nkdt_perspective.png","title":"NKDT — Scaling the Method","cap":"The seminar&rsquo;s instrumentation and feedback loop applied at building scale.","takeaway":"From observation framework to design intervention."}
                ]'>
-        <span class="pv-ch-num">05 — Findings</span>
-        <h2 class="pv-ch-title">Empirical Findings</h2>
-        <p>Counter to conventional density-driven assumptions, the analysis revealed a <strong>clear statistical advantage for the decentralised Caravan Compound</strong> over the structured Mid-rise Compound in driving Sense of Community.</p>
-        <p>Micro-spatial elements — specifically <strong>nature integration, visual appeal, and spatial buffer features</strong> — proved high-impact drivers of interpersonal trust, outperforming rigid structural density. The study is architected as a modular framework: student housing is the <em>ultimate live testing sandbox</em> for continuous spatial experimentation.</p>
+        <span class="pv-ch-num">06 — Framework</span>
+        <h2 class="pv-ch-title">R&amp;D Framework &amp; Scaling Path</h2>
+        <p>The study is designed as a <strong>replicable methodology framework, not a one-off observation</strong>. Because universities maintain near-total institutional control over students&rsquo; physical environment, student housing represents the <em>ideal live testing sandbox</em> for continuous spatial experimentation — where specific environmental variables can be modified, measured, and iterated on in ways real-world urban settings rarely permit.</p>
+        <p>This research establishes the instrumentation baseline for exactly that feedback loop: <strong>spatial design decisions validated against measurable human outcomes</strong> rather than intuition alone. That framework is the direct starting point for the <strong>NKDT final project</strong>.</p>
       </section>
 
     </div><!-- /detail-research -->
@@ -1375,7 +2265,7 @@ footer a:hover { color: var(--gold); }
       <section class="pv-chapter" id="nk-concept"
                data-title="Concept"
                data-images='[
-                 {"src":"images/nkdt/nkdt_combined.png","cap":"Full site render — Type A (urban), Type B (mixed), Type C (rural/scattered)."}
+                 {"src":"images/nkdt/nkdt_combined.png","title":"NKDT — Full Site Render","cap":"Type A (urban), Type B (mixed), Type C (rural/scattered) on a single Ariel University precinct.","takeaway":"One precinct, three testable spatial hypotheses."}
                ]'>
         <span class="pv-ch-num">01 — Concept</span>
         <h2 class="pv-ch-title">Concept</h2>
@@ -1386,9 +2276,9 @@ footer a:hover { color: var(--gold); }
       <section class="pv-chapter" id="nk-typology"
                data-title="Typology Spectrum"
                data-images='[
-                 {"src":"images/shared/cluster_plex.png","cap":"Type A · Cluster plex — urban, enclosed courtyard."},
-                 {"src":"images/shared/corridor_plex.png","cap":"Type B · Corridor hybrid — mixed, follows topography."},
-                 {"src":"images/shared/scattered_plex.png","cap":"Type C · Scattered plex — rural, organic, inward-facing."}
+                 {"src":"images/shared/cluster_plex.png","title":"Type A · Cluster Plex","cap":"Urban character with enclosed courtyard and inward social focus; public ground floor.","takeaway":"Tests the dense / institutional end of the typology spectrum."},
+                 {"src":"images/shared/corridor_plex.png","title":"Type B · Corridor Hybrid","cap":"Mixed character; ~2.8 dunams; internal spine that follows topography.","takeaway":"The middle ground — calibrated against the spectrum&rsquo;s extremes."},
+                 {"src":"images/shared/scattered_plex.png","title":"Type C · Scattered Plex","cap":"Rural / organic character; inward-facing plots; topography-led layout.","takeaway":"Tests the decentralised end — directly informed by the seminar findings."}
                ]'>
         <span class="pv-ch-num">02 — Typology</span>
         <h2 class="pv-ch-title">Dormitory Typology Spectrum</h2>
@@ -1415,8 +2305,8 @@ footer a:hover { color: var(--gold); }
       <section class="pv-chapter" id="nk-system"
                data-title="System Architecture"
                data-images='[
-                 {"src":"images/nkdt/nkdt_unit_detail.jpg","cap":"Unit module — floor plan, section A-A, explosion, isometric assembly."},
-                 {"src":"images/nkdt/nkdt_unit_sheet.jpg","cap":"Unit layout sheet — plan variants and facade compositions."}
+                 {"src":"images/nkdt/nkdt_unit_detail.jpg","title":"Unit Module","cap":"Floor plan, section A-A, exploded axonometric, isometric assembly.","takeaway":"The atom of the system — 2&ndash;4 modules compose every dorm room."},
+                 {"src":"images/nkdt/nkdt_unit_sheet.jpg","title":"Unit Layout Sheet","cap":"Plan variants and facade compositions across module configurations.","takeaway":"Same parts, many configurations — the structural-surplus principle made explicit."}
                ]'>
         <span class="pv-ch-num">03 — System</span>
         <h2 class="pv-ch-title">System Architecture &amp; Structural Surplus</h2>
@@ -1428,10 +2318,10 @@ footer a:hover { color: var(--gold); }
       <section class="pv-chapter" id="nk-typologies"
                data-title="Three Building Types"
                data-images='[
-                 {"src":"images/nkdt/nkdt_perspective.png","cap":"Street-level perspective — NKDT dormitory precinct, Ariel University."},
-                 {"src":"images/nkdt/nkdt_type_a.jpg","cap":"Type A — exploded axonometric & floor-by-floor breakdown."},
-                 {"src":"images/nkdt/nkdt_type_b.jpg","cap":"Type B — spine layout & topographic adaptation."},
-                 {"src":"images/nkdt/nkdt_type_c.jpg","cap":"Type C — scattered sub-plot arrangement."}
+                 {"src":"images/nkdt/nkdt_perspective.png","title":"Street-Level Perspective","cap":"NKDT dormitory precinct, Ariel University — view from the public boulevard.","takeaway":"Three typologies share one continuous public ground."},
+                 {"src":"images/nkdt/nkdt_type_a.jpg","title":"Type A — Urban Cluster","cap":"Exploded axonometric and floor-by-floor breakdown of the urban typology.","takeaway":"Enclosed courtyard; public ground floor; densest of the three."},
+                 {"src":"images/nkdt/nkdt_type_b.jpg","title":"Type B — Mixed Hybrid","cap":"Internal spine layout; building grows along the topographic gradient.","takeaway":"The most adaptive typology — calibrated for varied terrain."},
+                 {"src":"images/nkdt/nkdt_type_c.jpg","title":"Type C — Rural Scattered","cap":"Sub-plot arrangement; no central building; topography-led siting.","takeaway":"Direct descendent of the seminar&rsquo;s top-scoring archetype."}
                ]'>
         <span class="pv-ch-num">04 — Buildings</span>
         <h2 class="pv-ch-title">Three Building Typologies</h2>
@@ -1461,7 +2351,7 @@ footer a:hover { color: var(--gold); }
       <section class="pv-chapter" id="nk-research"
                data-title="Research Connection"
                data-images='[
-                 {"src":"images/nkdt/nkdt_combined.png","cap":"The precinct as live testing sandbox — all three typologies on site."}
+                 {"src":"images/nkdt/nkdt_combined.png","title":"The Precinct as Sandbox","cap":"All three typologies sited together — a live testing ground for spatial hypotheses.","takeaway":"Design and measurement live on the same site."}
                ]'>
         <span class="pv-ch-num">05 — Research</span>
         <h2 class="pv-ch-title">Research Connection</h2>
@@ -1819,6 +2709,11 @@ function doSlide(id, fromRight) {
 
   pvActivate(id, fromRight);
 
+  // Deferred-load Chart.js viz on first open of the Research tab.
+  if (id === 'research' && typeof window.loadResearchCharts === 'function') {
+    window.loadResearchCharts();
+  }
+
   oldDetail.addEventListener('animationend', function() {
     oldDetail.classList.remove('active', 'leaving', 'slide-out-left', 'slide-out-right');
     newDetail.classList.remove('slide-in-left', 'slide-in-right');
@@ -2034,6 +2929,108 @@ function pvOnRailClick(e) {
 pvRailD.addEventListener('click', pvOnRailClick);
 pvRailM.addEventListener('click', pvOnRailClick);
 
+// ── STRIP MODE: hero + persistent thumbnail rail ─────────────────────────────
+// All items always live in the rail. The hero slot holds a *clone* of the
+// currently active item; the rail's active thumb gets .is-active highlight.
+// Clicking another thumb just rebuilds the hero clone — no DOM swap.
+function pvBuildStrip(container, itemsHtml) {
+  var tmp = document.createElement('div');
+  tmp.innerHTML = itemsHtml;
+  var items = Array.prototype.slice.call(tmp.querySelectorAll('.pv-strip-item'));
+  if (!items.length) { container.innerHTML = itemsHtml; return; }
+
+  container.innerHTML = '';
+  var strip = document.createElement('div'); strip.className = 'pv-strip';
+  var hero  = document.createElement('div'); hero.className  = 'pv-strip-hero';
+  var rail  = document.createElement('div'); rail.className  = 'pv-strip-thumbs';
+  strip.appendChild(hero);
+  strip.appendChild(rail);
+  container.appendChild(strip);
+
+  // All items go into the rail. The first one becomes the active hero source.
+  items.forEach(function(item) { rail.appendChild(item); });
+  pvStripActivate(hero, rail, items[0]);
+
+  rail.addEventListener('click', function(e) {
+    var thumb = e.target.closest('.pv-strip-item');
+    if (!thumb || thumb.parentNode !== rail) return;
+    if (thumb.classList.contains('is-active')) return;
+    pvStripActivate(hero, rail, thumb);
+  });
+}
+
+function pvStripActivate(hero, rail, thumb) {
+  // Toggle the highlight on the rail.
+  rail.querySelectorAll('.pv-strip-item.is-active').forEach(function(n){
+    n.classList.remove('is-active');
+  });
+  thumb.classList.add('is-active');
+
+  // Capture starting rect of the thumb so we can play a "grow from thumb" hint.
+  var thumbRect = thumb.getBoundingClientRect();
+
+  // Replace the hero contents with a clone of the active thumb.
+  // For chart items, the clone gets a fresh canvas; destroy any prior hero
+  // Chart instance before swapping in.
+  var prevHero = hero.firstElementChild;
+  if (prevHero) {
+    var prevCv = prevHero.querySelector('canvas[data-chart]');
+    if (prevCv && window.Chart) {
+      var prevChart = Chart.getChart && Chart.getChart(prevCv);
+      if (prevChart) { try { prevChart.destroy(); } catch (e) {} }
+    }
+    hero.removeChild(prevHero);
+  }
+
+  var clone = thumb.cloneNode(true);
+  clone.classList.remove('is-active');
+  clone.classList.add('pv-strip-hero-item');
+  // Strip any pending init flags from the cloned canvas so initCharts builds it.
+  var cloneCv = clone.querySelector('canvas[data-chart]');
+  if (cloneCv) cloneCv.removeAttribute('data-chart-initialised');
+
+  hero.appendChild(clone);
+
+  // Init the new hero chart (full-size variant — variantFor() inspects the DOM
+  // ancestor, so the canvas inside .pv-strip-hero gets the 'full' variant).
+  if (cloneCv && typeof window.loadResearchCharts === 'function') {
+    window.loadResearchCharts();
+  }
+
+  // Small "grow-from-thumb" entrance animation on the hero clone.
+  var heroRect = clone.getBoundingClientRect();
+  if (heroRect.width > 0 && heroRect.height > 0) {
+    var dx = thumbRect.left - heroRect.left;
+    var dy = thumbRect.top  - heroRect.top;
+    var sx = thumbRect.width  / Math.max(1, heroRect.width);
+    var sy = thumbRect.height / Math.max(1, heroRect.height);
+    clone.style.transformOrigin = 'top left';
+    clone.style.transform = 'translate('+dx+'px,'+dy+'px) scale('+sx+','+sy+')';
+    clone.style.opacity = '0.6';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        clone.classList.add('is-animating');
+        clone.style.transform = '';
+        clone.style.opacity = '';
+        setTimeout(function() {
+          clone.classList.remove('is-animating');
+          clone.style.transformOrigin = '';
+          // Resize chart once the transform settles.
+          if (cloneCv && window.Chart) {
+            var c = Chart.getChart && Chart.getChart(cloneCv);
+            if (c) { try { c.resize(); } catch (e) {} }
+          }
+        }, 400);
+      });
+    });
+  }
+
+  // Scroll the active thumb into view in the rail.
+  if (thumb.scrollIntoView) {
+    thumb.scrollIntoView({ inline: 'nearest', block: 'nearest', behavior: 'smooth' });
+  }
+}
+
 function pvActivate(id, fromRight) {
   var panel = document.getElementById('detail-' + id);
   var isWelcome = (id === 'welcome' || !panel || !panel.dataset.title);
@@ -2063,24 +3060,90 @@ function pvActivate(id, fromRight) {
     // Defer inline image grids until after the pane slide so the first click is snappy.
     var pendingInline = [];
     pvState.imgsets = pvState.chapters.map(function(ch, i) {
-      var imgs = [];
-      try { imgs = JSON.parse(ch.dataset.images || '[]'); }
-      catch (err) { console.warn('pv: bad data-images on chapter', ch, err); }
-      var figHtml = imgs.map(function(im){ return '<figure class="pv-fig"><img loading="lazy" decoding="async" src="'+pvEsc(im.src)+'" alt="">'+(im.cap?'<figcaption>'+pvEsc(im.cap)+'</figcaption>':'')+'</figure>'; }).join('');
+      var stageRef  = ch.dataset.stageRef;
+      var stageMode = ch.dataset.stageMode || 'swap'; // 'swap' (default) or 'strip'
+
+      // Resolve the chapter's content into a single source-of-truth HTML fragment.
+      // Strip mode: items come from a <template> (data-stage-ref) and ALREADY
+      //   carry .pv-strip-item markup. Or from data-images JSON, which we wrap.
+      // Swap mode (default): figures from data-images, or raw template HTML.
+      var figHtml = '', hasContent = false;
+      if (stageRef) {
+        var tpl = document.querySelector(stageRef);
+        if (tpl && tpl.content) {
+          var tmp = document.createElement('div');
+          tmp.appendChild(tpl.content.cloneNode(true));
+          figHtml = tmp.innerHTML;
+          hasContent = !!figHtml.trim();
+        } else {
+          console.warn('pv: data-stage-ref target missing', stageRef);
+        }
+      } else {
+        var imgs = [];
+        try { imgs = JSON.parse(ch.dataset.images || '[]'); }
+        catch (err) { console.warn('pv: bad data-images on chapter', ch, err); }
+        // Builds the unified card markup used in both swap and strip modes —
+        // same visual language as the chart cards: gold-bordered card, serif
+        // title, optional sub-line / takeaway. The strip mode just wraps it
+        // in a .pv-strip-item element.
+        function buildImgCard(im) {
+          var title    = im.title    ? '<div class="pv-card-title">'+pvEsc(im.title)+'</div>' : '';
+          var sub      = im.cap      ? '<div class="pv-card-sub">'+pvEsc(im.cap)+'</div>'     : '';
+          var rule     = (title || sub) ? '<div class="pv-card-rule"></div>' : '';
+          var hint     = im.src      ? '<span class="app-expand-hint">↗ click to expand</span>' : '';
+          var takeaway = '<div class="pv-card-foot"><span class="pv-card-takeaway">'+(im.takeaway ? pvEsc(im.takeaway) : '')+'</span>'+hint+'</div>';
+          var lb       = im.src ? ' data-lightbox="'+pvEsc(im.src)+'" data-lightbox-title="'+pvEsc(im.title||'')+'"' : '';
+          return '<button class="pv-card pv-card--img" style="cursor:pointer;text-align:left;"'+lb+'>'
+               +    '<div class="pv-card-head">'+title+sub+'</div>'
+               +    rule
+               +    '<div class="pv-card-media"><img loading="lazy" decoding="async" src="'+pvEsc(im.src)+'" alt=""></div>'
+               +    takeaway
+               + '</button>';
+        }
+        if (stageMode === 'strip') {
+          figHtml = imgs.map(function(im, ii){
+            return '<div class="pv-strip-item pv-strip-item--img" data-strip-key="img-'+ii+'" data-strip-kind="img">'
+                 + buildImgCard(im)
+                 + '</div>';
+          }).join('');
+        } else {
+          figHtml = imgs.map(buildImgCard).join('');
+        }
+        hasContent = imgs.length > 0;
+      }
+
       [pvRailD, pvRailM].forEach(function(rail) {
         var btn = document.createElement('button'); btn.className='pv-chapter-link'; btn.dataset.index=i;
         btn.innerHTML='<span class="pv-cl-num">'+String(i+1).padStart(2,'0')+'</span><span class="pv-cl-title">'+pvEsc(ch.dataset.title)+'</span>';
         rail.appendChild(btn);
       });
-      var set = document.createElement('div'); set.className='pv-imgset'; set.innerHTML=figHtml; pvStageEl.appendChild(set);
-      if (!ch.querySelector('.pv-inline-imgs') && imgs.length > 0) {
-        pendingInline.push({ ch: ch, html: figHtml });
+
+      var set = document.createElement('div');
+      set.className = 'pv-imgset';
+      set.dataset.chapterId = ch.id;
+      if (stageMode === 'strip' && hasContent) {
+        pvBuildStrip(set, figHtml);
+      } else {
+        set.innerHTML = figHtml;
+      }
+      pvStageEl.appendChild(set);
+
+      if (!ch.querySelector('.pv-inline-imgs') && hasContent) {
+        // Reclone from the template (if any) so the mobile-inline copy has its
+        // own DOM nodes (separate canvases for Chart.js).
+        var inlineHtml = figHtml;
+        if (stageRef) {
+          var tpl2 = document.querySelector(stageRef);
+          if (tpl2 && tpl2.content) {
+            var tmp2 = document.createElement('div');
+            tmp2.appendChild(tpl2.content.cloneNode(true));
+            inlineHtml = tmp2.innerHTML;
+          }
+        }
+        pendingInline.push({ ch: ch, html: inlineHtml, stageMode: stageMode });
       }
       return set;
     });
-    // Drain the pending list off the critical path. Each chapter is appended in
-    // its own idle/raf slot so the work is sliced — the browser can interleave
-    // image decode and paint between chapters instead of stalling on one big batch.
     var schedule = window.requestIdleCallback
       ? function(fn) { requestIdleCallback(fn, { timeout: 500 }); }
       : function(fn) { setTimeout(fn, 0); };
@@ -2090,8 +3153,15 @@ function pvActivate(id, fromRight) {
       if (!job.ch.querySelector('.pv-inline-imgs')) {
         var inl = document.createElement('div');
         inl.className = 'pv-inline-imgs';
-        inl.innerHTML = job.html;
+        if (job.stageMode === 'strip') {
+          pvBuildStrip(inl, job.html);
+        } else {
+          inl.innerHTML = job.html;
+        }
         job.ch.appendChild(inl);
+        if (inl.querySelector('canvas[data-chart]') && typeof window.loadResearchCharts === 'function') {
+          window.loadResearchCharts();
+        }
       }
       if (pendingInline.length) schedule(drainOne);
     }
@@ -2183,6 +3253,436 @@ window.addEventListener('resize', function(){
 });
 
 pvPositionAll();
+
+/* ── Lightbox ── */
+(function () {
+  var lb = null, lbFrame = null, lbImg = null;
+  var lbPrev = null, lbNext = null, lbCounter = null;
+  var scale = 1, minScale = 1, maxScale = 5;
+  var panX = 0, panY = 0;
+  var dragStartX = 0, dragStartY = 0, dragStartPanX = 0, dragStartPanY = 0;
+  var isDragging = false;
+  var pinchStartDist = 0, pinchStartScale = 1;
+  var gallery = [], galleryIdx = 0;
+
+  function clampPan() {
+    if (!lbImg) return;
+    var fw = lbFrame.clientWidth, fh = lbFrame.clientHeight;
+    var iw = lbImg.naturalWidth || lbImg.clientWidth;
+    var ih = lbImg.naturalHeight || lbImg.clientHeight;
+    var scaledW = iw * scale, scaledH = ih * scale;
+    var maxX = Math.max(0, (scaledW - fw) / 2);
+    var maxY = Math.max(0, (scaledH - fh) / 2);
+    panX = Math.max(-maxX, Math.min(maxX, panX));
+    panY = Math.max(-maxY, Math.min(maxY, panY));
+  }
+
+  function applyTransform() {
+    if (!lbImg) return;
+    lbImg.style.transform = 'translate('+panX+'px,'+panY+'px) scale('+scale+')';
+    lbImg.style.transformOrigin = 'center center';
+    lbImg.style.transition = 'none';
+  }
+
+  function resetZoom() {
+    scale = 1; panX = 0; panY = 0;
+    if (lbImg) { lbImg.style.transition = 'transform 0.2s ease'; applyTransform(); }
+  }
+
+  function buildGallery(triggerEl) {
+    // Find which chapter the trigger belongs to.
+    // Triggers may be in the text column (inside a .pv-chapter section)
+    // or in the stage column (cloned from a template into #pvStage).
+    var chapterId = null;
+    var inSection = triggerEl.closest('.pv-chapter');
+    if (inSection) {
+      chapterId = inSection.id;
+    } else {
+      // Trigger is in the stage — find the currently active imgset and map
+      // it back to its chapter via data-chapter-id set during pvActivate.
+      var activeSet = document.querySelector('.pv-imgset.is-active');
+      if (activeSet) chapterId = activeSet.dataset.chapterId;
+    }
+
+    var items = [];
+    if (chapterId) {
+      // Gather from text column (the section itself)
+      var sec = document.getElementById(chapterId);
+      if (sec) items = items.concat(Array.from(sec.querySelectorAll('[data-lightbox]')));
+      // Gather from the matching stage imgset
+      var stageSet = document.querySelector('.pv-imgset[data-chapter-id="' + chapterId + '"]');
+      if (stageSet) items = items.concat(Array.from(stageSet.querySelectorAll('[data-lightbox]')));
+    } else {
+      items = [triggerEl];
+    }
+
+    // Deduplicate by src so inline + stage copies of same image don't double up
+    var seen = {};
+    items = items.filter(function(el) {
+      var k = el.dataset.lightbox;
+      if (seen[k]) return false;
+      seen[k] = true;
+      return true;
+    });
+
+    gallery = items.map(function(el) {
+      return { src: el.dataset.lightbox, title: el.dataset.lightboxTitle || '' };
+    });
+    var triggerSrc = triggerEl.dataset.lightbox;
+    galleryIdx = gallery.findIndex(function(g) { return g.src === triggerSrc; });
+    if (galleryIdx < 0) galleryIdx = 0;
+  }
+
+  function showGalleryItem(idx) {
+    if (!gallery.length) return;
+    galleryIdx = (idx + gallery.length) % gallery.length;
+    var item = gallery[galleryIdx];
+    lbImg.src = item.src;
+    lb.querySelector('.pv-lightbox-caption').textContent = item.title;
+    resetZoom();
+    updateNavButtons();
+  }
+
+  function updateNavButtons() {
+    if (!lbPrev) return;
+    var single = gallery.length <= 1;
+    lbPrev.classList.toggle('is-hidden', single);
+    lbNext.classList.toggle('is-hidden', single);
+    if (lbCounter) {
+      lbCounter.textContent = single ? '' : (galleryIdx + 1) + ' / ' + gallery.length;
+    }
+  }
+
+  function openLightbox(src, title, triggerEl) {
+    if (!lb) {
+      lb = document.createElement('div');
+      lb.className = 'pv-lightbox';
+      lb.innerHTML = '<button class="pv-lightbox-nav pv-lightbox-prev" aria-label="Previous">&#8249;</button>'
+        + '<button class="pv-lightbox-nav pv-lightbox-next" aria-label="Next">&#8250;</button>'
+        + '<div class="pv-lightbox-inner">'
+        + '<span class="pv-lightbox-counter"></span>'
+        + '<button class="pv-lightbox-close" aria-label="Close">✕</button>'
+        + '<div class="pv-lightbox-frame"><img></div>'
+        + '<div class="pv-lightbox-caption"></div>'
+        + '</div>';
+      document.body.appendChild(lb);
+      lbFrame   = lb.querySelector('.pv-lightbox-frame');
+      lbImg     = lb.querySelector('img');
+      lbPrev    = lb.querySelector('.pv-lightbox-prev');
+      lbNext    = lb.querySelector('.pv-lightbox-next');
+      lbCounter = lb.querySelector('.pv-lightbox-counter');
+
+      lb.querySelector('.pv-lightbox-close').addEventListener('click', closeLightbox);
+      lb.addEventListener('click', function(e){ if (e.target === lb) closeLightbox(); });
+      lbPrev.addEventListener('click', function(e){ e.stopPropagation(); showGalleryItem(galleryIdx - 1); });
+      lbNext.addEventListener('click', function(e){ e.stopPropagation(); showGalleryItem(galleryIdx + 1); });
+
+      // Wheel zoom
+      lbFrame.addEventListener('wheel', function(e){
+        e.preventDefault();
+        var delta = e.deltaY < 0 ? 0.15 : -0.15;
+        var rect = lbFrame.getBoundingClientRect();
+        zoomAround(e.clientX - rect.left - rect.width/2,
+                   e.clientY - rect.top  - rect.height/2, delta);
+      }, { passive: false });
+
+      // Mouse drag
+      lbFrame.addEventListener('mousedown', function(e){
+        if (scale <= 1) return;
+        isDragging = true; dragStartX = e.clientX; dragStartY = e.clientY;
+        dragStartPanX = panX; dragStartPanY = panY;
+        e.preventDefault();
+      });
+      window.addEventListener('mousemove', function(e){
+        if (!isDragging) return;
+        panX = dragStartPanX + (e.clientX - dragStartX);
+        panY = dragStartPanY + (e.clientY - dragStartY);
+        clampPan(); applyTransform();
+      });
+      window.addEventListener('mouseup', function(){ isDragging = false; });
+
+      // Touch: pinch-zoom + drag
+      lbFrame.addEventListener('touchstart', function(e){
+        if (e.touches.length === 2) {
+          pinchStartDist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY);
+          pinchStartScale = scale;
+          e.preventDefault();
+        } else if (e.touches.length === 1 && scale > 1) {
+          isDragging = true;
+          dragStartX = e.touches[0].clientX; dragStartY = e.touches[0].clientY;
+          dragStartPanX = panX; dragStartPanY = panY;
+          e.preventDefault();
+        }
+      }, { passive: false });
+      lbFrame.addEventListener('touchmove', function(e){
+        if (e.touches.length === 2) {
+          e.preventDefault();
+          var dist = Math.hypot(
+            e.touches[0].clientX - e.touches[1].clientX,
+            e.touches[0].clientY - e.touches[1].clientY);
+          var newScale = Math.max(minScale, Math.min(maxScale, pinchStartScale * dist / pinchStartDist));
+          scale = newScale; clampPan(); applyTransform();
+        } else if (isDragging && e.touches.length === 1) {
+          e.preventDefault();
+          panX = dragStartPanX + (e.touches[0].clientX - dragStartX);
+          panY = dragStartPanY + (e.touches[0].clientY - dragStartY);
+          clampPan(); applyTransform();
+        }
+      }, { passive: false });
+      lbFrame.addEventListener('touchend', function(e){
+        if (e.touches.length < 2) isDragging = false;
+      });
+
+      // Double-tap to reset
+      var lastTap = 0;
+      lbFrame.addEventListener('touchend', function(e){
+        var now = Date.now();
+        if (now - lastTap < 300) { resetZoom(); }
+        lastTap = now;
+      });
+      // Double-click to reset
+      lbFrame.addEventListener('dblclick', function(){ resetZoom(); });
+    }
+
+    if (triggerEl) {
+      buildGallery(triggerEl);
+      lbImg.src = gallery[galleryIdx].src;
+      lb.querySelector('.pv-lightbox-caption').textContent = gallery[galleryIdx].title;
+    } else {
+      gallery = [{ src: src, title: title || '' }];
+      galleryIdx = 0;
+      lbImg.src = src;
+      lb.querySelector('.pv-lightbox-caption').textContent = title || '';
+    }
+    resetZoom();
+    updateNavButtons();
+    requestAnimationFrame(function(){ lb.classList.add('is-open'); });
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!lb) return;
+    lb.classList.remove('is-open');
+    document.body.style.overflow = '';
+    resetZoom();
+  }
+
+  function zoomAround(cx, cy, delta) {
+    var newScale = Math.max(minScale, Math.min(maxScale, scale + delta * scale));
+    var ratio = newScale / scale;
+    panX = cx + (panX - cx) * ratio;
+    panY = cy + (panY - cy) * ratio;
+    scale = newScale;
+    clampPan(); applyTransform();
+  }
+
+  document.addEventListener('keydown', function(e){
+    if (!lb || !lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { closeLightbox(); return; }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showGalleryItem(galleryIdx + 1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); showGalleryItem(galleryIdx - 1); }
+  });
+
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('[data-lightbox]');
+    if (btn) {
+      e.preventDefault();
+      openLightbox(btn.dataset.lightbox, btn.dataset.lightboxTitle, btn);
+    }
+  });
+})();
+</script>
+
+<!-- CHARTS — deferred: Chart.js loads + draws only when Research tab is first opened -->
+<script>
+(function () {
+  // Softer palette — slightly desaturated greens/reds, warmer than pure Chart.js defaults.
+  var C  = '#3FA86A';        /* caravan — soft green */
+  var M  = '#C95743';        /* midrise — warm terracotta-red */
+  var TICK = { color: '#8a8478', font: { size: 10, family: "'Assistant', sans-serif" } };
+  var GRID = { color: 'rgba(0,0,0,0.05)', drawBorder: false };
+
+  // Plugin: print the bar value at the end/top of each bar.
+  // Auto-toggles on chart kind (horizontal vs vertical) and trims dp via formatter.
+  function valueLabelPlugin(formatter, opts) {
+    opts = opts || {};
+    return {
+      id: 'rsValueLabels',
+      afterDatasetsDraw: function(chart) {
+        var ctx = chart.ctx;
+        ctx.save();
+        ctx.font = '600 10px Assistant, sans-serif';
+        ctx.fillStyle = opts.color || '#1a1a1a';
+        chart.data.datasets.forEach(function(ds, di) {
+          var meta = chart.getDatasetMeta(di);
+          if (meta.hidden) return;
+          meta.data.forEach(function(bar, i) {
+            var v = ds.data[i];
+            if (v == null) return;
+            var label = formatter(v);
+            if (meta.iScale && meta.iScale.axis === 'y') {
+              // horizontal bars — label sits just past the bar end
+              ctx.textAlign = 'left';
+              ctx.textBaseline = 'middle';
+              ctx.fillText(label, bar.x + 4, bar.y);
+            } else {
+              // vertical bars — label above the bar
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              ctx.fillText(label, bar.x, bar.y - 3);
+            }
+          });
+        });
+        ctx.restore();
+      }
+    };
+  }
+
+  // Shared base for bar charts — slim bars, softer colors, generous padding.
+  var BAR_OPTS = {
+    responsive: true, maintainAspectRatio: false,
+    layout: { padding: { top: 16, right: 14, bottom: 0, left: 4 } },
+    elements: { bar: { borderRadius: 3, borderSkipped: false } },
+    datasets: { bar: { categoryPercentage: 0.78, barPercentage: 0.85 } }
+  };
+
+  // Spec for each chart type. valueFmt formats the inline bar value labels.
+  // Same canvas appears in 2 places (stage + inline-imgs).
+  var SPECS = {
+    sci: {
+      type: 'bar',
+      valueFmt: function(v){ return v.toFixed(2); },
+      data: {
+        labels: ['Total SCI', 'Reinf. of needs', 'Membership', 'Influence', 'Shared emotion'],
+        datasets: [
+          { label: 'Caravan',  data: [0.566, 0.627, 0.534, 0.500, 0.602], backgroundColor: C },
+          { label: 'Mid-rise', data: [0.407, 0.519, 0.278, 0.407, 0.426], backgroundColor: M }
+        ]
+      },
+      options: Object.assign({}, BAR_OPTS, {
+        plugins: { legend: { display: false },
+          tooltip: { callbacks: { label: function(c){ return ' ' + c.dataset.label + ': ' + c.parsed.y.toFixed(3); } } } },
+        scales: {
+          x: { ticks: Object.assign({}, TICK, { maxRotation: 30, minRotation: 0 }), grid: { display: false } },
+          y: { ticks: TICK, grid: GRID, min: 0, max: 0.78,
+               title: { display: true, text: 'Normalised score (0–1)', color: '#8a8478', font: { size: 9 } } }
+        }
+      })
+    },
+    ures: {
+      type: 'bar',
+      valueFmt: function(v){ return String(v); },
+      data: {
+        labels: ['Involvement *', 'Emot. support', 'Independence *', 'Traditional social',
+                 'Competition', 'Academic achiev. *', 'Intellectuality',
+                 'Order & org. *', 'Student influence', 'Innovation'],
+        datasets: [
+          { label: 'Caravan',  data: [58, 54, 29, 64, 58, 50, 49, 43, 50, 30], backgroundColor: C },
+          { label: 'Mid-rise', data: [35, 35, 60, 67, 62, 25, 45, 30, 50, 33], backgroundColor: M }
+        ]
+      },
+      options: Object.assign({}, BAR_OPTS, {
+        indexAxis: 'y',
+        layout: { padding: { top: 4, right: 28, bottom: 0, left: 4 } },
+        plugins: { legend: { display: false },
+          tooltip: { callbacks: { label: function(c){ return ' ' + c.dataset.label + ': ' + c.parsed.x; } } } },
+        scales: {
+          x: { ticks: TICK, grid: GRID, min: 0, max: 75,
+               title: { display: true, text: 'Standardised score', color: '#8a8478', font: { size: 9 } } },
+          y: { ticks: Object.assign({}, TICK, { font: { size: 9.5 } }), grid: { display: false } }
+        }
+      })
+    },
+    qual: {
+      type: 'bar',
+      valueFmt: function(v){ return v.toFixed(1); },
+      data: {
+        labels: ['Control', 'Views', 'Scale', 'Nature', 'Appeal', 'Safety', 'Strollability', 'Buffers', 'Opportunities', 'Perception'],
+        datasets: [
+          { label: 'Caravan',  backgroundColor: C, data: [4.0, 4.0, 4.3, 4.5, 3.5, 3.5, 4.0, 4.5, 3.7, 3.3] },
+          { label: 'Mid-rise', backgroundColor: M, data: [3.0, 2.2, 3.3, 2.5, 2.5, 3.0, 2.8, 3.0, 3.0, 2.8] }
+        ]
+      },
+      options: Object.assign({}, BAR_OPTS, {
+        plugins: { legend: { display: false },
+          tooltip: { callbacks: { label: function(c){ return ' ' + c.dataset.label + ': ' + c.parsed.y.toFixed(1) + ' / 5'; } } } },
+        scales: {
+          x: { ticks: Object.assign({}, TICK, { maxRotation: 38, minRotation: 0, font: { size: 9.5 } }), grid: { display: false } },
+          y: { ticks: TICK, grid: GRID, min: 0, max: 5,
+               title: { display: true, text: 'Score / 5', color: '#8a8478', font: { size: 9 } } }
+        }
+      })
+    }
+  };
+
+  // Strip axes / titles / tooltips for the thumbnail variant — keep just the bars.
+  function thumbifyOptions(opts) {
+    var o = JSON.parse(JSON.stringify(opts || {}));
+    o.plugins = o.plugins || {};
+    o.plugins.legend = { display: false };
+    o.plugins.tooltip = { enabled: false };
+    o.scales = o.scales || {};
+    Object.keys(o.scales).forEach(function(k) {
+      o.scales[k].ticks  = Object.assign({}, o.scales[k].ticks, { display: false });
+      o.scales[k].grid   = { display: false };
+      o.scales[k].border = { display: false };
+      o.scales[k].title  = { display: false };
+    });
+    return o;
+  }
+
+  function buildConfig(spec, variant) {
+    var cfg = JSON.parse(JSON.stringify({ type: spec.type, data: spec.data, options: spec.options }));
+    if (variant === 'thumb') {
+      cfg.options = thumbifyOptions(spec.options);
+    } else {
+      // Full/mobile: restore tooltip callback (JSON.parse dropped fns).
+      if (spec.options && spec.options.plugins && spec.options.plugins.tooltip) {
+        cfg.options.plugins = cfg.options.plugins || {};
+        cfg.options.plugins.tooltip = spec.options.plugins.tooltip;
+      }
+      // Value labels only on desktop — skip on mobile inline view.
+      if (spec.valueFmt && variant !== 'mobile') cfg.plugins = [valueLabelPlugin(spec.valueFmt)];
+    }
+    return cfg;
+  }
+
+  // Pick variant by where the canvas sits: thumb in the strip rail vs. hero.
+  function variantFor(cv) {
+    if (cv.dataset.chartVariant) return cv.dataset.chartVariant;
+    if (cv.closest('.pv-strip-thumbs')) return 'thumb';
+    if (cv.closest('.pv-inline-imgs')) return 'mobile';
+    return 'full';
+  }
+  function initCharts() {
+    var canvases = document.querySelectorAll('canvas[data-chart]');
+    canvases.forEach(function(cv) {
+      if (cv.dataset.chartInitialised) return;
+      var spec = SPECS[cv.dataset.chart];
+      if (!spec) return;
+      new Chart(cv, buildConfig(spec, variantFor(cv)));
+      cv.dataset.chartInitialised = '1';
+    });
+  }
+
+
+  var chartLibLoaded = false, chartLibLoading = false, pendingInits = [];
+  window.loadResearchCharts = function () {
+    // Run again on every call — pvActivate rebuilds the stage on tab switch, so
+    // canvases are fresh DOM nodes that need init. The dataset.chartInitialised
+    // guard inside initCharts prevents double-init of stable nodes.
+    if (window.Chart) { initCharts(); return; }
+    if (chartLibLoading) { return; } // initial onload will pick up newly-added canvases
+    chartLibLoading = true;
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js';
+    s.crossOrigin = 'anonymous';
+    s.onload = function() { chartLibLoaded = true; initCharts(); };
+    document.head.appendChild(s);
+  };
+})();
 </script>
 </body>
 </html>
