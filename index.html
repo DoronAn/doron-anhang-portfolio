@@ -1055,6 +1055,27 @@ footer a:hover { color: var(--gold); }
   padding: 1.5rem 3.5rem 0;
   align-items: start;
 }
+.pv-body.is-no-stage { grid-template-columns: minmax(0, 1fr); }
+.pv-body.is-no-stage .pv-stage-col,
+.pv-body.is-no-stage .pv-sidebar { display: none; }
+
+/* Inline project header (shown only when the sidebar is hidden) */
+.pv-head-inline { display: none; }
+.pv-body.is-no-stage .pv-head-inline { display: block; padding: 1rem 0 1.5rem; }
+.pv-body.is-no-stage .pv-head-inline .pv-eyebrow { font-size: 0.68rem; margin-bottom: 0.6rem; }
+.pv-body.is-no-stage .pv-head-inline .pv-title {
+  font-size: clamp(1.8rem, 3vw, 2.6rem); line-height: 1.15; margin-bottom: 0.35rem;
+}
+.pv-body.is-no-stage .pv-head-inline .pv-meta { font-size: 0.78rem; margin-bottom: 1rem; }
+.pv-body.is-no-stage .pv-head-inline .kw-row { margin-top: 0.85rem; }
+
+/* When the stage is hidden, chapters flow back-to-back instead of each filling 70vh */
+.pv-body.is-no-stage .pv-chapter {
+  min-height: 0;
+  padding: 0 0 2rem;
+  display: block;
+}
+.pv-body.is-no-stage .pv-chapter:last-child { padding-bottom: 0; }
 
 .pv-sidebar { align-self: start; }
 .pv-chapter-link {
@@ -1971,6 +1992,9 @@ footer a:hover { color: var(--gold); }
   <!-- MIDDLE: project panels slide in/out here -->
   <div class="content-panel" id="pvTextWrap">
 
+    <!-- Inline project header — shown only when the sidebar is hidden (.is-no-stage) -->
+    <div class="pv-head pv-head-inline" id="pvHeadInline"></div>
+
     <!-- Welcome state (no chapters) -->
     <div class="proj-detail active" id="detail-welcome">
       <div class="welcome-panel">
@@ -2802,9 +2826,13 @@ function pvMakeKw(kws) {
   return kws.map(function(k){ return '<span class="kw'+(k.g?' kw-gold':'')+'">' + pvEsc(k.l) + '</span>'; }).join('');
 }
 function pvSetHead(id) {
-  var p = pvGetProject(id); if (!p) { pvHeadEl.innerHTML = ''; return; }
+  var inline = document.getElementById('pvHeadInline');
+  var p = pvGetProject(id);
+  if (!p) { pvHeadEl.innerHTML = ''; if (inline) inline.innerHTML = ''; return; }
   var kw = p.kw.length ? '<div class="kw-row">' + pvMakeKw(p.kw) + '</div>' : '';
-  pvHeadEl.innerHTML = '<p class="pv-eyebrow">'+p.eyebrow+'</p><h2 class="pv-title">'+(p.titleShort||p.title)+'</h2><p class="pv-meta">'+p.meta+'</p>'+kw;
+  var html = '<p class="pv-eyebrow">'+p.eyebrow+'</p><h2 class="pv-title">'+(p.titleShort||p.title)+'</h2><p class="pv-meta">'+p.meta+'</p>'+kw;
+  pvHeadEl.innerHTML = html;
+  if (inline) inline.innerHTML = html;
 }
 
 function pvSetActive(index, dir) {
@@ -3042,9 +3070,10 @@ function pvActivate(id, fromRight) {
   var wasCollapsed = pvSidebarEl && pvSidebarEl.classList.contains('is-collapsed');
   if (isWelcome) {
     if (pvSidebarEl) pvSidebarEl.classList.remove('is-collapsed');
-    pvBodyEl.classList.remove('has-chapters', 'pv-active');
+    pvBodyEl.classList.remove('has-chapters', 'pv-active', 'is-no-stage');
     if (pvSidebarClip) { pvSidebarClip.style.top=''; pvSidebarClip.style.height=''; }
     pvRailD.innerHTML=''; pvRailM.innerHTML=''; pvStageEl.innerHTML=''; pvHeadEl.innerHTML='';
+    var inlineH = document.getElementById('pvHeadInline'); if (inlineH) inlineH.innerHTML = '';
     pvState.chapters=[]; return;
   }
   // Snapshot old pane HTML before any DOM updates (used for the leaving slide clone below)
@@ -3059,6 +3088,7 @@ function pvActivate(id, fromRight) {
     // Build rail buttons + stage imgsets synchronously (needed for the slide animation).
     // Defer inline image grids until after the pane slide so the first click is snappy.
     var pendingInline = [];
+    var anyStageContent = false;
     pvState.imgsets = pvState.chapters.map(function(ch, i) {
       var stageRef  = ch.dataset.stageRef;
       var stageMode = ch.dataset.stageMode || 'swap'; // 'swap' (default) or 'strip'
@@ -3111,6 +3141,7 @@ function pvActivate(id, fromRight) {
         }
         hasContent = imgs.length > 0;
       }
+      if (hasContent) anyStageContent = true;
 
       [pvRailD, pvRailM].forEach(function(rail) {
         var btn = document.createElement('button'); btn.className='pv-chapter-link'; btn.dataset.index=i;
@@ -3144,6 +3175,7 @@ function pvActivate(id, fromRight) {
       }
       return set;
     });
+    pvBodyEl.classList.toggle('is-no-stage', !anyStageContent);
     var schedule = window.requestIdleCallback
       ? function(fn) { requestIdleCallback(fn, { timeout: 500 }); }
       : function(fn) { setTimeout(fn, 0); };
@@ -3167,7 +3199,7 @@ function pvActivate(id, fromRight) {
     }
     if (pendingInline.length) schedule(drainOne);
   } else {
-    pvBodyEl.classList.remove('has-chapters'); pvState.imgsets=[];
+    pvBodyEl.classList.remove('has-chapters'); pvBodyEl.classList.add('is-no-stage'); pvState.imgsets=[];
   }
   pvState.links = Array.prototype.slice.call(document.querySelectorAll('.pv-chapter-link'));
 
