@@ -3894,7 +3894,7 @@ pvPositionAll();
   var panX = 0, panY = 0;
   var dragStartX = 0, dragStartY = 0, dragStartPanX = 0, dragStartPanY = 0;
   var isDragging = false, dragMoved = false, suppressBackdropClick = false;
-  var pinchStartDist = 0, pinchStartScale = 1;
+  var pinchStartDist = 0, pinchStartScale = 1, justPinched = 0;
   var gallery = [], galleryIdx = 0;
 
   // Zoom enlarges the image/svg via width/height (NOT transform), which forces
@@ -3937,8 +3937,13 @@ pvPositionAll();
       el.style.maxWidth = 'none';
       el.style.maxHeight = 'none';
     }
-    lbFrame.style.transform = 'translate('+panX+'px,'+panY+'px)';
-    lbFrame.style.transition = 'none';
+    // Translate the inner wrapper (frame + caption together) so the caption
+    // keeps a constant pixel distance from the frame regardless of pan.
+    var inner = lbFrame.parentElement;
+    if (inner) {
+      inner.style.transform = 'translate('+panX+'px,'+panY+'px)';
+      inner.style.transition = 'none';
+    }
   }
 
   function resetZoom() {
@@ -3951,8 +3956,14 @@ pvPositionAll();
         el.style.maxWidth = '';
         el.style.maxHeight = '';
       }
-      lbFrame.style.transition = 'transform 0.2s ease';
-      lbFrame.style.transform = 'translate(0,0)';
+      var inner = lbFrame.parentElement;
+      if (inner) {
+        inner.style.transition = 'transform 0.2s ease';
+        inner.style.transform = 'translate(0,0)';
+      }
+      // Clear any leftover transform on the frame itself (legacy from old approach)
+      lbFrame.style.transform = '';
+      lbFrame.style.transition = '';
       // Re-measure once natural-size layout settles
       requestAnimationFrame(captureBaseSize);
     }
@@ -4158,13 +4169,28 @@ pvPositionAll();
       }, { passive: false });
       lbFrame.addEventListener('touchend', function(e){
         if (e.touches.length < 2) isDragging = false;
+        // Mark "just pinched" if either (a) we were pinching and one finger just
+        // lifted, or (b) this is the tail end of a pinch (no fingers left but
+        // pinchStartDist was set). Used to suppress the double-tap detector below
+        // since lifting two fingers fires two quick touchend events that would
+        // otherwise look like a double-tap.
+        if (pinchStartDist > 0) {
+          justPinched = Date.now();
+          if (e.touches.length === 0) pinchStartDist = 0;
+        }
       });
 
       // Double-tap to reset
       var lastTap = 0;
       lbFrame.addEventListener('touchend', function(e){
+        // Ignore touchends that are part of (or immediately after) a pinch —
+        // lifting two fingers produces two quick touchends that would
+        // otherwise be misread as a double-tap and snap the zoom back.
+        if (justPinched && Date.now() - justPinched < 400) { lastTap = 0; return; }
+        // Only count single-finger lifts as taps.
+        if (e.changedTouches && e.changedTouches.length > 1) { lastTap = 0; return; }
         var now = Date.now();
-        if (now - lastTap < 300) { resetZoom(); }
+        if (now - lastTap < 300) { resetZoom(); lastTap = 0; return; }
         lastTap = now;
       });
       // Double-click to reset
