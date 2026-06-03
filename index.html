@@ -26,7 +26,15 @@
   --tab-h: 3rem;
 }
 
-html { scroll-behavior: smooth; overflow-anchor: none; }
+html {
+  scroll-behavior: smooth;
+  overflow-anchor: none;
+  /* Always reserve space for the vertical scrollbar so navigating between
+     short/long chapters doesn't cause the page width to shift (and the right
+     border / header to visibly re-flow). Falls back gracefully on browsers
+     that don't support it. */
+  scrollbar-gutter: stable;
+}
 body {
   font-family: var(--sans);
   background: var(--bg);
@@ -219,35 +227,45 @@ nav {
   overflow-y: visible;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* Edge-fade gradient hinting at off-screen tabs. JS toggles .is-at-start
+     / .is-at-end based on scrollLeft so only the relevant side fades. */
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) 4rem,
+    rgba(0,0,0,1) calc(100% - 4rem),
+    rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) 4rem,
+    rgba(0,0,0,1) calc(100% - 4rem),
+    rgba(0,0,0,0) 100%);
+  transition: -webkit-mask-image 0.2s, mask-image 0.2s;
+}
+.proj-tabs-bar.is-at-start {
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,1) 0,
+    rgba(0,0,0,1) calc(100% - 4rem),
+    rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,1) 0,
+    rgba(0,0,0,1) calc(100% - 4rem),
+    rgba(0,0,0,0) 100%);
+}
+.proj-tabs-bar.is-at-end {
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) 4rem,
+    rgba(0,0,0,1) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) 4rem,
+    rgba(0,0,0,1) 100%);
+}
+.proj-tabs-bar.is-at-start.is-at-end {
+  mask-image: none;
+  -webkit-mask-image: none;
 }
 .proj-tabs-bar::-webkit-scrollbar { display: none; }
-
-/* Arrow buttons that nudge the tabs bar horizontally; visible only when there's
-   room to scroll in that direction (toggled by JS via .is-visible). */
-.tabs-arrow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 2rem;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg);
-  border: none;
-  border-left: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
-  color: var(--text);
-  font-size: 1.4rem;
-  line-height: 1;
-  cursor: pointer;
-  z-index: 2;
-  opacity: 0.95;
-  transition: background 0.15s, color 0.15s;
-}
-.tabs-arrow:hover { background: var(--bg2); color: var(--gold); }
-.tabs-arrow.is-visible { display: flex; }
-.tabs-arrow--left  { left: 0;  box-shadow: 4px 0 6px -4px rgba(0,0,0,0.15); }
-.tabs-arrow--right { right: 0; box-shadow: -4px 0 6px -4px rgba(0,0,0,0.15); }
 
 /* Group separator — horizontal text, no writing-mode tricks */
 .tab-group-sep {
@@ -559,6 +577,55 @@ footer a:hover { color: var(--gold); }
 }
 .rs-figure--hero img {
   max-height: 280px;
+}
+
+/* ── Inline schematic figures (e.g. the 3 plex archetypes in chapter 02) ──
+   Embedded directly in the text column as small editorial diagrams that
+   support the prose rather than headline it. No card chrome; just image
+   + thin caption, with a color tick on the left to echo the compound coding. */
+.rs-archetypes-inline {
+  margin: 1rem 0 1.5rem;
+}
+.rs-archetypes-inline-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.9rem;
+  align-items: end;
+}
+.rs-archetype {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-left: 2px solid var(--rule);
+  padding-left: 0.55rem;
+}
+.rs-archetype--corridor { border-left-color: #C0392B; }
+.rs-archetype--cluster  { border-left-color: #C0392B; }
+.rs-archetype--scattered { border-left-color: #2A9D5C; }
+.rs-archetype img {
+  display: block;
+  width: 100%;
+  height: 90px;
+  object-fit: contain;
+  object-position: left center;
+  mix-blend-mode: multiply;
+}
+.rs-archetype figcaption {
+  font-family: var(--serif);
+  font-size: 0.66rem;
+  font-style: italic;
+  color: var(--ink);
+  margin-top: 0.35rem;
+  line-height: 1.3;
+}
+@media (max-width: 720px) {
+  /* Keep the 3-archetype row horizontal on mobile too, just tighter */
+  .rs-archetypes-inline-row {
+    gap: 0.55rem;
+  }
+  .rs-archetype { padding-left: 0.45rem; }
+  .rs-archetype img { height: 70px; }
+  .rs-archetype figcaption { font-size: 0.64rem; }
 }
 
 /* ── Two-column compound panels ── */
@@ -1336,32 +1403,129 @@ footer a:hover { color: var(--gold); }
 .pv-strip-thumbs .pv-strip-item--static .rs-overall-score-row { margin: 0; }
 .pv-strip-thumbs .pv-strip-item--static .rs-bar-bg { display: none; }
 
-/* Inline mode (mobile, .pv-inline-imgs) — show strip stacked */
+/* Inline mode (mobile, .pv-inline-imgs) — render strip items as a
+   horizontal-swipe row of chart thumbnails. Each thumb shows a minimal
+   title + chart canvas; tapping a thumb opens the lightbox with the full
+   content (sub, composite bars, takeaway). The desktop hero/thumb swap
+   UI is suppressed since on mobile each thumb behaves like a swipe card. */
 .pv-inline-imgs .pv-strip {
-  display: flex; flex-direction: column; gap: 0.5rem;
+  display: contents;
 }
-/* Mobile: parent has no constrained height, so the hero's flex:1 collapses to 0.
-   The chart item uses a grid with 1fr wrap row — that collapses too when height is
-   auto. Switch to flex-column so the wrap can hold an explicit min-height. */
 .pv-inline-imgs .pv-strip-hero {
-  flex: 0 0 auto;
-  height: auto;
+  display: none;
 }
-.pv-inline-imgs .pv-strip-hero .pv-strip-item--chart {
+/* The thumbs container becomes an .is-hswipe-style row — mask-image fade
+   directly on the scroll element (same approach as image strips), with
+   .is-at-start / .is-at-end classes driven by pvWireEdgeFade. */
+.pv-inline-imgs .pv-strip-thumbs {
+  display: flex; flex-direction: row; flex-wrap: nowrap;
+  gap: 0.6rem;
+  overflow-x: auto; overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  scrollbar-width: none;
+  margin: 1rem -1.5rem;
+  padding: 0.2rem 1.5rem 0.4rem;
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) 1.5rem,
+    rgba(0,0,0,1) calc(100% - 1.5rem),
+    rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) 1.5rem,
+    rgba(0,0,0,1) calc(100% - 1.5rem),
+    rgba(0,0,0,0) 100%);
+  transition: -webkit-mask-image 0.2s, mask-image 0.2s;
+}
+.pv-inline-imgs .pv-strip-thumbs.is-at-start {
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,1) 0,
+    rgba(0,0,0,1) calc(100% - 1.5rem),
+    rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,1) 0,
+    rgba(0,0,0,1) calc(100% - 1.5rem),
+    rgba(0,0,0,0) 100%);
+}
+.pv-inline-imgs .pv-strip-thumbs.is-at-end {
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) 1.5rem,
+    rgba(0,0,0,1) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) 1.5rem,
+    rgba(0,0,0,1) 100%);
+}
+.pv-inline-imgs .pv-strip-thumbs.is-at-start.is-at-end {
+  mask-image: none;
+  -webkit-mask-image: none;
+}
+.pv-inline-imgs .pv-strip-thumbs::-webkit-scrollbar { display: none; }
+.pv-inline-imgs .pv-strip-thumbs > .pv-strip-item {
+  flex: 0 0 82%;
+  min-width: 0;
+  max-width: 82%;
+  height: auto;
+  border-left-width: 4px;
+  cursor: pointer;
+}
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart {
   display: flex; flex-direction: column;
   grid-template-rows: none;
+  row-gap: 0;
+  background: #fdfbf7; border: 1px solid #e2dccd;
+  border-left: 4px solid var(--gold);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 0;
 }
-.pv-inline-imgs .pv-strip-hero .pv-strip-item--chart .pv-strip-chart-wrap {
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-head {
+  padding: 12px 14px 6px;
+}
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-title {
+  font-family: var(--serif);
+  font-size: 0.95rem; font-weight: 400; color: var(--ink); line-height: 1.25;
+  white-space: normal; overflow: visible; text-overflow: clip;
+  margin-bottom: 0;
+}
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-wrap {
   flex: none;
-  min-height: 260px;
-  height: 260px;
+  min-height: 140px;
+  height: 140px;
   position: relative;
+  padding: 8px;
+  background: var(--bg2);
+  border-top: 1px dashed #d8d4c8;
+  border-bottom: 1px dashed #d8d4c8;
 }
-.pv-inline-imgs .pv-strip-hero .pv-strip-item--chart canvas {
-  position: absolute; inset: 0;
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart canvas {
+  position: absolute; inset: 8px;
+  width: calc(100% - 16px) !important;
+  height: calc(100% - 16px) !important;
 }
-.pv-inline-imgs .pv-strip-thumbs > .pv-strip-item {
-  flex: 0 0 90px; height: 72px;
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-foot {
+  display: flex; align-items: baseline; gap: 0.5rem;
+  padding: 8px 14px 12px;
+  font-size: 0.72rem; line-height: 1.45;
+}
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-takeaway {
+  font-style: italic; color: var(--ink);
+  display: -webkit-box;
+  -webkit-line-clamp: 1; line-clamp: 1; -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-takeaway::before {
+  content: '→'; color: var(--gold); font-style: normal; font-weight: 600;
+  margin-right: 0.35rem;
+}
+/* Hide the parts that move to the lightbox on tap */
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-sub,
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-rule,
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-howto,
+.pv-inline-imgs .pv-strip-thumbs .pv-strip-item--chart .rs-viab {
+  display: none;
 }
 
 /* FLIP animation helper class — applied during swap so transforms ease */
@@ -1521,7 +1685,7 @@ footer a:hover { color: var(--gold); }
   flex: none !important;
 }
 .pv-inline-imgs .pv-ctx-main .pv-card-media {
-  height: 220px;
+  height: 140px;
 }
 .pv-inline-imgs .pv-ctx-pair {
   height: auto; min-height: 0;
@@ -1549,17 +1713,6 @@ footer a:hover { color: var(--gold); }
 }
 .pv-inline-imgs .pv-arch-plans .pv-card-media {
   height: 140px;
-}
-
-/* App chapter */
-.pv-inline-imgs .pv-app-stage {
-  height: auto;
-}
-.pv-inline-imgs .pv-app-stage .app-diagram-card {
-  flex: none;
-}
-.pv-inline-imgs .pv-app-stage .pv-card-media {
-  height: 180px;
 }
 
 /* Mobile: hide chart sub/foot and expand hint; show truncated card captions */
@@ -1682,9 +1835,33 @@ footer a:hover { color: var(--gold); }
 
 /* Mobile project view */
 @media (max-width: 720px) {
+  /* `minmax(0, 1fr)` instead of `1fr` so the grid track never expands past
+     the viewport to fit a wide intrinsic child (e.g. an SVG with a large
+     natural width). Plain `1fr` resolves to `minmax(auto, 1fr)` where `auto`
+     min equals the child's min-content; if a chapter contains a wide image,
+     the entire project column widens with it, cascading to the sticky
+     sidebar's full-bleed margin and visibly shifting the page right border
+     as you scroll between chapters of different content widths. */
   .pv-body {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 0; padding: 0 1.5rem 0;
+  }
+  /* Same defensive constraint on the grid children so a wide intrinsic
+     descendant (image, SVG) can't push its own column wider than the track. */
+  .pv-body > .content-panel,
+  .pv-body > .pv-sidebar {
+    min-width: 0;
+  }
+  .pv-body .proj-detail,
+  .pv-body .pv-chapter {
+    min-width: 0;
+    max-width: 100%;
+  }
+  /* All chapter images stay inside their text column. */
+  .pv-body .pv-chapter img,
+  .pv-body .pv-chapter svg {
+    max-width: 100%;
+    height: auto;
   }
 
   /* Sticky below both fixed nav and sticky tab bar */
@@ -1725,11 +1902,61 @@ footer a:hover { color: var(--gold); }
     opacity: 0; max-height: 0; margin-top: 0; margin-bottom: 0;
   }
 
-  /* Chapter chips row */
+  /* Chapter chips row — horizontally scrollable inside the sidebar.
+     touch-action: pan-y lets the browser handle vertical page scroll on the
+     rail (so swiping up/down on chips still scrolls the page). Horizontal
+     scrolling is driven by our JS pointer-drag handler (pvEnableDragScroll)
+     to sidestep the iOS-Safari quirk where overflow-x:auto inside a
+     transformed parent (#pvSidebarClip) fails to accept native horizontal
+     touch-scroll and leaks it to the document. */
   .pv-rail--h {
-    display: flex; gap: 0.4rem; overflow-x: auto;
-    scrollbar-width: none; margin-top: 0.5rem;
-    transition: margin-top 0.25s;
+    display: flex; gap: 0.4rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    margin-top: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-y;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    /* Edge-fade hint at off-screen chips. JS toggles .is-at-start /
+       .is-at-end based on scrollLeft so only the relevant side fades. */
+    mask-image: linear-gradient(to right,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,1) 1rem,
+      rgba(0,0,0,1) calc(100% - 1rem),
+      rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to right,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,1) 1rem,
+      rgba(0,0,0,1) calc(100% - 1rem),
+      rgba(0,0,0,0) 100%);
+    transition: margin-top 0.25s, -webkit-mask-image 0.2s, mask-image 0.2s;
+  }
+  .pv-rail--h.is-at-start {
+    mask-image: linear-gradient(to right,
+      rgba(0,0,0,1) 0,
+      rgba(0,0,0,1) calc(100% - 1rem),
+      rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to right,
+      rgba(0,0,0,1) 0,
+      rgba(0,0,0,1) calc(100% - 1rem),
+      rgba(0,0,0,0) 100%);
+  }
+  .pv-rail--h.is-at-end {
+    mask-image: linear-gradient(to right,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,1) 1rem,
+      rgba(0,0,0,1) 100%);
+    -webkit-mask-image: linear-gradient(to right,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,1) 1rem,
+      rgba(0,0,0,1) 100%);
+  }
+  .pv-rail--h.is-at-start.is-at-end {
+    mask-image: none;
+    -webkit-mask-image: none;
   }
   .pv-rail--h::-webkit-scrollbar { display: none; }
   /* Tighter gap between title and chips when collapsed */
@@ -1767,6 +1994,98 @@ footer a:hover { color: var(--gold); }
     display: grid; gap: 0.6rem; margin-top: 1.25rem;
     grid-template-columns: 1fr;
   }
+
+  /* ── Horizontal-swipe utility ──
+     Any container with 2+ image children that lays out as a row on desktop
+     becomes a horizontal-scrolling row on mobile. The mask-image edges fade
+     the leading/trailing items so they read as "there is more to swipe to."
+     JS toggles .has-prev / .has-next based on scrollLeft so only the active
+     side fades; absent JS, both edges stay faded as a static affordance. */
+  .pv-inline-imgs .is-hswipe,
+  .pv-inline-imgs.is-hswipe {
+    grid-template-columns: none !important;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 0.6rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* JS handles snap-to-card on release (pvEnableDragScroll with opts.snap).
+       Native scroll-snap is disabled because it can fight the JS tween. */
+    -webkit-overflow-scrolling: touch;
+    /* See .pv-rail--h comment: JS pointer-drag handles horizontal; native pan-y */
+    touch-action: pan-y;
+    scrollbar-width: none;
+    margin: 1rem -1.5rem;
+    padding: 0.2rem 1.5rem 0.4rem;
+    /* default fade on both edges */
+    mask-image: linear-gradient(to right,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,1) 1.5rem,
+      rgba(0,0,0,1) calc(100% - 1.5rem),
+      rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to right,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,1) 1.5rem,
+      rgba(0,0,0,1) calc(100% - 1.5rem),
+      rgba(0,0,0,0) 100%);
+    transition: -webkit-mask-image 0.2s, mask-image 0.2s;
+  }
+  .pv-inline-imgs .is-hswipe::-webkit-scrollbar,
+  .pv-inline-imgs.is-hswipe::-webkit-scrollbar { display: none; }
+  .pv-inline-imgs .is-hswipe > *,
+  .pv-inline-imgs.is-hswipe > * {
+    flex: 0 0 82%;
+    min-width: 0;
+    /* Belt-and-suspenders width cap so a wide intrinsic image (e.g. SVG with
+       large viewBox) can't push the card beyond 82% via implicit min-width:
+       auto on flex children. */
+    max-width: 82%;
+  }
+  /* Unified card media height across all hswipe rows (140px = the floor-plan
+     baseline). Per-row rules above can still override if specific. */
+  .pv-inline-imgs .is-hswipe .pv-card-media,
+  .pv-inline-imgs.is-hswipe .pv-card-media {
+    height: 140px;
+  }
+  /* Images inside the swipe cards must obey the card's width even if the
+     image's intrinsic size is larger. min-width:0 overrides flex's default
+     min-width:auto which would otherwise let the image push its container
+     wider than 100%. */
+  .pv-inline-imgs .is-hswipe img,
+  .pv-inline-imgs.is-hswipe img {
+    min-width: 0;
+    max-width: 100%;
+  }
+  /* When scrolled to the left edge, drop the left fade */
+  .pv-inline-imgs .is-hswipe.is-at-start,
+  .pv-inline-imgs.is-hswipe.is-at-start {
+    mask-image: linear-gradient(to right,
+      rgba(0,0,0,1) 0,
+      rgba(0,0,0,1) calc(100% - 1.5rem),
+      rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to right,
+      rgba(0,0,0,1) 0,
+      rgba(0,0,0,1) calc(100% - 1.5rem),
+      rgba(0,0,0,0) 100%);
+  }
+  .pv-inline-imgs .is-hswipe.is-at-end,
+  .pv-inline-imgs.is-hswipe.is-at-end {
+    mask-image: linear-gradient(to right,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,1) 1.5rem,
+      rgba(0,0,0,1) 100%);
+    -webkit-mask-image: linear-gradient(to right,
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,1) 1.5rem,
+      rgba(0,0,0,1) 100%);
+  }
+  .pv-inline-imgs .is-hswipe.is-at-start.is-at-end,
+  .pv-inline-imgs.is-hswipe.is-at-start.is-at-end {
+    /* No overflow → no fade */
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
 }
 
 /* ── App chapter inline layouts ── */
@@ -1783,9 +2102,6 @@ footer a:hover { color: var(--gold); }
 .app-diagram-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); }
 .app-diagram-card .pv-card-foot { display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; }
 .app-expand-hint { font-size: 0.6rem; color: var(--gold); opacity: 0.8; white-space: nowrap; flex-shrink: 0; }
-/* Stage: two cards stacked vertically, each taking half the height */
-.pv-app-stage { display: flex; flex-direction: column; gap: 0.55rem; width: 100%; height: 100%; }
-.pv-app-stage .app-diagram-card { flex: 1 1 0; min-height: 0; }
 
 /* ── Lightbox ── */
 .pv-lightbox {
@@ -1800,25 +2116,25 @@ footer a:hover { color: var(--gold); }
 .pv-lightbox.is-open { opacity: 1; pointer-events: auto; }
 .pv-lightbox-inner {
   position: relative;
-  max-width: 92vw; max-height: 88vh;
   display: flex; flex-direction: column;
   align-items: center; gap: 0.6rem;
 }
 .pv-lightbox-frame {
-  overflow: hidden;
+  display: inline-block;        /* hug the image so the chrome grows with it */
   border-radius: 8px;
   background: #fdfbf7;
   border: 1px solid #e2dccd;
   cursor: grab;
   touch-action: none;
   user-select: none;
+  transform-origin: center center;
 }
 .pv-lightbox-frame:active { cursor: grabbing; }
-.pv-lightbox-frame img {
+.pv-lightbox-frame img,
+.pv-lightbox-frame svg.pv-lightbox-svg {
   display: block;
   max-width: 88vw; max-height: 80vh;
-  transform-origin: 0 0;
-  transition: transform 0.1s ease;
+  width: auto; height: auto;
   pointer-events: none;
   user-select: none;
 }
@@ -1852,6 +2168,129 @@ footer a:hover { color: var(--gold); }
   position: absolute; top: -2.2rem; left: 0;
   color: #e8e0d0; font-size: 0.72rem; opacity: 0.5;
   letter-spacing: 0.06em;
+}
+
+/* ── Chart lightbox ── shows chart thumbnails at full size with all copy.
+   The wrapper itself uses .pv-lightbox for the backdrop styling; this
+   block only styles the inner content. */
+.pv-chart-lightbox-inner {
+  position: relative;
+  width: min(92vw, 720px);
+  max-height: 88vh;
+  background: #fdfbf7;
+  border: 1px solid #e2dccd;
+  border-radius: 8px;
+  display: flex; flex-direction: column;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  /* Allow native vertical touch scroll inside the modal — .pv-lightbox sets
+     touch-action: none on the backdrop for the image-zoom variant. */
+  touch-action: pan-y;
+}
+.pv-chart-lightbox-close {
+  position: absolute; top: 8px; right: 10px;
+  background: none; border: none; cursor: pointer;
+  color: var(--ink); font-size: 1.2rem; line-height: 1;
+  opacity: 0.55; padding: 6px 8px;
+  transition: opacity 0.15s;
+  z-index: 2;
+}
+.pv-chart-lightbox-close:hover { opacity: 1; }
+.pv-chart-lightbox-content {
+  padding: 1.25rem 1.25rem 1.5rem;
+  display: flex; flex-direction: column;
+}
+/* Force the expanded chart card to show every part (overriding the
+   mobile-thumb display:none for sub/rule/howto/composite-bars). */
+.pv-chart-lightbox .pv-strip-item--chart {
+  border: none !important;
+  border-left: none !important;
+  background: transparent !important;
+  border-radius: 0;
+  padding: 0;
+  display: flex; flex-direction: column;
+  grid-template-rows: none;
+  row-gap: 0;
+}
+.pv-chart-lightbox .pv-strip-chart-head { padding: 0 0 0.5rem; }
+.pv-chart-lightbox .pv-strip-chart-title {
+  font-family: var(--serif);
+  font-size: 1.2rem; font-weight: 400; color: var(--ink); line-height: 1.25;
+  white-space: normal; overflow: visible;
+  margin-bottom: 0.35rem;
+}
+.pv-chart-lightbox .pv-strip-chart-sub {
+  display: block !important;
+  font-size: 0.78rem; color: #7a7a74;
+  line-height: 1.55;
+  margin-bottom: 0.85rem;
+}
+.pv-chart-lightbox .pv-strip-chart-sub strong { color: #1a1a1a; font-weight: 600; }
+.pv-chart-lightbox .pv-strip-chart-rule {
+  display: block !important;
+  height: 1px; border-top: 1px dashed #d8d4c8;
+  margin: 0 0 0.6rem;
+}
+/* Composite bars: same lean styling used in the mobile inline rendering
+   (before the charts became slidable) — single-row flex, no detail row. */
+.pv-chart-lightbox .rs-viab {
+  display: block !important;
+  margin: 0 0 0.85rem;
+}
+.pv-chart-lightbox .rs-viab--compact {
+  gap: 0.2rem; margin-top: 0.2rem; margin-bottom: 0.85rem;
+}
+.pv-chart-lightbox .rs-viab-row {
+  display: flex !important;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  grid-template-rows: none;
+}
+.pv-chart-lightbox .rs-viab-name {
+  flex: 0 0 56px;
+  font-size: 0.66rem;
+}
+.pv-chart-lightbox .rs-viab-score {
+  flex: 0 0 auto;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+.pv-chart-lightbox .rs-viab-bar {
+  flex: 1 1 0;
+  height: 8px;
+}
+.pv-chart-lightbox .rs-viab-side,
+.pv-chart-lightbox .rs-viab-detail { display: none; }
+.pv-chart-lightbox .pv-strip-chart-wrap {
+  flex: none;
+  min-height: 320px; height: 320px;
+  position: relative;
+  background: var(--bg2);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 10px;
+}
+.pv-chart-lightbox .pv-strip-chart-wrap canvas {
+  position: absolute; inset: 10px;
+  width: calc(100% - 20px) !important;
+  height: calc(100% - 20px) !important;
+}
+.pv-chart-lightbox .pv-strip-chart-foot {
+  display: flex !important; align-items: baseline;
+  gap: 0.5rem; padding: 0.8rem 0 0;
+  font-size: 0.78rem; line-height: 1.5;
+}
+.pv-chart-lightbox .pv-strip-chart-takeaway {
+  font-style: italic; color: var(--ink);
+}
+.pv-chart-lightbox .pv-strip-chart-takeaway::before {
+  content: '→'; color: var(--gold); font-style: normal; font-weight: 600;
+  margin-right: 0.35rem;
+}
+.pv-chart-lightbox .pv-strip-chart-howto {
+  display: inline !important;
+  margin-left: auto; color: #9a8a7a; font-size: 0.7rem; white-space: nowrap;
 }
 
 /* ── WIP PANEL (placeholder projects) ── */
@@ -1959,8 +2398,6 @@ footer a:hover { color: var(--gold); }
 
 <!-- PROJECT TABS BAR -->
 <div class="tabs-scroll-outer" id="projects-section">
-<button class="tabs-arrow tabs-arrow--left" aria-label="Scroll projects left" type="button">&#8249;</button>
-<button class="tabs-arrow tabs-arrow--right" aria-label="Scroll projects right" type="button">&#8250;</button>
 <div class="proj-tabs-bar">
 
   <div class="tab-group-sep">Research</div>
@@ -2080,7 +2517,7 @@ footer a:hover { color: var(--gold); }
               <div class="pv-card-media"><img loading="lazy" src="images/research/ariel_map.jpg" alt="Ariel University campus map"></div>
               <div class="pv-card-foot"><span class="pv-card-takeaway">Two opposing compounds, one shared campus.</span><span class="app-expand-hint">↗ click to expand</span></div>
             </button>
-            <div class="pv-ctx-pair">
+            <div class="pv-ctx-pair is-hswipe">
               <button class="pv-card pv-card--img pv-card--caravan app-diagram-card" data-lightbox="images/research/caravan_site.jpg" data-lightbox-title="Caravan Compound">
                 <div class="pv-card-head">
                   <div class="pv-card-title">Caravan Compound</div>
@@ -2110,36 +2547,29 @@ footer a:hover { color: var(--gold); }
         <span class="pv-ch-num">02 — Archetypes</span>
         <h2 class="pv-ch-title">The Archetypes</h2>
         <p>Student dormitory design has evolved through three canonical archetypes. The <strong>Corridor Plex</strong> lines rooms along a shared hallway with communal bathrooms per floor — consistently linked to social overload and withdrawal. The <strong>Cluster Plex</strong>, still the dominant contemporary model, groups rooms around a small shared suite; it improves privacy but paradoxically scores worse on campus-wide community metrics. The <strong>Scattered Plex</strong> organizes autonomous units across shared communal grounds, with the spatial relationship between each unit and the landscape defining the compound&rsquo;s social character — the least studied, and the most promising.</p>
+
+        <figure class="rs-archetypes-inline" aria-label="Three canonical dormitory archetypes">
+          <div class="rs-archetypes-inline-row">
+            <div class="rs-archetype rs-archetype--corridor">
+              <img loading="lazy" src="images/shared/corridor_plex.png" alt="Corridor plex schematic">
+              <figcaption>Corridor Plex</figcaption>
+            </div>
+            <div class="rs-archetype rs-archetype--cluster">
+              <img loading="lazy" src="images/shared/cluster_plex.png" alt="Cluster plex schematic">
+              <figcaption>Cluster Plex</figcaption>
+            </div>
+            <div class="rs-archetype rs-archetype--scattered">
+              <img loading="lazy" src="images/shared/scattered_plex.png" alt="Scattered plex schematic">
+              <figcaption>Scattered Plex</figcaption>
+            </div>
+          </div>
+        </figure>
+
         <p>Ariel&rsquo;s two compounds map directly onto this. The <strong>mid-rise compound</strong> is a cluster-corridor hybrid: densely packed towers with consolidated indoor amenities — ~1,550 students across 0.033 km². The <strong>caravan compound</strong> is a scattered plex: ~350 low-rise units distributed across 0.106 km² of organic, pedestrian-first grounds, organised into semi-private sub-clusters surrounded by greenery and shared outdoor space.</p>
 
         <template id="ch-archetypes-template">
-          <div class="pv-arch-layout">
-            <div class="pv-arch-trio">
-              <div class="pv-arch-duo">
-                <div class="pv-arch-duo-inner">
-                  <div class="pv-arch-duo-item">
-                    <div class="pv-arch-duo-item-title">Corridor Plex</div>
-                    <div class="pv-arch-duo-rule"></div>
-                    <div class="pv-card-media"><img loading="lazy" src="images/shared/corridor_plex.png" alt="Corridor plex diagram"></div>
-                    <div class="pv-arch-duo-cap">Rooms along a shared hallway — linked to social overload &amp; withdrawal.</div>
-                  </div>
-                  <div class="pv-arch-duo-divider"></div>
-                  <div class="pv-arch-duo-item">
-                    <div class="pv-arch-duo-item-title">Cluster Plex</div>
-                    <div class="pv-arch-duo-rule"></div>
-                    <div class="pv-card-media"><img loading="lazy" src="images/shared/cluster_plex.png" alt="Cluster plex diagram"></div>
-                    <div class="pv-arch-duo-cap">Rooms around a shared suite — better privacy, weaker campus community.</div>
-                  </div>
-                </div>
-              </div>
-              <div class="pv-card pv-card--img pv-card--scattered">
-                <div class="pv-card-head"><div class="pv-card-title">Scattered Plex</div></div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/shared/scattered_plex.png" alt="Scattered plex diagram"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Autonomous units across open grounds — least studied, most spatially promising.</span></div>
-              </div>
-            </div>
-            <div class="pv-arch-plans">
+          <div class="pv-arch-layout pv-arch-layout--plans-only">
+            <div class="pv-arch-plans is-hswipe">
               <button class="pv-card pv-card--img pv-card--midrise pv-arch-plan--bldg app-diagram-card" data-lightbox="images/research/building_101.jpg" data-lightbox-title="Building 101 Floor Plan">
                 <div class="pv-card-head">
                   <div class="pv-card-title">Building 101 Floor Plan</div>
@@ -2175,7 +2605,7 @@ footer a:hover { color: var(--gold); }
 
       <section class="pv-chapter" id="ch-app"
                data-title="The App"
-               data-stage-ref="#ch-app-template">
+               data-images='[{"src":"images/research/d2_anonymisation_v2.svg","title":"Anonymisation at the Edge","cap":"Client-side SHA hash: hardware ID × registration timestamp.","takeaway":"No personal data ever leaves the device unhashed."},{"src":"images/research/d3_pipeline_v2.svg","title":"Data Pipeline","cap":"Device → geofence → decoupled survey & spatial DBs.","takeaway":"Privacy-by-design end-to-end."}]'>
         <span class="pv-ch-num">04 — The App</span>
         <h2 class="pv-ch-title">The App — NKDT Points</h2>
         <p>To orchestrate data collection during the pandemic, I co-developed a custom native <strong>Android application — NKDT Points</strong> — functioning as a live research platform. The app simultaneously administered the psychometric questionnaires remotely and captured <strong>continuous passive background GPS telemetry</strong>, mapping how residents actually moved through and between the compounds over time.</p>
@@ -2196,29 +2626,6 @@ footer a:hover { color: var(--gold); }
           &nbsp;·&nbsp;
           <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer" style="color:var(--gold); text-decoration:none;">API ↗</a>
         </p>
-
-        <template id="ch-app-template">
-          <div class="pv-app-stage">
-            <button class="pv-card pv-card--img app-diagram-card" data-lightbox="images/research/d2_anonymisation_v2.svg" data-lightbox-title="Anonymisation at the Edge">
-              <div class="pv-card-head">
-                <div class="pv-card-title">Anonymisation at the Edge</div>
-                <div class="pv-card-sub">Client-side SHA hash: hardware ID × registration timestamp.</div>
-              </div>
-              <div class="pv-card-rule"></div>
-              <div class="pv-card-media"><img loading="lazy" src="images/research/d2_anonymisation_v2.svg" alt="Anonymisation architecture diagram"></div>
-              <div class="pv-card-foot"><span class="pv-card-takeaway">No personal data ever leaves the device unhashed.</span><span class="app-expand-hint">↗ click to expand</span></div>
-            </button>
-            <button class="pv-card pv-card--img app-diagram-card" data-lightbox="images/research/d3_pipeline_v2.svg" data-lightbox-title="Data Pipeline">
-              <div class="pv-card-head">
-                <div class="pv-card-title">Data Pipeline</div>
-                <div class="pv-card-sub">Device → geofence → decoupled survey &amp; spatial DBs.</div>
-              </div>
-              <div class="pv-card-rule"></div>
-              <div class="pv-card-media"><img loading="lazy" src="images/research/d3_pipeline_v2.svg" alt="Data pipeline diagram"></div>
-              <div class="pv-card-foot"><span class="pv-card-takeaway">Privacy-by-design end-to-end.</span><span class="app-expand-hint">↗ click to expand</span></div>
-            </button>
-          </div>
-        </template>
       </section>
 
       <section class="pv-chapter" id="ch-results"
@@ -2513,7 +2920,6 @@ const PV_SLIDE_MS         = 600;   // Pane / panel translateX slide duration (ma
 const PV_BAR_SCROLL_MIN_MS= 300;   // Lower bound on the vertical eased scroll that snaps the bar.
 const PV_BAR_SCROLL_MAX_MS= 600;   // Upper bound on same.
 const PV_CHAPTER_SCROLL_MAX_MS = 700; // Upper bound on chapter-anchor scroll.
-const PV_TAB_HSCROLL_MS   = 350;   // Horizontal eased scroll on the tabs-bar arrow buttons.
 const PV_COLLAPSE_AT_PX   = 30;    // Collapse mobile header once scrolled this far past the threshold.
 const PV_EXPAND_AT_PX     = 10;    // Expand it back once within this distance of the threshold.
 
@@ -2581,50 +2987,16 @@ function scrollBarToTop(onDone) {
   requestAnimationFrame(step);
 }
 
-// ── Tabs bar arrow controls ──────────────────────────────────────────────────
-const tabsBar      = document.querySelector('.proj-tabs-bar');
-const tabsArrowL   = document.querySelector('.tabs-arrow--left');
-const tabsArrowR   = document.querySelector('.tabs-arrow--right');
-
-function updateTabsArrows() {
-  if (!tabsBar || !tabsArrowL || !tabsArrowR) return;
-  const max = tabsBar.scrollWidth - tabsBar.clientWidth;
-  tabsArrowL.classList.toggle('is-visible', tabsBar.scrollLeft > 2);
-  tabsArrowR.classList.toggle('is-visible', tabsBar.scrollLeft < max - 2);
-}
-
-function easedScrollTabsBy(delta) {
-  if (!tabsBar) return;
-  const startX = tabsBar.scrollLeft;
-  const max    = tabsBar.scrollWidth - tabsBar.clientWidth;
-  const target = Math.max(0, Math.min(max, startX + delta));
-  const dist   = target - startX;
-  if (Math.abs(dist) < 1) return;
-  const dur = PV_TAB_HSCROLL_MS;
-  let t0 = null;
-  function step(now) {
-    if (!t0) t0 = now;
-    const p = Math.min((now - t0) / dur, 1);
-    const ease = 1 - Math.pow(1 - p, 3);
-    tabsBar.scrollLeft = Math.round(startX + dist * ease);
-    if (p < 1) requestAnimationFrame(step);
-    else updateTabsArrows();
-  }
-  requestAnimationFrame(step);
-}
-
-if (tabsArrowL) tabsArrowL.addEventListener('click', function() { easedScrollTabsBy(-tabsBar.clientWidth * 0.7); });
-if (tabsArrowR) tabsArrowR.addEventListener('click', function() { easedScrollTabsBy( tabsBar.clientWidth * 0.7); });
-if (tabsBar) tabsBar.addEventListener('scroll', updateTabsArrows, { passive: true });
-window.addEventListener('resize', updateTabsArrows);
-updateTabsArrows();
-// Re-check after fonts load (changes tab widths → may toggle arrow visibility)
-if (document.fonts && document.fonts.ready) document.fonts.ready.then(updateTabsArrows);
+// ── Tabs bar ─────────────────────────────────────────────────────────────────
+// Edge-fade gradient + drag-to-scroll, mirroring the .is-hswipe image rows
+// and the mobile chip rail. No arrow controls — the fade affordance + drag
+// is enough.
+const tabsBar = document.querySelector('.proj-tabs-bar');
+if (typeof pvWireEdgeFade === 'function' && tabsBar) pvWireEdgeFade(tabsBar);
+if (typeof pvEnableDragScroll === 'function' && tabsBar) pvEnableDragScroll(tabsBar, { snap: false });
 
 // ── One delegated listener for every tab click ────────────────────────────────
 document.querySelector('.tabs-scroll-outer').addEventListener('click', function(e) {
-  // Ignore clicks on the arrow buttons themselves (they have their own handler).
-  if (e.target.closest('.tabs-arrow')) return;
   const btn = e.target.closest('.tab-btn');
   if (!btn) return;
   if (transitioning) return;
@@ -2722,6 +3094,12 @@ var pvHeadEl      = document.getElementById('pvHead');
 var pvRailD       = document.getElementById('pvRail');
 var pvRailM       = document.getElementById('pvRailMobile');
 var pvStageEl     = document.getElementById('pvStage');
+// Enable mouse drag-to-scroll on the mobile chip rail (touch works natively
+// via overflow-x:auto; this covers desktop and DevTools mobile emulation).
+if (typeof pvEnableDragScroll === 'function' && pvRailM) pvEnableDragScroll(pvRailM);
+// Edge-fade gradient (same .is-at-start / .is-at-end pattern as the project
+// tabs bar and image-swipe rows).
+if (typeof pvWireEdgeFade === 'function' && pvRailM) pvWireEdgeFade(pvRailM);
 
 var pvState = {
   active: false, current: -1, chapters: [], imgsets: [], links: [], ticking: false
@@ -2772,6 +3150,256 @@ function pvEsc(s) {
     .replace(/"/g, '&quot;');
 }
 
+// Make a horizontally-scrollable element draggable with pointer (mouse OR
+// touch). Uses Pointer Events so it works uniformly on desktop, trackpad,
+// real touch screens, and DevTools mobile emulation. Calls preventDefault
+// on horizontal drags so the browser doesn't try to scroll an ancestor
+// instead — needed when the element sits inside a transformed parent
+// (e.g. #pvSidebarClip) where native overflow:auto touch scroll can be
+// unreliable.
+//
+// Axis lock: a gesture is treated as a horizontal drag only when total
+// movement exceeds 10px AND horizontal travel dominates vertical by 1.5x.
+// Taps with minor jitter stay as taps; clearly vertical gestures fall
+// through to let the page scroll naturally.
+//
+// opts.snap: when true, on release glide-snap to the nearest child's left
+// edge using cubic ease-out (the site's signature easing). Snap direction
+// is biased by drag velocity at release so a flick advances to the next
+// card even if it didn't quite reach the midpoint.
+function pvEnableDragScroll(el, opts) {
+  if (!el || el.dataset.dragScroll === '1') return;
+  el.dataset.dragScroll = '1';
+  opts = opts || {};
+
+  var activePointerId = null;
+  var startX = 0, startY = 0, startScroll = 0;
+  var moved = false, lockedAxis = null; // 'x' | 'y' | null
+  var lastX = 0, lastT = 0, vx = 0;     // for release velocity
+
+  function reset() {
+    activePointerId = null;
+    moved = false;
+    lockedAxis = null;
+    el.style.cursor = '';
+  }
+
+  function easeOutCubic(p) { return 1 - Math.pow(1 - p, 3); }
+
+  function animateScrollTo(targetLeft, duration) {
+    var startLeft = el.scrollLeft;
+    var dist = targetLeft - startLeft;
+    if (Math.abs(dist) < 1) return;
+    var t0 = null;
+    function step(now) {
+      if (!t0) t0 = now;
+      var p = Math.min((now - t0) / duration, 1);
+      el.scrollLeft = startLeft + dist * easeOutCubic(p);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  function snapToNearest(velocity) {
+    var children = Array.prototype.filter.call(el.children, function(c) {
+      return c.offsetParent !== null; // visible only
+    });
+    if (children.length < 2) return;
+    var scrollLeft = el.scrollLeft;
+    var maxScroll  = el.scrollWidth - el.clientWidth;
+    var paddingLeft = parseFloat(getComputedStyle(el).paddingLeft) || 0;
+    // Bias the snap point by current velocity (pixels/ms) so a flick advances.
+    var biased = scrollLeft + velocity * 120; // ~120ms look-ahead
+    var bestIdx = 0, bestDist = Infinity;
+    for (var i = 0; i < children.length; i++) {
+      var childLeft = children[i].offsetLeft - paddingLeft;
+      var d = Math.abs(childLeft - biased);
+      if (d < bestDist) { bestDist = d; bestIdx = i; }
+    }
+    var targetLeft = children[bestIdx].offsetLeft - paddingLeft;
+    // Clamp so the last card snaps to the max scroll position (its right edge
+    // aligned with the viewport's right edge) rather than off-screen.
+    if (targetLeft > maxScroll) targetLeft = maxScroll;
+    animateScrollTo(targetLeft, 320);
+  }
+
+  el.addEventListener('pointerdown', function(e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    activePointerId = e.pointerId;
+    moved = false;
+    lockedAxis = null;
+    startX = e.clientX;
+    startY = e.clientY;
+    startScroll = el.scrollLeft;
+    lastX = e.clientX;
+    lastT = performance.now();
+    vx = 0;
+    el.style.cursor = 'grabbing';
+  });
+
+  el.addEventListener('pointermove', function(e) {
+    if (activePointerId === null || e.pointerId !== activePointerId) return;
+    var dx = e.clientX - startX;
+    var dy = e.clientY - startY;
+    if (!lockedAxis) {
+      var adx = Math.abs(dx), ady = Math.abs(dy);
+      if (adx > 10 && adx > ady * 1.5) lockedAxis = 'x';
+      else if (ady > 10 && ady > adx * 1.5) lockedAxis = 'y';
+    }
+    if (lockedAxis === 'x') {
+      moved = true;
+      e.preventDefault();
+      el.scrollLeft = startScroll - dx;
+      // Track instantaneous velocity for snap bias on release.
+      var now = performance.now();
+      var dt = now - lastT;
+      if (dt > 0) vx = -(e.clientX - lastX) / dt; // px/ms (positive = scroll right)
+      lastX = e.clientX;
+      lastT = now;
+      if (el.setPointerCapture) {
+        try { el.setPointerCapture(activePointerId); } catch (_) {}
+      }
+    }
+  });
+
+  function endDrag(e) {
+    if (activePointerId === null) return;
+    if (e && e.pointerId !== undefined && e.pointerId !== activePointerId) return;
+    var wasMoved = moved;
+    var releaseVx = vx;
+    var pid = activePointerId;
+    if (el.releasePointerCapture) {
+      try { el.releasePointerCapture(pid); } catch (_) {}
+    }
+    reset();
+    // Swallow the click that follows a real drag so chips don't activate
+    // when the user was scrolling, not tapping. Auto-uninstall after a short
+    // window so a no-click drag release doesn't poison the user's next tap.
+    if (wasMoved) {
+      var swallow = function(ev) {
+        ev.stopPropagation(); ev.preventDefault();
+        el.removeEventListener('click', swallow, true);
+      };
+      el.addEventListener('click', swallow, true);
+      setTimeout(function(){
+        el.removeEventListener('click', swallow, true);
+      }, 80);
+      if (opts.snap) snapToNearest(releaseVx);
+    }
+  }
+
+  el.addEventListener('pointerup', endDrag);
+  el.addEventListener('pointercancel', endDrag);
+}
+
+// Wire an element's edge-fade mask so it reflects current scroll position
+// (.is-at-start / .is-at-end toggled by scrollLeft + scrollWidth math).
+// Used by the project tabs bar and chapter chip rail and reused inside
+// pvWireHswipe for image-swipe rows. Attaches a `pvUpdateEdgeFade` method
+// to the element so other code can poke it after content changes that
+// affect scrollWidth (e.g. active chip title expand/collapse).
+function pvWireEdgeFade(el) {
+  if (!el || el.dataset.edgeFadeWired === '1') return;
+  el.dataset.edgeFadeWired = '1';
+  function update() {
+    var canScroll = el.scrollWidth > el.clientWidth + 1;
+    var atStart = !canScroll || el.scrollLeft <= 1;
+    var atEnd   = !canScroll || el.scrollLeft + el.clientWidth >= el.scrollWidth - 1;
+    el.classList.toggle('is-at-start', atStart);
+    el.classList.toggle('is-at-end', atEnd);
+  }
+  el.pvUpdateEdgeFade = update;
+  el.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  // Multiple measurement passes: initial frame catches static layout; the
+  // post-load pass catches deferred layout (Chart.js canvas sizing, web
+  // font swap) that can change scrollWidth after our first measurement.
+  requestAnimationFrame(update);
+  if (document.readyState === 'complete') {
+    setTimeout(update, 0);
+  } else {
+    window.addEventListener('load', update);
+  }
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(update);
+  // Also re-measure shortly after wiring to catch async DOM additions
+  setTimeout(update, 100);
+  setTimeout(update, 500);
+}
+
+// Wire a .pv-strip-thumbs container (mobile-inline mode only) so it scrolls
+// like an .is-hswipe row and tapping a chart thumbnail opens the lightbox
+// with the chart's full content (sub, composite bars, takeaway).
+function pvWireChartStrip(strip) {
+  if (!strip || strip.dataset.chartStripWired === '1') return;
+  strip.dataset.chartStripWired = '1';
+  pvWireEdgeFade(strip);
+  pvEnableDragScroll(strip, { snap: true });
+  strip.addEventListener('click', function(e) {
+    var thumb = e.target.closest('.pv-strip-item--chart');
+    if (!thumb) return;
+    e.preventDefault();
+    if (typeof window.pvOpenChartLightbox === 'function') {
+      window.pvOpenChartLightbox(thumb);
+    }
+  });
+  // Equalize header heights so chart wraps align across cards regardless
+  // of how many lines each title wraps to.
+  function equalizeHeads() {
+    var heads = strip.querySelectorAll('.pv-strip-item--chart .pv-strip-chart-head');
+    if (!heads.length) return;
+    var max = 0;
+    heads.forEach(function(h) { h.style.minHeight = ''; });
+    heads.forEach(function(h) { if (h.offsetHeight > max) max = h.offsetHeight; });
+    heads.forEach(function(h) { h.style.minHeight = max + 'px'; });
+  }
+  requestAnimationFrame(equalizeHeads);
+  setTimeout(equalizeHeads, 100);
+  setTimeout(equalizeHeads, 500);
+  window.addEventListener('resize', equalizeHeads);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(equalizeHeads);
+}
+
+// Wire every .is-hswipe row inside the given root so its edge-fade mask
+// reflects current scroll position. Called whenever inline-imgs are appended.
+// Also auto-promotes any .pv-inline-imgs that has 2+ image-card children
+// (covers chapters whose images come from data-images JSON rather than a
+// template with explicit .is-hswipe markers like .pv-arch-plans).
+function pvWireHswipe(root) {
+  if (!root) return;
+  // Auto-promote: any .pv-inline-imgs with 2+ direct card children becomes
+  // a swipe row on mobile.
+  if (root.classList && root.classList.contains('pv-inline-imgs')) {
+    var directCards = root.querySelectorAll(':scope > .pv-card, :scope > button.pv-card, :scope > figure');
+    if (directCards.length >= 2) {
+      root.classList.add('is-hswipe');
+    }
+  }
+  // Mobile strip-thumbs (e.g. the Results chapter's 3 charts) get the same
+  // edge-fade + drag-scroll behavior as image rows. Wire each thumb to open
+  // the lightbox on tap with the chart's full content. Scope: only inside
+  // a .pv-inline-imgs ancestor (the desktop strip-thumbs is a tiny rail of
+  // thumbnails for the hero-swap UI; we don't want chart-lightbox behavior
+  // there).
+  var stripThumbs = [];
+  if (root.classList && root.classList.contains('pv-inline-imgs')) {
+    Array.prototype.forEach.call(
+      root.querySelectorAll('.pv-strip-thumbs'),
+      function(t) { stripThumbs.push(t); }
+    );
+  }
+  stripThumbs.forEach(pvWireChartStrip);
+  var rows = root.classList && root.classList.contains('is-hswipe')
+    ? [root].concat(Array.prototype.slice.call(root.querySelectorAll('.is-hswipe')))
+    : Array.prototype.slice.call(root.querySelectorAll('.is-hswipe'));
+  rows.forEach(function(row) {
+    if (row.dataset.hswipeWired === '1') return;
+    row.dataset.hswipeWired = '1';
+    pvWireEdgeFade(row);
+    // Pointer drag-to-scroll with snap-to-card on release.
+    pvEnableDragScroll(row, { snap: true });
+  });
+}
+
 function pvMakeKw(kws) {
   return kws.map(function(k){ return '<span class="kw'+(k.g?' kw-gold':'')+'">' + pvEsc(k.l) + '</span>'; }).join('');
 }
@@ -2814,6 +3442,11 @@ function pvApplySetActive(index, dir) {
   if (pvIsMobile() && !pvState.suppressChipScroll) {
     var chip = pvRailM.children[index];
     if (chip && chip.scrollIntoView) chip.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'});
+  }
+  // The active chip's title expands/collapses, which changes the rail's
+  // scrollWidth. Refresh its edge-fade so the gradient reflects new position.
+  if (pvRailM && pvRailM.pvUpdateEdgeFade) {
+    requestAnimationFrame(pvRailM.pvUpdateEdgeFade);
   }
 
   if (out) {
@@ -2885,9 +3518,11 @@ function pvEasedScrollTo(targetY, onDone) {
 function pvOnRailClick(e) {
   var btn = e.target.closest('.pv-chapter-link'); if (!btn) return;
   var i = parseInt(btn.dataset.index, 10);
-  if (i === pvState.current) return;
-  // Collapse the mobile header immediately on any chapter tap
+  // Collapse the mobile header immediately on any chapter tap — fires even
+  // when the tapped chapter is already current so opening a project and
+  // tapping chapter 1 still collapses the header like any other chip.
   if (pvIsMobile() && pvSidebarEl) pvSidebarEl.classList.add('is-collapsed');
+  if (i === pvState.current) return;
   var offset = pvIsMobile()
     ? (pvNavH() + pvTabH() + (pvSidebarEl ? pvSidebarEl.offsetHeight : 70) + 8)
     : (pvTopOffset() + 40);
@@ -2943,6 +3578,11 @@ function pvStripActivate(hero, rail, thumb) {
     n.classList.remove('is-active');
   });
   thumb.classList.add('is-active');
+  // Mobile: the inline render stacks all strip items as full cards (the
+  // hero is hidden via CSS), so cloning the active item into the hero
+  // just creates an off-screen canvas that Chart.js still tries to init.
+  // Skip the whole hero-swap on mobile.
+  if (pvIsMobile()) return;
 
   // Capture starting rect of the thumb so we can play a "grow from thumb" hint.
   var thumbRect = thumb.getBoundingClientRect();
@@ -3144,6 +3784,7 @@ function pvActivate(id, fromRight) {
         if (inl.querySelector('canvas[data-chart]') && typeof window.loadResearchCharts === 'function') {
           window.loadResearchCharts();
         }
+        pvWireHswipe(inl);
       }
       if (pendingInline.length) schedule(drainOne);
     }
@@ -3247,28 +3888,65 @@ pvPositionAll();
   var pinchStartDist = 0, pinchStartScale = 1;
   var gallery = [], galleryIdx = 0;
 
+  // Zoom enlarges the image/svg via width/height (NOT transform), which forces
+  // the browser to re-paint at the target resolution and keeps inline SVGs
+  // crisp at any zoom. The frame (display: inline-block) hugs its child, so
+  // its border/background grow with the image as one visual unit. Pan applies
+  // translate to the frame (translate doesn't trigger re-rasterization).
+  var lbBaseW = 0, lbBaseH = 0;
+  function getContentEl() {
+    return lbFrame.querySelector('svg.pv-lightbox-svg') || lbImg;
+  }
+  function captureBaseSize() {
+    if (!lbFrame) return;
+    var el = getContentEl();
+    if (!el) return;
+    // Measure the image's natural rendered size at scale=1.
+    el.style.width = '';
+    el.style.height = '';
+    // Force a synchronous read by querying clientWidth.
+    lbBaseW = el.clientWidth;
+    lbBaseH = el.clientHeight;
+  }
   function clampPan() {
-    if (!lbImg) return;
-    var fw = lbFrame.clientWidth, fh = lbFrame.clientHeight;
-    var iw = lbImg.naturalWidth || lbImg.clientWidth;
-    var ih = lbImg.naturalHeight || lbImg.clientHeight;
-    var scaledW = iw * scale, scaledH = ih * scale;
-    var maxX = Math.max(0, (scaledW - fw) / 2);
-    var maxY = Math.max(0, (scaledH - fh) / 2);
+    if (!lbFrame) return;
+    var scaledW = lbBaseW * scale, scaledH = lbBaseH * scale;
+    var vw = window.innerWidth, vh = window.innerHeight;
+    // Keep at least 20% of the frame visible so the user can't pan it off-screen.
+    var maxX = Math.max(0, (scaledW - vw * 0.2) / 2);
+    var maxY = Math.max(0, (scaledH - vh * 0.2) / 2);
     panX = Math.max(-maxX, Math.min(maxX, panX));
     panY = Math.max(-maxY, Math.min(maxY, panY));
   }
 
   function applyTransform() {
-    if (!lbImg) return;
-    lbImg.style.transform = 'translate('+panX+'px,'+panY+'px) scale('+scale+')';
-    lbImg.style.transformOrigin = 'center center';
-    lbImg.style.transition = 'none';
+    if (!lbFrame) return;
+    var el = getContentEl();
+    if (el && lbBaseW && lbBaseH) {
+      el.style.width  = (lbBaseW * scale) + 'px';
+      el.style.height = (lbBaseH * scale) + 'px';
+      el.style.maxWidth = 'none';
+      el.style.maxHeight = 'none';
+    }
+    lbFrame.style.transform = 'translate('+panX+'px,'+panY+'px)';
+    lbFrame.style.transition = 'none';
   }
 
   function resetZoom() {
     scale = 1; panX = 0; panY = 0;
-    if (lbImg) { lbImg.style.transition = 'transform 0.2s ease'; applyTransform(); }
+    if (lbFrame) {
+      var el = getContentEl();
+      if (el) {
+        el.style.width = '';
+        el.style.height = '';
+        el.style.maxWidth = '';
+        el.style.maxHeight = '';
+      }
+      lbFrame.style.transition = 'transform 0.2s ease';
+      lbFrame.style.transform = 'translate(0,0)';
+      // Re-measure once natural-size layout settles
+      requestAnimationFrame(captureBaseSize);
+    }
   }
 
   function buildGallery(triggerEl) {
@@ -3315,11 +3993,54 @@ pvPositionAll();
     if (galleryIdx < 0) galleryIdx = 0;
   }
 
+  // SVGs loaded via <img> get rasterized at their natural size, so they pixelate
+  // when the lightbox frame is zoomed. For SVGs we fetch the markup and inject
+  // it inline, which keeps the graphic as vector at any scale.
+  var svgCache = {};
+  function setLightboxSource(src) {
+    var isSvg = /\.svg(\?|$)/i.test(src);
+    // Clear any previously injected inline SVG
+    var existing = lbFrame.querySelector('svg.pv-lightbox-svg');
+    if (existing) existing.remove();
+    // Reset frame size so natural dimensions can be re-measured for the new image
+    lbFrame.style.width = '';
+    lbFrame.style.height = '';
+    if (!isSvg) {
+      lbImg.style.display = '';
+      lbImg.src = src;
+      // Re-measure when the raster image has loaded
+      lbImg.onload = function(){ captureBaseSize(); };
+      return;
+    }
+    // Hide the <img> tag while showing inline SVG
+    lbImg.style.display = 'none';
+    lbImg.removeAttribute('src');
+    var inject = function(markup) {
+      var holder = document.createElement('div');
+      holder.innerHTML = markup;
+      var svgEl = holder.querySelector('svg');
+      if (!svgEl) { lbImg.style.display = ''; lbImg.src = src; return; }
+      svgEl.classList.add('pv-lightbox-svg');
+      lbFrame.appendChild(svgEl);
+      requestAnimationFrame(captureBaseSize);
+    };
+    if (svgCache[src]) { inject(svgCache[src]); return; }
+    fetch(src).then(function(r){ return r.text(); }).then(function(text){
+      svgCache[src] = text;
+      inject(text);
+    }).catch(function(){
+      // Network failure → fall back to raster <img>
+      lbImg.style.display = '';
+      lbImg.src = src;
+      lbImg.onload = function(){ captureBaseSize(); };
+    });
+  }
+
   function showGalleryItem(idx) {
     if (!gallery.length) return;
     galleryIdx = (idx + gallery.length) % gallery.length;
     var item = gallery[galleryIdx];
-    lbImg.src = item.src;
+    setLightboxSource(item.src);
     lb.querySelector('.pv-lightbox-caption').textContent = item.title;
     resetZoom();
     updateNavButtons();
@@ -3443,12 +4164,12 @@ pvPositionAll();
 
     if (triggerEl) {
       buildGallery(triggerEl);
-      lbImg.src = gallery[galleryIdx].src;
+      setLightboxSource(gallery[galleryIdx].src);
       lb.querySelector('.pv-lightbox-caption').textContent = gallery[galleryIdx].title;
     } else {
       gallery = [{ src: src, title: title || '' }];
       galleryIdx = 0;
-      lbImg.src = src;
+      setLightboxSource(src);
       lb.querySelector('.pv-lightbox-caption').textContent = title || '';
     }
     resetZoom();
@@ -3485,6 +4206,62 @@ pvPositionAll();
     if (btn) {
       e.preventDefault();
       openLightbox(btn.dataset.lightbox, btn.dataset.lightboxTitle, btn);
+    }
+  });
+
+  // ── Chart lightbox ────────────────────────────────────────────────────────
+  // Tapping a chart thumb (in the mobile Results swipe row) opens this
+  // separate lightbox showing the chart at full size plus the surrounding
+  // copy (sub, composite bars, takeaway) that's hidden on the thumbnail.
+  // Uses the same backdrop styling as the image lightbox but no zoom/pan —
+  // Chart.js renders crisp at the target size already.
+  var clb = null, clbContent = null;
+  function buildChartLightbox() {
+    if (clb) return;
+    clb = document.createElement('div');
+    clb.className = 'pv-lightbox pv-chart-lightbox';
+    clb.innerHTML =
+      '<div class="pv-chart-lightbox-inner">'
+      + '<button class="pv-chart-lightbox-close" aria-label="Close">✕</button>'
+      + '<div class="pv-chart-lightbox-content"></div>'
+      + '</div>';
+    document.body.appendChild(clb);
+    clbContent = clb.querySelector('.pv-chart-lightbox-content');
+    clb.querySelector('.pv-chart-lightbox-close').addEventListener('click', closeChartLightbox);
+    clb.addEventListener('click', function(e){
+      if (e.target === clb) closeChartLightbox();
+    });
+  }
+  function closeChartLightbox() {
+    if (!clb) return;
+    // Destroy any Chart instance attached to the cloned canvas to free memory.
+    var cv = clbContent && clbContent.querySelector('canvas[data-chart]');
+    if (cv && window.Chart) {
+      var prev = Chart.getChart && Chart.getChart(cv);
+      if (prev) { try { prev.destroy(); } catch (_) {} }
+    }
+    if (clbContent) clbContent.innerHTML = '';
+    clb.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  window.pvOpenChartLightbox = function(thumbEl) {
+    buildChartLightbox();
+    var clone = thumbEl.cloneNode(true);
+    clone.classList.remove('is-active');
+    // Strip pending init flag so initCharts treats the cloned canvas as fresh.
+    var cv = clone.querySelector('canvas[data-chart]');
+    if (cv) cv.removeAttribute('data-chart-initialised');
+    clbContent.innerHTML = '';
+    clbContent.appendChild(clone);
+    clb.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    if (cv && typeof window.loadResearchCharts === 'function') {
+      requestAnimationFrame(window.loadResearchCharts);
+    }
+  };
+  document.addEventListener('keydown', function(e){
+    if (clb && clb.classList.contains('is-open') && e.key === 'Escape') {
+      closeChartLightbox();
     }
   });
 })();
