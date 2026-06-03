@@ -2128,6 +2128,7 @@ footer a:hover { color: var(--gold); }
   touch-action: none;
   user-select: none;
   transform-origin: center center;
+  overflow: hidden;             /* clip image corners to the rounded border */
 }
 .pv-lightbox-frame:active { cursor: grabbing; }
 .pv-lightbox-frame img,
@@ -2152,18 +2153,19 @@ footer a:hover { color: var(--gold); }
 .pv-lightbox-close:hover { opacity: 1; }
 .pv-lightbox-nav {
   position: absolute; top: 50%; transform: translateY(-50%);
-  background: rgba(20,15,8,0.55); border: 1px solid rgba(255,255,255,0.12);
-  color: #e8e0d0; font-size: 1.5rem; line-height: 1;
-  width: 2.8rem; height: 2.8rem;
-  border-radius: 50%; cursor: pointer;
+  background: none; border: none;
+  color: #e8e0d0; font-size: 2rem; line-height: 1;
+  width: 2.2rem; height: 2.2rem;
+  cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s, opacity 0.15s;
-  opacity: 0.7; padding: 0; z-index: 1;
+  transition: opacity 0.15s;
+  opacity: 0.55; padding: 0; z-index: 1;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.6);
 }
-.pv-lightbox-nav:hover { background: rgba(20,15,8,0.85); opacity: 1; }
+.pv-lightbox-nav:hover { opacity: 1; }
 .pv-lightbox-nav.is-hidden { opacity: 0; pointer-events: none; }
-.pv-lightbox-prev { left: 1.5rem; }
-.pv-lightbox-next { right: 1.5rem; }
+.pv-lightbox-prev { left: 0.6rem; }
+.pv-lightbox-next { right: 0.6rem; }
 .pv-lightbox-counter {
   position: absolute; top: -2.2rem; left: 0;
   color: #e8e0d0; font-size: 0.72rem; opacity: 0.5;
@@ -4249,55 +4251,111 @@ pvPositionAll();
   // separate lightbox showing the chart at full size plus the surrounding
   // copy (sub, composite bars, takeaway) that's hidden on the thumbnail.
   // Uses the same backdrop styling as the image lightbox but no zoom/pan —
-  // Chart.js renders crisp at the target size already.
-  var clb = null, clbContent = null;
+  // Chart.js renders crisp at the target size already. Prev/next nav + swipe
+  // mirror the image lightbox's gallery behavior.
+  var clb = null, clbContent = null, clbPrev = null, clbNext = null, clbCounter = null;
+  var clbGallery = [], clbIdx = 0;
   function buildChartLightbox() {
     if (clb) return;
     clb = document.createElement('div');
     clb.className = 'pv-lightbox pv-chart-lightbox';
     clb.innerHTML =
-      '<div class="pv-chart-lightbox-inner">'
+        '<button class="pv-lightbox-nav pv-lightbox-prev" aria-label="Previous">&#8249;</button>'
+      + '<button class="pv-lightbox-nav pv-lightbox-next" aria-label="Next">&#8250;</button>'
+      + '<div class="pv-chart-lightbox-inner">'
+      + '<span class="pv-lightbox-counter"></span>'
       + '<button class="pv-chart-lightbox-close" aria-label="Close">✕</button>'
       + '<div class="pv-chart-lightbox-content"></div>'
       + '</div>';
     document.body.appendChild(clb);
     clbContent = clb.querySelector('.pv-chart-lightbox-content');
+    clbPrev    = clb.querySelector('.pv-lightbox-prev');
+    clbNext    = clb.querySelector('.pv-lightbox-next');
+    clbCounter = clb.querySelector('.pv-lightbox-counter');
     clb.querySelector('.pv-chart-lightbox-close').addEventListener('click', closeChartLightbox);
     clb.addEventListener('click', function(e){
       if (e.target === clb) closeChartLightbox();
     });
+    clbPrev.addEventListener('click', function(e){ e.stopPropagation(); showChartGalleryItem(clbIdx - 1); });
+    clbNext.addEventListener('click', function(e){ e.stopPropagation(); showChartGalleryItem(clbIdx + 1); });
+
+    // Touch swipe to navigate. Threshold: 60px horizontal, dominant axis.
+    var sx = 0, sy = 0, swiping = false;
+    clbContent.addEventListener('touchstart', function(e){
+      if (e.touches.length !== 1) { swiping = false; return; }
+      sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+      swiping = true;
+    }, { passive: true });
+    clbContent.addEventListener('touchend', function(e){
+      if (!swiping) return;
+      swiping = false;
+      var t = e.changedTouches[0];
+      var dx = t.clientX - sx, dy = t.clientY - sy;
+      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+        showChartGalleryItem(clbIdx + (dx < 0 ? 1 : -1));
+      }
+    });
   }
-  function closeChartLightbox() {
-    if (!clb) return;
-    // Destroy any Chart instance attached to the cloned canvas to free memory.
-    var cv = clbContent && clbContent.querySelector('canvas[data-chart]');
+  function destroyChartLightboxContent() {
+    if (!clbContent) return;
+    var cv = clbContent.querySelector('canvas[data-chart]');
     if (cv && window.Chart) {
       var prev = Chart.getChart && Chart.getChart(cv);
       if (prev) { try { prev.destroy(); } catch (_) {} }
     }
-    if (clbContent) clbContent.innerHTML = '';
+    clbContent.innerHTML = '';
+  }
+  function showChartGalleryItem(idx) {
+    if (!clbGallery.length) return;
+    clbIdx = (idx + clbGallery.length) % clbGallery.length;
+    destroyChartLightboxContent();
+    var clone = clbGallery[clbIdx].cloneNode(true);
+    clone.classList.remove('is-active');
+    var cv = clone.querySelector('canvas[data-chart]');
+    if (cv) cv.removeAttribute('data-chart-initialised');
+    clbContent.appendChild(clone);
+    if (cv && typeof window.loadResearchCharts === 'function') {
+      requestAnimationFrame(window.loadResearchCharts);
+    }
+    // Scroll back to top of the modal when swapping items so the new chart
+    // is fully visible (the previous one may have left the user scrolled).
+    var inner = clb.querySelector('.pv-chart-lightbox-inner');
+    if (inner) inner.scrollTop = 0;
+    updateChartNav();
+  }
+  function updateChartNav() {
+    var single = clbGallery.length <= 1;
+    if (clbPrev) clbPrev.classList.toggle('is-hidden', single);
+    if (clbNext) clbNext.classList.toggle('is-hidden', single);
+    if (clbCounter) clbCounter.textContent = single ? '' : (clbIdx + 1) + ' / ' + clbGallery.length;
+  }
+  function closeChartLightbox() {
+    if (!clb) return;
+    destroyChartLightboxContent();
+    clbGallery = []; clbIdx = 0;
     clb.classList.remove('is-open');
     document.body.style.overflow = '';
   }
   window.pvOpenChartLightbox = function(thumbEl) {
     buildChartLightbox();
-    var clone = thumbEl.cloneNode(true);
-    clone.classList.remove('is-active');
-    // Strip pending init flag so initCharts treats the cloned canvas as fresh.
-    var cv = clone.querySelector('canvas[data-chart]');
-    if (cv) cv.removeAttribute('data-chart-initialised');
-    clbContent.innerHTML = '';
-    clbContent.appendChild(clone);
+    // Build the gallery from all sibling chart thumbs in the same strip.
+    var strip = thumbEl.closest('.pv-strip-thumbs');
+    if (strip) {
+      clbGallery = Array.prototype.slice.call(strip.querySelectorAll('.pv-strip-item--chart'));
+    } else {
+      clbGallery = [thumbEl];
+    }
+    clbIdx = clbGallery.indexOf(thumbEl);
+    if (clbIdx < 0) clbIdx = 0;
     clb.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-    if (cv && typeof window.loadResearchCharts === 'function') {
-      requestAnimationFrame(window.loadResearchCharts);
-    }
+    showChartGalleryItem(clbIdx);
   };
   document.addEventListener('keydown', function(e){
-    if (clb && clb.classList.contains('is-open') && e.key === 'Escape') {
-      closeChartLightbox();
-    }
+    if (!clb || !clb.classList.contains('is-open')) return;
+    if (e.key === 'Escape') { closeChartLightbox(); return; }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showChartGalleryItem(clbIdx + 1); }
+    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); showChartGalleryItem(clbIdx - 1); }
   });
 })();
 </script>
