@@ -20,10 +20,18 @@
   --text: #808080;
   --text-light: #aaaaaa;
   --rule: #e0dbd0;
+  /* Card surface micro-system (off-white-warm + warm hairline) — the visual
+     language for every content card. See CLAUDE.md §2 "Color". */
+  --card-bg: #fdfbf7;
+  --card-border: #e2dccd;
   --sans: 'Assistant', 'Helvetica Neue', sans-serif;
   --serif: 'Times New Roman', Times, serif;
   --nav-h: 3.5rem;
   --tab-h: 3rem;
+  /* Signature motion — CLAUDE.md §2 "Motion". Pane slides and chapter swaps
+     share this duration + bezier; if you change them, change them here. */
+  --ease-pane: cubic-bezier(0.4, 0, 0.2, 1);
+  --pv-slide: 0.6s;
 }
 
 html {
@@ -42,6 +50,50 @@ body {
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ── Edge-fade utility ───────────────────────────────────────────────────────
+   Shared mask gradient for horizontal scroll containers (project tabs,
+   chapter chip rail, image swipe rows, chart strip). The .is-at-start /
+   .is-at-end classes are toggled by JS (pvWireEdgeFade) based on scroll
+   position so only the relevant side fades. Each container sets its own
+   --fade-w to tune the fade width. */
+.pv-fade-x {
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) var(--fade-w, 1.5rem),
+    rgba(0,0,0,1) calc(100% - var(--fade-w, 1.5rem)),
+    rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) var(--fade-w, 1.5rem),
+    rgba(0,0,0,1) calc(100% - var(--fade-w, 1.5rem)),
+    rgba(0,0,0,0) 100%);
+  transition: -webkit-mask-image 0.2s, mask-image 0.2s;
+}
+.pv-fade-x.is-at-start {
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,1) 0,
+    rgba(0,0,0,1) calc(100% - var(--fade-w, 1.5rem)),
+    rgba(0,0,0,0) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,1) 0,
+    rgba(0,0,0,1) calc(100% - var(--fade-w, 1.5rem)),
+    rgba(0,0,0,0) 100%);
+}
+.pv-fade-x.is-at-end {
+  mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) var(--fade-w, 1.5rem),
+    rgba(0,0,0,1) 100%);
+  -webkit-mask-image: linear-gradient(to right,
+    rgba(0,0,0,0) 0,
+    rgba(0,0,0,1) var(--fade-w, 1.5rem),
+    rgba(0,0,0,1) 100%);
+}
+.pv-fade-x.is-at-start.is-at-end {
+  mask-image: none;
+  -webkit-mask-image: none;
 }
 
 /* ── NAV ── */
@@ -221,49 +273,13 @@ nav {
    to scroll. Children are flex-shrink:0 so they keep their natural width and the
    row overflows the bar, which then scrolls. */
 .proj-tabs-bar {
+  --fade-w: 4rem;
   display: flex;
   align-items: stretch;
   overflow-x: auto;
   overflow-y: visible;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  /* Edge-fade gradient hinting at off-screen tabs. JS toggles .is-at-start
-     / .is-at-end based on scrollLeft so only the relevant side fades. */
-  mask-image: linear-gradient(to right,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 4rem,
-    rgba(0,0,0,1) calc(100% - 4rem),
-    rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to right,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 4rem,
-    rgba(0,0,0,1) calc(100% - 4rem),
-    rgba(0,0,0,0) 100%);
-  transition: -webkit-mask-image 0.2s, mask-image 0.2s;
-}
-.proj-tabs-bar.is-at-start {
-  mask-image: linear-gradient(to right,
-    rgba(0,0,0,1) 0,
-    rgba(0,0,0,1) calc(100% - 4rem),
-    rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to right,
-    rgba(0,0,0,1) 0,
-    rgba(0,0,0,1) calc(100% - 4rem),
-    rgba(0,0,0,0) 100%);
-}
-.proj-tabs-bar.is-at-end {
-  mask-image: linear-gradient(to right,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 4rem,
-    rgba(0,0,0,1) 100%);
-  -webkit-mask-image: linear-gradient(to right,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 4rem,
-    rgba(0,0,0,1) 100%);
-}
-.proj-tabs-bar.is-at-start.is-at-end {
-  mask-image: none;
-  -webkit-mask-image: none;
 }
 .proj-tabs-bar::-webkit-scrollbar { display: none; }
 
@@ -346,10 +362,10 @@ nav {
   inset: 0;
   pointer-events: none;
 }
-.proj-detail.slide-out-left  { animation: slideOutLeft  0.6s cubic-bezier(0.4,0,0.2,1) both; }
-.proj-detail.slide-out-right { animation: slideOutRight 0.6s cubic-bezier(0.4,0,0.2,1) both; }
-.proj-detail.slide-in-right  { animation: slideInRight  0.6s cubic-bezier(0.4,0,0.2,1) both; }
-.proj-detail.slide-in-left   { animation: slideInLeft   0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.proj-detail.slide-out-left  { animation: slideOutLeft  var(--pv-slide) var(--ease-pane) both; }
+.proj-detail.slide-out-right { animation: slideOutRight var(--pv-slide) var(--ease-pane) both; }
+.proj-detail.slide-in-right  { animation: slideInRight  var(--pv-slide) var(--ease-pane) both; }
+.proj-detail.slide-in-left   { animation: slideInLeft   var(--pv-slide) var(--ease-pane) both; }
 
 @keyframes slideOutLeft  { from { transform: translateX(0); }     to { transform: translateX(-100%); } }
 @keyframes slideOutRight { from { transform: translateX(0); }     to { transform: translateX(100%);  } }
@@ -357,11 +373,11 @@ nav {
 @keyframes slideInLeft   { from { transform: translateX(-100%); } to { transform: translateX(0); }    }
 
 /* Sidebar pane slide — used on both desktop (fixed sidebar) and mobile (sticky header) */
-#pvSidebarPane.slide-in-right { animation: slideInRight 0.6s cubic-bezier(0.4,0,0.2,1) both; }
-#pvSidebarPane.slide-in-left  { animation: slideInLeft  0.6s cubic-bezier(0.4,0,0.2,1) both; }
+#pvSidebarPane.slide-in-right { animation: slideInRight var(--pv-slide) var(--ease-pane) both; }
+#pvSidebarPane.slide-in-left  { animation: slideInLeft  var(--pv-slide) var(--ease-pane) both; }
 .pv-sl-leaving { position: absolute; inset: 0; pointer-events: none; }
-.pv-sl-leaving.slide-out-left  { animation: slideOutLeft  0.6s cubic-bezier(0.4,0,0.2,1) both; }
-.pv-sl-leaving.slide-out-right { animation: slideOutRight 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-sl-leaving.slide-out-left  { animation: slideOutLeft  var(--pv-slide) var(--ease-pane) both; }
+.pv-sl-leaving.slide-out-right { animation: slideOutRight var(--pv-slide) var(--ease-pane) both; }
 
 .detail-eyebrow {
   font-size: 0.68rem;
@@ -723,93 +739,6 @@ footer a:hover { color: var(--gold); }
   border-radius: 2px;
 }
 
-/* ── Chart rows ── */
-.rs-chart-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-@media (max-width: 700px) {
-  .rs-chart-row { grid-template-columns: 1fr; }
-}
-.rs-chart-card {
-  border: 1px solid #e2dccd;
-  padding: 14px 16px;
-  background: #fdfbf7;
-}
-.rs-chart-card--caravan { border-left: 3px solid #2A9D5C; }
-.rs-chart-card--midrise  { border-left: 3px solid #C0392B; }
-.rs-chart-title {
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #1a1a1a;
-  margin-bottom: 2px;
-}
-.rs-chart-sub {
-  font-size: 0.68rem;
-  color: #7a7a74;
-  margin-bottom: 10px;
-  line-height: 1.4;
-}
-.rs-chart-wrap {
-  position: relative;
-  width: 100%;
-}
-
-/* ── Overall score cards ── */
-.rs-overall-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 4px;
-}
-@media (max-width: 700px) {
-  .rs-overall-row { grid-template-columns: 1fr; }
-}
-.rs-overall-card {
-  border: 1px solid #d8d4c8;
-  padding: 14px 16px;
-  background: #faf8f4;
-}
-.rs-overall-card--caravan { border-top: 3px solid #2A9D5C; }
-.rs-overall-card--midrise  { border-top: 3px solid #C0392B; }
-.rs-overall-label {
-  font-size: 0.7rem;
-  color: #7a7a74;
-  margin-bottom: 6px;
-}
-.rs-overall-score-row {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-.rs-overall-score {
-  font-size: 2.2rem;
-  font-weight: 700;
-  line-height: 1;
-}
-.rs-overall-detail {
-  font-size: 0.72rem;
-  color: #7a7a74;
-}
-.rs-bar-bg {
-  height: 6px;
-  background: #e8e4da;
-  border-radius: 3px;
-  overflow: hidden;
-  margin-bottom: 6px;
-}
-.rs-bar-fill {
-  height: 100%;
-  border-radius: 3px;
-}
-.rs-overall-note {
-  font-size: 0.68rem;
-  color: #7a7a74;
-}
-
 /* ── Spatial-quality hero (stacked horizontal bars, head-to-head) ── */
 .rs-viab {
   display: flex; flex-direction: column;
@@ -867,7 +796,7 @@ footer a:hover { color: var(--gold); }
 .rs-viab-fill {
   height: 100%;
   border-radius: 7px;
-  transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  transition: width var(--pv-slide) var(--ease-pane);
 }
 .rs-viab-side {
   text-align: right;
@@ -898,26 +827,6 @@ footer a:hover { color: var(--gold); }
   flex: 1 1 240px;
   min-width: 0;
 }
-.rs-viab-extremes {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  font-size: 0.7rem;
-  flex-shrink: 0;
-}
-.rs-viab-up { color: #1d6e3f; }
-.rs-viab-dn { color: #8e2418; }
-.rs-viab-caption {
-  font-size: 0.72rem !important;
-  color: #7a7a74 !important;
-  line-height: 1.55 !important;
-  padding: 0.6rem 0.2rem 0;
-  border-top: 1px solid #e6e0d3;
-  margin-top: 0.2rem !important;
-}
-.rs-viab-caption strong { color: #1a1a1a; font-weight: 600; }
-.rs-viab-scale { display: none; }
-
 /* Compact form for narrow containers (mobile, inline-imgs) */
 @media (max-width: 700px) {
   .rs-viab-row {
@@ -929,34 +838,10 @@ footer a:hover { color: var(--gold); }
   .rs-viab-bar  { grid-column: 1 / -1; order: 3; }
   .rs-viab-side { text-align: right; order: 4; }
   .rs-viab-detail { gap: 0.3rem; }
-  .rs-viab-extremes { flex-direction: column; }
 }
 
-/* Thumb-size preview in the strip rail: just colour-coded scores + slim bars */
+/* Thumb-size preview in the strip rail: hide the composite-bar block. */
 .pv-strip-thumbs .pv-strip-item--chart .rs-viab { display: none; }
-.pv-strip-thumbs .pv-strip-item--static .rs-viab { gap: 3px; margin: 2px 0 0; }
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-row {
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto;
-  gap: 4px;
-  padding: 2px 4px;
-  background: transparent; border: none;
-  border-left: 3px solid transparent;
-}
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-row--caravan { border-left-color: #2A9D5C; }
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-row--midrise { border-left-color: #C0392B; }
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-name,
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-side,
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-detail,
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-caption,
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-scale { display: none; }
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-score {
-  font-size: 0.95rem; line-height: 1;
-}
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-denom { display: none; }
-.pv-strip-thumbs .pv-strip-item--static .rs-viab-bar {
-  height: 5px; align-self: center;
-}
 
 /* ── NKDT SECTION (scoped: #detail-nkdt / .nk-) ── */
 /* ── Figures ── */
@@ -1214,7 +1099,7 @@ footer a:hover { color: var(--gold); }
 }
 .pv-strip-hero {
   flex: 1 1 0; min-height: 0;
-  background: #fdfbf7; border: 1px solid #e2dccd;
+  background: var(--card-bg); border: 1px solid var(--card-border);
   border-radius: 6px;
   position: relative; overflow: hidden;
   display: flex; flex-direction: column;
@@ -1231,7 +1116,7 @@ footer a:hover { color: var(--gold); }
 .pv-strip-thumbs::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 3px; }
 
 .pv-strip-item {
-  background: #fdfbf7; border: 1px solid #e2dccd;
+  background: var(--card-bg); border: 1px solid var(--card-border);
   border-radius: 6px;
   display: flex; flex-direction: column;
   overflow: hidden;
@@ -1369,40 +1254,6 @@ footer a:hover { color: var(--gold); }
 .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-rule,
 .pv-strip-thumbs .pv-strip-item--chart .pv-strip-chart-foot { display: none; }
 
-/* Item shapes — static content item (e.g. the overall-viability cards) */
-.pv-strip-item--static {
-  padding: 14px 18px 12px;
-  overflow: auto;
-  border-left: 4px solid var(--gold);
-}
-.pv-strip-item--static .pv-strip-chart-head { margin-bottom: 8px; }
-.pv-strip-item--static .pv-strip-chart-title {
-  font-family: var(--serif);
-  font-size: 1.05rem; font-weight: 400; color: var(--ink); line-height: 1.2;
-}
-.pv-strip-item--static .pv-strip-chart-sub {
-  font-size: 0.72rem; color: #7a7a74; margin-top: 4px; line-height: 1.45;
-}
-.pv-strip-item--static .pv-strip-chart-sub strong { color: #1a1a1a; font-weight: 600; }
-.pv-strip-thumbs .pv-strip-item--static { padding: 5px 7px; overflow: hidden; }
-.pv-strip-thumbs .pv-strip-item--static .pv-strip-chart-title {
-  font-size: 0.62rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.pv-strip-thumbs .pv-strip-item--static .pv-strip-chart-sub { display: none; }
-/* Thumb preview of the viability cards: just the two big scores side-by-side */
-.pv-strip-thumbs .pv-strip-item--static .rs-overall-row {
-  display: flex; gap: 4px; margin-top: 2px;
-}
-.pv-strip-thumbs .pv-strip-item--static .rs-overall-card {
-  flex: 1; padding: 2px 4px; border-top-width: 2px;
-}
-.pv-strip-thumbs .pv-strip-item--static .rs-overall-label,
-.pv-strip-thumbs .pv-strip-item--static .rs-overall-detail,
-.pv-strip-thumbs .pv-strip-item--static .rs-overall-note { display: none; }
-.pv-strip-thumbs .pv-strip-item--static .rs-overall-score { font-size: 1.1rem; }
-.pv-strip-thumbs .pv-strip-item--static .rs-overall-score-row { margin: 0; }
-.pv-strip-thumbs .pv-strip-item--static .rs-bar-bg { display: none; }
-
 /* Inline mode (mobile, .pv-inline-imgs) — render strip items as a
    horizontal-swipe row of chart thumbnails. Each thumb shows a minimal
    title + chart canvas; tapping a thumb opens the lightbox with the full
@@ -1414,9 +1265,9 @@ footer a:hover { color: var(--gold); }
 .pv-inline-imgs .pv-strip-hero {
   display: none;
 }
-/* The thumbs container becomes an .is-hswipe-style row — mask-image fade
-   directly on the scroll element (same approach as image strips), with
-   .is-at-start / .is-at-end classes driven by pvWireEdgeFade. */
+/* The thumbs container becomes an .is-hswipe-style row — the fade is
+   provided by the shared .pv-fade-x utility (added in JS during build).
+   .is-at-start / .is-at-end classes are driven by pvWireEdgeFade. */
 .pv-inline-imgs .pv-strip-thumbs {
   display: flex; flex-direction: row; flex-wrap: nowrap;
   gap: 0.6rem;
@@ -1426,41 +1277,6 @@ footer a:hover { color: var(--gold); }
   scrollbar-width: none;
   margin: 1rem -1.5rem;
   padding: 0.2rem 1.5rem 0.4rem;
-  mask-image: linear-gradient(to right,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 1.5rem,
-    rgba(0,0,0,1) calc(100% - 1.5rem),
-    rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to right,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 1.5rem,
-    rgba(0,0,0,1) calc(100% - 1.5rem),
-    rgba(0,0,0,0) 100%);
-  transition: -webkit-mask-image 0.2s, mask-image 0.2s;
-}
-.pv-inline-imgs .pv-strip-thumbs.is-at-start {
-  mask-image: linear-gradient(to right,
-    rgba(0,0,0,1) 0,
-    rgba(0,0,0,1) calc(100% - 1.5rem),
-    rgba(0,0,0,0) 100%);
-  -webkit-mask-image: linear-gradient(to right,
-    rgba(0,0,0,1) 0,
-    rgba(0,0,0,1) calc(100% - 1.5rem),
-    rgba(0,0,0,0) 100%);
-}
-.pv-inline-imgs .pv-strip-thumbs.is-at-end {
-  mask-image: linear-gradient(to right,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 1.5rem,
-    rgba(0,0,0,1) 100%);
-  -webkit-mask-image: linear-gradient(to right,
-    rgba(0,0,0,0) 0,
-    rgba(0,0,0,1) 1.5rem,
-    rgba(0,0,0,1) 100%);
-}
-.pv-inline-imgs .pv-strip-thumbs.is-at-start.is-at-end {
-  mask-image: none;
-  -webkit-mask-image: none;
 }
 .pv-inline-imgs .pv-strip-thumbs::-webkit-scrollbar { display: none; }
 .pv-inline-imgs .pv-strip-thumbs > .pv-strip-item {
@@ -1475,7 +1291,7 @@ footer a:hover { color: var(--gold); }
   display: flex; flex-direction: column;
   grid-template-rows: none;
   row-gap: 0;
-  background: #fdfbf7; border: 1px solid #e2dccd;
+  background: var(--card-bg); border: 1px solid var(--card-border);
   border-left: 4px solid var(--gold);
   border-radius: 6px;
   overflow: hidden;
@@ -1530,15 +1346,15 @@ footer a:hover { color: var(--gold); }
 
 /* FLIP animation helper class — applied during swap so transforms ease */
 .pv-strip-item.is-animating {
-  transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+  transition: transform 0.35s var(--ease-pane);
   will-change: transform;
 }
 .pv-imgset.is-active { opacity: 1; }
 .pv-imgset.anim { opacity: 1; }
-.pv-imgset.in-up    { animation: pvSlideInUp    0.6s cubic-bezier(0.4,0,0.2,1) both; }
-.pv-imgset.in-down  { animation: pvSlideInDown  0.6s cubic-bezier(0.4,0,0.2,1) both; }
-.pv-imgset.out-up   { animation: pvSlideOutUp   0.6s cubic-bezier(0.4,0,0.2,1) both; }
-.pv-imgset.out-down { animation: pvSlideOutDown 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+.pv-imgset.in-up    { animation: pvSlideInUp    var(--pv-slide) var(--ease-pane) both; }
+.pv-imgset.in-down  { animation: pvSlideInDown  var(--pv-slide) var(--ease-pane) both; }
+.pv-imgset.out-up   { animation: pvSlideOutUp   var(--pv-slide) var(--ease-pane) both; }
+.pv-imgset.out-down { animation: pvSlideOutDown var(--pv-slide) var(--ease-pane) both; }
 @keyframes pvSlideInUp    { from { transform: translateY(100%);  } to { transform: translateY(0); } }
 @keyframes pvSlideInDown  { from { transform: translateY(-100%); } to { transform: translateY(0); } }
 @keyframes pvSlideOutUp   { from { transform: translateY(0); } to { transform: translateY(-100%); } }
@@ -1552,7 +1368,7 @@ footer a:hover { color: var(--gold); }
 .pv-card {
   flex: 1 1 0; min-height: 0;
   display: flex; flex-direction: column;
-  background: #fdfbf7; border: 1px solid #e2dccd;
+  background: var(--card-bg); border: 1px solid var(--card-border);
   border-left: 4px solid var(--gold);
   border-radius: 6px;
   overflow: hidden;
@@ -1582,7 +1398,7 @@ footer a:hover { color: var(--gold); }
   object-fit: contain; display: block;
 }
 .pv-card-foot {
-  display: flex; align-items: baseline; gap: 0.6rem;
+  display: flex; justify-content: space-between; align-items: center; gap: 0.6rem;
   padding: 8px 16px 12px;
   border-top: 1px solid #ece6d5;
   font-size: 0.72rem; line-height: 1.45;
@@ -1622,43 +1438,20 @@ footer a:hover { color: var(--gold); }
 .pv-ctx-pair .pv-card-title { font-size: 0.88rem; }
 .pv-ctx-pair .pv-card-sub   { font-size: 0.66rem; }
 .pv-ctx-pair .pv-card-head  { padding: 8px 12px 6px; }
-.pv-ctx-pair .pv-card-foot  { padding: 5px 12px 8px; display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; }
+.pv-ctx-pair .pv-card-foot  { padding: 5px 12px 8px; gap: 0.4rem; }
 .pv-ctx-pair .pv-card-foot .pv-card-takeaway { font-size: 0.68rem; }
 
 /* Archetypes chapter layout */
 .pv-arch-layout { display: flex; flex-direction: column; gap: 0.55rem; width: 100%; height: 100%; }
-.pv-arch-trio   { flex: 0 0 38%; min-height: 0; display: grid; grid-template-columns: 2fr 1fr; gap: 0.55rem; }
 .pv-arch-plans  { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr; gap: 0.55rem; }
-.pv-arch-trio .pv-card, .pv-arch-plans .pv-card { min-height: 0; }
-.pv-arch-trio .pv-card-title  { font-size: 0.82rem; }
-.pv-arch-trio .pv-card-head   { padding: 7px 10px 5px; }
-.pv-arch-trio .pv-card-foot   { padding: 5px 10px 7px; display: flex; align-items: baseline; gap: 0.4rem; }
-.pv-arch-trio .pv-card-foot .pv-card-takeaway { font-size: 0.72rem; }
-.pv-arch-trio .pv-card-media  { margin: 0 8px; border-radius: 3px; border: 1px solid #e2dccd; }
+.pv-arch-plans .pv-card { min-height: 0; }
 .pv-arch-plans .pv-card-title { font-size: 0.88rem; }
 .pv-arch-plans .pv-card-head  { padding: 8px 12px 6px; }
 .pv-arch-plans .pv-card-media img { object-fit: contain; }
-.pv-arch-plans .pv-card-foot  { display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; }
-/* Archetype colour coding */
-.pv-card--scattered { border-left-color: #2A9D5C; }
-/* Connector tags */
-.pv-arch-link { font-size: 0.6rem; font-weight: 600; letter-spacing: 0.03em; padding: 2px 5px; border-radius: 3px; white-space: nowrap; flex-shrink: 0; }
-.pv-arch-link--bldg    { color: #C0392B; background: rgba(192,57,43,0.10); }
-.pv-arch-link--caravan { color: #2A9D5C; background: rgba(42,157,92,0.10); }
+.pv-arch-plans .pv-card-foot  { gap: 0.4rem; }
 /* Floor plan top-border accents */
 .pv-arch-plan--caravan { border-top: 2px solid #2A9D5C; }
 .pv-arch-plan--bldg    { border-top: 2px solid #C0392B; }
-/* Fused corridor+cluster duo frame — matches .pv-card visual language, red accent = Bldg 101 */
-.pv-arch-duo { display: flex; flex-direction: column; height: 100%; border: 1px solid #e2dccd; border-left: 4px solid #C0392B; border-radius: 6px; background: #fdfbf7; overflow: hidden; }
-.pv-arch-duo-inner { flex: 1 1 0; min-height: 0; display: grid; grid-template-columns: 1fr auto 1fr; }
-.pv-arch-duo-item  { display: flex; flex-direction: column; min-height: 0; padding: 7px 10px 0; }
-.pv-arch-duo-item-title { font-family: var(--serif); font-size: 0.82rem; font-weight: 400; color: var(--ink); line-height: 1.2; padding-bottom: 5px; flex-shrink: 0; }
-.pv-arch-duo-rule { height: 1px; border-top: 1px dashed #d8d4c8; margin: 0 0 0; flex-shrink: 0; }
-.pv-arch-duo-item .pv-card-media { flex: 1 1 0; min-height: 0; padding: 8px; background: var(--bg2); display: flex; align-items: center; justify-content: center; }
-.pv-arch-duo-item .pv-card-media img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
-.pv-arch-duo-cap   { font-size: 0.72rem; color: #3a3a36; font-style: italic; line-height: 1.45; padding: 5px 10px 7px; flex-shrink: 0; border-top: 1px solid #ece6d5; }
-.pv-arch-duo-cap::before { content: '→'; color: var(--gold); margin-right: 0.4rem; font-style: normal; font-weight: 600; }
-.pv-arch-duo-divider { width: 1px; background: #e2dccd; margin: 8px 0; align-self: stretch; flex-shrink: 0; }
 
 /* ── Mobile inline overrides ──────────────────────────────────────
    All complex stage layouts use height:100% / flex:1 which collapses
@@ -1699,14 +1492,6 @@ footer a:hover { color: var(--gold); }
 .pv-inline-imgs .pv-arch-layout {
   height: auto;
 }
-.pv-inline-imgs .pv-arch-trio {
-  flex: none; height: auto;
-  grid-template-columns: 2fr 1fr;
-}
-.pv-inline-imgs .pv-arch-trio .pv-card-media,
-.pv-inline-imgs .pv-arch-trio .pv-arch-duo-item .pv-card-media {
-  height: 140px;
-}
 .pv-inline-imgs .pv-arch-plans {
   flex: none; height: auto;
   grid-template-columns: 1fr 1fr;
@@ -1719,8 +1504,7 @@ footer a:hover { color: var(--gold); }
 .pv-inline-imgs .pv-card-sub,
 .pv-inline-imgs .app-expand-hint,
 .pv-inline-imgs .pv-strip-chart-sub,
-.pv-inline-imgs .pv-strip-chart-foot,
-.pv-inline-imgs .pv-strip-item--static .pv-strip-chart-sub { display: none; }
+.pv-inline-imgs .pv-strip-chart-foot { display: none; }
 .pv-inline-imgs .pv-card-foot {
   display: block;
   padding: 4px 12px 6px;
@@ -1733,19 +1517,6 @@ footer a:hover { color: var(--gold); }
   overflow: hidden;
   font-size: 0.68rem;
 }
-.pv-inline-imgs .pv-arch-duo-item {
-  min-width: 0;
-  overflow: hidden;
-}
-.pv-inline-imgs .pv-arch-duo-cap {
-  font-size: 0.68rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-left: 0;
-  padding-right: 0;
-}
-
 /* Mobile: leaner composite bars — single-row flex, no detail row */
 .pv-inline-imgs .rs-viab--compact {
   gap: 0.2rem;
@@ -1910,6 +1681,7 @@ footer a:hover { color: var(--gold); }
      transformed parent (#pvSidebarClip) fails to accept native horizontal
      touch-scroll and leaks it to the document. */
   .pv-rail--h {
+    --fade-w: 1rem;
     display: flex; gap: 0.4rem;
     overflow-x: auto;
     overflow-y: hidden;
@@ -1920,43 +1692,7 @@ footer a:hover { color: var(--gold); }
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    /* Edge-fade hint at off-screen chips. JS toggles .is-at-start /
-       .is-at-end based on scrollLeft so only the relevant side fades. */
-    mask-image: linear-gradient(to right,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 1rem,
-      rgba(0,0,0,1) calc(100% - 1rem),
-      rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to right,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 1rem,
-      rgba(0,0,0,1) calc(100% - 1rem),
-      rgba(0,0,0,0) 100%);
     transition: margin-top 0.25s, -webkit-mask-image 0.2s, mask-image 0.2s;
-  }
-  .pv-rail--h.is-at-start {
-    mask-image: linear-gradient(to right,
-      rgba(0,0,0,1) 0,
-      rgba(0,0,0,1) calc(100% - 1rem),
-      rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to right,
-      rgba(0,0,0,1) 0,
-      rgba(0,0,0,1) calc(100% - 1rem),
-      rgba(0,0,0,0) 100%);
-  }
-  .pv-rail--h.is-at-end {
-    mask-image: linear-gradient(to right,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 1rem,
-      rgba(0,0,0,1) 100%);
-    -webkit-mask-image: linear-gradient(to right,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 1rem,
-      rgba(0,0,0,1) 100%);
-  }
-  .pv-rail--h.is-at-start.is-at-end {
-    mask-image: none;
-    -webkit-mask-image: none;
   }
   .pv-rail--h::-webkit-scrollbar { display: none; }
   /* Tighter gap between title and chips when collapsed */
@@ -1975,7 +1711,7 @@ footer a:hover { color: var(--gold); }
     overflow: hidden;
     opacity: 0;
     white-space: nowrap;
-    transition: width 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s;
+    transition: width 0.35s var(--ease-pane), opacity 0.25s;
   }
   .pv-rail--h .pv-chapter-link.active { background: var(--gold-dim); border-color: var(--gold); }
   .pv-rail--h .pv-chapter-link.active .pv-cl-title {
@@ -1997,10 +1733,8 @@ footer a:hover { color: var(--gold); }
 
   /* ── Horizontal-swipe utility ──
      Any container with 2+ image children that lays out as a row on desktop
-     becomes a horizontal-scrolling row on mobile. The mask-image edges fade
-     the leading/trailing items so they read as "there is more to swipe to."
-     JS toggles .has-prev / .has-next based on scrollLeft so only the active
-     side fades; absent JS, both edges stay faded as a static affordance. */
+     becomes a horizontal-scrolling row on mobile. The edge fade is provided
+     by .pv-fade-x (added in JS during the auto-promote step). */
   .pv-inline-imgs .is-hswipe,
   .pv-inline-imgs.is-hswipe {
     grid-template-columns: none !important;
@@ -2018,18 +1752,6 @@ footer a:hover { color: var(--gold); }
     scrollbar-width: none;
     margin: 1rem -1.5rem;
     padding: 0.2rem 1.5rem 0.4rem;
-    /* default fade on both edges */
-    mask-image: linear-gradient(to right,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 1.5rem,
-      rgba(0,0,0,1) calc(100% - 1.5rem),
-      rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to right,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 1.5rem,
-      rgba(0,0,0,1) calc(100% - 1.5rem),
-      rgba(0,0,0,0) 100%);
-    transition: -webkit-mask-image 0.2s, mask-image 0.2s;
   }
   .pv-inline-imgs .is-hswipe::-webkit-scrollbar,
   .pv-inline-imgs.is-hswipe::-webkit-scrollbar { display: none; }
@@ -2057,35 +1779,6 @@ footer a:hover { color: var(--gold); }
     min-width: 0;
     max-width: 100%;
   }
-  /* When scrolled to the left edge, drop the left fade */
-  .pv-inline-imgs .is-hswipe.is-at-start,
-  .pv-inline-imgs.is-hswipe.is-at-start {
-    mask-image: linear-gradient(to right,
-      rgba(0,0,0,1) 0,
-      rgba(0,0,0,1) calc(100% - 1.5rem),
-      rgba(0,0,0,0) 100%);
-    -webkit-mask-image: linear-gradient(to right,
-      rgba(0,0,0,1) 0,
-      rgba(0,0,0,1) calc(100% - 1.5rem),
-      rgba(0,0,0,0) 100%);
-  }
-  .pv-inline-imgs .is-hswipe.is-at-end,
-  .pv-inline-imgs.is-hswipe.is-at-end {
-    mask-image: linear-gradient(to right,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 1.5rem,
-      rgba(0,0,0,1) 100%);
-    -webkit-mask-image: linear-gradient(to right,
-      rgba(0,0,0,0) 0,
-      rgba(0,0,0,1) 1.5rem,
-      rgba(0,0,0,1) 100%);
-  }
-  .pv-inline-imgs .is-hswipe.is-at-start.is-at-end,
-  .pv-inline-imgs.is-hswipe.is-at-start.is-at-end {
-    /* No overflow → no fade */
-    mask-image: none;
-    -webkit-mask-image: none;
-  }
 }
 
 /* ── App chapter inline layouts ── */
@@ -2094,13 +1787,14 @@ footer a:hover { color: var(--gold); }
 .app-flow-figure img { width: 100%; height: auto; display: block; border-radius: 5px; transition: opacity 0.15s; }
 .app-flow-figure:hover img { opacity: 0.88; }
 .app-flow-figure figcaption { font-size: 0.72rem; color: #9a8a7a; margin-top: 0.4rem; font-style: italic; display: flex; justify-content: space-between; align-items: baseline; }
-.app-diagrams-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; margin: 1rem 0; }
-.app-diagram-card {
+/* Lightbox card modifier — used on .pv-card variants that open the
+   image lightbox on click. Adds a subtle hover lift to signal interactivity. */
+.pv-card--lightbox {
   flex: none; cursor: pointer; text-align: left;
   transition: box-shadow 0.15s, transform 0.1s;
 }
-.app-diagram-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); }
-.app-diagram-card .pv-card-foot { display: flex; justify-content: space-between; align-items: center; gap: 0.4rem; }
+.pv-card--lightbox:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translateY(-1px); }
+.pv-card--lightbox .pv-card-foot { gap: 0.4rem; }
 .app-expand-hint { font-size: 0.6rem; color: var(--gold); opacity: 0.8; white-space: nowrap; flex-shrink: 0; }
 
 /* ── Lightbox ── */
@@ -2122,8 +1816,8 @@ footer a:hover { color: var(--gold); }
 .pv-lightbox-frame {
   display: inline-block;        /* hug the image so the chrome grows with it */
   border-radius: 8px;
-  background: #fdfbf7;
-  border: 1px solid #e2dccd;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   cursor: grab;
   touch-action: none;
   user-select: none;
@@ -2179,8 +1873,8 @@ footer a:hover { color: var(--gold); }
   position: relative;
   width: min(92vw, 720px);
   max-height: 88vh;
-  background: #fdfbf7;
-  border: 1px solid #e2dccd;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 8px;
   display: flex; flex-direction: column;
   overflow: auto;
@@ -2400,7 +2094,7 @@ footer a:hover { color: var(--gold); }
 
 <!-- PROJECT TABS BAR -->
 <div class="tabs-scroll-outer" id="projects-section">
-<div class="proj-tabs-bar">
+<div class="proj-tabs-bar pv-fade-x">
 
   <div class="tab-group-sep">Research</div>
   <button class="tab-btn" id="tab-research">
@@ -2469,7 +2163,7 @@ footer a:hover { color: var(--gold); }
         <div class="pv-head" id="pvHead"></div>
         <div class="pv-divider"></div>
         <div id="pvRail" role="navigation" aria-label="Chapters"></div>
-        <div id="pvRailMobile" class="pv-rail--h" role="navigation" aria-label="Chapters"></div>
+        <div id="pvRailMobile" class="pv-rail--h pv-fade-x" role="navigation" aria-label="Chapters"></div>
       </div>
     </div>
   </div>
@@ -2511,7 +2205,7 @@ footer a:hover { color: var(--gold); }
 
         <template id="ch-context-template">
           <div class="pv-ctx-layout">
-            <button class="pv-card pv-card--img pv-ctx-main app-diagram-card" data-lightbox="images/research/ariel_map.jpg" data-lightbox-title="Ariel University Campus">
+            <button class="pv-card pv-card--img pv-ctx-main pv-card--lightbox" data-lightbox="images/research/ariel_map.jpg" data-lightbox-title="Ariel University Campus">
               <div class="pv-card-head">
                 <div class="pv-card-title">Ariel University Campus</div>
               </div>
@@ -2520,7 +2214,7 @@ footer a:hover { color: var(--gold); }
               <div class="pv-card-foot"><span class="pv-card-takeaway">Two opposing compounds, one shared campus.</span><span class="app-expand-hint">↗ click to expand</span></div>
             </button>
             <div class="pv-ctx-pair is-hswipe">
-              <button class="pv-card pv-card--img pv-card--caravan app-diagram-card" data-lightbox="images/research/caravan_site.jpg" data-lightbox-title="Caravan Compound">
+              <button class="pv-card pv-card--img pv-card--caravan pv-card--lightbox" data-lightbox="images/research/caravan_site.jpg" data-lightbox-title="Caravan Compound">
                 <div class="pv-card-head">
                   <div class="pv-card-title">Caravan Compound</div>
                   <div class="pv-card-sub">~350 scattered units, 0.106 km², pedestrian-first.</div>
@@ -2529,7 +2223,7 @@ footer a:hover { color: var(--gold); }
                 <div class="pv-card-media"><img loading="lazy" src="images/research/caravan_site.jpg" alt="Caravan compound"></div>
                 <div class="pv-card-foot"><span class="pv-card-takeaway">Decentralised: every unit faces shared green space.</span><span class="app-expand-hint">↗ click to expand</span></div>
               </button>
-              <button class="pv-card pv-card--img pv-card--midrise app-diagram-card" data-lightbox="images/research/midrise_site.jpg" data-lightbox-title="Mid-rise Compound">
+              <button class="pv-card pv-card--img pv-card--midrise pv-card--lightbox" data-lightbox="images/research/midrise_site.jpg" data-lightbox-title="Mid-rise Compound">
                 <div class="pv-card-head">
                   <div class="pv-card-title">Mid-rise Compound</div>
                   <div class="pv-card-sub">1,550 students, Buildings 101–116, 0.033 km².</div>
@@ -2572,7 +2266,7 @@ footer a:hover { color: var(--gold); }
         <template id="ch-archetypes-template">
           <div class="pv-arch-layout pv-arch-layout--plans-only">
             <div class="pv-arch-plans is-hswipe">
-              <button class="pv-card pv-card--img pv-card--midrise pv-arch-plan--bldg app-diagram-card" data-lightbox="images/research/building_101.jpg" data-lightbox-title="Building 101 Floor Plan">
+              <button class="pv-card pv-card--img pv-card--midrise pv-arch-plan--bldg pv-card--lightbox" data-lightbox="images/research/building_101.jpg" data-lightbox-title="Building 101 Floor Plan">
                 <div class="pv-card-head">
                   <div class="pv-card-title">Building 101 Floor Plan</div>
                   <div class="pv-card-sub">Cluster-corridor hybrid · 1,550 students · 0.033 km²</div>
@@ -2581,7 +2275,7 @@ footer a:hover { color: var(--gold); }
                 <div class="pv-card-media"><img loading="lazy" src="images/research/building_101.jpg" alt="Building 101 floor plan"></div>
                 <div class="pv-card-foot"><span class="pv-card-takeaway">Dense towers; corridors replace communal outdoor space.</span><span class="app-expand-hint">↗ click to expand</span></div>
               </button>
-              <button class="pv-card pv-card--img pv-card--caravan pv-arch-plan--caravan app-diagram-card" data-lightbox="images/research/caravan_floor_plan.jpg" data-lightbox-title="Caravan Unit Floor Plan">
+              <button class="pv-card pv-card--img pv-card--caravan pv-arch-plan--caravan pv-card--lightbox" data-lightbox="images/research/caravan_floor_plan.jpg" data-lightbox-title="Caravan Unit Floor Plan">
                 <div class="pv-card-head">
                   <div class="pv-card-title">Caravan Unit Floor Plan</div>
                   <div class="pv-card-sub">Scattered plex · ~350 units · 0.106 km²</div>
@@ -2658,8 +2352,7 @@ footer a:hover { color: var(--gold); }
              First item is the default hero. -->
         <template id="rs-charts-template">
           <div class="pv-strip-item pv-strip-item--chart"
-               style="grid-template-rows: auto auto auto 1fr auto;"
-               data-strip-key="chart-qual" data-strip-kind="chart" data-chart-key="qual">
+               style="grid-template-rows: auto auto auto 1fr auto;">
             <div class="pv-strip-chart-head">
               <div class="pv-strip-chart-title">Qualitative Spatial Scores — Caravan vs Mid-rise</div>
               <div class="pv-strip-chart-sub">Per-parameter breakdown of 7 architectural parameters scored 1–5 against literature benchmarks. Each bar is a component of the composite.</div>
@@ -2691,8 +2384,7 @@ footer a:hover { color: var(--gold); }
               <span class="pv-strip-chart-howto">Score / 5</span>
             </div>
           </div>
-          <div class="pv-strip-item pv-strip-item--chart"
-               data-strip-key="chart-sci" data-strip-kind="chart" data-chart-key="sci">
+          <div class="pv-strip-item pv-strip-item--chart">
             <div class="pv-strip-chart-head">
               <div class="pv-strip-chart-title">Quantitative - Sense of Community Index (SCI-2)</div>
               <div class="pv-strip-chart-sub">Self-report psychometric instrument measuring residents&rsquo; <strong>actual</strong> sense of community across 4 subscales. Scores normalised 0–1; Caravan n=18, Mid-rise n=3.</div>
@@ -2704,8 +2396,7 @@ footer a:hover { color: var(--gold); }
               <span class="pv-strip-chart-howto">Higher = stronger SoC</span>
             </div>
           </div>
-          <div class="pv-strip-item pv-strip-item--chart"
-               data-strip-key="chart-ures" data-strip-kind="chart" data-chart-key="ures">
+          <div class="pv-strip-item pv-strip-item--chart">
             <div class="pv-strip-chart-head">
               <div class="pv-strip-chart-title">Quantitative - University Residence Environment (URES)</div>
               <div class="pv-strip-chart-sub">Validated 10-subscale instrument profiling the <strong>social climate</strong> of student housing. * marks statistically significant differences (p&lt;0.1).</div>
@@ -2740,14 +2431,8 @@ footer a:hover { color: var(--gold); }
          data-title-short="NKDT — Architecture as a <em>Dynamic System</em>"
          data-meta="Advisor: Arch. Daniel Azerrad &nbsp;·&nbsp; Ariel University"
          data-kw='[{"l":"Systemic Design","g":1},{"l":"Parametric Modularity","g":1},{"l":"Structural Surplus"},{"l":"Dynamic Configurations"},{"l":"Architectural Laboratory"}]'>
-      <section class="pv-chapter" data-title="Overview" data-images='[]'>
-        <div class="wip-panel">
-          <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
-          <span class="wip-label">Work in Progress</span>
-          <p class="wip-title">Full case study<br>coming soon</p>
-          <p class="wip-sub">Drawings, renders, and system documentation for the NKDT modular housing laboratory are being compiled.</p>
-        </div>
-      </section>
+      <section class="pv-chapter" data-title="Overview" data-images='[]'
+               data-wip-sub="Drawings, renders, and system documentation for the NKDT modular housing laboratory are being compiled."></section>
     </div><!-- /detail-nkdt -->
 
     <!-- ACRE -->
@@ -2757,14 +2442,8 @@ footer a:hover { color: var(--gold); }
          data-title-short="Acre — <em>Symbiotic Urban Fabric</em>"
          data-meta="Studio Urban · Advisors: Arch. David Aharoni &amp; Kobi Zik &nbsp;·&nbsp; with Chen Ponces &amp; Hila Zahrihan"
          data-kw='[{"l":"Urban Design","g":1},{"l":"Mixed-Use"},{"l":"Urban Fabric"},{"l":"Symbiosis"}]'>
-      <section class="pv-chapter" data-title="Overview" data-images='[]'>
-        <div class="wip-panel">
-          <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
-          <span class="wip-label">Work in Progress</span>
-          <p class="wip-title">Full case study<br>coming soon</p>
-          <p class="wip-sub">Site plans, urban diagrams, and project documentation are being prepared.</p>
-        </div>
-      </section>
+      <section class="pv-chapter" data-title="Overview" data-images='[]'
+               data-wip-sub="Site plans, urban diagrams, and project documentation are being prepared."></section>
     </div>
 
     <!-- TEL AVIV -->
@@ -2774,14 +2453,8 @@ footer a:hover { color: var(--gold); }
          data-title-short="Tel Aviv — <em>Adaptive Environment</em>"
          data-meta="Studio Digital · Advisor: Arch. Yoav Lanir"
          data-kw='[{"l":"Parametric Design","g":1},{"l":"Adaptive Systems"},{"l":"Dynamic Topology"},{"l":"Environmental Response"}]'>
-      <section class="pv-chapter" data-title="Overview" data-images='[]'>
-        <div class="wip-panel">
-          <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
-          <span class="wip-label">Work in Progress</span>
-          <p class="wip-title">Full case study<br>coming soon</p>
-          <p class="wip-sub">Parametric diagrams, Grasshopper logic, and simulation outputs are being documented.</p>
-        </div>
-      </section>
+      <section class="pv-chapter" data-title="Overview" data-images='[]'
+               data-wip-sub="Parametric diagrams, Grasshopper logic, and simulation outputs are being documented."></section>
     </div>
 
     <!-- NOMAD -->
@@ -2791,14 +2464,8 @@ footer a:hover { color: var(--gold); }
          data-title-short="Nomad Hotel — <em>Flexible In-Between</em>"
          data-meta="Studio Interior · Advisor: Arch. Dana Oberzon"
          data-kw='[{"l":"Interior Design","g":1},{"l":"Hospitality"},{"l":"Modularity"},{"l":"In-Between Space"}]'>
-      <section class="pv-chapter" data-title="Overview" data-images='[]'>
-        <div class="wip-panel">
-          <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
-          <span class="wip-label">Work in Progress</span>
-          <p class="wip-title">Full case study<br>coming soon</p>
-          <p class="wip-sub">Interior renders, section drawings, and material studies are being compiled.</p>
-        </div>
-      </section>
+      <section class="pv-chapter" data-title="Overview" data-images='[]'
+               data-wip-sub="Interior renders, section drawings, and material studies are being compiled."></section>
     </div>
 
     <!-- KIBBUTZ -->
@@ -2808,14 +2475,8 @@ footer a:hover { color: var(--gold); }
          data-title-short="Kibbutz Merchavia — <em>Renovation &amp; Expansion</em>"
          data-meta="Revit · Construction Documentation"
          data-kw='[{"l":"Revit","g":1},{"l":"BIM"},{"l":"Construction Docs"},{"l":"Renovation"},{"l":"Professional Practice"}]'>
-      <section class="pv-chapter" data-title="Scope" data-images='[]'>
-        <div class="wip-panel">
-          <svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>
-          <span class="wip-label">Work in Progress</span>
-          <p class="wip-title">Full case study<br>coming soon</p>
-          <p class="wip-sub">Revit model screenshots, floor plans, and construction documentation are being prepared.</p>
-        </div>
-      </section>
+      <section class="pv-chapter" data-title="Scope" data-images='[]'
+               data-wip-sub="Revit model screenshots, floor plans, and construction documentation are being prepared."></section>
     </div>
 
     <!-- YAHOO -->
@@ -3334,6 +2995,7 @@ function pvWireEdgeFade(el) {
 function pvWireChartStrip(strip) {
   if (!strip || strip.dataset.chartStripWired === '1') return;
   strip.dataset.chartStripWired = '1';
+  strip.classList.add('pv-fade-x');
   pvWireEdgeFade(strip);
   pvEnableDragScroll(strip, { snap: true });
   strip.addEventListener('click', function(e) {
@@ -3396,6 +3058,7 @@ function pvWireHswipe(root) {
   rows.forEach(function(row) {
     if (row.dataset.hswipeWired === '1') return;
     row.dataset.hswipeWired = '1';
+    row.classList.add('pv-fade-x');
     pvWireEdgeFade(row);
     // Pointer drag-to-scroll with snap-to-card on release.
     pvEnableDragScroll(row, { snap: true });
@@ -3676,6 +3339,20 @@ function pvActivate(id, fromRight) {
 
   pvSetHead(id);
   pvState.chapters = Array.prototype.slice.call(panel.querySelectorAll('.pv-chapter'));
+  // Materialize WIP placeholder panels for chapters that declare data-wip-sub
+  // (idempotent — only injects on first activation when the chapter is empty).
+  pvState.chapters.forEach(function(ch) {
+    var sub = ch.dataset.wipSub;
+    if (sub && !ch.querySelector('.wip-panel')) {
+      ch.insertAdjacentHTML('beforeend',
+        '<div class="wip-panel">'
+        + '<svg class="wip-icon" width="56" height="56"><use href="#wip-icon"/></svg>'
+        + '<span class="wip-label">Work in Progress</span>'
+        + '<p class="wip-title">Full case study<br>coming soon</p>'
+        + '<p class="wip-sub">' + pvEsc(sub) + '</p>'
+        + '</div>');
+    }
+  });
   pvRailD.innerHTML=''; pvRailM.innerHTML=''; pvStageEl.innerHTML='';
   if (pvState.chapters.length > 0) {
     pvBodyEl.classList.add('has-chapters');
@@ -3726,7 +3403,7 @@ function pvActivate(id, fromRight) {
         }
         if (stageMode === 'strip') {
           figHtml = imgs.map(function(im, ii){
-            return '<div class="pv-strip-item pv-strip-item--img" data-strip-key="img-'+ii+'" data-strip-kind="img">'
+            return '<div class="pv-strip-item pv-strip-item--img">'
                  + buildImgCard(im)
                  + '</div>';
           }).join('');
