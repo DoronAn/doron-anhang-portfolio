@@ -3576,6 +3576,56 @@ pvPositionAll();
   var pinchStartDist = 0, pinchStartScale = 1, justPinched = 0;
   var gallery = [], galleryIdx = 0;
 
+  // Shared gallery-nav wiring for any lightbox with prev/next + counter +
+  // keyboard arrows + horizontal touch-swipe on its content region.
+  // The caller provides the goto callback (which does the actual content
+  // swap) and getters for current index / length. updateNav() is exposed
+  // back via the returned object so the caller can refresh the counter
+  // after swaps that don't go through arrow / swipe / key paths.
+  function wireGalleryNav(opts) {
+    var prev = opts.prev, next = opts.next, counter = opts.counter;
+    var swipeOn = opts.swipeOn, root = opts.root, isOpen = opts.isOpen;
+    function updateNav() {
+      var single = opts.getLength() <= 1;
+      if (prev) prev.classList.toggle('is-hidden', single);
+      if (next) next.classList.toggle('is-hidden', single);
+      if (counter) {
+        counter.textContent = single ? '' : (opts.getIndex() + 1) + ' / ' + opts.getLength();
+      }
+    }
+    if (prev) prev.addEventListener('click', function(e){ e.stopPropagation(); opts.goto(opts.getIndex() - 1); });
+    if (next) next.addEventListener('click', function(e){ e.stopPropagation(); opts.goto(opts.getIndex() + 1); });
+    // Horizontal swipe (single touch, dominant axis, 60px threshold).
+    // Callers can pass shouldSwipe() to gate when swipe should fire (e.g.
+    // disable while a zoomed image is being panned).
+    if (swipeOn) {
+      var sx = 0, sy = 0, swiping = false;
+      swipeOn.addEventListener('touchstart', function(e){
+        if (e.touches.length !== 1) { swiping = false; return; }
+        if (opts.shouldSwipe && !opts.shouldSwipe()) { swiping = false; return; }
+        sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+        swiping = true;
+      }, { passive: true });
+      swipeOn.addEventListener('touchend', function(e){
+        if (!swiping) return;
+        swiping = false;
+        var t = e.changedTouches[0];
+        var dx = t.clientX - sx, dy = t.clientY - sy;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          opts.goto(opts.getIndex() + (dx < 0 ? 1 : -1));
+        }
+      });
+    }
+    // Keyboard arrows + Escape (scoped to this lightbox's open state).
+    document.addEventListener('keydown', function(e){
+      if (!isOpen()) return;
+      if (e.key === 'Escape') { opts.close(); return; }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); opts.goto(opts.getIndex() + 1); }
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); opts.goto(opts.getIndex() - 1); }
+    });
+    return { updateNav: updateNav };
+  }
+
   // Zoom enlarges the image/svg via width/height (NOT transform), which forces
   // the browser to re-paint at the target resolution and keeps inline SVGs
   // crisp at any zoom. The frame (display: inline-block) hugs its child, so
@@ -3735,6 +3785,7 @@ pvPositionAll();
     });
   }
 
+  var lbNav = null; // set on first openLightbox call
   function showGalleryItem(idx) {
     if (!gallery.length) return;
     galleryIdx = (idx + gallery.length) % gallery.length;
@@ -3742,17 +3793,7 @@ pvPositionAll();
     setLightboxSource(item.src);
     lb.querySelector('.pv-lightbox-caption').textContent = item.title;
     resetZoom();
-    updateNavButtons();
-  }
-
-  function updateNavButtons() {
-    if (!lbPrev) return;
-    var single = gallery.length <= 1;
-    lbPrev.classList.toggle('is-hidden', single);
-    lbNext.classList.toggle('is-hidden', single);
-    if (lbCounter) {
-      lbCounter.textContent = single ? '' : (galleryIdx + 1) + ' / ' + gallery.length;
-    }
+    if (lbNav) lbNav.updateNav();
   }
 
   function openLightbox(src, title, triggerEl) {
@@ -3781,8 +3822,18 @@ pvPositionAll();
         if (suppressBackdropClick) { suppressBackdropClick = false; return; }
         if (e.target === lb) closeLightbox();
       });
-      lbPrev.addEventListener('click', function(e){ e.stopPropagation(); showGalleryItem(galleryIdx - 1); });
-      lbNext.addEventListener('click', function(e){ e.stopPropagation(); showGalleryItem(galleryIdx + 1); });
+      lbNav = wireGalleryNav({
+        prev: lbPrev, next: lbNext, counter: lbCounter,
+        // Swipe nav on the frame, but only when not zoomed — otherwise the
+        // 1-finger pan-drag would collide with the swipe gesture.
+        swipeOn: lbFrame,
+        shouldSwipe: function(){ return scale <= 1; },
+        isOpen: function(){ return lb.classList.contains('is-open'); },
+        getIndex: function(){ return galleryIdx; },
+        getLength: function(){ return gallery.length; },
+        goto: showGalleryItem,
+        close: closeLightbox
+      });
 
       // Wheel zoom
       lbFrame.addEventListener('wheel', function(e){
@@ -3887,7 +3938,7 @@ pvPositionAll();
       lb.querySelector('.pv-lightbox-caption').textContent = title || '';
     }
     resetZoom();
-    updateNavButtons();
+    if (lbNav) lbNav.updateNav();
     requestAnimationFrame(function(){ lb.classList.add('is-open'); });
     document.body.style.overflow = 'hidden';
   }
@@ -3908,13 +3959,6 @@ pvPositionAll();
     clampPan(); applyTransform();
   }
 
-  document.addEventListener('keydown', function(e){
-    if (!lb || !lb.classList.contains('is-open')) return;
-    if (e.key === 'Escape') { closeLightbox(); return; }
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showGalleryItem(galleryIdx + 1); }
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); showGalleryItem(galleryIdx - 1); }
-  });
-
   document.addEventListener('click', function(e){
     var btn = e.target.closest('[data-lightbox]');
     if (btn) {
@@ -3930,7 +3974,7 @@ pvPositionAll();
   // Uses the same backdrop styling as the image lightbox but no zoom/pan —
   // Chart.js renders crisp at the target size already. Prev/next nav + swipe
   // mirror the image lightbox's gallery behavior.
-  var clb = null, clbContent = null, clbPrev = null, clbNext = null, clbCounter = null;
+  var clb = null, clbContent = null, clbNav = null;
   var clbGallery = [], clbIdx = 0;
   function buildChartLightbox() {
     if (clb) return;
@@ -3946,31 +3990,20 @@ pvPositionAll();
       + '</div>';
     document.body.appendChild(clb);
     clbContent = clb.querySelector('.pv-chart-lightbox-content');
-    clbPrev    = clb.querySelector('.pv-lightbox-prev');
-    clbNext    = clb.querySelector('.pv-lightbox-next');
-    clbCounter = clb.querySelector('.pv-lightbox-counter');
     clb.querySelector('.pv-chart-lightbox-close').addEventListener('click', closeChartLightbox);
     clb.addEventListener('click', function(e){
       if (e.target === clb) closeChartLightbox();
     });
-    clbPrev.addEventListener('click', function(e){ e.stopPropagation(); showChartGalleryItem(clbIdx - 1); });
-    clbNext.addEventListener('click', function(e){ e.stopPropagation(); showChartGalleryItem(clbIdx + 1); });
-
-    // Touch swipe to navigate. Threshold: 60px horizontal, dominant axis.
-    var sx = 0, sy = 0, swiping = false;
-    clbContent.addEventListener('touchstart', function(e){
-      if (e.touches.length !== 1) { swiping = false; return; }
-      sx = e.touches[0].clientX; sy = e.touches[0].clientY;
-      swiping = true;
-    }, { passive: true });
-    clbContent.addEventListener('touchend', function(e){
-      if (!swiping) return;
-      swiping = false;
-      var t = e.changedTouches[0];
-      var dx = t.clientX - sx, dy = t.clientY - sy;
-      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-        showChartGalleryItem(clbIdx + (dx < 0 ? 1 : -1));
-      }
+    clbNav = wireGalleryNav({
+      prev: clb.querySelector('.pv-lightbox-prev'),
+      next: clb.querySelector('.pv-lightbox-next'),
+      counter: clb.querySelector('.pv-lightbox-counter'),
+      swipeOn: clbContent,
+      isOpen: function(){ return clb.classList.contains('is-open'); },
+      getIndex: function(){ return clbIdx; },
+      getLength: function(){ return clbGallery.length; },
+      goto: showChartGalleryItem,
+      close: closeChartLightbox
     });
   }
   function destroyChartLightboxContent() {
@@ -3998,13 +4031,7 @@ pvPositionAll();
     // is fully visible (the previous one may have left the user scrolled).
     var inner = clb.querySelector('.pv-chart-lightbox-inner');
     if (inner) inner.scrollTop = 0;
-    updateChartNav();
-  }
-  function updateChartNav() {
-    var single = clbGallery.length <= 1;
-    if (clbPrev) clbPrev.classList.toggle('is-hidden', single);
-    if (clbNext) clbNext.classList.toggle('is-hidden', single);
-    if (clbCounter) clbCounter.textContent = single ? '' : (clbIdx + 1) + ' / ' + clbGallery.length;
+    if (clbNav) clbNav.updateNav();
   }
   function closeChartLightbox() {
     if (!clb) return;
@@ -4028,12 +4055,6 @@ pvPositionAll();
     document.body.style.overflow = 'hidden';
     showChartGalleryItem(clbIdx);
   };
-  document.addEventListener('keydown', function(e){
-    if (!clb || !clb.classList.contains('is-open')) return;
-    if (e.key === 'Escape') { closeChartLightbox(); return; }
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showChartGalleryItem(clbIdx + 1); }
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); showChartGalleryItem(clbIdx - 1); }
-  });
 })();
 </script>
 
