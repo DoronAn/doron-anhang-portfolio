@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 1040" width="980" height="1040" font-family="system-ui,-apple-system,sans-serif">
+<rect width="980" height="1040" fill="#ffffff"/>
+<text x="490" y="22" text-anchor="middle" font-size="11" fill="#999" font-weight="500" letter-spacing="0.5">FULL DATA PIPELINE — NKDT APP + API</text><defs>
+  <marker id="arr"     viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#555555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  <marker id="arr-msg" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#888888" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  <marker id="arr-lt"  viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M2 1L8 5L2 9" fill="none" stroke="#aaa" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+</defs><rect x="30" y="38" width="920" height="980" rx="6" fill="none" stroke="#999" stroke-width="1.5"/>
+<rect x="30" y="38" width="34" height="980" rx="0" fill="#f0f0ee" stroke="#999" stroke-width="1.5"/>
+<text x="47" y="528" text-anchor="middle" font-size="11" font-weight="600" fill="#666" transform="rotate(-90,47,528)">NKDT RESEARCH SYSTEM</text>
+<rect x="64" y="38" width="886" height="490" fill="#fdf8f0" stroke="#ddd0b8" stroke-width="1"/>
+<rect x="64" y="38" width="34" height="490" fill="#f5e8d0" stroke="#ddd0b8" stroke-width="1"/>
+<text x="81" y="283" text-anchor="middle" font-size="11" font-weight="600" fill="#3a2a0a" transform="rotate(-90,81,283)">Android App (Kotlin)</text>
+<rect x="64" y="528" width="886" height="490" fill="#f0f4fa" stroke="#c0d0e8" stroke-width="1"/>
+<rect x="64" y="528" width="34" height="490" fill="#d8e6f5" stroke="#c0d0e8" stroke-width="1"/>
+<text x="81" y="773" text-anchor="middle" font-size="11" font-weight="600" fill="#0a1e3a" transform="rotate(-90,81,773)">ASP.NET Core API + AWS RDS</text>
+<line x1="64" y1="528" x2="950" y2="528" stroke="#ccc" stroke-width="1"/>
+<circle cx="100" cy="101" r="12" fill="#fdf8f0" stroke="#555555" stroke-width="2"/><text x="100" y="119" text-anchor="middle" font-size="9" fill="#9a7a4a">App install</text>
+<line x1="112" y1="101" x2="122" y2="101" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="122" y="78" width="120" height="46" rx="6" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1.5"/>
+<text x="182" y="95.0" text-anchor="middle" font-size="12" font-weight="600" fill="#3a2a0a">Splash screen</text>
+<text x="182" y="111.0" text-anchor="middle" font-size="10" font-weight="400" fill="#9a7a4a">1 s load</text>
+<line x1="242" y1="101" x2="256" y2="101" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="256" y="78" width="130" height="46" rx="6" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1.5"/>
+<text x="321" y="95.0" text-anchor="middle" font-size="12" font-weight="600" fill="#3a2a0a">Accept terms</text>
+<text x="321" y="111.0" text-anchor="middle" font-size="10" font-weight="400" fill="#9a7a4a">participant consent</text>
+<line x1="386" y1="101" x2="400" y2="101" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="400" y="78" width="150" height="46" rx="6" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1.5"/>
+<text x="475" y="95.0" text-anchor="middle" font-size="12" font-weight="600" fill="#3a2a0a">Registration</text>
+<text x="475" y="111.0" text-anchor="middle" font-size="10" font-weight="400" fill="#9a7a4a">demographics · area</text>
+<line x1="550" y1="101" x2="564" y2="101" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="564" y="78" width="150" height="46" rx="6" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1.5"/>
+<text x="639" y="95.0" text-anchor="middle" font-size="12" font-weight="600" fill="#3a2a0a">Hash device ID</text>
+<text x="639" y="111.0" text-anchor="middle" font-size="10" font-weight="400" fill="#9a7a4a">Hash.kt · id × ts</text>
+<line x1="714" y1="101" x2="730" y2="101" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<polygon points="750,83 768,101 750,119 732,101" fill="#fdf8f0" stroke="#555555" stroke-width="1.5"/><line x1="750" y1="92" x2="750" y2="110" stroke="#555555" stroke-width="1.5"/><line x1="741" y1="101" x2="759" y2="101" stroke="#555555" stroke-width="1.5"/>
+<line x1="732" y1="101" x2="655" y2="101" stroke="#555555" stroke-width="1.5"/>
+<line x1="655" y1="101" x2="655" y2="185" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="702" y="96" font-size="9" fill="#9a7a4a">GPS</text>
+<line x1="768" y1="101" x2="830" y2="101" stroke="#555555" stroke-width="1.5"/>
+<line x1="830" y1="101" x2="830" y2="185" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="836" y="96" font-size="9" fill="#9a7a4a">survey</text>
+<rect x="580" y="185" width="150" height="46" rx="6" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1.5"/>
+<text x="655" y="202.0" text-anchor="middle" font-size="12" font-weight="600" fill="#3a2a0a">GPS service</text>
+<text x="655" y="218.0" text-anchor="middle" font-size="10" font-weight="400" fill="#9a7a4a">LocationService · 10 min</text>
+<rect x="760" y="185" width="140" height="46" rx="6" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1.5"/>
+<text x="830" y="202.0" text-anchor="middle" font-size="12" font-weight="600" fill="#3a2a0a">Complete survey</text>
+<text x="830" y="218.0" text-anchor="middle" font-size="10" font-weight="400" fill="#9a7a4a">SCI-2 + URES · 3 sections</text>
+<line x1="655" y1="231" x2="655" y2="256" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<polygon points="655,256 673,274 655,292 637,274" fill="#fdf8f0" stroke="#555555" stroke-width="1.5"/><line x1="647" y1="266" x2="663" y2="282" stroke="#555555" stroke-width="1.5"/><line x1="663" y1="266" x2="647" y2="282" stroke="#555555" stroke-width="1.5"/><text x="681" y="278" font-size="9" fill="#9a7a4a">on campus?</text>
+<line x1="637" y1="274" x2="540" y2="274" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<circle cx="526" cy="274" r="12" fill="#fdf8f0" stroke="#555555" stroke-width="2.5"/><circle cx="526" cy="274" r="7" fill="#555555"/>
+<text x="498" y="268" font-size="9" fill="#9a7a4a">no → drop</text>
+<line x1="655" y1="292" x2="655" y2="316" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<text x="660" y="309" font-size="9" fill="#9a7a4a">yes</text>
+<rect x="580" y="316" width="150" height="46" rx="6" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1.5"/>
+<text x="655" y="333.0" text-anchor="middle" font-size="12" font-weight="600" fill="#3a2a0a">Cluster mask</text>
+<text x="655" y="349.0" text-anchor="middle" font-size="10" font-weight="400" fill="#9a7a4a">own cluster → centroid</text>
+<rect x="70" y="210" width="148" height="44" rx="6" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1" stroke-dasharray="4 2"/>
+<text x="144" y="228" text-anchor="middle" font-size="10" font-weight="600" fill="#3a2a0a">OnBootReceiver</text>
+<text x="144" y="242" text-anchor="middle" font-size="9" fill="#9a7a4a">restarts GPS on reboot</text>
+<line x1="218" y1="232" x2="580" y2="207" stroke="#c8a96e" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arr-lt)"/>
+<line x1="639" y1="124" x2="639" y2="528" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-msg)"/>
+<text x="644" y="498" font-size="9" fill="#888888">POST /user/create</text>
+<line x1="830" y1="231" x2="830" y2="528" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-msg)"/>
+<text x="835" y="514" font-size="9" fill="#888888">POST /survey</text>
+<line x1="655" y1="362" x2="655" y2="528" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#arr-msg)"/>
+<text x="660" y="382" font-size="9" fill="#888888">POST /location</text>
+<rect x="80" y="572" width="160" height="52" rx="6" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<text x="160" y="592.0" text-anchor="middle" font-size="12" font-weight="600" fill="#0a1e3a">Create user</text>
+<text x="160" y="608.0" text-anchor="middle" font-size="10" font-weight="400" fill="#4a6a9a">token · age · major · area_id</text>
+<line x1="160" y1="624" x2="160" y2="654" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<ellipse cx="160" cy="654" rx="65" ry="7" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<rect x="95" y="654" width="130" height="34" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<line x1="95" y1="654" x2="95" y2="688" stroke="#7a9ec8" stroke-width="1.5"/>
+<line x1="225" y1="654" x2="225" y2="688" stroke="#7a9ec8" stroke-width="1.5"/>
+<ellipse cx="160" cy="688" rx="65" ry="7" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<text x="160" y="675.0" text-anchor="middle" font-size="11" font-weight="600" fill="#0a1e3a">Users table</text>
+<text x="160" y="689.0" text-anchor="middle" font-size="9" fill="#4a6a9a">token · age · area · major</text>
+<line x1="639" y1="528" x2="160" y2="528" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 3"/>
+<line x1="160" y1="528" x2="160" y2="572" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="360" y="572" width="160" height="52" rx="6" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<text x="440" y="592.0" text-anchor="middle" font-size="12" font-weight="600" fill="#0a1e3a">Receive survey</text>
+<text x="440" y="608.0" text-anchor="middle" font-size="10" font-weight="400" fill="#4a6a9a">validate token · store answers</text>
+<line x1="440" y1="624" x2="440" y2="654" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<ellipse cx="440" cy="654" rx="65" ry="7" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<rect x="375" y="654" width="130" height="34" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<line x1="375" y1="654" x2="375" y2="688" stroke="#7a9ec8" stroke-width="1.5"/>
+<line x1="505" y1="654" x2="505" y2="688" stroke="#7a9ec8" stroke-width="1.5"/>
+<ellipse cx="440" cy="688" rx="65" ry="7" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<text x="440" y="675.0" text-anchor="middle" font-size="11" font-weight="600" fill="#0a1e3a">Survey table</text>
+<text x="440" y="689.0" text-anchor="middle" font-size="9" fill="#4a6a9a">token · SCI-2 · URES</text>
+<line x1="830" y1="528" x2="440" y2="528" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 3"/>
+<line x1="440" y1="528" x2="440" y2="572" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="630" y="572" width="160" height="52" rx="6" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<text x="710" y="592.0" text-anchor="middle" font-size="12" font-weight="600" fill="#0a1e3a">Receive location</text>
+<text x="710" y="608.0" text-anchor="middle" font-size="10" font-weight="400" fill="#4a6a9a">re-check cluster · store</text>
+<line x1="710" y1="624" x2="710" y2="654" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<ellipse cx="710" cy="654" rx="65" ry="7" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<rect x="645" y="654" width="130" height="34" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<line x1="645" y1="654" x2="645" y2="688" stroke="#7a9ec8" stroke-width="1.5"/>
+<line x1="775" y1="654" x2="775" y2="688" stroke="#7a9ec8" stroke-width="1.5"/>
+<ellipse cx="710" cy="688" rx="65" ry="7" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<text x="710" y="675.0" text-anchor="middle" font-size="11" font-weight="600" fill="#0a1e3a">Location table</text>
+<text x="710" y="689.0" text-anchor="middle" font-size="9" fill="#4a6a9a">token · lat · lng · ts</text>
+<line x1="655" y1="528" x2="710" y2="528" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 3"/>
+<line x1="710" y1="528" x2="710" y2="572" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="710" y1="695" x2="710" y2="745" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<ellipse cx="710" cy="745" rx="65" ry="7" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<rect x="645" y="745" width="130" height="40" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<line x1="645" y1="745" x2="645" y2="785" stroke="#7a9ec8" stroke-width="1.5"/>
+<line x1="775" y1="745" x2="775" y2="785" stroke="#7a9ec8" stroke-width="1.5"/>
+<ellipse cx="710" cy="785" rx="65" ry="7" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<text x="710" y="769.0" text-anchor="middle" font-size="11" font-weight="600" fill="#0a1e3a">Elasticsearch</text>
+<text x="710" y="783.0" text-anchor="middle" font-size="9" fill="#4a6a9a">analytics · AWS EC2</text>
+<line x1="710" y1="792" x2="710" y2="824" stroke="#555555" stroke-width="1.5" marker-end="url(#arr)"/>
+<circle cx="710" cy="836" r="12" fill="#fdf8f0" stroke="#555555" stroke-width="2.5"/><circle cx="710" cy="836" r="7" fill="#555555"/><text x="710" y="854" text-anchor="middle" font-size="9" fill="#9a7a4a">Data stored</text>
+<rect x="64" y="708" width="560" height="28" rx="4" fill="#e8eef8" stroke="#c0d0e8" stroke-width="1"/>
+<text x="344" y="725" text-anchor="middle" font-size="10" fill="#4a6a9a">Tables joined only via anon token — no personal identifiers ever stored</text>
+<rect x="64" y="1017" width="12" height="12" rx="2" fill="#fdf8f0" stroke="#c8a96e" stroke-width="1.5"/>
+<text x="82" y="1026" font-size="10" fill="#555">App (Kotlin)</text>
+<rect x="184" y="1017" width="12" height="12" rx="2" fill="#f0f4fa" stroke="#7a9ec8" stroke-width="1.5"/>
+<text x="202" y="1026" font-size="10" fill="#555">API / server</text>
+<line x1="260" y1="1022" x2="290" y2="1022" stroke="#888888" stroke-width="1.5" stroke-dasharray="5 3"/>
+<text x="296" y="1026" font-size="10" fill="#555">Message flow (API call)</text>
+</svg>

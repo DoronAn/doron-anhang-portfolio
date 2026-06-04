@@ -979,6 +979,116 @@ footer a:hover { color: var(--gold); }
   display: none;
 }
 
+/* ── Three-pillar concept block (Lab / Community / Dorms) ── */
+#detail-nkdt .nk-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+@media (max-width: 700px) {
+  #detail-nkdt .nk-pillars { grid-template-columns: 1fr; }
+}
+#detail-nkdt .nk-pillar {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-top: 3px solid var(--gold);
+  padding: 12px 14px 14px;
+}
+#detail-nkdt .nk-pillar--lab    { border-top-color: #C0392B; }
+#detail-nkdt .nk-pillar--comm   { border-top-color: #3B7AC5; }
+#detail-nkdt .nk-pillar--dorms  { border-top-color: #2A9D5C; }
+#detail-nkdt .nk-pillar-label {
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  color: var(--ink);
+  margin-bottom: 0.35rem;
+  line-height: 1.2;
+}
+#detail-nkdt .nk-pillar-desc {
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+/* ── Masterplan moves: 4 numbered moves ── */
+#detail-nkdt .nk-moves {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+@media (max-width: 700px) {
+  #detail-nkdt .nk-moves { grid-template-columns: 1fr; }
+}
+#detail-nkdt .nk-move {
+  display: flex;
+  gap: 0.65rem;
+  padding: 10px 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-left: 3px solid var(--gold);
+}
+#detail-nkdt .nk-move-num {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--gold);
+  line-height: 1;
+  flex: 0 0 auto;
+  min-width: 1.6rem;
+}
+#detail-nkdt .nk-move-body {
+  font-size: 0.78rem;
+  color: var(--text);
+  line-height: 1.55;
+}
+#detail-nkdt .nk-move-body strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ── Typology comparison table ── */
+#detail-nkdt .nk-typo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.78rem;
+}
+#detail-nkdt .nk-typo-table th,
+#detail-nkdt .nk-typo-table td {
+  text-align: left;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--card-border);
+  vertical-align: top;
+}
+#detail-nkdt .nk-typo-table th {
+  font-size: 0.62rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+  border-bottom: 1px solid var(--rule);
+}
+#detail-nkdt .nk-typo-table td:first-child {
+  font-family: var(--serif);
+  color: var(--ink);
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+#detail-nkdt .nk-typo-table tr.nk-typo-row--a td:first-child { border-left: 3px solid #3B7AC5; padding-left: 12px; }
+#detail-nkdt .nk-typo-table tr.nk-typo-row--b td:first-child { border-left: 3px solid #D4860A; padding-left: 12px; }
+#detail-nkdt .nk-typo-table tr.nk-typo-row--c td:first-child { border-left: 3px solid #2A9D5C; padding-left: 12px; }
+#detail-nkdt .nk-typo-table td:last-child {
+  color: var(--ink);
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  #detail-nkdt .nk-typo-table th:nth-child(3),
+  #detail-nkdt .nk-typo-table td:nth-child(3) { display: none; }
+}
+
 /* ── PROJECT 3-COLUMN VIEW (pv-*) ── */
 
 .pv-head { padding-right: 0.5rem; }
@@ -1415,6 +1525,38 @@ footer a:hover { color: var(--gold); }
 /* Colour-coded compound cards */
 .pv-card--caravan { border-left-color: #2A9D5C; }
 .pv-card--midrise  { border-left-color: #C0392B; }
+/* NKDT typology accents — match the three project type colours */
+.pv-card--nk-a { border-left-color: #3B7AC5; }
+.pv-card--nk-b { border-left-color: #D4860A; }
+.pv-card--nk-c { border-left-color: #2A9D5C; }
+
+/* Placeholder media — image card with no real asset yet.
+   The `.pv-card-media` body shows a dashed frame + descriptor caption
+   instead of an <img>. Used while NKDT renders/plans are pending. */
+.pv-card--ph .pv-card-media {
+  border: 1px dashed var(--card-border);
+  background: var(--bg2);
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 1rem;
+  min-height: 140px;
+  text-align: center;
+}
+.pv-card-ph-label {
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--gold);
+}
+.pv-card-ph-desc {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: #7a7a74;
+  line-height: 1.45;
+  max-width: 32ch;
+}
 
 /* ── Context chapter custom layout: campus top, pair below ── */
 .pv-ctx-layout {
@@ -1468,6 +1610,11 @@ footer a:hover { color: var(--gold); }
 }
 .pv-inline-imgs .pv-card-media img {
   max-height: 100%; width: auto; max-width: 100%;
+}
+/* Placeholder cards: media is text, not an image — collapse to natural height */
+.pv-inline-imgs .pv-card--ph .pv-card-media {
+  height: auto;
+  min-height: 120px;
 }
 
 /* Context chapter */
@@ -2426,13 +2573,341 @@ footer a:hover { color: var(--gold); }
 
     <!-- NKDT: Architecture as a Dynamic System -->
     <div class="proj-detail" id="detail-nkdt"
-         data-eyebrow="B.Arch. Final Project · Academic Thesis &amp; Design Lab"
-         data-title="NKDT — Architecture as a<br><em>Dynamic System</em>"
-         data-title-short="NKDT — Architecture as a <em>Dynamic System</em>"
-         data-meta="Advisor: Arch. Daniel Azerrad &nbsp;·&nbsp; Ariel University"
-         data-kw='[{"l":"Systemic Design","g":1},{"l":"Parametric Modularity","g":1},{"l":"Structural Surplus"},{"l":"Dynamic Configurations"},{"l":"Architectural Laboratory"}]'>
-      <section class="pv-chapter" data-title="Overview" data-images='[]'
-               data-wip-sub="Drawings, renders, and system documentation for the NKDT modular housing laboratory are being compiled."></section>
+         data-eyebrow="B.Arch. Final Project · Ariel University, 2022"
+         data-title="NKDT —<br><em>An Architectural Laboratory for Communal Living</em>"
+         data-title-short="NKDT — <em>Architectural Laboratory</em>"
+         data-meta="Supervisor: Arch. Daniel Azerrad &nbsp;·&nbsp; Ariel University"
+         data-kw='[{"l":"Architecture-as-Laboratory","g":1},{"l":"Communal Living","g":1},{"l":"Modular System"},{"l":"Three Typologies"},{"l":"Evidence-Based Design"},{"l":"Feedback Loop"}]'>
+
+      <section class="pv-chapter" id="ch-nk-context"
+               data-title="Context &amp; Imperatives"
+               data-stage-ref="#ch-nk-context-template">
+        <span class="pv-ch-num">01 — Why + What</span>
+        <h2 class="pv-ch-title">Ethical Framework &amp; The Proposition</h2>
+        <p>Two conditions define the architectural opportunity of the moment. First, the <strong>exponential growth of available data</strong> has made it possible to move beyond intuition: nearly every person now carries a device capable of generating spatial telemetry, and data-informed design lets architects find patterns in complex systems and compare alternatives against real conditions. Second — and equally urgent — <strong>loneliness is an epidemic</strong>. It is a subjective state distinct from social isolation: even people embedded in large networks can feel its absence of depth. Architecture has a concrete role to play in reversing this, through spaces that actively foster layered belonging and spontaneous encounter.</p>
+        <p>NKDT synthesises both imperatives into one programme: an <strong>architectural laboratory for communal living</strong>, built on the platform of student dormitories. The three pillars are inseparable — the dormitory provides the controlled institutional context; the communal design addresses loneliness through layered shared space; the laboratory framing makes every design decision a <em>testable, measurable hypothesis</em>.</p>
+
+        <div class="nk-pillars" aria-label="Three pillars of the NKDT proposition">
+          <div class="nk-pillar nk-pillar--lab">
+            <div class="nk-pillar-label">Architectural Laboratory</div>
+            <div class="nk-pillar-desc">A dynamic system built for continuous spatial experimentation — designed to change and to extract insights during active operation.</div>
+          </div>
+          <div class="nk-pillar nk-pillar--comm">
+            <div class="nk-pillar-label">Communal Living</div>
+            <div class="nk-pillar-desc">Design against loneliness: layered shared spaces that invite spontaneous contact, graduated privacy, and resident ownership of collective ground.</div>
+          </div>
+          <div class="nk-pillar nk-pillar--dorms">
+            <div class="nk-pillar-label">Student Dormitories</div>
+            <div class="nk-pillar-desc">The platform: institutional ownership + cross-sectional transient population + medium-term tenancy = ideal conditions for iterative spatial research.</div>
+          </div>
+        </div>
+
+        <p style="margin-top:1rem;">Ariel University presents a rare <em>natural experiment</em>: two radically opposed dormitory compounds on the same campus, serving the same population — a corridor / mid-rise cluster (~760 beds, institutional character) against a scattered caravan plex (~1,240 beds, village atmosphere). The contrast is stark enough to test foundational assumptions about how spatial configuration shapes community, while institutional ownership keeps the data tractable.</p>
+
+        <template id="ch-nk-context-template">
+          <div class="pv-ctx-layout">
+            <div class="pv-card pv-card--img pv-card--ph pv-ctx-main">
+              <div class="pv-card-head">
+                <div class="pv-card-title">NKDT — Ariel New Dorms Complex</div>
+                <div class="pv-card-sub">Project cover render / site aerial.</div>
+              </div>
+              <div class="pv-card-rule"></div>
+              <div class="pv-card-media">
+                <span class="pv-card-ph-label">Image pending</span>
+                <span class="pv-card-ph-desc">Cover render of the proposed community dormitory complex at Ariel.</span>
+              </div>
+              <div class="pv-card-foot"><span class="pv-card-takeaway">Dorms as a connective buffer between university and city.</span></div>
+            </div>
+            <div class="pv-ctx-pair is-hswipe">
+              <div class="pv-card pv-card--img pv-card--ph">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Data Feedback Loop</div>
+                  <div class="pv-card-sub">Information-driven design cycle.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Diagram pending</span>
+                  <span class="pv-card-ph-desc">Spatial telemetry → analysis → iteration.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Architecture as an iterable, measurable instrument.</span></div>
+              </div>
+              <div class="pv-card pv-card--img pv-card--ph">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Loneliness Epidemic</div>
+                  <div class="pv-card-sub">Erosion of community bonds.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Diagram pending</span>
+                  <span class="pv-card-ph-desc">Community bond decay since the Renaissance.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">The condition the architecture is built to answer.</span></div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <section class="pv-chapter" id="ch-nk-site"
+               data-title="Site &amp; Masterplan"
+               data-stage-ref="#ch-nk-site-template">
+        <span class="pv-ch-num">02 — Where</span>
+        <h2 class="pv-ch-title">Ariel University — Site Analysis &amp; Masterplan</h2>
+        <p>The current campus is structurally fragmented: dorms split between inside and outside the university fence create two communities with different characters; the campus itself is bisected by a road; and dormitories already occupy <strong>~50% of the built footprint</strong> — with rapid growth demanding densification. Yet the buffer position between university and city carries genuine connective potential, currently squandered.</p>
+        <p>The proposal repositions the dorms as that connector. <strong>Four moves</strong> structure the masterplan:</p>
+
+        <div class="nk-moves" aria-label="Four masterplan moves">
+          <div class="nk-move">
+            <div class="nk-move-num">1</div>
+            <div class="nk-move-body"><strong>Dorm as connector.</strong> The dorm buffer becomes a daily contact zone between student and city resident.</div>
+          </div>
+          <div class="nk-move">
+            <div class="nk-move-num">2</div>
+            <div class="nk-move-body"><strong>Ring road + central plaza.</strong> Reunite the bisected campus around a shared civic core.</div>
+          </div>
+          <div class="nk-move">
+            <div class="nk-move-num">3</div>
+            <div class="nk-move-body"><strong>28 plots → 7 neighbourhoods.</strong> Each with shared identity, colour, and community programme.</div>
+          </div>
+          <div class="nk-move">
+            <div class="nk-move-num">4</div>
+            <div class="nk-move-body"><strong>Three building typologies.</strong> Distributed across the site to enable head-to-head spatial comparison.</div>
+          </div>
+        </div>
+
+        <div class="subsec" style="margin-top:1.5rem;">
+          <span class="subsec-label">Project Scale</span>
+          <div class="rs-metrics">
+            <div class="rs-metric"><div class="rs-metric-val">~5,000</div><div class="rs-metric-lbl">beds planned</div></div>
+            <div class="rs-metric"><div class="rs-metric-val">3</div><div class="rs-metric-lbl">building typologies</div></div>
+            <div class="rs-metric"><div class="rs-metric-val">28</div><div class="rs-metric-lbl">plots</div></div>
+            <div class="rs-metric"><div class="rs-metric-val">7</div><div class="rs-metric-lbl">neighbourhoods</div></div>
+          </div>
+        </div>
+
+        <template id="ch-nk-site-template">
+          <div class="pv-ctx-layout">
+            <div class="pv-card pv-card--img pv-card--ph pv-ctx-main">
+              <div class="pv-card-head">
+                <div class="pv-card-title">Proposed Masterplan</div>
+                <div class="pv-card-sub">Topographic contours, circulation, footprints, neighbourhood divisions.</div>
+              </div>
+              <div class="pv-card-rule"></div>
+              <div class="pv-card-media">
+                <span class="pv-card-ph-label">Drawing pending</span>
+                <span class="pv-card-ph-desc">New Ariel: 28 plots in 7 neighbourhoods, dorms as connective buffer between city and campus.</span>
+              </div>
+              <div class="pv-card-foot"><span class="pv-card-takeaway">Topographically embedded — the buffer becomes the connector.</span></div>
+            </div>
+            <div class="pv-ctx-pair is-hswipe">
+              <div class="pv-card pv-card--img pv-card--ph pv-card--midrise">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Corridor Compound</div>
+                  <div class="pv-card-sub">Outside fence · ~760 beds · institutional.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Aerial pending</span>
+                  <span class="pv-card-ph-desc">Existing mid-rise / corridor cluster, outside the fence.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Dense and institutional — the spatial counter-example.</span></div>
+              </div>
+              <div class="pv-card pv-card--img pv-card--ph pv-card--caravan">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Caravan Compound</div>
+                  <div class="pv-card-sub">Inside campus · ~1,240 beds · village.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Aerial pending</span>
+                  <span class="pv-card-ph-desc">Existing scattered caravan plex, distributed across topography.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">The empirical baseline the new design extends.</span></div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <section class="pv-chapter" id="ch-nk-module"
+               data-title="The Module"
+               data-stage-ref="#ch-nk-module-template">
+        <span class="pv-ch-num">03 — How</span>
+        <h2 class="pv-ch-title">Flexible Repetition — The Modular Design System</h2>
+        <p>The design logic rests on a <strong>single repeated apartment module</strong> whose <em>placement</em> — not its internal configuration — generates spatial variety. Community emerges from the <strong>interstitial spaces created between modules</strong>: the corridor as shared living room, the sectional void as cross-floor encounter zone, the facade gap as neighbourhood balcony.</p>
+        <p>The hierarchy reads <strong>room → apartment → floor</strong>. The room provides minimum private programme without replacing shared space. The apartment groups 2–4 rooms around a shared living / kitchen, bridging room and collective floor with a <strong>designed privacy gradient</strong>: ceiling height and sightlines calibrate the transition from fully open (kitchen / living) to fully private (bedroom).</p>
+
+        <template id="ch-nk-module-template">
+          <div class="pv-arch-layout">
+            <div class="pv-arch-plans is-hswipe">
+              <div class="pv-card pv-card--img pv-card--ph">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Private Room</div>
+                  <div class="pv-card-sub">Section A–A: workspace, storage, sleeping mezzanine.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Section pending</span>
+                  <span class="pv-card-ph-desc">Minimum private programme — without displacing shared space.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Private cell calibrated to <em>release</em> shared space, not consume it.</span></div>
+              </div>
+              <div class="pv-card pv-card--img pv-card--ph">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Apartment Unit</div>
+                  <div class="pv-card-sub">2–4 rooms around shared living / kitchen.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Plan pending</span>
+                  <span class="pv-card-ph-desc">Privacy gradient from entry (open) to bedroom (private).</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">A designed gradient — not a binary public / private wall.</span></div>
+              </div>
+              <div class="pv-card pv-card--img pv-card--ph">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Apartment — Exploded Axonometric</div>
+                  <div class="pv-card-sub">Ceiling height + sightlines calibrate the transition.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Axonometric pending</span>
+                  <span class="pv-card-ph-desc">Privacy hierarchy made spatial: open kitchen → enclosed bedroom.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">Geometry, not signage, marks the threshold.</span></div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <section class="pv-chapter" id="ch-nk-types"
+               data-title="Three Typologies"
+               data-stage-ref="#ch-nk-types-template">
+        <span class="pv-ch-num">04 — Typologies</span>
+        <h2 class="pv-ch-title">Three Building Typologies, One Module</h2>
+        <p>The same module deploys in <strong>three configurations</strong>, each testing a different social hypothesis across the 28 plots. Spatial variation emerges from <em>configuration</em>, not from different unit designs — which is what makes head-to-head comparison meaningful.</p>
+
+        <table class="nk-typo-table" aria-label="Three building typologies comparison">
+          <thead>
+            <tr><th>Type</th><th>Character</th><th>Beds</th></tr>
+          </thead>
+          <tbody>
+            <tr class="nk-typo-row--a">
+              <td>Type A — Urban</td>
+              <td>6 floors · corridor-based · ground-floor commercial · rooftop community · main boulevard</td>
+              <td>~3,100</td>
+            </tr>
+            <tr class="nk-typo-row--b">
+              <td>Type B — Mixed</td>
+              <td>4 floors · cluster-based · follows topography · internal promenade · topographic community spaces</td>
+              <td>~1,100</td>
+            </tr>
+            <tr class="nk-typo-row--c">
+              <td>Type C — Rural</td>
+              <td>3 floors · no fixed boundary · scattered plex · community in spatial voids · most communal character</td>
+              <td>~800</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <template id="ch-nk-types-template">
+          <div class="pv-arch-layout">
+            <div class="pv-arch-plans is-hswipe">
+              <div class="pv-card pv-card--img pv-card--ph pv-card--nk-a">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Type A — Urban Corridor</div>
+                  <div class="pv-card-sub">6 floors · ~3,100 beds · 16 plots.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Section pending</span>
+                  <span class="pv-card-ph-desc">Building section &amp; facade — corridor as shared living room, rooftop community.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">The dense edge — testing community against urban scale.</span></div>
+              </div>
+              <div class="pv-card pv-card--img pv-card--ph pv-card--nk-b">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Type B — Mixed Cluster</div>
+                  <div class="pv-card-sub">4 floors · ~1,100 beds · 6 plots.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Plan pending</span>
+                  <span class="pv-card-ph-desc">Floor plan &amp; section — clusters following topography around an internal promenade.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">The mid-scale — community shaped by the terrain it sits on.</span></div>
+              </div>
+              <div class="pv-card pv-card--img pv-card--ph pv-card--nk-c">
+                <div class="pv-card-head">
+                  <div class="pv-card-title">Type C — Rural Scattered</div>
+                  <div class="pv-card-sub">3 floors · ~800 beds · 6 plots.</div>
+                </div>
+                <div class="pv-card-rule"></div>
+                <div class="pv-card-media">
+                  <span class="pv-card-ph-label">Site plan pending</span>
+                  <span class="pv-card-ph-desc">Site plan &amp; section — scattered plex, community lives in the spatial voids.</span>
+                </div>
+                <div class="pv-card-foot"><span class="pv-card-takeaway">The dispersed extreme — most communal, no fixed boundary.</span></div>
+              </div>
+            </div>
+          </div>
+        </template>
+      </section>
+
+      <section class="pv-chapter" id="ch-nk-between"
+               data-title="The In-Between"
+               data-stage-ref="#ch-nk-between-template">
+        <span class="pv-ch-num">05 — In-Between</span>
+        <h2 class="pv-ch-title">The In-Between Space</h2>
+        <p>The corridor is not a circulation spine — it is a <strong>shared living room</strong>. The section is not a stack of floors — it is a <strong>social landscape</strong>. The facade is not a boundary — it is a <strong>membrane of controlled exposure</strong>.</p>
+        <p>Each floor uses a structural grid that can hold <em>more apartments than are placed</em>. The resulting <strong>spatial voids</strong> — at varying scales — create communal niches from large shared lounges to intimate alcoves. Shared wall configurations let residents control the degree of openness between their apartment and the floor corridor. Sectional offsets between floors, deliberate stairwell incursion into residential levels, and staggered facade balconies extend the social field vertically.</p>
+
+        <div class="finding" style="margin-top:1.25rem;">
+          <span class="finding-lbl">Design principle</span>
+          <p>Community is built from <strong>structural surplus</strong>: the building always provides more usable spatial grid than its apartments consume — and the surplus is where collective life happens.</p>
+        </div>
+
+        <template id="ch-nk-between-template">
+          <div class="pv-card pv-card--img pv-card--ph">
+            <div class="pv-card-head">
+              <div class="pv-card-title">The &lsquo;Breathing Building&rsquo;</div>
+              <div class="pv-card-sub">Stairwell incursion · offset floors · staggered balconies.</div>
+            </div>
+            <div class="pv-card-rule"></div>
+            <div class="pv-card-media">
+              <span class="pv-card-ph-label">Axonometric pending</span>
+              <span class="pv-card-ph-desc">Building section as a social instrument — vertical movement as communal encounter.</span>
+            </div>
+            <div class="pv-card-foot"><span class="pv-card-takeaway">The section as a stage, not a stack.</span></div>
+          </div>
+        </template>
+      </section>
+
+      <section class="pv-chapter" id="ch-nk-evidence"
+               data-title="Evidence &amp; Loop"
+               data-images='[{"src":"images/shared/nkdt_perspective.png","title":"Seminar → NKDT","cap":"The seminar&rsquo;s instrumentation and feedback loop applied at building scale.","takeaway":"Empirical findings become the design&rsquo;s starting hypothesis."}]'>
+        <span class="pv-ch-num">06 — Evidence</span>
+        <h2 class="pv-ch-title">Grounded in Evidence — The Feedback Loop</h2>
+        <p>This design is not speculative. Its typological strategy is directly grounded in a prior empirical study — <em>Student Dorms Archetype as a Driving Factor in the Formation of a Sense of Community</em> (Ariel University, 2022) — which used <strong>SCI-2 and URES psychometric instruments</strong> alongside passive <strong>GPS telemetry</strong> to compare the two existing Ariel compounds. The caravan scattered-plex scored <strong>3.9 / 5</strong> on spatial quality against the mid-rise cluster&rsquo;s <strong>2.9 / 5</strong>, with corresponding quantitative differences in Sense of Community.</p>
+        <p>Those findings — which spatial features drive belonging and which suppress it — shaped <strong>the void strategy, the privacy gradient, the typology mix, and the community-space hierarchy</strong> across all three building types. The measurement infrastructure (NKDT Points app, privacy-by-design GPS pipeline) developed for that study becomes the lab&rsquo;s ongoing instrument.</p>
+        <p>As the complex operates, data accumulates across semesters — SCI-2, URES, GPA delta, GPS telemetry — and informs incremental modifications to void placement, shared-wall positions, and community programme. <strong>The building evolves toward greater community efficacy through empirical iteration</strong> rather than speculative one-off design.</p>
+
+        <div class="finding" style="margin-top:1.25rem;">
+          <span class="finding-lbl">Architecture-as-laboratory</span>
+          <p>Each spatial iteration is <em>simultaneously intervention and measurement</em>. The truest ambition of NKDT is not the building — it is the methodology: a proof of concept that spatial quality can be measured, iterated, and progressively refined, replacing intuition with evidence at every scale from the private room to the city edge.</p>
+        </div>
+
+        <p style="font-size:0.82rem; margin-top:0.85rem;">
+          Related:&nbsp;
+          <a href="https://dx.doi.org/10.13140/RG.2.2.32000.00001" target="_blank" rel="noopener noreferrer" style="color:var(--gold); text-decoration:none;">Seminar paper ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer" style="color:var(--gold); text-decoration:none;">NKDT Points app ↗</a>
+          &nbsp;·&nbsp;
+          <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer" style="color:var(--gold); text-decoration:none;">NKDT API ↗</a>
+        </p>
+      </section>
+
     </div><!-- /detail-nkdt -->
 
     <!-- ACRE -->
@@ -3576,6 +4051,56 @@ pvPositionAll();
   var pinchStartDist = 0, pinchStartScale = 1, justPinched = 0;
   var gallery = [], galleryIdx = 0;
 
+  // Shared gallery-nav wiring for any lightbox with prev/next + counter +
+  // keyboard arrows + horizontal touch-swipe on its content region.
+  // The caller provides the goto callback (which does the actual content
+  // swap) and getters for current index / length. updateNav() is exposed
+  // back via the returned object so the caller can refresh the counter
+  // after swaps that don't go through arrow / swipe / key paths.
+  function wireGalleryNav(opts) {
+    var prev = opts.prev, next = opts.next, counter = opts.counter;
+    var swipeOn = opts.swipeOn, root = opts.root, isOpen = opts.isOpen;
+    function updateNav() {
+      var single = opts.getLength() <= 1;
+      if (prev) prev.classList.toggle('is-hidden', single);
+      if (next) next.classList.toggle('is-hidden', single);
+      if (counter) {
+        counter.textContent = single ? '' : (opts.getIndex() + 1) + ' / ' + opts.getLength();
+      }
+    }
+    if (prev) prev.addEventListener('click', function(e){ e.stopPropagation(); opts.goto(opts.getIndex() - 1); });
+    if (next) next.addEventListener('click', function(e){ e.stopPropagation(); opts.goto(opts.getIndex() + 1); });
+    // Horizontal swipe (single touch, dominant axis, 60px threshold).
+    // Callers can pass shouldSwipe() to gate when swipe should fire (e.g.
+    // disable while a zoomed image is being panned).
+    if (swipeOn) {
+      var sx = 0, sy = 0, swiping = false;
+      swipeOn.addEventListener('touchstart', function(e){
+        if (e.touches.length !== 1) { swiping = false; return; }
+        if (opts.shouldSwipe && !opts.shouldSwipe()) { swiping = false; return; }
+        sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+        swiping = true;
+      }, { passive: true });
+      swipeOn.addEventListener('touchend', function(e){
+        if (!swiping) return;
+        swiping = false;
+        var t = e.changedTouches[0];
+        var dx = t.clientX - sx, dy = t.clientY - sy;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+          opts.goto(opts.getIndex() + (dx < 0 ? 1 : -1));
+        }
+      });
+    }
+    // Keyboard arrows + Escape (scoped to this lightbox's open state).
+    document.addEventListener('keydown', function(e){
+      if (!isOpen()) return;
+      if (e.key === 'Escape') { opts.close(); return; }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); opts.goto(opts.getIndex() + 1); }
+      if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); opts.goto(opts.getIndex() - 1); }
+    });
+    return { updateNav: updateNav };
+  }
+
   // Zoom enlarges the image/svg via width/height (NOT transform), which forces
   // the browser to re-paint at the target resolution and keeps inline SVGs
   // crisp at any zoom. The frame (display: inline-block) hugs its child, so
@@ -3735,6 +4260,7 @@ pvPositionAll();
     });
   }
 
+  var lbNav = null; // set on first openLightbox call
   function showGalleryItem(idx) {
     if (!gallery.length) return;
     galleryIdx = (idx + gallery.length) % gallery.length;
@@ -3742,17 +4268,7 @@ pvPositionAll();
     setLightboxSource(item.src);
     lb.querySelector('.pv-lightbox-caption').textContent = item.title;
     resetZoom();
-    updateNavButtons();
-  }
-
-  function updateNavButtons() {
-    if (!lbPrev) return;
-    var single = gallery.length <= 1;
-    lbPrev.classList.toggle('is-hidden', single);
-    lbNext.classList.toggle('is-hidden', single);
-    if (lbCounter) {
-      lbCounter.textContent = single ? '' : (galleryIdx + 1) + ' / ' + gallery.length;
-    }
+    if (lbNav) lbNav.updateNav();
   }
 
   function openLightbox(src, title, triggerEl) {
@@ -3781,8 +4297,18 @@ pvPositionAll();
         if (suppressBackdropClick) { suppressBackdropClick = false; return; }
         if (e.target === lb) closeLightbox();
       });
-      lbPrev.addEventListener('click', function(e){ e.stopPropagation(); showGalleryItem(galleryIdx - 1); });
-      lbNext.addEventListener('click', function(e){ e.stopPropagation(); showGalleryItem(galleryIdx + 1); });
+      lbNav = wireGalleryNav({
+        prev: lbPrev, next: lbNext, counter: lbCounter,
+        // Swipe nav on the frame, but only when not zoomed — otherwise the
+        // 1-finger pan-drag would collide with the swipe gesture.
+        swipeOn: lbFrame,
+        shouldSwipe: function(){ return scale <= 1; },
+        isOpen: function(){ return lb.classList.contains('is-open'); },
+        getIndex: function(){ return galleryIdx; },
+        getLength: function(){ return gallery.length; },
+        goto: showGalleryItem,
+        close: closeLightbox
+      });
 
       // Wheel zoom
       lbFrame.addEventListener('wheel', function(e){
@@ -3887,7 +4413,7 @@ pvPositionAll();
       lb.querySelector('.pv-lightbox-caption').textContent = title || '';
     }
     resetZoom();
-    updateNavButtons();
+    if (lbNav) lbNav.updateNav();
     requestAnimationFrame(function(){ lb.classList.add('is-open'); });
     document.body.style.overflow = 'hidden';
   }
@@ -3908,13 +4434,6 @@ pvPositionAll();
     clampPan(); applyTransform();
   }
 
-  document.addEventListener('keydown', function(e){
-    if (!lb || !lb.classList.contains('is-open')) return;
-    if (e.key === 'Escape') { closeLightbox(); return; }
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showGalleryItem(galleryIdx + 1); }
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); showGalleryItem(galleryIdx - 1); }
-  });
-
   document.addEventListener('click', function(e){
     var btn = e.target.closest('[data-lightbox]');
     if (btn) {
@@ -3930,7 +4449,7 @@ pvPositionAll();
   // Uses the same backdrop styling as the image lightbox but no zoom/pan —
   // Chart.js renders crisp at the target size already. Prev/next nav + swipe
   // mirror the image lightbox's gallery behavior.
-  var clb = null, clbContent = null, clbPrev = null, clbNext = null, clbCounter = null;
+  var clb = null, clbContent = null, clbNav = null;
   var clbGallery = [], clbIdx = 0;
   function buildChartLightbox() {
     if (clb) return;
@@ -3946,31 +4465,20 @@ pvPositionAll();
       + '</div>';
     document.body.appendChild(clb);
     clbContent = clb.querySelector('.pv-chart-lightbox-content');
-    clbPrev    = clb.querySelector('.pv-lightbox-prev');
-    clbNext    = clb.querySelector('.pv-lightbox-next');
-    clbCounter = clb.querySelector('.pv-lightbox-counter');
     clb.querySelector('.pv-chart-lightbox-close').addEventListener('click', closeChartLightbox);
     clb.addEventListener('click', function(e){
       if (e.target === clb) closeChartLightbox();
     });
-    clbPrev.addEventListener('click', function(e){ e.stopPropagation(); showChartGalleryItem(clbIdx - 1); });
-    clbNext.addEventListener('click', function(e){ e.stopPropagation(); showChartGalleryItem(clbIdx + 1); });
-
-    // Touch swipe to navigate. Threshold: 60px horizontal, dominant axis.
-    var sx = 0, sy = 0, swiping = false;
-    clbContent.addEventListener('touchstart', function(e){
-      if (e.touches.length !== 1) { swiping = false; return; }
-      sx = e.touches[0].clientX; sy = e.touches[0].clientY;
-      swiping = true;
-    }, { passive: true });
-    clbContent.addEventListener('touchend', function(e){
-      if (!swiping) return;
-      swiping = false;
-      var t = e.changedTouches[0];
-      var dx = t.clientX - sx, dy = t.clientY - sy;
-      if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
-        showChartGalleryItem(clbIdx + (dx < 0 ? 1 : -1));
-      }
+    clbNav = wireGalleryNav({
+      prev: clb.querySelector('.pv-lightbox-prev'),
+      next: clb.querySelector('.pv-lightbox-next'),
+      counter: clb.querySelector('.pv-lightbox-counter'),
+      swipeOn: clbContent,
+      isOpen: function(){ return clb.classList.contains('is-open'); },
+      getIndex: function(){ return clbIdx; },
+      getLength: function(){ return clbGallery.length; },
+      goto: showChartGalleryItem,
+      close: closeChartLightbox
     });
   }
   function destroyChartLightboxContent() {
@@ -3998,13 +4506,7 @@ pvPositionAll();
     // is fully visible (the previous one may have left the user scrolled).
     var inner = clb.querySelector('.pv-chart-lightbox-inner');
     if (inner) inner.scrollTop = 0;
-    updateChartNav();
-  }
-  function updateChartNav() {
-    var single = clbGallery.length <= 1;
-    if (clbPrev) clbPrev.classList.toggle('is-hidden', single);
-    if (clbNext) clbNext.classList.toggle('is-hidden', single);
-    if (clbCounter) clbCounter.textContent = single ? '' : (clbIdx + 1) + ' / ' + clbGallery.length;
+    if (clbNav) clbNav.updateNav();
   }
   function closeChartLightbox() {
     if (!clb) return;
@@ -4028,12 +4530,6 @@ pvPositionAll();
     document.body.style.overflow = 'hidden';
     showChartGalleryItem(clbIdx);
   };
-  document.addEventListener('keydown', function(e){
-    if (!clb || !clb.classList.contains('is-open')) return;
-    if (e.key === 'Escape') { closeChartLightbox(); return; }
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showChartGalleryItem(clbIdx + 1); }
-    if (e.key === 'ArrowLeft'  || e.key === 'ArrowUp')   { e.preventDefault(); showChartGalleryItem(clbIdx - 1); }
-  });
 })();
 </script>
 
