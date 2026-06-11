@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><body>
+<iframe id="f" src="index.html" style="width:1200px;height:800px;border:0"></iframe>
+<div id="result">pending</div>
+<script>
+const f = document.getElementById('f');
+f.onload = () => {
+  const w = f.contentWindow, d = f.contentDocument;
+  w.scrollTo(0, 999999);              // jump to bottom (deep in a panel)
+  setTimeout(() => {
+    const startY = Math.round(w.scrollY);
+    d.getElementById('tab-nkdt').click();   // click a project
+    const samples = [];
+    let n = 0;
+    (function sample() {
+      samples.push(Math.round(w.scrollY));
+      if (n++ < 80) requestAnimationFrame(sample);
+      else {
+        const uniq = [...new Set(samples)];
+        document.getElementById('result').textContent =
+          'RESULT startY=' + startY +
+          ' frames=' + samples.length +
+          ' distinct=' + uniq.length +
+          ' first=' + samples[0] +
+          ' last=' + samples[samples.length - 1] +
+          ' verdict=' + (uniq.length > 5 ? 'ANIMATED' : 'JUMPED');
+      }
+    })();
+  }, 200);
+};
+</script>
+</body></html>
