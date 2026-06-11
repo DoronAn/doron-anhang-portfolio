@@ -1285,6 +1285,16 @@ footer a:hover { color: var(--gold); }
 .pv-strip-thumbs .pv-strip-item--img .pv-card { border-left-width: 3px; }
 .pv-strip-thumbs .pv-strip-item--img .pv-card-media { padding: 2px; }
 
+/* Product Design: drop the gold strip on thumbnails (a thumb is a plain
+   image tile, not a labelled card) and round the enlarged hero image.
+   Scoped to this project so other image strips keep the card chrome. */
+.pv-body[data-project="design"] .pv-strip-thumbs .pv-strip-item--img .pv-card {
+  border-left: 1px solid var(--card-border);
+}
+.pv-body[data-project="design"] .pv-strip-hero .pv-strip-item--img .pv-card-media img {
+  border-radius: 5px;
+}
+
 /* Item shapes – chart item */
 .pv-strip-item--chart {
   padding: 14px 18px 12px;
