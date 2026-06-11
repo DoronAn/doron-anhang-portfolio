@@ -1121,6 +1121,13 @@ footer a:hover { color: var(--gold); }
 .pv-body.is-no-stage .pv-stage-col,
 .pv-body.is-no-stage .pv-sidebar { display: none; }
 
+/* Product Design gives the renders the lead: stage takes ~60% of the
+   non-sidebar width (text 2fr : stage 3fr). Scoped to this project only;
+   the shared 50/50 split (above) is unchanged for everyone else. */
+.pv-body[data-project="design"]:not(.is-no-stage) {
+  grid-template-columns: 320px minmax(0, 2fr) minmax(0, 3fr);
+}
+
 /* Inline project header (shown only when the sidebar is hidden) */
 .pv-head-inline { display: none; }
 .pv-body.is-no-stage .pv-head-inline { display: block; padding: 1rem 0 1.5rem; }
@@ -2908,177 +2915,45 @@ footer a:hover { color: var(--gold); }
 
       <section class="pv-chapter" id="ch-ds-lighting"
                data-title="Lighting"
-               data-stage-ref="#ch-ds-lighting-template">
+               data-stage-mode="strip"
+               data-images='[
+                 {"src":"images/design/drift_wood.png","title":"Drift Wood","cap":"Pendant fixture: overview","takeaway":"Raw timber grain met by a fine metal stem: the join is the composition."},
+                 {"src":"images/design/drift_wood_detail.png","title":"Drift Wood","cap":"Pendant fixture: detail","takeaway":"The junction left legible: fabrication as the finished detail."},
+                 {"src":"images/design/rail_wood.png","title":"Rail Wood","cap":"Track fixture: overview","takeaway":"Metal rail reads as armature; timber reads as warmth: neither dominates."},
+                 {"src":"images/design/rail_wood_detail.png","title":"Rail Wood","cap":"Track fixture: detail","takeaway":"The metal carries the load so the timber can stay purely expressive."},
+                 {"src":"images/design/plank.png","title":"Plank","cap":"Pendant fixture","takeaway":"A single plank of timber, suspended: form and material as one statement."},
+                 {"src":"images/design/desk_lamp.png","title":"Desk Lamp","cap":"Task fixture","takeaway":"The same timber-and-metal logic scaled down to the desk."},
+                 {"src":"images/design/petach_tikva_fixture.png","title":"Hanging Enamel Fixture","cap":"Pendant fixture","takeaway":"Enamel brings colour where the others stay in raw material."}
+               ]'>
         <span class="pv-ch-num">01 // Lighting</span>
         <h2 class="pv-ch-title">Lighting - Timber &amp; Metal</h2>
         <p>A series of handcrafted lighting designs exploring timber and metal as complementary materials. Each fixture treats the junction between raw wood grain and precision metal as the compositional centrepiece – the construction logic is left legible rather than concealed.</p>
-
-        <template id="ch-ds-lighting-template">
-          <div class="pv-arch-layout">
-            <div class="pv-arch-plans is-hswipe">
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/drift_wood.png" data-lightbox-title="Drift Wood: overview">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Drift Wood</div>
-                  <div class="pv-card-sub">Pendant fixture: overview</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/drift_wood.png" alt="Drift Wood pendant lighting fixture, overview render"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Raw timber grain met by a fine metal stem: the join is the composition.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/drift_wood_detail.png" data-lightbox-title="Drift Wood: detail">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Drift Wood</div>
-                  <div class="pv-card-sub">Pendant fixture: detail</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/drift_wood_detail.png" alt="Drift Wood pendant lighting fixture, close-up detail of timber-metal junction"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">The junction left legible: fabrication as the finished detail.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/rail_wood.png" data-lightbox-title="Rail Wood: overview">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Rail Wood</div>
-                  <div class="pv-card-sub">Track fixture: overview</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/rail_wood.png" alt="Rail Wood track lighting fixture, overview render"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Metal rail reads as armature; timber reads as warmth: neither dominates.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/rail_wood_detail.png" data-lightbox-title="Rail Wood: detail">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Rail Wood</div>
-                  <div class="pv-card-sub">Track fixture: detail</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/rail_wood_detail.png" alt="Rail Wood track lighting fixture, close-up detail"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">The metal carries the load so the timber can stay purely expressive.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/plank.png" data-lightbox-title="Plank: pendant fixture">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Plank</div>
-                  <div class="pv-card-sub">Pendant fixture</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/plank.png" alt="Plank pendant lighting fixture render"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">A single plank of timber, suspended: form and material as one statement.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/desk_lamp.png" data-lightbox-title="Desk Lamp">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Desk Lamp</div>
-                  <div class="pv-card-sub">Task fixture</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/desk_lamp.png" alt="Timber and metal desk lamp render"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">The same timber-and-metal logic scaled down to the desk.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/petach_tikva_fixture.png" data-lightbox-title="Hanging Enamel Fixture">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Hanging Enamel Fixture</div>
-                  <div class="pv-card-sub">Pendant fixture</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/petach_tikva_fixture.png" alt="Hanging enamel pendant light fixture render"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Enamel brings colour where the others stay in raw material.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-            </div>
-          </div>
-        </template>
       </section>
 
       <section class="pv-chapter" id="ch-ds-shade"
                data-title="Shade"
-               data-stage-ref="#ch-ds-shade-template">
+               data-stage-mode="strip"
+               data-images='[
+                 {"src":"images/design/shade_perspective.png","title":"Shade Structure","cap":"Tensegrity canopy: perspective","takeaway":"Beams held apart by wire tension alone: compression and tension fully separated."},
+                 {"src":"images/design/shade_front.png","title":"Shade Structure","cap":"Tensegrity canopy: front elevation","takeaway":"Front-on, the wires resolve into a clean tensioned plane."},
+                 {"src":"images/design/shade_side.png","title":"Shade Structure","cap":"Tensegrity canopy: side elevation","takeaway":"The section reveals how the floating geometry holds itself open."}
+               ]'>
         <span class="pv-ch-num">02 // Shade</span>
         <h2 class="pv-ch-title">Shade - A Tensegrity Canopy</h2>
         <p>A canopy built on a <strong>tensegrity principle</strong>: the beams carry no bending – they are held apart purely by the tension wires strung between them. Compression and tension are separated into distinct members, so the structure reads as floating rather than supported. The three views document how the geometry resolves across all orientations.</p>
-
-        <template id="ch-ds-shade-template">
-          <div class="pv-arch-layout">
-            <div class="pv-arch-plans is-hswipe">
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/shade_perspective.png" data-lightbox-title="Shade structure: perspective">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Shade Structure</div>
-                  <div class="pv-card-sub">Tensegrity canopy: perspective</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/shade_perspective.png" alt="Tensegrity shade canopy, perspective view"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Beams held apart by wire tension alone: compression and tension fully separated.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/shade_front.png" data-lightbox-title="Shade structure: front elevation">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Shade Structure</div>
-                  <div class="pv-card-sub">Tensegrity canopy: front elevation</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/shade_front.png" alt="Tensegrity shade canopy, front elevation"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Front-on, the wires resolve into a clean tensioned plane.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/shade_side.png" data-lightbox-title="Shade structure: side elevation">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Shade Structure</div>
-                  <div class="pv-card-sub">Tensegrity canopy: side elevation</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/shade_side.png" alt="Tensegrity shade canopy, side elevation"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">The section reveals how the floating geometry holds itself open.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-            </div>
-          </div>
-        </template>
       </section>
 
       <section class="pv-chapter" id="ch-ds-jewellery"
                data-title="Jewellery"
-               data-stage-ref="#ch-ds-jewellery-template">
+               data-stage-mode="strip"
+               data-images='[
+                 {"src":"images/design/ring_overview.png","title":"Engagement Ring","cap":"18k gold &amp; amber: overview","takeaway":"Gold band and amber stone from San Cristóbal: the ring carries the place it came from."},
+                 {"src":"images/design/ring_studio.png","title":"Engagement Ring","cap":"18k gold &amp; amber: studio view","takeaway":"Neutral light reads the lost-wax surface and the band&apos;s hand-carved profile."},
+                 {"src":"images/design/ring_lit.png","title":"Engagement Ring","cap":"18k gold &amp; amber: lit view","takeaway":"Directional light brings the amber alive: the stone becomes the source."}
+               ]'>
         <span class="pv-ch-num">03 // Jewellery</span>
         <h2 class="pv-ch-title">Jewellery - An Engagement Ring</h2>
         <p>Made for my wife – an engagement ring in <strong>18k gold</strong> set with an <strong>amber stone</strong> sourced in <strong>San Cristóbal de las Casas, Mexico</strong>, where we met. The ring was fabricated using <strong>lost-wax casting</strong>: a wax model was hand-carved to shape, invested in plaster, then burned out to leave a cavity into which molten gold was cast. Three renders examine the piece under different lighting conditions.</p>
-
-        <template id="ch-ds-jewellery-template">
-          <div class="pv-arch-layout">
-            <div class="pv-arch-plans is-hswipe">
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/ring_overview.png" data-lightbox-title="Engagement Ring: overview">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Engagement Ring</div>
-                  <div class="pv-card-sub">18k gold &amp; amber: overview</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/ring_overview.png" alt="Engagement ring in 18k gold with amber stone, overview render"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Gold band and amber stone from San Cristóbal: the ring carries the place it came from.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/ring_studio.png" data-lightbox-title="Engagement Ring: studio view">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Engagement Ring</div>
-                  <div class="pv-card-sub">18k gold &amp; amber: studio view</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/ring_studio.png" alt="Engagement ring in 18k gold with amber stone, studio render"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Neutral light reads the lost-wax surface and the band's hand-carved profile.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-              <button class="pv-card pv-card--img pv-card--lightbox"
-                      data-lightbox="images/design/ring_lit.png" data-lightbox-title="Engagement Ring: lit view">
-                <div class="pv-card-head">
-                  <div class="pv-card-title">Engagement Ring</div>
-                  <div class="pv-card-sub">18k gold &amp; amber: lit view</div>
-                </div>
-                <div class="pv-card-rule"></div>
-                <div class="pv-card-media"><img loading="lazy" src="images/design/ring_lit.png" alt="Engagement ring in 18k gold with amber stone, lit render showing amber glow"></div>
-                <div class="pv-card-foot"><span class="pv-card-takeaway">Directional light brings the amber alive: the stone becomes the source.</span><span class="app-expand-hint">↗ click to expand</span></div>
-              </button>
-            </div>
-          </div>
-        </template>
       </section>
 
     </div><!-- /detail-design -->
@@ -3932,6 +3807,7 @@ function pvActivate(id, fromRight) {
   if (isWelcome) {
     if (pvSidebarEl) pvSidebarEl.classList.remove('is-collapsed');
     pvBodyEl.classList.remove('has-chapters', 'pv-active', 'is-no-stage');
+    pvBodyEl.removeAttribute('data-project');
     if (pvSidebarClip) { pvSidebarClip.style.top=''; pvSidebarClip.style.height=''; }
     pvRailD.innerHTML=''; pvRailM.innerHTML=''; pvStageEl.innerHTML=''; pvHeadEl.innerHTML='';
     var inlineH = document.getElementById('pvHeadInline'); if (inlineH) inlineH.innerHTML = '';
@@ -3958,6 +3834,7 @@ function pvActivate(id, fromRight) {
     }
   });
   pvRailD.innerHTML=''; pvRailM.innerHTML=''; pvStageEl.innerHTML='';
+  pvBodyEl.setAttribute('data-project', id);
   if (pvState.chapters.length > 0) {
     pvBodyEl.classList.add('has-chapters');
     // Build rail buttons + stage imgsets synchronously (needed for the slide animation).
@@ -4566,6 +4443,10 @@ pvPositionAll();
   document.addEventListener('click', function(e){
     var btn = e.target.closest('[data-lightbox]');
     if (btn) {
+      // A strip thumbnail swaps into the hero (pvStripActivate) rather than
+      // opening the lightbox; only the hero itself expands. Let the rail's own
+      // handler deal with thumb clicks.
+      if (btn.closest('.pv-strip-thumbs')) return;
       e.preventDefault();
       openLightbox(btn.dataset.lightbox, btn.dataset.lightboxTitle, btn);
     }
