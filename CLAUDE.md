@@ -242,7 +242,7 @@ A chapter looks like:
 <section class="pv-chapter" id="ch-<slug>"
          data-title="Short Title for Rail"
          data-stage-ref="#ch-<slug>-template">  <!-- OR data-images='[…]' OR data-stage-mode="strip" -->
-  <span class="pv-ch-num">01 — Topic</span>
+  <span class="pv-ch-num">01 // Topic</span>
   <h2 class="pv-ch-title">Long Title for Body</h2>
   <p>Body copy…</p>
 
@@ -271,9 +271,17 @@ Body copy follows a specific register that should be preserved when adding text:
 - **Bold the load-bearing nouns**, not whole sentences. Use `<strong>` for the specific concept under discussion (`<strong>Sense of Community</strong>`, `<strong>Privacy-by-Design</strong>`) — never for emphasis-for-emphasis-sake.
 - **Italicize for sub-concepts and book-style emphasis** via `<em>` (`<em>Membership</em>`, `<em>natural experiment</em>`). The serif's italic is part of the visual texture.
 - **Numbers stay precise.** "3.9 / 5 (SD = 0.38, p < 0.01)", "0.106 km²", "47 days", "n = 22". Don't round for readability.
-- **Section labels are short, gold, uppercase.** "01 — Context", "STUDY METRICS", "EMPIRICAL FINDING".
+- **Section labels are short, gold, uppercase.** "01 // Context", "STUDY METRICS", "EMPIRICAL FINDING".
 - **Takeaways are single italic sentences** prefixed by a gold `→`. Aim for the one thing the reader should remember if they only glance at the image.
 - **Avoid emoji and avoid icons** — except the `↗` "expand" hint and the `→` takeaway arrow, which are part of the established palette.
+- **Separators are semantic — don't use the em dash (`—`) in reader-facing copy.** Each separator role gets its own glyph, so the punctuation itself signals what kind of label you're reading:
+  - **Chapter numbers** (`.pv-ch-num`): double slash. `01 // Context`. (Date ranges in this slot, like `2021 – 2023`, stay an en dash.)
+  - **Project headlines** (`data-title` / `data-title-short`): double slash. `NKDT // Architecture as a Dynamic System`.
+  - **Chapter body headlines** (`.pv-ch-title`): spaced hyphen. `Methodology - Two Parallel Tracks`.
+  - **Card / lightbox titles, `.pv-card-sub`, takeaways, captions, `data-images` `title`/`cap`/`takeaway`** : colon. `Type A: Urban Corridor`, `Dense and institutional: corridors replace communal space.`
+  - **Mid-sentence asides in body copy**, plus the `<title>`, eyebrows, and pub-notes: spaced en dash (`–`). `…shape human communities – yet these assertions rarely…`.
+  - **Numeric ranges** (`1–5`, `2–4`, `0.033 km²`): en dash, no surrounding spaces — these are values, not separators.
+  - **Code comments** (CSS / JS / HTML): spaced en dash (`–`), for consistency with body asides.
 
 ---
 
