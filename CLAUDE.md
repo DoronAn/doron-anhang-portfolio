@@ -4,6 +4,8 @@ This is Doron Anhang's architectural-R&D portfolio. It's a single-page site buil
 
 When in doubt, scan an existing chapter (e.g. the Research project's "Context" or "Archetypes") for a precedent before inventing one. Reuse > recreate.
 
+> **⚠️ Commit before big tasks.** This is a single-file site with uncommitted work living only in the working tree. Before starting any large or destructive task (a new project tab, a sweeping find-replace, a refactor), **prompt the user to commit and push first** — and don't run `git checkout`/`git restore` on `index.html` without confirming there's no uncommitted work to lose. A working-tree-only edit that was never staged is *not* recoverable through git.
+
 ---
 
 ## 1. The visual tone (read this first)
