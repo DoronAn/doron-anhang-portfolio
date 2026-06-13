@@ -337,9 +337,11 @@ window.SITE_DATA = {
         num: "03", title: "Jewellery — an engagement ring",
         html: `<p>Made for my wife – an engagement ring in <strong>18k gold</strong> set with an <strong>amber stone</strong> sourced in <strong>San Cristóbal de las Casas, Mexico</strong>, where we met. The ring was fabricated using <strong>lost-wax casting</strong>: a wax model was hand-carved to shape, invested in plaster, then burned out to leave a cavity into which molten gold was cast. Three renders examine the piece under different lighting conditions.</p>`,
         figures: [
+          { src: "images/design/ring_wip.png", title: "Engagement ring", cap: "Wax model & raw amber — before casting", takeaway: "The hand-carved wax and the uncut stone: the piece begins as the lost-wax pattern." },
           { src: "images/design/ring_overview.png", title: "Engagement ring", cap: "18k gold & amber — overview", takeaway: "Gold band and amber stone from San Cristóbal: the ring carries the place it came from." },
           { src: "images/design/ring_studio.png", title: "Engagement ring", cap: "Studio view", takeaway: "Neutral light reads the lost-wax surface and the band's hand-carved profile." },
-          { src: "images/design/ring_lit.png", title: "Engagement ring", cap: "Lit view", takeaway: "Directional light brings the amber alive: the stone becomes the source." }
+          { src: "images/design/ring_lit.png", title: "Engagement ring", cap: "Lit view", takeaway: "Directional light brings the amber alive: the stone becomes the source." },
+          { src: "images/design/ring_sunlight.png", title: "Engagement ring", cap: "Daylight view", takeaway: "In natural sunlight the amber warms to its deepest tone: the finished piece in the world." }
         ]
       }
     ]
@@ -503,7 +505,33 @@ window.SITE_DATA = {
     chapters: null
   },
 
-  /* ── 09 · PUBLICATIONS ─────────────────────────────────────────── */
+  /* ── 09 · CLINIC (WIP) ─────────────────────────────────────────── */
+  {
+    id: "clinic",
+    cat: "architecture",
+    title: "Clinic // Construction Documentation Set",
+    stripTitle: "Clinic — Construction Documentation Set",
+    year: "2017",
+    eyebrow: "Technical Drawing · B.Arch Coursework, 2017",
+    meta: "Full construction-documentation set · plans, sections, facades & details",
+    kw: ["Construction Docs", "Technical Drawing", "Detailing", "AutoCAD"],
+    cover: null,
+    wip: true,
+    wipNote: "An 11-sheet construction-documentation set (plans, sections, facades, stairs & details, 1:25–1:100) is being prepared for the web.",
+    summary: {
+      kicker: "Technical Drawing · B.Arch Coursework, 2017",
+      headline: 'A complete <em>construction set</em>, drawn by hand-logic.',
+      paras: [
+        "An early, full construction-documentation exercise for a small clinic: ground and second-floor plans, roof plan, north and west facades, two A–A sections (1:25 and 1:50), a stair detail, and two detail sheets — eleven coordinated drawings in all.",
+        "The drawings exist as a measured PDF set; web-ready raster sheets are in preparation."
+      ],
+      facts: [],
+      images: []
+    },
+    chapters: null
+  },
+
+  /* ── 10 · PUBLICATIONS ─────────────────────────────────────────── */
   {
     id: "pubs",
     cat: "research",
