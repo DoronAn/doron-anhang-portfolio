@@ -37,7 +37,8 @@ window.SITE_DATA = {
     contact: {
       email: "doron.anhang@gmail.com",
       phone: "+972-54-233-0059",
-      linkedin: "https://linkedin.com/in/doron-anhang"
+      linkedin: "https://linkedin.com/in/doron-anhang",
+      cv: "cv/doron_anhang_cv.pdf"   // TODO: drop the real CV PDF here
     },
     cta: 'Looking to combine my research experience with my love of architecture.'
   },

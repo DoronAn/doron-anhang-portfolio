@@ -34,7 +34,8 @@ img{display:block}
 header{position:sticky;top:0;background:rgba(246,241,231,.94);backdrop-filter:blur(8px);z-index:40;border-bottom:2px solid var(--ink)}
 .hd{display:flex;justify-content:space-between;align-items:end;padding:1.1rem 0}
 .hd-id{font-family:var(--mono);font-size:.64rem;color:var(--warm-gray)}
-.hd-name{font-size:1.25rem;font-weight:800;text-transform:uppercase;letter-spacing:-.02em}
+.hd-name{display:block;text-align:left;font-size:1.25rem;font-weight:800;text-transform:uppercase;letter-spacing:-.02em;transition:color .2s}
+.hd-name:hover{color:var(--bronze)}
 nav{display:flex;gap:1.7rem;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;padding-bottom:.2rem}
 nav a{color:var(--ink);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px}
 nav a:hover{border-color:var(--bronze)}
@@ -314,12 +315,9 @@ footer a:hover{color:var(--ink)}
 <header><div class="grid hd">
   <div>
     <div class="hd-id" id="hdId"></div>
-    <div class="hd-name" id="hdName"></div>
+    <button class="hd-name" id="hdName" type="button" aria-label="Back to index"></button>
   </div>
-  <nav>
-    <a href="#" onclick="closeAll();return false;">Index</a>
-    <a href="#contact">Contact</a>
-  </nav>
+  <nav id="hdNav"></nav>
 </div></header>
 
 <section class="grid hero" id="hero"></section>
@@ -361,8 +359,17 @@ const esc = s => String(s).replace(/"/g, '&quot;');
 
 /* ═══════════════ HERO / CHROME ═══════════════ */
 const I = D.identity;
+const C = I.contact;
+const telHref = p => 'tel:' + p.replace(/[^+\d]/g, '');
 document.getElementById('hdId').textContent = I.dossier;
 document.getElementById('hdName').textContent = I.name;
+document.getElementById('hdName').addEventListener('click', closeAll);
+/* header nav = the contact links (replaces Index / Contact buttons) */
+document.getElementById('hdNav').innerHTML = `
+  <a href="mailto:${C.email}">Email</a>
+  <a href="${C.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+  <a href="${src(C.cv)}" target="_blank" rel="noopener noreferrer">CV ↗</a>
+  <a href="${telHref(C.phone)}">Phone</a>`;
 document.getElementById('hero').innerHTML = `
   <div class="hero-l">
     <div class="hero-kicker">${I.kicker.replace(/&/g,'&amp;').replace(/&amp;amp;/g,'&amp;')}</div>
@@ -372,18 +379,20 @@ document.getElementById('hero').innerHTML = `
   <dl class="hero-r">
     ${I.specs.map(s => `<div class="spec"><dt>${s.cat ? `<i style="background:${CATS[s.cat].color}"></i>` : ''}${s.dt}</dt><dd>${s.dd}</dd></div>`).join('')}
     <div class="hero-contact">
-      <a href="mailto:${I.contact.email}">EMAIL</a>
-      <a href="${I.contact.linkedin}" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a>
-      <a href="tel:${I.contact.phone.replace(/-/g,'')}">${I.contact.phone}</a>
+      <a href="mailto:${C.email}">EMAIL</a>
+      <a href="${C.linkedin}" target="_blank" rel="noopener noreferrer">LINKEDIN ↗</a>
+      <a href="${src(C.cv)}" target="_blank" rel="noopener noreferrer">CV ↗</a>
+      <a href="${telHref(C.phone)}">${C.phone}</a>
     </div>
   </dl>`;
 document.getElementById('ctaText').innerHTML = I.cta.replace(/research experience/,'<em>research experience</em>').replace(/love of architecture/,'<em>love of architecture</em>');
 document.getElementById('ctaRow').innerHTML = `
-  <a class="btn-pill" href="mailto:${I.contact.email}">Email me</a>
-  <a class="btn-pill" href="${I.contact.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>`;
+  <a class="btn-pill" href="mailto:${C.email}">Email me</a>
+  <a class="btn-pill" href="${C.linkedin}" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+  <a class="btn-pill" href="${src(C.cv)}" target="_blank" rel="noopener noreferrer">CV ↗</a>`;
 document.getElementById('footer').innerHTML = `
   <span>${I.name} · Architectural R&amp;D · ${new Date().getFullYear()}</span>
-  <span>${I.contact.phone} · <a href="mailto:${I.contact.email}">${I.contact.email}</a></span>`;
+  <span><a href="${telHref(C.phone)}">${C.phone}</a> · <a href="mailto:${C.email}">${C.email}</a> · <a href="${src(C.cv)}" target="_blank" rel="noopener noreferrer">CV ↗</a></span>`;
 
 /* ═══════════════ RENDER HELPERS ═══════════════ */
 function figCard(f, pid, gi) {
