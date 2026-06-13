@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup 8 — Skyline Editorial (V2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF5EC; --sand:#E8D9BE; --ink:#23211C; --gray:#6f6a60;
+  --gold:#E0A33E; --green:#5CB270; --blue:#2070B4; --red:#DF4B3B;
+  --mono:'JetBrains Mono',monospace; --sans:'Archivo',sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.6}
+.grid{max-width:1320px;margin:0 auto;padding:0 2.5rem}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+
+/* ── top bar ── */
+header{border-bottom:1px solid var(--ink)}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0}
+.hd-name{font-size:1.05rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+nav{display:flex;gap:1.8rem;font-family:var(--mono);font-size:.68rem;text-transform:uppercase}
+nav a{color:var(--ink);text-decoration:none}
+nav a:hover{text-decoration:underline}
+
+/* ── hero: huge type, dots scattered through the headline itself ── */
+.hero{position:relative;padding:5rem 0 0;overflow:hidden}
+.hero-meta{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.64rem;color:var(--gray);text-transform:uppercase;padding-bottom:1.6rem}
+.hero h1{font-size:clamp(3rem,8.5vw,7.5rem);font-weight:900;line-height:.92;letter-spacing:-.045em;text-transform:uppercase;position:relative;z-index:2}
+.hero h1 .alt{color:transparent;-webkit-text-stroke:2px var(--ink)}
+.hero h1 .ind{margin-left:.8em}
+.hero-sub{display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:2.2rem 0 3rem;align-items:start}
+.hero-sub p{font-size:.95rem;color:var(--gray);max-width:50ch}
+.hero-sub .mono-note{font-family:var(--mono);font-size:.66rem;color:var(--gray);text-transform:uppercase;line-height:2;justify-self:end;text-align:right}
+.hero .dot{position:absolute;border-radius:50%;z-index:1}
+.hero .dot.front{z-index:3}
+
+/* ── SKYLINE FILTER — full-bleed, denser, hanging downward ── */
+.sky-wrap{border-top:2px solid var(--ink)}
+.sky{display:flex;align-items:flex-start;gap:2px;height:88px}
+.sky button{flex:1;background:var(--sand);height:var(--h);transition:height .4s cubic-bezier(.4,0,.2,1),filter .15s;min-width:4px;position:relative}
+.sky button:hover{filter:brightness(.92)}
+.sky button.cat{z-index:2}
+.sky button.cat .lbl{position:absolute;top:calc(100% + 6px);left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:.58rem;letter-spacing:.08em;color:var(--ink);opacity:0;transition:opacity .2s;white-space:nowrap;pointer-events:none}
+.sky button.cat:hover .lbl,.sky button.cat.on .lbl{opacity:1}
+.sky.filtered button.cat.on{height:100%!important}
+.sky.filtered button:not(.on){height:calc(var(--h) * .4)!important}
+.sky-base{border-bottom:1px solid var(--ink);padding:1.6rem 0 .9rem;display:flex;justify-content:space-between;align-items:baseline}
+.sky-base h2{font-size:.78rem;font-weight:800;text-transform:uppercase;letter-spacing:.2em}
+.sky-base .state{font-family:var(--mono);font-size:.64rem;color:var(--gray)}
+.sky-base .state b{font-weight:500;color:var(--ink)}
+
+/* ── INDEX: oversized numbered rows, thumb strip right, hover preview ── */
+.row{display:grid;grid-template-columns:auto 14px 1fr auto 168px;gap:1.8rem;align-items:center;padding:1.6rem 0;border-bottom:1px solid var(--ink);width:100%;text-align:left;transition:background .15s}
+.row:hover{background:#fffdf6}
+.row.hide{display:none}
+.row-num{font-size:2.4rem;font-weight:900;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.2px var(--ink);line-height:1;min-width:4.2rem}
+.row:hover .row-num{color:var(--ink);-webkit-text-stroke:0}
+.row-dot{width:14px;height:14px;border-radius:50%}
+.row-main h3{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.row-main small{font-family:var(--mono);font-size:.64rem;color:var(--gray);text-transform:uppercase;display:block;margin-top:.3rem}
+.row-tag{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;border:1px solid currentColor;border-radius:99px;padding:.26rem .7rem;white-space:nowrap}
+.row-thumbs{display:flex;gap:.4rem;justify-self:end}
+.row-thumbs img{width:50px;height:64px;object-fit:cover;border:1px solid var(--ink);filter:grayscale(.7);transition:filter .2s,transform .2s}
+.row:hover .row-thumbs img{filter:none}
+.row:hover .row-thumbs img:nth-child(2){transform:translateY(-4px)}
+.idx-foot{border-bottom:2px solid var(--ink);margin-bottom:3rem}
+
+/* floating hover preview */
+#peek{position:fixed;z-index:50;pointer-events:none;width:300px;border:1px solid var(--ink);background:var(--cream);opacity:0;transform:rotate(-1.5deg) scale(.96);transition:opacity .15s,transform .2s;box-shadow:10px 12px 0 rgba(35,33,28,.1)}
+#peek.show{opacity:1;transform:rotate(-1.5deg) scale(1)}
+#peek img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+#peek figcaption{font-family:var(--mono);font-size:.6rem;padding:.4rem .6rem;border-top:1px solid var(--ink)}
+
+/* ── FULL-PAGE TAKEOVER — editorial, horizontal chapter tabs ── */
+#proj{display:none}
+body.proj-open #indexView{display:none}
+body.proj-open #proj{display:block;animation:fadeUp .4s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.proj-top{border-bottom:1px solid var(--ink)}
+.proj-top-in{display:flex;justify-content:space-between;align-items:center;padding:.9rem 0;font-family:var(--mono);font-size:.66rem;text-transform:uppercase}
+.back:hover{text-decoration:underline}
+.proj-hero{padding:3.5rem 0 0}
+.proj-hero .file{font-family:var(--mono);font-size:.66rem;color:var(--gray);text-transform:uppercase;display:flex;align-items:center;gap:.5rem}
+.proj-hero .file i{width:10px;height:10px;border-radius:50%;background:var(--blue)}
+.proj-hero h1{font-size:clamp(2.6rem,6.5vw,5.5rem);font-weight:900;letter-spacing:-.04em;text-transform:uppercase;line-height:.95;margin:.6rem 0 1.2rem}
+.proj-hero .lede{font-size:1.12rem;font-weight:500;max-width:62ch}
+.proj-hero-fig{margin:2.2rem 0 0;border:1px solid var(--ink)}
+.proj-hero-fig img{width:100%;max-height:520px;object-fit:cover;display:block}
+.proj-hero-fig figcaption{font-family:var(--mono);font-size:.62rem;color:var(--gray);padding:.5rem .8rem;border-top:1px solid var(--ink);display:flex;justify-content:space-between}
+.proj-specs{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--ink);border-top:none;font-family:var(--mono);font-size:.68rem}
+.proj-specs div{padding:.8rem 1rem;border-right:1px solid var(--ink)}
+.proj-specs div:last-child{border-right:none}
+.proj-specs dt{color:var(--gray);display:block;font-size:.58rem;margin-bottom:.2rem}
+
+/* sticky horizontal chapter tabs */
+.ch-tabs{position:sticky;top:0;background:var(--cream);border-bottom:2px solid var(--ink);z-index:30;margin-top:3rem}
+.ch-tabs-in{display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.ch-tabs a{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;color:var(--gray);text-decoration:none;padding:.85rem 1.3rem;border-right:1px solid var(--ink);white-space:nowrap;display:flex;gap:.5rem}
+.ch-tabs a:first-child{border-left:1px solid var(--ink)}
+.ch-tabs a b{font-weight:500;color:var(--blue)}
+.ch-tabs a.cur{background:var(--ink);color:var(--cream)}
+.ch-tabs a.cur b{color:var(--gold)}
+
+.proj-body{padding:3rem 0 2rem}
+.chapter{margin-bottom:4.5rem;scroll-margin-top:4rem}
+.ch-head{display:grid;grid-template-columns:auto 1fr;gap:1.5rem;align-items:baseline;margin-bottom:1.4rem}
+.ch-head b{font-size:2rem;font-weight:900;color:transparent;-webkit-text-stroke:1.2px var(--blue);letter-spacing:-.03em}
+.ch-head h2{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;border-bottom:2px solid var(--ink);padding-bottom:.6rem}
+.ch-cols{display:grid;grid-template-columns:minmax(0,58ch) 1fr;gap:3rem}
+.ch-cols p{font-size:.93rem;color:#4a443a;margin-bottom:.9rem}
+.ch-cols p strong{color:var(--ink)}
+.ch-aside{font-family:var(--mono);font-size:.66rem;color:var(--gray);text-transform:uppercase;line-height:2;border-left:1px solid var(--ink);padding-left:1.2rem;align-self:start}
+figure.fig{margin:1.8rem 0;border:1px solid var(--ink)}
+figure.fig img{width:100%;display:block;max-height:480px;object-fit:cover}
+figure.fig figcaption{font-family:var(--mono);font-size:.6rem;color:var(--gray);padding:.45rem .7rem;border-top:1px solid var(--ink);display:flex;justify-content:space-between}
+.fig-row{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin:1.8rem 0}
+.fig-row figure.fig{margin:0}
+.fig-row img{aspect-ratio:3/4;max-height:none}
+.fig-row.two{grid-template-columns:1fr 1fr}
+.fig-row.two img{aspect-ratio:4/3}
+.finding{border:1px solid var(--blue);background:#eef3f8;padding:1.1rem 1.4rem;margin:1.5rem 0}
+.finding b{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:.3rem;font-weight:500}
+.finding p{font-size:.88rem;color:var(--ink);margin:0}
+.proj-next{border-top:2px solid var(--ink);padding:1.6rem 0 3rem;display:flex;justify-content:space-between;font-family:var(--mono);font-size:.68rem;text-transform:uppercase}
+.proj-next button:hover{text-decoration:underline}
+
+footer{padding:1.2rem 0 2.5rem;font-family:var(--mono);font-size:.66rem;color:var(--gray);display:flex;justify-content:space-between}
+@media(max-width:900px){
+  .hero-sub{grid-template-columns:1fr}
+  .hero-sub .mono-note{justify-self:start;text-align:left}
+  .row{grid-template-columns:auto 12px 1fr;gap:1rem}
+  .row-tag,.row-thumbs{display:none}
+  .row-num{font-size:1.6rem;min-width:2.8rem}
+  .proj-specs{grid-template-columns:1fr 1fr}
+  .proj-specs div:nth-child(2n){border-right:none}
+  .ch-cols{grid-template-columns:1fr}
+  .ch-aside{border-left:none;padding-left:0}
+  .fig-row{grid-template-columns:1fr 1fr}
+  #peek{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ════════ INDEX VIEW ════════ -->
+<div id="indexView">
+<header><div class="grid hd">
+  <div class="hd-name">Doron Anhang ®</div>
+  <nav><a href="#">Index</a><a href="#">Research</a><a href="#">About</a><a href="#">Contact</a></nav>
+</div></header>
+
+<section class="grid hero">
+  <div class="hero-meta"><span>DOSSIER DA-2026</span><span>ARCHITECTURAL R&amp;D</span><span>ARIEL, IL</span></div>
+  <!-- dots woven through the headline, composed like the logo -->
+  <span class="dot" style="width:96px;height:96px;background:var(--gold);top:18%;right:6%"></span>
+  <span class="dot front" style="width:44px;height:44px;background:var(--green);top:38%;left:46%"></span>
+  <span class="dot" style="width:28px;height:28px;background:var(--blue);top:12%;left:30%"></span>
+  <span class="dot front" style="width:58px;height:58px;background:var(--red);bottom:26%;right:26%"></span>
+  <span class="dot" style="width:14px;height:14px;background:var(--blue);bottom:18%;left:12%"></span>
+  <h1>Measure.<br><span class="ind">Design.</span><br><span class="alt">Build.</span></h1>
+  <div class="hero-sub">
+    <p>Evidence-based architecture — spatial research on how housing shapes community, alongside
+    structures and objects built by hand from timber, steel and light.</p>
+    <div class="mono-note">RESEARCH ● BLUE<br>ARCHITECTURE ● RED<br>OBJECTS ● GREEN<br>DRAWINGS ● GOLD</div>
+  </div>
+</section>
+
+<!-- skyline filter: full-bleed, hangs from a heavy rule -->
+<div class="sky-wrap">
+  <div class="sky" id="sky"></div>
+  <div class="grid sky-base">
+    <h2>Index — Selected Work</h2>
+    <span class="state">COLORED BAR FILTERS · SAND BAR RESETS · SHOWING <b id="skyState">ALL</b></span>
+  </div>
+</div>
+
+<main class="grid" id="rows">
+  <button class="row" data-cat="research" data-cover="../images/shared/nkdt_perspective.png" data-cap="001 — NKDT, MASTERPLAN PERSPECTIVE">
+    <span class="row-num">01</span><span class="row-dot" style="background:var(--blue)"></span>
+    <span class="row-main"><h3>NKDT — Points</h3><small>Thesis · Housing against loneliness · 2025–26</small></span>
+    <span class="row-tag" style="color:var(--blue)">RESEARCH</span>
+    <span class="row-thumbs">
+      <img src="../images/shared/nkdt_perspective.png" alt=""><img src="../images/nkdt/nkdt_type_a.jpg" alt=""><img src="../images/nkdt/nkdt_unit_detail.jpg" alt="">
+    </span>
+  </button>
+  <button class="row" data-cat="research" data-cover="../images/research/caravan_site.jpg" data-cap="002 — CARAVAN VS. MID-RISE">
+    <span class="row-num">02</span><span class="row-dot" style="background:var(--blue)"></span>
+    <span class="row-main"><h3>Caravan vs. Mid-rise</h3><small>Spatial-quality study · 2025</small></span>
+    <span class="row-tag" style="color:var(--blue)">RESEARCH</span>
+    <span class="row-thumbs">
+      <img src="../images/research/caravan_site.jpg" alt=""><img src="../images/research/midrise_site.jpg" alt=""><img src="../images/research/ariel_map.jpg" alt="">
+    </span>
+  </button>
+  <button class="row" data-cat="architecture" data-cover="../images/design/shade_perspective.png" data-cap="003 — SHADE FIELD, BUILT 2023">
+    <span class="row-num">03</span><span class="row-dot" style="background:var(--red)"></span>
+    <span class="row-main"><h3>Shade Field</h3><small>Built · Timber + sail canopy · 2023</small></span>
+    <span class="row-tag" style="color:var(--red)">BUILT</span>
+    <span class="row-thumbs">
+      <img src="../images/design/shade_perspective.png" alt=""><img src="../images/design/shade_front.png" alt=""><img src="../images/design/shade_side.png" alt="">
+    </span>
+  </button>
+  <button class="row" data-cat="objects" data-cover="../images/design/drift_wood.png" data-cap="004 — DRIFT SERIES, EXHIBITED 2024">
+    <span class="row-num">04</span><span class="row-dot" style="background:var(--green)"></span>
+    <span class="row-main"><h3>Drift Series</h3><small>Light objects · Driftwood + steel · 2024</small></span>
+    <span class="row-tag" style="color:var(--green)">OBJECTS</span>
+    <span class="row-thumbs">
+      <img src="../images/design/drift_wood.png" alt=""><img src="../images/design/rail_wood.png" alt=""><img src="../images/design/plank.png" alt="">
+    </span>
+  </button>
+  <button class="row" data-cat="objects" data-cover="../images/design/ring_studio.png" data-cap="005 — CARVED GOLD RING">
+    <span class="row-num">05</span><span class="row-dot" style="background:var(--green)"></span>
+    <span class="row-main"><h3>Carved Gold Ring</h3><small>Craft · Lost-wax goldsmithing</small></span>
+    <span class="row-tag" style="color:var(--green)">OBJECTS</span>
+    <span class="row-thumbs">
+      <img src="../images/design/ring_studio.png" alt=""><img src="../images/design/ring_overview.png" alt=""><img src="../images/design/ring_lit.png" alt="">
+    </span>
+  </button>
+  <button class="row" data-cat="drawings" data-cover="../images/research/caravan_floor_plan.jpg" data-cap="006 — CLINIC DOCUMENTATION SET">
+    <span class="row-num">06</span><span class="row-dot" style="background:var(--gold)"></span>
+    <span class="row-main"><h3>Clinic — Documentation</h3><small>Academic · Plans, sections, details 1:50/1:25</small></span>
+    <span class="row-tag" style="color:var(--gold)">DRAWINGS</span>
+    <span class="row-thumbs">
+      <img src="../images/research/caravan_floor_plan.jpg" alt=""><img src="../images/research/building_101.jpg" alt=""><img src="../images/research/building_102.jpg" alt="">
+    </span>
+  </button>
+  <div class="idx-foot"></div>
+</main>
+
+<figure id="peek"><img src="" alt=""><figcaption></figcaption></figure>
+</div><!-- /indexView -->
+
+<!-- ════════ FULL-PAGE PROJECT TAKEOVER (sample: NKDT) ════════ -->
+<div id="proj">
+  <div class="proj-top"><div class="grid proj-top-in">
+    <button class="back" onclick="closeProj()">← BACK TO INDEX</button>
+    <span>FILE 001 / 006</span>
+  </div></div>
+
+  <div class="grid proj-hero">
+    <div class="file"><i></i>RESEARCH + DESIGN · M.ARCH THESIS · 2025–26</div>
+    <h1>NKDT — Points</h1>
+    <p class="lede">Can student housing be designed against loneliness? A mixed-methods thesis that
+    measures the problem, maps it, and answers it with three buildable typologies.</p>
+    <figure class="proj-hero-fig"><img src="../images/shared/nkdt_perspective.png" alt="">
+      <figcaption><span>FIG. 0 — NKDT masterplan perspective</span><span>2026</span></figcaption></figure>
+    <dl class="proj-specs">
+      <div><dt>ROLE</dt><dd>SOLE AUTHOR</dd></div>
+      <div><dt>METHODS</dt><dd>SURVEY / GIS / SCORING</dd></div>
+      <div><dt>TOOLS</dt><dd>QGIS · RHINO · PYTHON</dd></div>
+      <div><dt>ADVISOR</dt><dd>DANIEL AZERRAD</dd></div>
+    </dl>
+  </div>
+
+  <div class="ch-tabs"><div class="grid ch-tabs-in">
+    <a href="#ch1" class="cur"><b>01</b> Problem</a>
+    <a href="#ch2"><b>02</b> Field research</a>
+    <a href="#ch3"><b>03</b> Typologies</a>
+    <a href="#ch4"><b>04</b> Masterplan</a>
+    <a href="#ch5"><b>05</b> Unit</a>
+  </div></div>
+
+  <div class="grid proj-body">
+    <section class="chapter" id="ch1">
+      <div class="ch-head"><b>01</b><h2>The problem — loneliness on campus</h2></div>
+      <div class="ch-cols">
+        <div>
+          <p><strong>Student loneliness is a spatial problem before it is a social one.</strong>
+          Long chapter text sits in a capped reading column with no length limit — the side notes
+          column carries methods and sources, like a thesis margin.</p>
+          <p>Placeholder: background statistics, the literature gap, why housing typology is the lever.</p>
+        </div>
+        <div class="ch-aside">SOURCES —<br>SURVEY INSTRUMENT V2<br>UCLA LONELINESS SCALE<br>CAMPUS GIS LAYERS</div>
+      </div>
+    </section>
+
+    <section class="chapter" id="ch2">
+      <div class="ch-head"><b>02</b><h2>Field research — two compounds</h2></div>
+      <div class="ch-cols">
+        <div>
+          <p>Comparative study of the caravan compound and the mid-rise corridor dorms: site mapping,
+          floor-plan analysis and a scored spatial-quality framework.</p>
+        </div>
+        <div class="ch-aside">SITES — 2<br>PLANS REDRAWN — 14<br>METRICS — 9</div>
+      </div>
+      <div class="fig-row two">
+        <figure class="fig"><img src="../images/research/caravan_site.jpg" alt="">
+          <figcaption><span>FIG. 2.1 — Caravan compound</span></figcaption></figure>
+        <figure class="fig"><img src="../images/research/midrise_site.jpg" alt="">
+          <figcaption><span>FIG. 2.2 — Mid-rise compound</span></figcaption></figure>
+      </div>
+      <div class="finding"><b>KEY FINDING</b>
+        <p>Clustered low-rise plexes outperform corridor dormitories on every measured belonging metric.</p></div>
+      <div class="fig-row">
+        <figure class="fig"><img src="../images/research/caravan_floor_plan.jpg" alt="">
+          <figcaption><span>FIG. 2.3 — Caravan plan</span></figcaption></figure>
+        <figure class="fig"><img src="../images/research/ariel_map.jpg" alt="">
+          <figcaption><span>FIG. 2.4 — Density map</span></figcaption></figure>
+        <figure class="fig"><img src="../images/research/building_101.jpg" alt="">
+          <figcaption><span>FIG. 2.5 — Building 101</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="chapter" id="ch3">
+      <div class="ch-head"><b>03</b><h2>Three typologies</h2></div>
+      <div class="ch-cols">
+        <div><p>The findings distill into three buildable types — A, B and C — each testing a
+        different balance of privacy and encounter.</p></div>
+        <div class="ch-aside">TYPE A — COURT<br>TYPE B — SPINE<br>TYPE C — CLUSTER</div>
+      </div>
+      <div class="fig-row">
+        <figure class="fig"><img src="../images/nkdt/nkdt_type_a.jpg" alt="">
+          <figcaption><span>FIG. 3.1 — Type A</span></figcaption></figure>
+        <figure class="fig"><img src="../images/nkdt/nkdt_type_b.jpg" alt="">
+          <figcaption><span>FIG. 3.2 — Type B</span></figcaption></figure>
+        <figure class="fig"><img src="../images/nkdt/nkdt_type_c.jpg" alt="">
+          <figcaption><span>FIG. 3.3 — Type C</span></figcaption></figure>
+      </div>
+    </section>
+
+    <section class="chapter" id="ch4">
+      <div class="ch-head"><b>04</b><h2>The masterplan</h2></div>
+      <div class="ch-cols">
+        <div><p>Lab, community core and dorm clusters arranged as a connected whole — masterplan
+        moves text, expandable to any length.</p></div>
+        <div class="ch-aside">MOVES — 4<br>PHASES — 3</div>
+      </div>
+      <figure class="fig"><img src="../images/nkdt/nkdt_combined.png" alt="">
+        <figcaption><span>FIG. 4.1 — Combined plan</span></figcaption></figure>
+    </section>
+
+    <section class="chapter" id="ch5">
+      <div class="ch-head"><b>05</b><h2>Unit design</h2></div>
+      <div class="ch-cols">
+        <div><p>The unit as the smallest instrument of belonging — detail sheet and interior study.</p></div>
+        <div class="ch-aside">UNITS — 3 SIZES<br>SCALE — 1:50 / 1:20</div>
+      </div>
+      <div class="fig-row two">
+        <figure class="fig"><img src="../images/nkdt/nkdt_unit_detail.jpg" alt="">
+          <figcaption><span>FIG. 5.1 — Unit detail</span></figcaption></figure>
+        <figure class="fig"><img src="../images/nkdt/nkdt_unit_sheet.jpg" alt="">
+          <figcaption><span>FIG. 5.2 — Unit sheet</span></figcaption></figure>
+      </div>
+    </section>
+  </div>
+
+  <div class="grid proj-next">
+    <button onclick="closeProj()">← INDEX</button>
+    <button>NEXT FILE: CARAVAN VS. MID-RISE →</button>
+  </div>
+</div>
+
+<footer class="grid"><span>© 2026 DORON ANHANG</span><span>doron.yahoo@gmail.com</span></footer>
+
+<script>
+/* ── skyline filter (denser, full-bleed) ── */
+const CATS={research:'var(--blue)',architecture:'var(--red)',objects:'var(--green)',drawings:'var(--gold)'};
+const LABELS={research:'RESEARCH',architecture:'ARCHITECTURE',objects:'OBJECTS',drawings:'DRAWINGS'};
+const sky=document.getElementById('sky'),state=document.getElementById('skyState');
+const N=56, catSlots={8:'research',22:'architecture',37:'objects',48:'drawings'};
+for(let i=0;i<N;i++){
+  const b=document.createElement('button');
+  const h=25+Math.abs(Math.sin(i*2.7))*60;
+  b.style.setProperty('--h',h.toFixed(0)+'%');
+  const cat=catSlots[i];
+  if(cat){
+    b.className='cat';b.dataset.cat=cat;b.style.background=CATS[cat];b.style.setProperty('--h','94%');
+    const l=document.createElement('span');l.className='lbl';l.textContent=LABELS[cat];b.appendChild(l);
+  } else b.title='Reset filter';
+  b.addEventListener('click',()=>cat?setFilter(cat,b):setFilter(null));
+  sky.appendChild(b);
+}
+function setFilter(cat,btn){
+  sky.classList.toggle('filtered',!!cat);
+  sky.querySelectorAll('.cat').forEach(x=>x.classList.remove('on'));
+  if(cat&&btn)btn.classList.add('on');
+  state.textContent=cat?LABELS[cat]:'ALL';
+  document.querySelectorAll('#rows .row').forEach(r=>r.classList.toggle('hide',!!cat&&r.dataset.cat!==cat));
+}
+/* ── floating hover preview ── */
+const peek=document.getElementById('peek'),pImg=peek.querySelector('img'),pCap=peek.querySelector('figcaption');
+document.querySelectorAll('#rows .row').forEach(r=>{
+  r.addEventListener('mouseenter',()=>{pImg.src=r.dataset.cover;pCap.textContent=r.dataset.cap;peek.classList.add('show');});
+  r.addEventListener('mouseleave',()=>peek.classList.remove('show'));
+  r.addEventListener('mousemove',e=>{peek.style.left=Math.min(e.clientX+26,innerWidth-330)+'px';peek.style.top=Math.min(e.clientY-100,innerHeight-300)+'px';});
+  r.addEventListener('click',openProj); // mockup: every row opens the NKDT sample file
+});
+/* ── takeover ── */
+function openProj(){document.body.classList.add('proj-open');scrollTo(0,0);}
+function closeProj(){document.body.classList.remove('proj-open');}
+/* ── chapter tab highlight ── */
+const tabs=[...document.querySelectorAll('.ch-tabs a')];
+document.querySelectorAll('.chapter').forEach(c=>{
+  new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting)tabs.forEach(t=>t.classList.toggle('cur',t.hash==='#'+e.target.id));
+  }),{rootMargin:'-15% 0px -75% 0px'}).observe(c);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup 10 — Classy Strips V2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* NKDT palette, matured */
+  --ivory:#F6F1E7; --ivory2:#EFE8D9; --ink:#211E19; --warm-gray:#7C756A;
+  --bronze:#A8814C; --sage:#65805F; --slate:#33526B; --clay:#9E4B3C;
+  --hair:#DCD3C2;
+  --sans:'Archivo',sans-serif; --mono:'JetBrains Mono',monospace;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--ivory);color:var(--ink);font-size:15px;line-height:1.7;font-weight:300;-webkit-font-smoothing:antialiased}
+.grid{max-width:1180px;margin:0 auto;padding:0 2.5rem}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+
+/* ── nav ── */
+header{position:sticky;top:0;background:rgba(246,241,231,.92);backdrop-filter:blur(8px);z-index:40;border-bottom:1px solid var(--hair)}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0}
+.hd-name{font-size:1rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;color:var(--ink)}
+nav{display:flex;gap:2.2rem}
+nav a{font-family:var(--mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--warm-gray);text-decoration:none;transition:color .2s}
+nav a:hover{color:var(--ink)}
+
+/* ── headline ── */
+.hero{padding:6rem 0 4.2rem;text-align:center}
+.hero-eyebrow{font-family:var(--mono);font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--bronze);margin-bottom:1.8rem}
+.hero h1{font-size:clamp(2.4rem,4.8vw,4.2rem);font-weight:300;line-height:1.12;letter-spacing:-.02em;max-width:22ch;margin:0 auto}
+.hero h1 em{font-style:italic;font-weight:500}
+.hero p{margin:1.7rem auto 0;max-width:54ch;color:var(--warm-gray);font-size:.94rem}
+.hero-dots{display:flex;justify-content:center;gap:.7rem;margin-top:2.2rem}
+.hero-dots i{width:7px;height:7px;border-radius:50%;opacity:.85}
+
+/* ── index head + FILTER ── */
+.idx-label{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--ink);padding-bottom:.85rem;flex-wrap:wrap;gap:.8rem}
+.idx-label h2{font-size:.8rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.filters{display:flex;gap:1.6rem;align-items:baseline}
+.f-btn{font-family:var(--mono);font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--warm-gray);display:flex;align-items:center;gap:.45rem;padding-bottom:.2rem;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+.f-btn i{width:7px;height:7px;border-radius:50%;background:var(--fc,var(--warm-gray));opacity:.85}
+.f-btn:hover{color:var(--ink)}
+.f-btn.on{color:var(--ink);border-bottom-color:var(--fc,var(--ink))}
+
+/* ── project strips ── */
+.strip{border-bottom:1px solid var(--hair)}
+.strip-bar{position:relative;display:block;width:100%;height:158px;overflow:hidden;text-align:left;transition:height .5s cubic-bezier(.4,0,.2,1)}
+.strip-bar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%;filter:saturate(.55) brightness(.96);transform:scale(1.01);transition:filter .5s,opacity .5s,transform 2.2s cubic-bezier(.2,0,.2,1)}
+.strip-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(33,30,25,.55) 0%,rgba(33,30,25,.18) 38%,rgba(33,30,25,0) 65%);transition:opacity .5s}
+.strip-bar:hover img{filter:saturate(1) brightness(1);transform:scale(1.045)}
+.strip-bar::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;z-index:3;background:var(--acc,var(--bronze));transition:opacity .5s}
+.strip-info{position:absolute;left:2.5rem;bottom:1.35rem;z-index:2;color:#F6F1E7;display:flex;align-items:baseline;gap:1.5rem;transition:bottom .5s}
+.strip-tag{font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;padding:.34rem .9rem;border:1px solid rgba(246,241,231,.55);border-radius:99px;backdrop-filter:blur(2px);transition:opacity .4s}
+.strip-title{font-size:1.45rem;font-weight:500;letter-spacing:-.01em;transition:font-size .4s}
+.strip-title em{font-style:italic;font-weight:300}
+.strip-year{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:rgba(246,241,231,.75);transition:opacity .4s}
+.strip-cue{position:absolute;right:2.5rem;bottom:1.55rem;z-index:2;font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,231,.8);opacity:0;transform:translateX(-8px);transition:opacity .3s,transform .3s}
+.strip-bar:hover .strip-cue{opacity:1;transform:none}
+
+/* open state */
+.strip.open .strip-bar{height:96px}
+.strip.open .strip-bar img{filter:saturate(1)}
+.strip.open .strip-cue{opacity:0!important}
+
+/* ── COLLAPSED state: slim, fully toned down ── */
+.strip.dim .strip-bar{height:46px}
+.strip.dim .strip-bar img{filter:saturate(0) brightness(1.06) contrast(.82);opacity:.35}
+.strip.dim .strip-bar::after{opacity:.25}
+.strip.dim .strip-bar::before{opacity:.3}
+.strip.dim .strip-info{bottom:50%;transform:translateY(50%);color:var(--warm-gray)}
+.strip.dim .strip-title{font-size:.78rem;font-weight:500;letter-spacing:.06em;color:var(--warm-gray)}
+.strip.dim .strip-tag,.strip.dim .strip-year{opacity:0;display:none}
+.strip.dim .strip-bar:hover img{opacity:.6;transform:none}
+.strip.dim .strip-cue{display:none}
+
+/* ── 70vh summary panel ── */
+.panel{max-height:0;overflow:hidden;transition:max-height .65s cubic-bezier(.4,0,.2,1)}
+.strip.open .panel{max-height:78vh}
+.panel-in{min-height:64vh;display:grid;grid-template-columns:1.05fr .95fr;gap:4rem;padding:3.2rem 0 3rem}
+.panel-kicker{font-family:var(--mono);font-size:.6rem;letter-spacing:.26em;text-transform:uppercase;color:var(--acc,var(--bronze));margin-bottom:1.3rem}
+.panel h3{font-size:clamp(1.6rem,2.4vw,2.2rem);font-weight:300;line-height:1.22;letter-spacing:-.015em;margin-bottom:1.2rem}
+.panel h3 em{font-style:italic;font-weight:500}
+.panel-sum{font-size:.93rem;color:#494337;max-width:54ch}
+.panel-sum + .panel-sum{margin-top:.9rem}
+.panel-facts{display:flex;gap:2.8rem;margin-top:2rem;padding-top:1.6rem;border-top:1px solid var(--hair)}
+.fact b{font-size:1.6rem;font-weight:500;display:block;line-height:1.1;letter-spacing:-.02em}
+.fact small{font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:var(--warm-gray)}
+.panel-cta{margin-top:2.4rem;display:flex;gap:1rem;align-items:center}
+.btn-more{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;padding:.85rem 2rem;border:1px solid var(--ink);border-radius:99px;transition:background .25s,color .25s}
+.btn-more:hover{background:var(--ink);color:var(--ivory)}
+.btn-close{font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--warm-gray)}
+.btn-close:hover{color:var(--ink)}
+.panel-imgs{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:.8rem;align-self:stretch;max-height:62vh}
+.panel-imgs figure{overflow:hidden;position:relative}
+.panel-imgs img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.6s cubic-bezier(.2,0,.2,1)}
+.panel-imgs figure:hover img{transform:scale(1.05)}
+.panel-imgs figure:first-child{grid-row:span 2}
+.panel-imgs figcaption{position:absolute;left:.8rem;bottom:.7rem;font-family:var(--mono);font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;color:#F6F1E7;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+
+/* ── full text expansion ── */
+.full{max-height:0;overflow:hidden;transition:max-height .8s cubic-bezier(.4,0,.2,1)}
+.strip.full-open .full{max-height:9000px;transition:max-height 1.4s cubic-bezier(.3,0,.3,1)}
+.full-in{border-top:1px solid var(--hair);padding:3.4rem 0 4rem}
+.full-cols{display:grid;grid-template-columns:200px minmax(0,1fr);gap:4rem}
+.full-rail{position:sticky;top:5rem;align-self:start}
+.full-rail a{display:block;padding:.55rem 0;font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;color:var(--warm-gray);text-decoration:none;text-transform:uppercase;border-bottom:1px solid var(--ivory2)}
+.full-rail a:hover{color:var(--ink)}
+.full-rail a span{color:var(--acc,var(--bronze));margin-right:.6rem}
+.fchap{margin-bottom:3.2rem}
+.fchap h4{font-size:1.35rem;font-weight:500;letter-spacing:-.01em;margin-bottom:1rem}
+.fchap h4 span{font-family:var(--mono);font-size:.85rem;font-weight:400;color:var(--acc,var(--bronze));margin-right:.7rem}
+.fchap p{font-size:.91rem;color:#494337;max-width:62ch;margin-bottom:.9rem}
+.fchap figure{margin:1.6rem 0}
+.fchap figure img{width:100%;display:block;max-height:440px;object-fit:cover}
+.fchap figcaption{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-gray);padding-top:.55rem;border-bottom:1px solid var(--hair);padding-bottom:.8rem}
+.frow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.8rem;margin:1.6rem 0}
+.frow figure{margin:0}
+.frow img{aspect-ratio:4/3;max-height:none}
+.frow.two{grid-template-columns:1fr 1fr}
+.pull{border-left:2px solid var(--acc,var(--bronze));padding:.4rem 0 .4rem 1.4rem;margin:1.6rem 0;max-width:54ch}
+.pull p{font-style:italic;font-weight:400;font-size:1.08rem;color:var(--ink);margin:0}
+.full-end{display:flex;justify-content:center;padding-top:1rem}
+
+/* ── footer ── */
+.cta{padding:6rem 0;text-align:center}
+.cta h3{font-size:1.7rem;font-weight:300}
+.cta h3 em{font-style:italic;font-weight:500;color:var(--bronze)}
+.cta a{display:inline-block;margin-top:1.8rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;padding:.9rem 2.4rem;border:1px solid var(--ink);border-radius:99px;color:var(--ink);text-decoration:none;transition:background .25s,color .25s}
+.cta a:hover{background:var(--ink);color:var(--ivory)}
+footer{border-top:1px solid var(--hair);padding:1.4rem 0 2.4rem;display:flex;justify-content:space-between;font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--warm-gray)}
+
+@media(max-width:880px){
+  .grid{padding:0 1.3rem}
+  .hero{padding:4rem 0 3rem}
+  .filters{gap:1rem;flex-wrap:wrap}
+  .strip-info{left:1.3rem;gap:.9rem;flex-direction:column;align-items:flex-start;bottom:1rem}
+  .strip.dim .strip-info{flex-direction:row;bottom:50%}
+  .strip-title{font-size:1.15rem}
+  .panel-in{grid-template-columns:1fr;gap:2rem;min-height:0}
+  .strip.open .panel{max-height:none}
+  .panel-imgs{max-height:none}
+  .full-cols{grid-template-columns:1fr;gap:1.5rem}
+  .full-rail{position:static;display:flex;flex-wrap:wrap;gap:.2rem 1.4rem}
+  .full-rail a{border:none}
+  .frow{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<header><div class="grid hd">
+  <a class="hd-name" href="#">Doron Anhang</a>
+  <nav><a href="#">Work</a><a href="#">Research</a><a href="#">About</a><a href="#">Contact</a></nav>
+</div></header>
+
+<section class="grid hero">
+  <div class="hero-eyebrow">Architect · Researcher · Maker</div>
+  <h1>Architecture that begins with <em>evidence</em><br>and ends in the <em>hand.</em></h1>
+  <p>Spatial research on how housing shapes community — alongside structures
+  and objects built from timber, steel and light.</p>
+  <div class="hero-dots">
+    <i style="background:var(--slate)"></i><i style="background:var(--clay)"></i>
+    <i style="background:var(--sage)"></i><i style="background:var(--bronze)"></i>
+  </div>
+</section>
+
+<main class="grid">
+  <div class="idx-label">
+    <h2>Selected Work — 2021–2026</h2>
+    <div class="filters">
+      <button class="f-btn on" data-f="all" onclick="setFilter('all',this)">All</button>
+      <button class="f-btn" data-f="research" style="--fc:var(--slate)" onclick="setFilter('research',this)"><i></i>Research</button>
+      <button class="f-btn" data-f="architecture" style="--fc:var(--clay)" onclick="setFilter('architecture',this)"><i></i>Architecture</button>
+      <button class="f-btn" data-f="design" style="--fc:var(--sage)" onclick="setFilter('design',this)"><i></i>Design</button>
+      <button class="f-btn" data-f="computation" style="--fc:var(--bronze)" onclick="setFilter('computation',this)"><i></i>Computation</button>
+    </div>
+  </div>
+
+  <!-- ── STRIP 01 · NKDT — research (full content wired) ── -->
+  <article class="strip" data-cat="research" style="--acc:var(--slate)">
+    <button class="strip-bar" onclick="toggle(this)">
+      <img src="../images/shared/nkdt_perspective.png" alt="">
+      <span class="strip-info">
+        <span class="strip-tag">Research</span>
+        <span class="strip-title">NKDT — <em>Points</em></span>
+        <span class="strip-year">2025–26</span>
+      </span>
+      <span class="strip-cue">Open —</span>
+    </button>
+
+    <div class="panel"><div class="panel-in">
+      <div>
+        <div class="panel-kicker">M.Arch Thesis · Ariel, Israel</div>
+        <h3>Can student housing be designed <em>against loneliness?</em></h3>
+        <p class="panel-sum">A mixed-methods thesis that treats loneliness as a spatial problem:
+        a campus-wide survey and GIS mapping locate where belonging fails, and three buildable
+        housing typologies answer it.</p>
+        <p class="panel-sum">The finding at its core — clustered low-rise plexes outperform
+        corridor dormitories on every measured belonging metric.</p>
+        <div class="panel-facts">
+          <div class="fact"><b>3</b><small>Typologies</small></div>
+          <div class="fact"><b>2</b><small>Compounds studied</small></div>
+          <div class="fact"><b>9</b><small>Spatial metrics</small></div>
+        </div>
+        <div class="panel-cta">
+          <button class="btn-more" onclick="openFull(this)">Full project</button>
+          <button class="btn-close" onclick="toggle(this)">Close</button>
+        </div>
+      </div>
+      <div class="panel-imgs">
+        <figure><img src="../images/shared/nkdt_perspective.png" alt=""><figcaption>Masterplan</figcaption></figure>
+        <figure><img src="../images/nkdt/nkdt_type_a.jpg" alt=""><figcaption>Type A</figcaption></figure>
+        <figure><img src="../images/nkdt/nkdt_unit_detail.jpg" alt=""><figcaption>Unit</figcaption></figure>
+      </div>
+    </div></div>
+
+    <div class="full"><div class="full-in">
+      <div class="full-cols">
+        <aside class="full-rail">
+          <a href="#n1"><span>01</span>The problem</a>
+          <a href="#n2"><span>02</span>Field research</a>
+          <a href="#n3"><span>03</span>Typologies</a>
+          <a href="#n4"><span>04</span>Masterplan</a>
+          <a href="#n5"><span>05</span>Unit design</a>
+        </aside>
+        <div>
+          <section class="fchap" id="n1">
+            <h4><span>01</span>The problem — loneliness on campus</h4>
+            <p>Student loneliness is a spatial problem before it is a social one. This column holds
+            chapters of any length — the rail on the left keeps orientation while reading.</p>
+            <p>Placeholder for full thesis text: background, literature gap, why typology is the lever.</p>
+          </section>
+          <section class="fchap" id="n2">
+            <h4><span>02</span>Field research — two compounds</h4>
+            <p>Comparative study of the caravan compound and the mid-rise corridor dorms: site
+            mapping, redrawn floor plans and a scored spatial-quality framework.</p>
+            <div class="frow two">
+              <figure><img src="../images/research/caravan_site.jpg" alt=""><figcaption>Caravan compound — site</figcaption></figure>
+              <figure><img src="../images/research/midrise_site.jpg" alt=""><figcaption>Mid-rise compound — site</figcaption></figure>
+            </div>
+            <div class="pull"><p>“Clustered low-rise plexes outperform corridor dormitories on every measured belonging metric.”</p></div>
+            <div class="frow">
+              <figure><img src="../images/research/caravan_floor_plan.jpg" alt=""><figcaption>Caravan plan</figcaption></figure>
+              <figure><img src="../images/research/ariel_map.jpg" alt=""><figcaption>Density map</figcaption></figure>
+              <figure><img src="../images/research/building_101.jpg" alt=""><figcaption>Building 101</figcaption></figure>
+            </div>
+          </section>
+          <section class="fchap" id="n3">
+            <h4><span>03</span>Three typologies</h4>
+            <p>The findings distill into three buildable types, each testing a different balance
+            of privacy and encounter.</p>
+            <div class="frow">
+              <figure><img src="../images/nkdt/nkdt_type_a.jpg" alt=""><figcaption>Type A — court</figcaption></figure>
+              <figure><img src="../images/nkdt/nkdt_type_b.jpg" alt=""><figcaption>Type B — spine</figcaption></figure>
+              <figure><img src="../images/nkdt/nkdt_type_c.jpg" alt=""><figcaption>Type C — cluster</figcaption></figure>
+            </div>
+          </section>
+          <section class="fchap" id="n4">
+            <h4><span>04</span>The masterplan</h4>
+            <p>Lab, community core and dorm clusters arranged as a connected whole.</p>
+            <figure><img src="../images/nkdt/nkdt_combined.png" alt=""><figcaption>Combined plan</figcaption></figure>
+          </section>
+          <section class="fchap" id="n5">
+            <h4><span>05</span>Unit design</h4>
+            <p>The unit as the smallest instrument of belonging.</p>
+            <div class="frow two">
+              <figure><img src="../images/nkdt/nkdt_unit_detail.jpg" alt=""><figcaption>Unit detail</figcaption></figure>
+              <figure><img src="../images/nkdt/nkdt_unit_sheet.jpg" alt=""><figcaption>Unit sheet</figcaption></figure>
+            </div>
+          </section>
+          <div class="full-end"><button class="btn-more" onclick="toggle(this)">Close project</button></div>
+        </div>
+      </div>
+    </div></div>
+  </article>
+
+  <!-- ── STRIP 02 · Shade Field — architecture ── -->
+  <article class="strip" data-cat="architecture" style="--acc:var(--clay)">
+    <button class="strip-bar" onclick="toggle(this)">
+      <img src="../images/design/shade_perspective.png" alt="">
+      <span class="strip-info">
+        <span class="strip-tag">Architecture</span>
+        <span class="strip-title">Shade <em>Field</em></span>
+        <span class="strip-year">2023</span>
+      </span>
+      <span class="strip-cue">Open —</span>
+    </button>
+    <div class="panel"><div class="panel-in">
+      <div>
+        <div class="panel-kicker">Built structure · Campus courtyard</div>
+        <h3>How much shade does a <em>courtyard</em> need?</h3>
+        <p class="panel-sum">A tensile canopy of inclined timber masts and fabric sails for an
+        exposed courtyard — designed, structurally resolved and raised by hand with a student crew.</p>
+        <div class="panel-facts">
+          <div class="fact"><b>9</b><small>Sails</small></div>
+          <div class="fact"><b>14</b><small>Timber masts</small></div>
+        </div>
+        <div class="panel-cta">
+          <button class="btn-more" onclick="openFull(this)">Full project</button>
+          <button class="btn-close" onclick="toggle(this)">Close</button>
+        </div>
+      </div>
+      <div class="panel-imgs">
+        <figure><img src="../images/design/shade_perspective.png" alt=""><figcaption>Under the sails</figcaption></figure>
+        <figure><img src="../images/design/shade_front.png" alt=""><figcaption>Front</figcaption></figure>
+        <figure><img src="../images/design/shade_side.png" alt=""><figcaption>Side</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="full"><div class="full-in"><div class="full-cols">
+      <aside class="full-rail"><a href="#"><span>01</span>Brief</a><a href="#"><span>02</span>Structure</a><a href="#"><span>03</span>Raising</a></aside>
+      <div><section class="fchap"><h4><span>01</span>Full text placeholder</h4>
+        <p>Chapters and figures continue here exactly like the NKDT strip above.</p></section>
+        <div class="full-end"><button class="btn-more" onclick="toggle(this)">Close project</button></div>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- ── STRIP 03 · Drift Series — design ── -->
+  <article class="strip" data-cat="design" style="--acc:var(--sage)">
+    <button class="strip-bar" onclick="toggle(this)">
+      <img src="../images/design/drift_wood.png" alt="">
+      <span class="strip-info">
+        <span class="strip-tag">Design</span>
+        <span class="strip-title">Drift <em>Series</em></span>
+        <span class="strip-year">2024</span>
+      </span>
+      <span class="strip-cue">Open —</span>
+    </button>
+    <div class="panel"><div class="panel-in">
+      <div>
+        <div class="panel-kicker">Light objects · Exhibited 2024</div>
+        <h3>What does a material <em>remember?</em></h3>
+        <p class="panel-sum">A study of decay as ornament: salvaged driftwood and rail steel,
+        catalogued and paired with concealed warm light — functional sculpture.</p>
+        <div class="panel-facts">
+          <div class="fact"><b>6</b><small>Pieces</small></div>
+          <div class="fact"><b>2</b><small>Materials</small></div>
+        </div>
+        <div class="panel-cta">
+          <button class="btn-more" onclick="openFull(this)">Full project</button>
+          <button class="btn-close" onclick="toggle(this)">Close</button>
+        </div>
+      </div>
+      <div class="panel-imgs">
+        <figure><img src="../images/design/drift_wood.png" alt=""><figcaption>Drift 01</figcaption></figure>
+        <figure><img src="../images/design/rail_wood.png" alt=""><figcaption>Rail</figcaption></figure>
+        <figure><img src="../images/design/drift_wood_detail.png" alt=""><figcaption>Detail</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="full"><div class="full-in"><div class="full-cols">
+      <aside class="full-rail"><a href="#"><span>01</span>Material</a><a href="#"><span>02</span>Process</a><a href="#"><span>03</span>Pieces</a></aside>
+      <div><section class="fchap"><h4><span>01</span>Full text placeholder</h4>
+        <p>Chapters and figures continue here.</p></section>
+        <div class="full-end"><button class="btn-more" onclick="toggle(this)">Close project</button></div>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- ── STRIP 04 · Gold Ring — design ── -->
+  <article class="strip" data-cat="design" style="--acc:var(--sage)">
+    <button class="strip-bar" onclick="toggle(this)">
+      <img src="../images/design/ring_studio.png" alt="">
+      <span class="strip-info">
+        <span class="strip-tag">Design</span>
+        <span class="strip-title">Carved <em>Gold Ring</em></span>
+        <span class="strip-year">2024</span>
+      </span>
+      <span class="strip-cue">Open —</span>
+    </button>
+    <div class="panel"><div class="panel-in">
+      <div>
+        <div class="panel-kicker">Goldsmithing · Lost-wax casting</div>
+        <h3>Design at the <em>smallest</em> scale.</h3>
+        <p class="panel-sum">Lost-wax carving and gold casting — the same attention to joint,
+        light and material as the buildings, at 1:1 on a finger.</p>
+        <div class="panel-cta">
+          <button class="btn-more" onclick="openFull(this)">Full project</button>
+          <button class="btn-close" onclick="toggle(this)">Close</button>
+        </div>
+      </div>
+      <div class="panel-imgs">
+        <figure><img src="../images/design/ring_studio.png" alt=""><figcaption>Bench</figcaption></figure>
+        <figure><img src="../images/design/ring_overview.png" alt=""><figcaption>Overview</figcaption></figure>
+        <figure><img src="../images/design/ring_lit.png" alt=""><figcaption>Lit</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="full"><div class="full-in"><div class="full-cols">
+      <aside class="full-rail"><a href="#"><span>01</span>Wax</a><a href="#"><span>02</span>Casting</a></aside>
+      <div><section class="fchap"><h4><span>01</span>Full text placeholder</h4>
+        <p>Chapters and figures continue here.</p></section>
+        <div class="full-end"><button class="btn-more" onclick="toggle(this)">Close project</button></div>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- ── STRIP 05 · Caravan vs Mid-rise — research ── -->
+  <article class="strip" data-cat="research" style="--acc:var(--slate)">
+    <button class="strip-bar" onclick="toggle(this)">
+      <img src="../images/research/caravan_site.jpg" alt="">
+      <span class="strip-info">
+        <span class="strip-tag">Research</span>
+        <span class="strip-title">Caravan <em>vs.</em> Mid-rise</span>
+        <span class="strip-year">2025</span>
+      </span>
+      <span class="strip-cue">Open —</span>
+    </button>
+    <div class="panel"><div class="panel-in">
+      <div>
+        <div class="panel-kicker">Spatial-quality study · Ariel</div>
+        <h3>Two compounds, <em>head to head.</em></h3>
+        <p class="panel-sum">Floor-plan analysis, site mapping and a scored framework comparing
+        the caravan compound with the mid-rise corridor dorms.</p>
+        <div class="panel-cta">
+          <button class="btn-more" onclick="openFull(this)">Full project</button>
+          <button class="btn-close" onclick="toggle(this)">Close</button>
+        </div>
+      </div>
+      <div class="panel-imgs">
+        <figure><img src="../images/research/caravan_site.jpg" alt=""><figcaption>Caravan</figcaption></figure>
+        <figure><img src="../images/research/midrise_site.jpg" alt=""><figcaption>Mid-rise</figcaption></figure>
+        <figure><img src="../images/research/ariel_map.jpg" alt=""><figcaption>Map</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="full"><div class="full-in"><div class="full-cols">
+      <aside class="full-rail"><a href="#"><span>01</span>Method</a><a href="#"><span>02</span>Findings</a></aside>
+      <div><section class="fchap"><h4><span>01</span>Full text placeholder</h4>
+        <p>Chapters and figures continue here.</p></section>
+        <div class="full-end"><button class="btn-more" onclick="toggle(this)">Close project</button></div>
+      </div>
+    </div></div></div>
+  </article>
+
+  <!-- ── STRIP 06 · Research pipeline — computation ── -->
+  <article class="strip" data-cat="computation" style="--acc:var(--bronze)">
+    <button class="strip-bar" onclick="toggle(this)">
+      <img src="../images/research/d3_pipeline_v2.svg" alt="" style="object-fit:contain;background:#EFE8D9;padding:.6rem 22%">
+      <span class="strip-info">
+        <span class="strip-tag">Computation</span>
+        <span class="strip-title">Analysis <em>Pipeline</em></span>
+        <span class="strip-year">2025</span>
+      </span>
+      <span class="strip-cue">Open —</span>
+    </button>
+    <div class="panel"><div class="panel-in">
+      <div>
+        <div class="panel-kicker">Tooling · Python + QGIS</div>
+        <h3>The <em>instruments</em> behind the research.</h3>
+        <p class="panel-sum">The data pipeline built for the thesis: anonymisation flow, scoring
+        rubric and survey instruments — reusable tooling for evidence-based design.</p>
+        <div class="panel-cta">
+          <button class="btn-more" onclick="openFull(this)">Full project</button>
+          <button class="btn-close" onclick="toggle(this)">Close</button>
+        </div>
+      </div>
+      <div class="panel-imgs">
+        <figure><img src="../images/research/d3_pipeline_v2.svg" alt="" style="object-fit:contain;background:#fff"><figcaption>Pipeline</figcaption></figure>
+        <figure><img src="../images/research/d2_anonymisation_v2.svg" alt="" style="object-fit:contain;background:#fff"><figcaption>Anonymisation</figcaption></figure>
+        <figure><img src="../images/research/d5_scoring_rubric_v1.svg" alt="" style="object-fit:contain;background:#fff"><figcaption>Rubric</figcaption></figure>
+      </div>
+    </div></div>
+    <div class="full"><div class="full-in"><div class="full-cols">
+      <aside class="full-rail"><a href="#"><span>01</span>Pipeline</a><a href="#"><span>02</span>Instruments</a></aside>
+      <div><section class="fchap"><h4><span>01</span>Full text placeholder</h4>
+        <p>Chapters and figures continue here.</p></section>
+        <div class="full-end"><button class="btn-more" onclick="toggle(this)">Close project</button></div>
+      </div>
+    </div></div></div>
+  </article>
+</main>
+
+<section class="grid cta">
+  <h3>Looking for the full dossier, or a <em>conversation?</em></h3>
+  <a href="mailto:doron.yahoo@gmail.com">Get in touch</a>
+</section>
+<footer class="grid"><span>© 2026 Doron Anhang</span><span>doron.yahoo@gmail.com</span></footer>
+
+<script>
+let filter='all';
+function strip(el){return el.closest('.strip')}
+function toggle(el){
+  const s=strip(el), wasOpen=s.classList.contains('open');
+  document.querySelectorAll('.strip').forEach(x=>x.classList.remove('open','full-open'));
+  applyDim(); // restore dim states per current filter
+  if(!wasOpen){
+    s.classList.remove('dim'); // opening a collapsed strip wakes it
+    s.classList.add('open');
+    setTimeout(()=>s.scrollIntoView({behavior:'smooth',block:'start'}),120);
+  }
+}
+function openFull(el){
+  const s=strip(el);
+  s.classList.add('full-open');
+  setTimeout(()=>s.querySelector('.full').scrollIntoView({behavior:'smooth',block:'start'}),150);
+}
+function setFilter(cat,btn){
+  filter=cat;
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.toggle('on',b===btn));
+  document.querySelectorAll('.strip').forEach(x=>x.classList.remove('open','full-open'));
+  applyDim();
+}
+function applyDim(){
+  document.querySelectorAll('.strip').forEach(s=>{
+    s.classList.toggle('dim',filter!=='all'&&s.dataset.cat!==filter);
+  });
+}
+</script>
+</body>
+</html>

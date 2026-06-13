@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup 3 — NKDT Dot System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF5EC; --sand:#EFDCC3; --ink:#23211C;
+  --gold:#E0A33E; --green:#5CB270; --blue:#2070B4; --red:#DF4B3B;
+  --disp:'Space Grotesk',sans-serif; --sans:'Inter',sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.6}
+
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.3rem 2.5rem;position:sticky;top:0;background:var(--cream);z-index:10;border-bottom:1px solid #e3d9c6}
+.logo{font-family:var(--disp);font-weight:700;font-size:1.15rem;text-decoration:none;color:var(--ink);display:flex;align-items:center;gap:.55rem}
+.logo::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.nav-links{display:flex;gap:.6rem;list-style:none}
+.nav-links a{font-family:var(--disp);font-size:.74rem;font-weight:500;color:var(--ink);text-decoration:none;padding:.45rem 1rem;border-radius:99px;border:1px solid transparent;display:flex;align-items:center;gap:.45rem}
+.nav-links a i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.nav-links a:hover{border-color:var(--ink)}
+
+/* hero — big type + floating dots, skyline footer line */
+.hero{position:relative;padding:5.5rem 2.5rem 4rem;overflow:hidden}
+.hero h1{font-family:var(--disp);font-weight:700;font-size:clamp(3rem,8vw,7rem);line-height:.95;letter-spacing:-.04em;max-width:11ch}
+.hero h1 .d{display:inline-block;width:.5em;height:.5em;border-radius:50%;vertical-align:baseline}
+.hero p{margin-top:2rem;max-width:48ch;font-size:1rem;color:#5d574b}
+.hero-tags{margin-top:2.2rem;display:flex;gap:.6rem;flex-wrap:wrap}
+.tag{font-family:var(--disp);font-size:.72rem;font-weight:500;padding:.45rem 1.1rem;border-radius:99px;color:#fff}
+.float{position:absolute;border-radius:50%;opacity:.9}
+
+/* skyline divider, echoing the logo's city silhouette */
+.skyline{display:flex;align-items:flex-end;gap:3px;height:64px;padding:0 2.5rem;border-bottom:2px solid var(--ink)}
+.skyline i{flex:1;background:var(--sand);display:block}
+
+/* category-coded project cards */
+.work{padding:3.5rem 2.5rem}
+.work-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2rem}
+.work-head h2{font-family:var(--disp);font-size:1.6rem;font-weight:700;letter-spacing:-.02em}
+.legend{display:flex;gap:1.3rem;font-size:.7rem;color:#5d574b}
+.legend span{display:flex;align-items:center;gap:.4rem}
+.legend i{width:9px;height:9px;border-radius:50%}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.card{background:#fff;border-radius:18px;overflow:hidden;text-decoration:none;color:var(--ink);border:1px solid #ece3d2;transition:transform .2s,box-shadow .2s;position:relative}
+.card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(35,33,28,.12)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.card-dot{position:absolute;top:1rem;left:1rem;width:16px;height:16px;border-radius:50%;border:3px solid var(--cream)}
+.card-body{padding:1.2rem 1.3rem 1.4rem}
+.card-cat{font-family:var(--disp);font-size:.66rem;font-weight:500;text-transform:uppercase;letter-spacing:.12em;margin-bottom:.35rem}
+.card h3{font-family:var(--disp);font-size:1.18rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.4rem}
+.card p{font-size:.8rem;color:#5d574b}
+.card.wide{grid-column:span 2}
+.card.wide img{aspect-ratio:21/9}
+
+/* stat strip — the analytical side, in dot language */
+.stats{margin:2rem 2.5rem 4rem;background:var(--ink);border-radius:22px;color:var(--cream);display:grid;grid-template-columns:repeat(4,1fr);padding:2.2rem 1rem}
+.stat{text-align:center;padding:0 1rem}
+.stat b{font-family:var(--disp);font-size:2.3rem;font-weight:700;display:block}
+.stat small{font-size:.7rem;color:#a89e8c;line-height:1.4;display:block;margin-top:.3rem}
+.stat:nth-child(1) b{color:var(--gold)} .stat:nth-child(2) b{color:var(--green)}
+.stat:nth-child(3) b{color:var(--blue)} .stat:nth-child(4) b{color:var(--red)}
+
+footer{padding:2rem 2.5rem;border-top:1px solid #e3d9c6;display:flex;justify-content:space-between;font-size:.74rem;color:#5d574b}
+@media(max-width:900px){
+  .cards{grid-template-columns:1fr}.card.wide{grid-column:span 1}
+  .stats{grid-template-columns:repeat(2,1fr);gap:1.5rem 0}
+  .legend{display:none}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="logo" href="#">DORON ANHANG</a>
+  <ul class="nav-links">
+    <li><a href="#"><i style="background:var(--blue)"></i>Research</a></li>
+    <li><a href="#"><i style="background:var(--red)"></i>Architecture</a></li>
+    <li><a href="#"><i style="background:var(--green)"></i>Objects</a></li>
+    <li><a href="#"><i style="background:var(--gold)"></i>About</a></li>
+  </ul>
+</nav>
+
+<header class="hero">
+  <span class="float" style="width:120px;height:120px;background:var(--gold);top:8%;right:14%"></span>
+  <span class="float" style="width:54px;height:54px;background:var(--green);top:46%;right:30%"></span>
+  <span class="float" style="width:34px;height:34px;background:var(--blue);top:70%;right:12%"></span>
+  <span class="float" style="width:80px;height:80px;background:var(--red);bottom:6%;right:22%"></span>
+  <h1>Points of<br>contact<span class="d" style="background:var(--red)"></span></h1>
+  <p>Architecture that starts from data and ends in the hand. I research how buildings shape
+  community — then design, draw and physically build the answer.</p>
+  <div class="hero-tags">
+    <span class="tag" style="background:var(--blue)">Spatial research</span>
+    <span class="tag" style="background:var(--red)">Housing design</span>
+    <span class="tag" style="background:var(--green)">Fabrication</span>
+    <span class="tag" style="background:var(--gold)">Computation</span>
+  </div>
+</header>
+
+<div class="skyline">
+  <i style="height:30%"></i><i style="height:55%"></i><i style="height:40%"></i><i style="height:75%"></i>
+  <i style="height:35%"></i><i style="height:90%"></i><i style="height:60%"></i><i style="height:45%"></i>
+  <i style="height:70%"></i><i style="height:25%"></i><i style="height:85%"></i><i style="height:50%"></i>
+  <i style="height:65%"></i><i style="height:38%"></i><i style="height:80%"></i><i style="height:42%"></i>
+</div>
+
+<main class="work">
+  <div class="work-head">
+    <h2>Selected work</h2>
+    <div class="legend">
+      <span><i style="background:var(--blue)"></i>Research</span>
+      <span><i style="background:var(--red)"></i>Architecture</span>
+      <span><i style="background:var(--green)"></i>Objects</span>
+    </div>
+  </div>
+  <div class="cards">
+    <a class="card wide" href="#">
+      <img src="../images/shared/nkdt_perspective.png" alt="">
+      <span class="card-dot" style="background:var(--blue)"></span>
+      <div class="card-body">
+        <div class="card-cat" style="color:var(--blue)">Research + Design · Thesis</div>
+        <h3>NKDT — student housing against loneliness</h3>
+        <p>Survey of 200+ students, GIS typology mapping, and three buildable housing types derived from the findings.</p>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <img src="../images/design/drift_wood.png" alt="">
+      <span class="card-dot" style="background:var(--green)"></span>
+      <div class="card-body">
+        <div class="card-cat" style="color:var(--green)">Objects · 2024</div>
+        <h3>Drift Series</h3>
+        <p>Light sculptures from driftwood and weathered steel.</p>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <img src="../images/design/shade_perspective.png" alt="">
+      <span class="card-dot" style="background:var(--red)"></span>
+      <div class="card-body">
+        <div class="card-cat" style="color:var(--red)">Built · 2023</div>
+        <h3>Shade Field</h3>
+        <p>Timber-and-sail canopy raised by hand in a campus courtyard.</p>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <img src="../images/design/ring_studio.png" alt="">
+      <span class="card-dot" style="background:var(--green)"></span>
+      <div class="card-body">
+        <div class="card-cat" style="color:var(--green)">Objects · Craft</div>
+        <h3>Gold ring, carved</h3>
+        <p>Lost-wax goldsmithing — design at the smallest scale.</p>
+      </div>
+    </a>
+    <a class="card" href="#">
+      <img src="../images/design/petach_tikva_fixture.png" alt="">
+      <span class="card-dot" style="background:var(--gold)"></span>
+      <div class="card-body">
+        <div class="card-cat" style="color:var(--gold)">Urban fixture</div>
+        <h3>Petach Tikva fixture</h3>
+        <p>Street-scale design detail for the public realm.</p>
+      </div>
+    </a>
+  </div>
+</main>
+
+<section class="stats">
+  <div class="stat"><b>214</b><small>students surveyed for the loneliness study</small></div>
+  <div class="stat"><b>3</b><small>housing typologies designed &amp; tested</small></div>
+  <div class="stat"><b>12+</b><small>objects built in wood, steel &amp; gold</small></div>
+  <div class="stat"><b>5</b><small>years of academic design studios</small></div>
+</section>
+
+<footer><span>© 2026 Doron Anhang</span><span>doron.yahoo@gmail.com</span></footer>
+</body>
+</html>

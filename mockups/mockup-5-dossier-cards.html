@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup 5 — Dossier Cards (1 + 3, option A)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF5EC; --sand:#EFDCC3; --ink:#23211C; --gray:#6f6a60;
+  --gold:#E0A33E; --green:#5CB270; --blue:#2070B4; --red:#DF4B3B;
+  --mono:'JetBrains Mono',monospace; --sans:'Archivo',sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.6}
+.grid{max-width:1280px;margin:0 auto;padding:0 2rem}
+
+header{border-bottom:2px solid var(--ink)}
+.hd{display:flex;justify-content:space-between;align-items:end;padding:1.2rem 0}
+.hd-id{font-family:var(--mono);font-size:.66rem;color:var(--gray)}
+.hd-name{font-size:1.35rem;font-weight:800;text-transform:uppercase;letter-spacing:-.02em}
+nav{display:flex;gap:1.6rem;font-family:var(--mono);font-size:.7rem;text-transform:uppercase}
+nav a{color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:.4rem}
+nav a i{width:8px;height:8px;border-radius:50%;display:inline-block}
+nav a:hover{text-decoration:underline}
+
+/* hero — dossier typography, a few escaped dots */
+.hero{position:relative;padding:4.5rem 0 3.5rem;border-bottom:1px solid var(--ink)}
+.hero-kicker{font-family:var(--mono);font-size:.7rem;color:var(--red);margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.6rem,5.5vw,4.4rem);font-weight:800;line-height:.98;letter-spacing:-.03em;text-transform:uppercase;max-width:14ch}
+.hero h1 .alt{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.hero p{margin-top:1.5rem;max-width:52ch;color:var(--gray);font-size:.95rem}
+.hero .dot{position:absolute;border-radius:50%}
+
+/* filter rail */
+.rail{display:flex;gap:.5rem;align-items:center;padding:1.1rem 0;font-family:var(--mono);font-size:.66rem;text-transform:uppercase;border-bottom:1px solid var(--ink)}
+.rail b{font-weight:500;color:var(--gray);margin-right:.8rem}
+.chip{padding:.32rem .85rem;border:1px solid var(--ink);border-radius:99px;cursor:pointer;background:none;font:inherit;color:var(--ink);display:flex;align-items:center;gap:.4rem}
+.chip i{width:7px;height:7px;border-radius:50%;display:inline-block}
+.chip:hover,.chip.on{background:var(--ink);color:var(--cream)}
+
+/* card grid — quick views, but in dossier chrome */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);border-left:1px solid var(--ink)}
+.card{border-right:1px solid var(--ink);border-bottom:1px solid var(--ink);background:var(--cream);cursor:pointer;transition:background .15s;position:relative;text-align:left;font:inherit;color:inherit;padding:0;border-top:none;border-radius:0}
+.card:hover{background:#fff}
+.card.sel{background:var(--sand)}
+.card img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;filter:grayscale(.55) contrast(1.03);transition:filter .25s}
+.card:hover img,.card.sel img{filter:none}
+.card-top{display:flex;justify-content:space-between;align-items:center;padding:.7rem 1rem 0;font-family:var(--mono);font-size:.62rem;color:var(--gray)}
+.card-top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+.card-body{padding:.5rem 1rem 1.1rem}
+.card h3{font-size:1.05rem;font-weight:600;letter-spacing:-.01em}
+.card small{font-size:.74rem;color:var(--gray);display:block;margin-top:.15rem}
+.card .plus{position:absolute;right:.9rem;bottom:.9rem;font-family:var(--mono);font-size:.85rem;color:var(--gray)}
+.card.sel .plus{transform:rotate(45deg)}
+
+/* ── EXPANDED PROJECT VIEW (dossier editorial) ── */
+#detail{display:none;border-bottom:2px solid var(--ink);background:#fff}
+#detail.open{display:block;animation:reveal .35s ease}
+@keyframes reveal{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
+.det{display:grid;grid-template-columns:280px 1fr;gap:3rem;padding:2.8rem 0}
+.det-side{font-family:var(--mono);font-size:.72rem;border-right:1px solid var(--ink);padding-right:2.5rem}
+.det-close{font-family:var(--mono);font-size:.66rem;background:none;border:1px solid var(--ink);border-radius:99px;padding:.35rem 1rem;cursor:pointer;margin-bottom:1.6rem}
+.det-close:hover{background:var(--ink);color:var(--cream)}
+.det-cat{display:flex;align-items:center;gap:.5rem;text-transform:uppercase;margin-bottom:1.4rem}
+.det-cat i{width:10px;height:10px;border-radius:50%}
+.det-spec{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-bottom:1px solid #d9d0bf}
+.det-spec dt{color:var(--gray)}
+.det-spec dd{text-align:right}
+.det-main .det-num{font-family:var(--mono);font-size:.68rem;color:var(--gray)}
+.det-main h2{font-size:clamp(1.8rem,3.4vw,2.8rem);font-weight:800;letter-spacing:-.03em;text-transform:uppercase;line-height:1;margin:.4rem 0 1rem}
+.det-main .lede{font-size:1.02rem;color:var(--ink);max-width:60ch;margin-bottom:1rem;font-weight:500}
+.det-main p{font-size:.9rem;color:var(--gray);max-width:64ch}
+.det-imgs{display:grid;grid-template-columns:2fr 1fr 1fr;gap:.6rem;margin:1.8rem 0}
+.det-imgs img{width:100%;height:100%;aspect-ratio:4/3;object-fit:cover;display:block;border:1px solid var(--ink)}
+.det-imgs img:first-child{grid-row:span 2;aspect-ratio:auto}
+.det-find{border-left:3px solid var(--blue);background:#eef3f8;padding:1rem 1.3rem;max-width:60ch}
+.det-find b{font-family:var(--mono);font-size:.62rem;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:.3rem;font-weight:500}
+.det-find p{font-size:.86rem;color:var(--ink)}
+
+footer{padding:1.2rem 0 2.5rem;font-family:var(--mono);font-size:.68rem;color:var(--gray);display:flex;justify-content:space-between}
+@media(max-width:900px){
+  .cards{grid-template-columns:1fr 1fr}
+  .det{grid-template-columns:1fr;gap:1.5rem}
+  .det-side{border-right:none;border-bottom:1px solid var(--ink);padding:0 0 1.5rem}
+  .det-imgs{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header><div class="grid hd">
+  <div>
+    <div class="hd-id">DOSSIER / DA-2026 / ARCHITECTURAL R&amp;D</div>
+    <div class="hd-name">Doron Anhang</div>
+  </div>
+  <nav>
+    <a href="#"><i style="background:var(--blue)"></i>Research</a>
+    <a href="#"><i style="background:var(--red)"></i>Architecture</a>
+    <a href="#"><i style="background:var(--green)"></i>Objects</a>
+    <a href="#"><i style="background:var(--gold)"></i>About</a>
+  </nav>
+</div></header>
+
+<section class="grid hero">
+  <span class="dot" style="width:84px;height:84px;background:var(--gold);top:18%;right:8%"></span>
+  <span class="dot" style="width:34px;height:34px;background:var(--green);top:58%;right:24%"></span>
+  <span class="dot" style="width:20px;height:20px;background:var(--blue);top:30%;right:30%"></span>
+  <span class="dot" style="width:48px;height:48px;background:var(--red);bottom:10%;right:13%"></span>
+  <div class="hero-kicker">// EVIDENCE-BASED ARCHITECTURE — FIELD NOTES &amp; BUILT WORK</div>
+  <h1>Buildings are<br><span class="alt">hypotheses.</span><br>I test them.</h1>
+  <p>Architect-researcher working between quantitative spatial analysis and hands-on making.
+  Each color is a discipline; each card opens a file.</p>
+</section>
+
+<div class="grid rail">
+  <b>FILTER —</b>
+  <button class="chip on">All</button>
+  <button class="chip"><i style="background:var(--blue)"></i>Research</button>
+  <button class="chip"><i style="background:var(--red)"></i>Architecture</button>
+  <button class="chip"><i style="background:var(--green)"></i>Objects</button>
+  <button class="chip"><i style="background:var(--gold)"></i>Drawings</button>
+</div>
+
+<main class="grid">
+  <div class="cards">
+    <button class="card" data-proj="nkdt">
+      <div class="card-top"><span>001 / THESIS / 2025–26</span><i style="background:var(--blue)"></i></div>
+      <div class="card-body"><h3>NKDT — Points</h3><small>Student housing against loneliness</small></div>
+      <img src="../images/shared/nkdt_perspective.png" alt="">
+      <span class="plus">+</span>
+    </button>
+    <button class="card" data-proj="shade">
+      <div class="card-top"><span>003 / BUILT / 2023</span><i style="background:var(--red)"></i></div>
+      <div class="card-body"><h3>Shade Field</h3><small>Timber-and-sail canopy, raised by hand</small></div>
+      <img src="../images/design/shade_perspective.png" alt="">
+      <span class="plus">+</span>
+    </button>
+    <button class="card" data-proj="drift">
+      <div class="card-top"><span>004 / EXHIBITED / 2024</span><i style="background:var(--green)"></i></div>
+      <div class="card-body"><h3>Drift Series</h3><small>Light sculptures, driftwood + steel</small></div>
+      <img src="../images/design/drift_wood.png" alt="">
+      <span class="plus">+</span>
+    </button>
+    <button class="card" data-proj="ring">
+      <div class="card-top"><span>005 / CRAFT</span><i style="background:var(--green)"></i></div>
+      <div class="card-body"><h3>Carved Gold Ring</h3><small>Lost-wax goldsmithing</small></div>
+      <img src="../images/design/ring_studio.png" alt="">
+      <span class="plus">+</span>
+    </button>
+    <button class="card" data-proj="study">
+      <div class="card-top"><span>002 / STUDY / 2025</span><i style="background:var(--blue)"></i></div>
+      <div class="card-body"><h3>Caravan vs. Mid-rise</h3><small>Spatial-quality comparison</small></div>
+      <img src="../images/research/caravan_site.jpg" alt="">
+      <span class="plus">+</span>
+    </button>
+    <button class="card" data-proj="fixture">
+      <div class="card-top"><span>007 / CONCEPT</span><i style="background:var(--gold)"></i></div>
+      <div class="card-body"><h3>Petach Tikva Fixture</h3><small>Street-scale public fixture</small></div>
+      <img src="../images/design/petach_tikva_fixture.png" alt="">
+      <span class="plus">+</span>
+    </button>
+  </div>
+</main>
+
+<!-- expanded view: appears directly under the grid when a card is clicked -->
+<section id="detail"><div class="grid det">
+  <aside class="det-side">
+    <button class="det-close" onclick="closeDetail()">✕ CLOSE FILE</button>
+    <div class="det-cat"><i style="background:var(--blue)"></i><span>RESEARCH + DESIGN</span></div>
+    <dl>
+      <div class="det-spec"><dt>STATUS</dt><dd>M.ARCH THESIS</dd></div>
+      <div class="det-spec"><dt>YEAR</dt><dd>2025–26</dd></div>
+      <div class="det-spec"><dt>SITE</dt><dd>ARIEL, ISRAEL</dd></div>
+      <div class="det-spec"><dt>ROLE</dt><dd>SOLE AUTHOR</dd></div>
+      <div class="det-spec"><dt>TOOLS</dt><dd>QGIS / RHINO / PY</dd></div>
+    </dl>
+  </aside>
+  <article class="det-main">
+    <div class="det-num">FILE 001</div>
+    <h2>NKDT — Points</h2>
+    <p class="lede">Can student housing be designed against loneliness?</p>
+    <p>Mixed-methods thesis combining a campus-wide survey, GIS density mapping and typology scoring.
+    The findings are distilled into three buildable housing types — A, B and C — arranged as a
+    connected masterplan of lab, community core and dorm clusters.</p>
+    <div class="det-imgs">
+      <img src="../images/shared/nkdt_perspective.png" alt="">
+      <img src="../images/nkdt/nkdt_type_a.jpg" alt="">
+      <img src="../images/nkdt/nkdt_type_b.jpg" alt="">
+      <img src="../images/nkdt/nkdt_type_c.jpg" alt="">
+      <img src="../images/nkdt/nkdt_unit_detail.jpg" alt="">
+    </div>
+    <div class="det-find"><b>KEY FINDING</b>
+      <p>Clustered low-rise plexes outperform corridor dormitories on every measured belonging metric.</p>
+    </div>
+  </article>
+</div></section>
+
+<footer class="grid"><span>© 2026 DORON ANHANG</span><span>doron.yahoo@gmail.com</span></footer>
+
+<script>
+// Mockup behavior: any card opens the same sample detail (NKDT).
+// In the real build, the panel content is rendered from projects.json by data-proj id.
+const detail=document.getElementById('detail');
+document.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('.card').forEach(x=>x.classList.remove('sel'));
+  c.classList.add('sel');
+  detail.classList.add('open');
+  detail.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+function closeDetail(){detail.classList.remove('open');document.querySelectorAll('.card').forEach(x=>x.classList.remove('sel'));}
+</script>
+</body>
+</html>

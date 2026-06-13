@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup 1 — The Research Dossier</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF5EC; --sand:#EFDCC3; --ink:#23211C; --gray:#6f6a60;
+  --gold:#E0A33E; --green:#5CB270; --blue:#2070B4; --red:#DF4B3B;
+  --rule:#23211C;
+  --mono:'JetBrains Mono',monospace; --sans:'Archivo',sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.6}
+.grid{max-width:1280px;margin:0 auto;padding:0 2rem}
+
+/* header: index-card style */
+header{border-bottom:2px solid var(--rule)}
+.hd{display:grid;grid-template-columns:1fr auto;align-items:end;padding:1.2rem 0}
+.hd-id{font-family:var(--mono);font-size:.68rem;color:var(--gray);letter-spacing:.05em}
+.hd-name{font-size:1.4rem;font-weight:800;letter-spacing:-.02em;text-transform:uppercase}
+nav{display:flex;gap:1.8rem;font-family:var(--mono);font-size:.72rem;text-transform:uppercase}
+nav a{color:var(--ink);text-decoration:none;border-bottom:2px solid transparent;padding-bottom:2px}
+nav a:hover{border-color:var(--gold)}
+
+/* hero: dossier title block */
+.hero{display:grid;grid-template-columns:2fr 1fr;border-bottom:2px solid var(--rule)}
+.hero-l{padding:4rem 3rem 4rem 0;border-right:1px solid var(--rule)}
+.hero-kicker{font-family:var(--mono);font-size:.7rem;color:var(--red);margin-bottom:1.2rem}
+.hero h1{font-size:clamp(2.6rem,5.5vw,4.6rem);font-weight:800;line-height:.98;letter-spacing:-.03em;text-transform:uppercase}
+.hero h1 .alt{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.hero p{margin-top:1.6rem;max-width:52ch;color:var(--gray);font-size:.95rem}
+.hero-r{padding:4rem 0 4rem 3rem;font-family:var(--mono);font-size:.74rem}
+.spec{display:flex;justify-content:space-between;padding:.55rem 0;border-bottom:1px solid #d9d0bf;gap:1rem}
+.spec dt{color:var(--gray)}
+.spec dd{text-align:right}
+.dot{display:inline-block;width:.6em;height:.6em;border-radius:50%;margin-right:.45em;vertical-align:baseline}
+
+/* index table of projects */
+.sec-label{font-family:var(--mono);font-size:.7rem;color:var(--gray);padding:2.2rem 0 .8rem;text-transform:uppercase}
+.row{display:grid;grid-template-columns:3.5rem 1.1fr .9fr 9rem 4.5rem;gap:1.5rem;align-items:center;padding:1.15rem 0;border-top:1px solid var(--rule);text-decoration:none;color:var(--ink);transition:background .15s}
+.row:last-of-type{border-bottom:2px solid var(--rule);margin-bottom:4rem}
+.row:hover{background:#fff}
+.row-num{font-family:var(--mono);font-size:.72rem;color:var(--gray)}
+.row-title{font-size:1.25rem;font-weight:600;letter-spacing:-.01em}
+.row-desc{font-size:.78rem;color:var(--gray)}
+.row-tag{font-family:var(--mono);font-size:.64rem;text-transform:uppercase;justify-self:start;padding:.25rem .6rem;border:1px solid var(--ink);border-radius:99px;white-space:nowrap}
+.row-tag.r{border-color:var(--blue);color:var(--blue)}
+.row-tag.d{border-color:var(--red);color:var(--red)}
+.row-tag.f{border-color:var(--green);color:var(--green)}
+.row-tag.c{border-color:var(--gold);color:var(--gold)}
+.row-img{width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(1) contrast(1.05);transition:filter .2s}
+.row:hover .row-img{filter:none}
+.row-arrow{font-family:var(--mono);text-align:right}
+
+footer{border-top:2px solid var(--rule);padding:1.2rem 0 2.5rem;font-family:var(--mono);font-size:.7rem;color:var(--gray);display:flex;justify-content:space-between}
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr}
+  .hero-l{border-right:none;padding:2.5rem 0;border-bottom:1px solid var(--rule)}
+  .hero-r{padding:2rem 0}
+  .row{grid-template-columns:3rem 1fr 4.5rem;}
+  .row-desc,.row-tag{display:none}
+}
+</style>
+</head>
+<body>
+<header><div class="grid hd">
+  <div>
+    <div class="hd-id">DOSSIER / DA-2026 / ARCHITECTURAL R&amp;D</div>
+    <div class="hd-name">Doron Anhang</div>
+  </div>
+  <nav><a href="#">Index</a><a href="#">Research</a><a href="#">Design</a><a href="#">Contact</a></nav>
+</div></header>
+
+<section class="grid hero">
+  <div class="hero-l">
+    <div class="hero-kicker">// EVIDENCE-BASED ARCHITECTURE — FIELD NOTES &amp; BUILT WORK</div>
+    <h1>Buildings are<br><span class="alt">hypotheses.</span><br>I test them.</h1>
+    <p>Architect-researcher working between quantitative spatial analysis and hands-on
+    making. Master's thesis on student housing &amp; loneliness; furniture and structures
+    built from salvaged timber and steel.</p>
+  </div>
+  <dl class="hero-r">
+    <div class="spec"><dt>STATUS</dt><dd>M.Arch THESIS, YR 5</dd></div>
+    <div class="spec"><dt>BASE</dt><dd>ISRAEL</dd></div>
+    <div class="spec"><dt><span class="dot" style="background:var(--blue)"></span>RESEARCH</dt><dd>SPATIAL ANALYSIS / SURVEYS</dd></div>
+    <div class="spec"><dt><span class="dot" style="background:var(--red)"></span>DESIGN</dt><dd>HOUSING / MASTERPLAN</dd></div>
+    <div class="spec"><dt><span class="dot" style="background:var(--green)"></span>FABRICATION</dt><dd>WOOD / STEEL / LIGHT</dd></div>
+    <div class="spec"><dt><span class="dot" style="background:var(--gold)"></span>TOOLS</dt><dd>GIS / RHINO / PYTHON</dd></div>
+  </dl>
+</section>
+
+<main class="grid">
+  <div class="sec-label">INDEX — SELECTED WORK 2021–2026</div>
+
+  <a class="row" href="#">
+    <span class="row-num">001</span>
+    <span><span class="row-title">NKDT — Points</span><br><small class="row-desc">Thesis: student-housing typologies vs. campus loneliness</small></span>
+    <span class="row-desc">Mixed-methods study → three built typologies. Survey n=214, GIS density mapping.</span>
+    <span class="row-tag r">RESEARCH</span>
+    <img class="row-img" src="../images/shared/nkdt_perspective.png" alt="">
+  </a>
+  <a class="row" href="#">
+    <span class="row-num">002</span>
+    <span><span class="row-title">Shade Field</span><br><small class="row-desc">Tensile canopy, campus courtyard</small></span>
+    <span class="row-desc">Timber masts + fabric sails; designed, engineered and raised with a student crew.</span>
+    <span class="row-tag d">BUILT</span>
+    <img class="row-img" src="../images/design/shade_perspective.png" alt="">
+  </a>
+  <a class="row" href="#">
+    <span class="row-num">003</span>
+    <span><span class="row-title">Drift Series</span><br><small class="row-desc">Light objects, salvaged driftwood + steel</small></span>
+    <span class="row-desc">Material studies in decay and warmth; exhibited as functional sculpture.</span>
+    <span class="row-tag f">FABRICATION</span>
+    <img class="row-img" src="../images/design/drift_wood.png" alt="">
+  </a>
+  <a class="row" href="#">
+    <span class="row-num">004</span>
+    <span><span class="row-title">Clinic, Section A–A</span><br><small class="row-desc">Academic project — full construction documentation</small></span>
+    <span class="row-desc">1:50 → 1:25 detailing, stair package, envelope sections.</span>
+    <span class="row-tag c">DRAWINGS</span>
+    <img class="row-img" src="../images/design/rail_wood.png" alt="">
+  </a>
+</main>
+
+<footer><div class="grid" style="display:flex;justify-content:space-between;width:100%">
+  <span>© 2026 DORON ANHANG</span><span>doron.yahoo@gmail.com</span>
+</div></footer>
+</body>
+</html>

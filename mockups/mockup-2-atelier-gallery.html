@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup 2 — Atelier Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#1d1a16; --bg2:#26221d; --cream:#FAF5EC; --sand:#EFDCC3;
+  --gold:#E0A33E; --green:#5CB270; --blue:#4a8fc7; --red:#DF4B3B;
+  --txt:#b8b0a2; --serif:'Cormorant Garamond',serif; --sans:'Inter',sans-serif;
+}
+body{font-family:var(--sans);background:var(--bg);color:var(--txt);font-size:15px;line-height:1.7;font-weight:300}
+
+nav{position:fixed;inset:0 0 auto;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1.4rem 3rem;mix-blend-mode:difference}
+.nav-name{font-family:var(--serif);font-size:1.25rem;color:var(--cream);text-decoration:none;letter-spacing:.04em}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cream);text-decoration:none;opacity:.7}
+.nav-links a:hover{opacity:1}
+
+/* hero */
+.hero{min-height:92vh;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4rem;padding:7rem 3rem 3rem}
+.hero-text h1{font-family:var(--serif);font-size:clamp(3rem,6vw,5.2rem);font-weight:400;line-height:1.04;color:var(--cream)}
+.hero-text h1 em{font-style:italic;color:var(--gold)}
+.hero-text p{margin-top:1.8rem;max-width:44ch;font-size:.92rem}
+.hero-sig{margin-top:2.5rem;display:flex;gap:.55rem;align-items:center}
+.hero-sig span{width:9px;height:9px;border-radius:50%}
+.hero-sig small{margin-left:.8rem;font-size:.66rem;letter-spacing:.25em;text-transform:uppercase;color:#7a7264}
+.hero-img{position:relative}
+.hero-img img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.hero-img figcaption{margin-top:.9rem;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:#7a7264;display:flex;justify-content:space-between}
+
+/* gallery — alternating large pieces */
+.work{padding:5rem 3rem}
+.work-label{font-size:.66rem;letter-spacing:.3em;text-transform:uppercase;color:#7a7264;border-bottom:1px solid #3a342c;padding-bottom:1rem;margin-bottom:4rem;display:flex;justify-content:space-between}
+.piece{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:end;margin-bottom:7rem}
+.piece:nth-child(odd) .piece-img{order:2}
+.piece-img img{width:100%;display:block;object-fit:cover;aspect-ratio:16/11}
+.piece-num{font-family:var(--serif);font-size:5rem;line-height:1;color:#3a342c;font-style:italic}
+.piece h2{font-family:var(--serif);font-size:2.2rem;font-weight:400;color:var(--cream);margin:.6rem 0 .9rem}
+.piece p{font-size:.88rem;max-width:42ch}
+.piece-meta{margin-top:1.4rem;font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:#7a7264}
+.piece-meta b{font-weight:400}
+.piece-link{display:inline-block;margin-top:1.6rem;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:.3rem}
+
+/* research band — quiet cream interruption */
+.band{background:var(--cream);color:#4a443a;padding:5rem 3rem;text-align:center}
+.band h3{font-family:var(--serif);font-size:2rem;font-weight:400;color:#1d1a16;max-width:30ch;margin:0 auto}
+.band h3 em{font-style:italic;color:var(--red)}
+.band p{max-width:54ch;margin:1.4rem auto 0;font-size:.9rem}
+
+footer{padding:3.5rem 3rem;display:flex;justify-content:space-between;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:#7a7264}
+footer a{color:var(--sand);text-decoration:none}
+@media(max-width:860px){
+  .hero,.piece{grid-template-columns:1fr;gap:2rem}
+  .piece:nth-child(odd) .piece-img{order:0}
+  nav,.hero,.work,.band,footer{padding-left:1.4rem;padding-right:1.4rem}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-name" href="#">Doron Anhang</a>
+  <ul class="nav-links"><li><a href="#">Work</a></li><li><a href="#">Research</a></li><li><a href="#">About</a></li><li><a href="#">Contact</a></li></ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Material,<br>light &amp; <em>evidence.</em></h1>
+    <p>I design and build at two scales: research-driven housing for communities,
+    and hand-made objects from salvaged wood and steel. Both begin the same way —
+    by paying close attention.</p>
+    <div class="hero-sig">
+      <span style="background:var(--gold)"></span>
+      <span style="background:var(--green)"></span>
+      <span style="background:var(--blue)"></span>
+      <span style="background:var(--red)"></span>
+      <small>Architect · Researcher · Maker</small>
+    </div>
+  </div>
+  <figure class="hero-img">
+    <img src="../images/design/rail_wood.png" alt="Rail wood light sculpture">
+    <figcaption><span>Rail — salvaged steel &amp; timber</span><span>2024</span></figcaption>
+  </figure>
+</section>
+
+<section class="work">
+  <div class="work-label"><span>Selected Work</span><span>2021 — 2026</span></div>
+
+  <article class="piece">
+    <div class="piece-img"><img src="../images/design/drift_wood.png" alt="Driftwood lamp"></div>
+    <div>
+      <div class="piece-num">01</div>
+      <h2>Drift Series</h2>
+      <p>Light objects carved from driftwood and weathered steel. The material is left
+      to speak — burnt edges, salt cracks, rust — with warm light pulled through the grain.</p>
+      <div class="piece-meta"><b>Fabrication · Wood / Steel / LED · Exhibited 2024</b></div>
+      <a class="piece-link" href="#">View piece</a>
+    </div>
+  </article>
+
+  <article class="piece">
+    <div class="piece-img"><img src="../images/design/shade_perspective.png" alt="Shade canopy"></div>
+    <div>
+      <div class="piece-num">02</div>
+      <h2>Shade Field</h2>
+      <p>A tensile canopy of timber masts and sail fabric for a campus courtyard —
+      designed, structurally resolved and raised by hand with a student crew.</p>
+      <div class="piece-meta"><b>Built structure · Timber / Fabric · Ariel, 2023</b></div>
+      <a class="piece-link" href="#">View project</a>
+    </div>
+  </article>
+
+  <article class="piece">
+    <div class="piece-img"><img src="../images/shared/nkdt_perspective.png" alt="NKDT housing"></div>
+    <div>
+      <div class="piece-num">03</div>
+      <h2>NKDT — Points</h2>
+      <p>Graduate thesis: can student housing be designed against loneliness?
+      Field surveys and spatial analysis distilled into three buildable typologies.</p>
+      <div class="piece-meta"><b>Thesis · Research + Housing design · 2025–26</b></div>
+      <a class="piece-link" href="#">Read the research</a>
+    </div>
+  </article>
+</section>
+
+<section class="band">
+  <h3>“Every project here started as a <em>measurement</em> — of light, of loneliness, of load.”</h3>
+  <p>The analytical work — surveys, GIS mapping, typology scoring — lives alongside the made objects,
+  because for me they are the same act: testing an idea against the world.</p>
+</section>
+
+<footer>
+  <span>© 2026 Doron Anhang</span>
+  <a href="mailto:doron.yahoo@gmail.com">doron.yahoo@gmail.com</a>
+</footer>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup 4 — The Split Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF5EC; --sand:#F0E2CC; --ink:#23211C; --gray:#6f6a60;
+  --gold:#E0A33E; --green:#5CB270; --blue:#2070B4; --red:#DF4B3B;
+  --serif:'Fraunces',serif; --mono:'IBM Plex Mono',monospace; --sans:'IBM Plex Sans',sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.65}
+
+nav{display:flex;justify-content:space-between;align-items:center;padding:1.2rem 2.5rem;border-bottom:1px solid var(--ink)}
+.nav-name{font-family:var(--serif);font-size:1.15rem;color:var(--ink);text-decoration:none}
+.nav-mode{font-family:var(--mono);font-size:.68rem;display:flex;border:1px solid var(--ink);border-radius:3px;overflow:hidden}
+.nav-mode span{padding:.4rem .9rem;cursor:pointer}
+.nav-mode .on{background:var(--ink);color:var(--cream)}
+
+/* the split hero: analysis | making */
+.split{display:grid;grid-template-columns:1fr 1fr;min-height:88vh}
+.side{padding:3.5rem 3rem;display:flex;flex-direction:column;justify-content:space-between;gap:2.5rem}
+.side-l{border-right:1px solid var(--ink)}
+.side-r{background:var(--sand)}
+.side-kicker{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;display:flex;align-items:center;gap:.5rem}
+.side-kicker i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.side h1{font-family:var(--serif);font-size:clamp(2.2rem,3.8vw,3.6rem);font-weight:400;line-height:1.06}
+.side h1 em{font-style:italic}
+.side-l h1 em{color:var(--blue)} .side-r h1 em{color:var(--red)}
+.side p{font-size:.9rem;color:var(--gray);max-width:46ch}
+
+/* analytical artifacts (left) */
+.chart{border:1px solid var(--ink);background:#fff;padding:1.1rem 1.2rem}
+.chart-cap{font-family:var(--mono);font-size:.64rem;color:var(--gray);margin-bottom:.9rem;display:flex;justify-content:space-between}
+.bar{display:grid;grid-template-columns:7.5rem 1fr 2.5rem;align-items:center;gap:.8rem;margin-bottom:.55rem;font-family:var(--mono);font-size:.66rem}
+.bar i{height:12px;display:block}
+.bar:nth-child(2) i{background:var(--blue);width:84%}
+.bar:nth-child(3) i{background:var(--green);width:62%}
+.bar:nth-child(4) i{background:var(--gold);width:48%}
+.bar:nth-child(5) i{background:var(--red);width:31%}
+.bar > span:last-child{text-align:right}
+.l-meta{font-family:var(--mono);font-size:.66rem;color:var(--gray)}
+
+/* artistic artifact (right) */
+.r-fig{position:relative}
+.r-fig img{width:100%;aspect-ratio:7/5;object-fit:cover;display:block;border:1px solid var(--ink)}
+.r-fig figcaption{position:absolute;left:-1px;bottom:-1px;background:var(--cream);border:1px solid var(--ink);font-family:var(--mono);font-size:.64rem;padding:.45rem .8rem}
+
+/* ledger: each project is one entry with both halves */
+.ledger-head{font-family:var(--mono);font-size:.66rem;color:var(--gray);display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink)}
+.ledger-head span{padding:.6rem 3rem}
+.ledger-head span+span{border-left:1px solid var(--ink);background:var(--sand)}
+.entry{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--ink);text-decoration:none;color:var(--ink)}
+.entry:hover{background:#fffdf8}
+.e-think{padding:2rem 3rem}
+.e-make{padding:2rem 3rem;border-left:1px solid var(--ink);background:var(--sand);display:flex;gap:1.4rem;align-items:center}
+.e-num{font-family:var(--mono);font-size:.66rem;color:var(--gray)}
+.e-think h2{font-family:var(--serif);font-size:1.7rem;font-weight:500;margin:.4rem 0 .6rem}
+.e-think h2 em{font-style:italic}
+.e-think p{font-size:.85rem;color:var(--gray);max-width:48ch}
+.e-tags{margin-top:1rem;display:flex;gap:.45rem;flex-wrap:wrap}
+.e-tags span{font-family:var(--mono);font-size:.6rem;border:1px solid var(--ink);padding:.2rem .55rem;border-radius:2px}
+.e-make img{width:46%;aspect-ratio:1;object-fit:cover;border:1px solid var(--ink)}
+.e-make-note{font-family:var(--mono);font-size:.68rem;line-height:1.7;color:#4a443a}
+.e-make-note b{display:block;font-weight:500;color:var(--ink)}
+
+.cta{padding:4rem 3rem;text-align:center}
+.cta h3{font-family:var(--serif);font-size:1.9rem;font-weight:400}
+.cta h3 em{font-style:italic;color:var(--gold)}
+.cta a{display:inline-block;margin-top:1.5rem;font-family:var(--mono);font-size:.72rem;border:1px solid var(--ink);padding:.8rem 2rem;color:var(--ink);text-decoration:none}
+.cta a:hover{background:var(--ink);color:var(--cream)}
+footer{border-top:1px solid var(--ink);padding:1.2rem 2.5rem;font-family:var(--mono);font-size:.66rem;color:var(--gray);display:flex;justify-content:space-between}
+@media(max-width:880px){
+  .split,.entry,.ledger-head{grid-template-columns:1fr}
+  .side-l{border-right:none;border-bottom:1px solid var(--ink)}
+  .e-make,.ledger-head span+span{border-left:none;border-top:1px solid var(--ink)}
+  .side,.e-think,.e-make{padding:2rem 1.4rem}
+  .ledger-head span{padding:.6rem 1.4rem}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-name" href="#">Doron Anhang — Architectural R&amp;D</a>
+  <div class="nav-mode"><span class="on">ANALYSIS</span><span>MAKING</span></div>
+</nav>
+
+<section class="split">
+  <div class="side side-l">
+    <div class="side-kicker"><i style="background:var(--blue)"></i>01 — THE ANALYTICAL HAND</div>
+    <h1>I measure what buildings <em>do</em> to people.</h1>
+    <div class="chart">
+      <div class="chart-cap"><span>FIG.01 — REPORTED BELONGING BY HOUSING TYPE (n=214)</span><span>2025</span></div>
+      <div class="bar"></div>
+      <div class="bar"><span>CLUSTER PLEX</span><i></i><span>0.84</span></div>
+      <div class="bar"><span>SCATTERED</span><i></i><span>0.62</span></div>
+      <div class="bar"><span>CARAVAN SITE</span><i></i><span>0.48</span></div>
+      <div class="bar"><span>MID-RISE CORR.</span><i></i><span>0.31</span></div>
+    </div>
+    <p class="l-meta">METHODS: FIELD SURVEY · GIS DENSITY MAPPING · TYPOLOGY SCORING · PYTHON / QGIS</p>
+  </div>
+  <div class="side side-r">
+    <div class="side-kicker"><i style="background:var(--red)"></i>02 — THE MAKING HAND</div>
+    <h1>Then I build the <em>answer</em> — at 1:1.</h1>
+    <figure class="r-fig">
+      <img src="../images/design/shade_front.png" alt="Shade structure">
+      <figcaption>SHADE FIELD — TIMBER + SAIL, RAISED BY HAND, 2023</figcaption>
+    </figure>
+    <p>Salvaged timber, weathered steel, tensile fabric, cast gold. The research earns its keep
+    when it becomes something you can stand under.</p>
+  </div>
+</section>
+
+<div class="ledger-head"><span>RESEARCH QUESTION</span><span>BUILT RESPONSE</span></div>
+
+<a class="entry" href="#">
+  <div class="e-think">
+    <span class="e-num">ENTRY 001 — THESIS, 2025–26</span>
+    <h2>Can housing be designed <em>against loneliness?</em></h2>
+    <p>Survey of 214 students across four housing types; spatial analysis of shared-space
+    adjacency. Finding: clustered low-rise plexes outperform corridors on every belonging metric.</p>
+    <div class="e-tags"><span>SURVEY</span><span>GIS</span><span>TYPOLOGY</span></div>
+  </div>
+  <div class="e-make">
+    <img src="../images/shared/nkdt_perspective.png" alt="">
+    <div class="e-make-note"><b>NKDT — three typologies</b>Lab, community core and dorm clusters arranged as a connected masterplan.</div>
+  </div>
+</a>
+
+<a class="entry" href="#">
+  <div class="e-think">
+    <span class="e-num">ENTRY 002 — CAMPUS COMMISSION, 2023</span>
+    <h2>How much shade does a <em>courtyard</em> need?</h2>
+    <p>Sun-path study of an exposed campus plaza; sail geometry optimized for summer noon
+    coverage while keeping winter light.</p>
+    <div class="e-tags"><span>SOLAR STUDY</span><span>STRUCTURE</span></div>
+  </div>
+  <div class="e-make">
+    <img src="../images/design/shade_perspective.png" alt="">
+    <div class="e-make-note"><b>Shade Field</b>Timber masts and tensioned sails, engineered and raised with a student crew.</div>
+  </div>
+</a>
+
+<a class="entry" href="#">
+  <div class="e-think">
+    <span class="e-num">ENTRY 003 — MATERIAL STUDY, 2024</span>
+    <h2>What does a material <em>remember?</em></h2>
+    <p>A study of decay as ornament: driftwood, rusted rail steel and salt-cracked timber,
+    catalogued and paired with warm artificial light.</p>
+    <div class="e-tags"><span>MATERIAL</span><span>LIGHT</span><span>CRAFT</span></div>
+  </div>
+  <div class="e-make">
+    <img src="../images/design/drift_wood.png" alt="">
+    <div class="e-make-note"><b>Drift Series</b>Functional light sculptures — exhibited 2024.</div>
+  </div>
+</a>
+
+<section class="cta">
+  <h3>Two hands, <em>one practice.</em></h3>
+  <a href="mailto:doron.yahoo@gmail.com">GET IN TOUCH</a>
+</section>
+<footer><span>© 2026 DORON ANHANG</span><span>ISRAEL · M.ARCH YR 5</span></footer>
+</body>
+</html>

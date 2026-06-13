@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mockup 6 — Index + Accordion (1 + 3, option B)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF5EC; --sand:#EFDCC3; --ink:#23211C; --gray:#6f6a60;
+  --gold:#E0A33E; --green:#5CB270; --blue:#2070B4; --red:#DF4B3B;
+  --mono:'JetBrains Mono',monospace; --sans:'Archivo',sans-serif;
+}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:15px;line-height:1.6}
+.grid{max-width:1280px;margin:0 auto;padding:0 2rem}
+
+header{border-bottom:2px solid var(--ink);position:sticky;top:0;background:var(--cream);z-index:20}
+.hd{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+.hd-name{font-size:1.2rem;font-weight:800;text-transform:uppercase;letter-spacing:-.02em;display:flex;gap:.5rem;align-items:center}
+.hd-name::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--red)}
+nav{display:flex;gap:1.6rem;font-family:var(--mono);font-size:.68rem;text-transform:uppercase}
+nav a{color:var(--ink);text-decoration:none}
+nav a:hover{text-decoration:underline}
+
+/* hero: typography left, playful "quick views" collage right */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:3rem;padding:4rem 0;border-bottom:2px solid var(--ink);align-items:center}
+.hero-kicker{font-family:var(--mono);font-size:.7rem;color:var(--red);margin-bottom:1.1rem}
+.hero h1{font-size:clamp(2.4rem,5vw,4.2rem);font-weight:800;line-height:.98;letter-spacing:-.03em;text-transform:uppercase}
+.hero h1 .alt{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.hero p{margin-top:1.4rem;max-width:48ch;color:var(--gray);font-size:.95rem}
+.collage{position:relative;height:380px}
+.collage a{position:absolute;display:block;border:1px solid var(--ink);overflow:hidden;background:#fff;transition:transform .2s;text-decoration:none}
+.collage a:hover{transform:translateY(-6px) rotate(0deg)!important;z-index:5}
+.collage img{width:100%;height:100%;object-fit:cover;display:block}
+.collage i{position:absolute;top:.5rem;left:.5rem;width:12px;height:12px;border-radius:50%;border:2px solid var(--cream)}
+.c1{width:52%;height:62%;top:0;left:0;transform:rotate(-2deg)}
+.c2{width:42%;height:48%;top:8%;right:0;transform:rotate(2.5deg)}
+.c3{width:38%;height:40%;bottom:0;left:14%;transform:rotate(1.5deg)}
+.c4{width:34%;height:38%;bottom:4%;right:8%;transform:rotate(-2deg)}
+
+/* ── INDEX + ACCORDION ── */
+.sec-label{font-family:var(--mono);font-size:.68rem;color:var(--gray);padding:2rem 0 .8rem;text-transform:uppercase;display:flex;justify-content:space-between}
+.legend{display:flex;gap:1.1rem}
+.legend span{display:flex;align-items:center;gap:.35rem}
+.legend i{width:8px;height:8px;border-radius:50%}
+
+.entry{border-top:1px solid var(--ink)}
+.entry:last-of-type{border-bottom:2px solid var(--ink);margin-bottom:3rem}
+.entry-row{display:grid;grid-template-columns:3.2rem 14px 1.1fr .9fr auto 2.5rem;gap:1.3rem;align-items:center;padding:1rem 0;cursor:pointer;background:none;border:none;width:100%;text-align:left;font:inherit;color:inherit;transition:background .15s}
+.entry-row:hover{background:#fff}
+.e-num{font-family:var(--mono);font-size:.7rem;color:var(--gray)}
+.e-dot{width:12px;height:12px;border-radius:50%}
+.e-title{font-size:1.3rem;font-weight:600;letter-spacing:-.01em}
+.e-sub{font-size:.78rem;color:var(--gray)}
+.e-thumbs{display:flex;gap:.4rem}
+.e-thumbs img{width:52px;height:52px;object-fit:cover;border:1px solid var(--ink);filter:grayscale(.6);transition:filter .2s}
+.entry-row:hover .e-thumbs img,.entry.open .e-thumbs img{filter:none}
+.e-toggle{font-family:var(--mono);font-size:1rem;text-align:center;color:var(--gray);transition:transform .25s}
+.entry.open .e-toggle{transform:rotate(45deg)}
+.entry.open .entry-row{background:var(--sand)}
+
+/* expanded body */
+.e-body{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.4,0,.2,1)}
+.entry.open .e-body{max-height:1200px}
+.e-inner{display:grid;grid-template-columns:1fr 1.3fr;gap:2.5rem;padding:2rem 0 2.5rem}
+.e-text .lede{font-size:1.05rem;font-weight:500;max-width:46ch;margin-bottom:.9rem}
+.e-text p{font-size:.88rem;color:var(--gray);max-width:52ch}
+.e-specs{margin-top:1.4rem;font-family:var(--mono);font-size:.7rem}
+.e-spec{display:flex;justify-content:space-between;gap:1rem;padding:.5rem 0;border-bottom:1px solid #d9d0bf}
+.e-spec dt{color:var(--gray)}
+.e-find{margin-top:1.4rem;border-left:3px solid var(--blue);background:#eef3f8;padding:.9rem 1.1rem}
+.e-find b{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;color:var(--blue);display:block;margin-bottom:.25rem}
+.e-find p{font-size:.84rem;color:var(--ink);max-width:none}
+.e-link{display:inline-block;margin-top:1.5rem;font-family:var(--mono);font-size:.68rem;border:1px solid var(--ink);border-radius:99px;padding:.55rem 1.4rem;color:var(--ink);text-decoration:none}
+.e-link:hover{background:var(--ink);color:var(--cream)}
+.e-gallery{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;align-content:start}
+.e-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--ink);display:block}
+.e-gallery img:first-child{grid-column:span 2;aspect-ratio:16/8}
+
+footer{padding:1.2rem 0 2.5rem;font-family:var(--mono);font-size:.68rem;color:var(--gray);display:flex;justify-content:space-between}
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
+  .collage{height:300px}
+  .entry-row{grid-template-columns:2.5rem 12px 1fr 2rem}
+  .e-sub,.e-thumbs{display:none}
+  .e-inner{grid-template-columns:1fr;gap:1.5rem}
+}
+</style>
+</head>
+<body>
+<header><div class="grid hd">
+  <div class="hd-name">Doron Anhang</div>
+  <nav><a href="#">Index</a><a href="#">Research</a><a href="#">About</a><a href="#">Contact</a></nav>
+</div></header>
+
+<section class="grid hero">
+  <div>
+    <div class="hero-kicker">// ARCHITECT · RESEARCHER · MAKER</div>
+    <h1>Measure.<br>Design.<br><span class="alt">Build.</span></h1>
+    <p>Evidence-based architecture: spatial research on how housing shapes community,
+    alongside structures and objects built by hand from timber, steel and light.</p>
+  </div>
+  <div class="collage">
+    <a class="c1" href="#"><img src="../images/shared/nkdt_perspective.png" alt=""><i style="background:var(--blue)"></i></a>
+    <a class="c2" href="#"><img src="../images/design/drift_wood.png" alt=""><i style="background:var(--green)"></i></a>
+    <a class="c3" href="#"><img src="../images/design/shade_front.png" alt=""><i style="background:var(--red)"></i></a>
+    <a class="c4" href="#"><img src="../images/design/ring_studio.png" alt=""><i style="background:var(--green)"></i></a>
+  </div>
+</section>
+
+<main class="grid">
+  <div class="sec-label">
+    <span>INDEX — SELECTED WORK 2021–2026 · CLICK TO OPEN</span>
+    <span class="legend">
+      <span><i style="background:var(--blue)"></i>RESEARCH</span>
+      <span><i style="background:var(--red)"></i>ARCHITECTURE</span>
+      <span><i style="background:var(--green)"></i>OBJECTS</span>
+      <span><i style="background:var(--gold)"></i>DRAWINGS</span>
+    </span>
+  </div>
+
+  <!-- ENTRY 001 — expanded by default to show the detail view -->
+  <div class="entry open">
+    <button class="entry-row">
+      <span class="e-num">001</span>
+      <span class="e-dot" style="background:var(--blue)"></span>
+      <span class="e-title">NKDT — Points</span>
+      <span class="e-sub">Thesis · Student housing against loneliness · 2025–26</span>
+      <span class="e-thumbs">
+        <img src="../images/shared/nkdt_perspective.png" alt="">
+        <img src="../images/nkdt/nkdt_type_a.jpg" alt="">
+        <img src="../images/nkdt/nkdt_unit_detail.jpg" alt="">
+      </span>
+      <span class="e-toggle">+</span>
+    </button>
+    <div class="e-body"><div class="e-inner">
+      <div class="e-text">
+        <p class="lede">Can student housing be designed against loneliness?</p>
+        <p>Mixed-methods thesis combining a campus-wide survey, GIS density mapping and typology
+        scoring, distilled into three buildable housing types arranged as a connected masterplan
+        of lab, community core and dorm clusters.</p>
+        <dl class="e-specs">
+          <div class="e-spec"><dt>STATUS</dt><dd>M.ARCH THESIS</dd></div>
+          <div class="e-spec"><dt>SITE</dt><dd>ARIEL, ISRAEL</dd></div>
+          <div class="e-spec"><dt>ROLE</dt><dd>SOLE AUTHOR</dd></div>
+          <div class="e-spec"><dt>TOOLS</dt><dd>QGIS / RHINO / PYTHON</dd></div>
+        </dl>
+        <div class="e-find"><b>KEY FINDING</b>
+          <p>Clustered low-rise plexes outperform corridor dormitories on every measured belonging metric.</p>
+        </div>
+        <a class="e-link" href="#">OPEN FULL FILE →</a>
+      </div>
+      <div class="e-gallery">
+        <img src="../images/shared/nkdt_perspective.png" alt="">
+        <img src="../images/nkdt/nkdt_type_b.jpg" alt="">
+        <img src="../images/nkdt/nkdt_unit_sheet.jpg" alt="">
+      </div>
+    </div></div>
+  </div>
+
+  <div class="entry">
+    <button class="entry-row">
+      <span class="e-num">003</span>
+      <span class="e-dot" style="background:var(--red)"></span>
+      <span class="e-title">Shade Field</span>
+      <span class="e-sub">Built · Timber-and-sail canopy · 2023</span>
+      <span class="e-thumbs">
+        <img src="../images/design/shade_perspective.png" alt="">
+        <img src="../images/design/shade_front.png" alt="">
+        <img src="../images/design/shade_side.png" alt="">
+      </span>
+      <span class="e-toggle">+</span>
+    </button>
+    <div class="e-body"><div class="e-inner">
+      <div class="e-text">
+        <p class="lede">How much shade does a courtyard need?</p>
+        <p>Tensile canopy of inclined timber masts and fabric sails for an exposed campus courtyard —
+        designed, structurally resolved and raised by hand with a student crew.</p>
+        <dl class="e-specs">
+          <div class="e-spec"><dt>STATUS</dt><dd>BUILT</dd></div>
+          <div class="e-spec"><dt>MATERIAL</dt><dd>TIMBER / FABRIC</dd></div>
+          <div class="e-spec"><dt>ROLE</dt><dd>DESIGN + FABRICATION</dd></div>
+        </dl>
+        <a class="e-link" href="#">OPEN FULL FILE →</a>
+      </div>
+      <div class="e-gallery">
+        <img src="../images/design/shade_perspective.png" alt="">
+        <img src="../images/design/shade_front.png" alt="">
+        <img src="../images/design/shade_side.png" alt="">
+      </div>
+    </div></div>
+  </div>
+
+  <div class="entry">
+    <button class="entry-row">
+      <span class="e-num">004</span>
+      <span class="e-dot" style="background:var(--green)"></span>
+      <span class="e-title">Drift Series</span>
+      <span class="e-sub">Exhibited · Light objects, driftwood + steel · 2024</span>
+      <span class="e-thumbs">
+        <img src="../images/design/drift_wood.png" alt="">
+        <img src="../images/design/rail_wood.png" alt="">
+        <img src="../images/design/plank.png" alt="">
+      </span>
+      <span class="e-toggle">+</span>
+    </button>
+    <div class="e-body"><div class="e-inner">
+      <div class="e-text">
+        <p class="lede">What does a material remember?</p>
+        <p>A study of decay as ornament: salvaged driftwood and rail steel catalogued and paired
+        with concealed warm light — functional sculpture exhibited in 2024.</p>
+        <dl class="e-specs">
+          <div class="e-spec"><dt>STATUS</dt><dd>EXHIBITED</dd></div>
+          <div class="e-spec"><dt>MATERIAL</dt><dd>WOOD / STEEL / LED</dd></div>
+          <div class="e-spec"><dt>ROLE</dt><dd>DESIGN + FABRICATION</dd></div>
+        </dl>
+        <a class="e-link" href="#">OPEN FULL FILE →</a>
+      </div>
+      <div class="e-gallery">
+        <img src="../images/design/drift_wood.png" alt="">
+        <img src="../images/design/drift_wood_detail.png" alt="">
+        <img src="../images/design/rail_wood_detail.png" alt="">
+      </div>
+    </div></div>
+  </div>
+
+  <div class="entry">
+    <button class="entry-row">
+      <span class="e-num">005</span>
+      <span class="e-dot" style="background:var(--green)"></span>
+      <span class="e-title">Carved Gold Ring</span>
+      <span class="e-sub">Craft · Lost-wax goldsmithing</span>
+      <span class="e-thumbs">
+        <img src="../images/design/ring_studio.png" alt="">
+        <img src="../images/design/ring_overview.png" alt="">
+        <img src="../images/design/ring_lit.png" alt="">
+      </span>
+      <span class="e-toggle">+</span>
+    </button>
+    <div class="e-body"><div class="e-inner">
+      <div class="e-text">
+        <p class="lede">Design at the smallest scale.</p>
+        <p>Lost-wax carving and gold casting — the same attention to joint, light and material
+        as the buildings, at 1:1 on a finger.</p>
+        <dl class="e-specs">
+          <div class="e-spec"><dt>STATUS</dt><dd>BUILT</dd></div>
+          <div class="e-spec"><dt>MATERIAL</dt><dd>GOLD / WAX</dd></div>
+        </dl>
+        <a class="e-link" href="#">OPEN FULL FILE →</a>
+      </div>
+      <div class="e-gallery">
+        <img src="../images/design/ring_studio.png" alt="">
+        <img src="../images/design/ring_overview.png" alt="">
+        <img src="../images/design/ring_lit.png" alt="">
+      </div>
+    </div></div>
+  </div>
+</main>
+
+<footer class="grid"><span>© 2026 DORON ANHANG</span><span>doron.yahoo@gmail.com</span></footer>
+
+<script>
+document.querySelectorAll('.entry-row').forEach(btn=>btn.addEventListener('click',()=>{
+  const e=btn.parentElement, wasOpen=e.classList.contains('open');
+  document.querySelectorAll('.entry').forEach(x=>x.classList.remove('open'));
+  if(!wasOpen){e.classList.add('open');setTimeout(()=>e.scrollIntoView({behavior:'smooth',block:'nearest'}),200);}
+}));
+</script>
+</body>
+</html>
