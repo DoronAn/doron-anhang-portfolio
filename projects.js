@@ -14,7 +14,7 @@
      cover     { src, pos? , contain? }  pos = CSS object-position
      wip       true → no "Full project" view; panel shows the wipNote
      summary   { headline (HTML, <em> = accent color), paras[], facts[],
-                 images[{src,cap,pos?,contain?}] }
+                 images[{src,cap,take?,pos?,contain?}] }  take = → bottom line
      chapters  [{ num, title, html, figures?[], charts? }]
                figures: {src,title?,cap,takeaway?,contain?,pos?}
    ═══════════════════════════════════════════════════════════════════════ */
@@ -78,9 +78,9 @@ window.SITE_DATA = {
         { v: "28", l: "plots · 7 neighbourhoods" }
       ],
       images: [
-        { src: "images/nkdt/nkdt_combined.png", cap: "Site masterplan model", pos: "center 55%" },
-        { src: "images/nkdt/nkdt_type_a.jpg", cap: "Type A: exploded axon" },
-        { src: "images/nkdt/nkdt_unit_detail.jpg", cap: "Unit plan & section" }
+        { src: "images/nkdt/nkdt_combined.png", cap: "Site masterplan model", take: "28 plots, 7 neighbourhoods: the dorm buffer rethought as the campus–city connector.", pos: "center 55%" },
+        { src: "images/nkdt/nkdt_type_a.jpg", cap: "Type A: exploded axon", take: "One module, exploded: ground-floor commercial under a rooftop community." },
+        { src: "images/nkdt/nkdt_unit_detail.jpg", cap: "Unit plan & section", take: "The room as 2–4 modules: a graduated privacy gradient, not a binary wall." }
       ]
     },
     chapters: [
@@ -182,9 +182,9 @@ window.SITE_DATA = {
         { v: "47", l: "days of telemetry" }
       ],
       images: [
-        { src: "images/research/ariel_map.jpg", cap: "Campus: two compounds" },
-        { src: "images/research/caravan_site.jpg", cap: "Caravan compound" },
-        { src: "images/research/midrise_site.jpg", cap: "Mid-rise compound" }
+        { src: "images/research/ariel_map.jpg", cap: "Campus: two compounds", take: "Same campus, same population, opposing layouts: the controlled comparison." },
+        { src: "images/research/caravan_site.jpg", cap: "Caravan compound", take: "Decentralised and green: scored 3.9 / 5 on spatial quality." },
+        { src: "images/research/midrise_site.jpg", cap: "Mid-rise compound", take: "Dense and institutional: scored 2.9 / 5 — corridors replace communal space." }
       ]
     },
     chapters: [
@@ -194,7 +194,7 @@ window.SITE_DATA = {
         <p>Under the supervision of <strong>Dr. Arch. Gilad Schweid</strong>, it establishes a rigorous mixed-method framework to measure how specific micro-spatial features drive or suppress a <strong>Sense of Community (SoC)</strong> within institutional student housing.</p>
         <p>The research leverages a rare natural experiment: Ariel University operates <strong>two dormitory compounds on the same campus</strong>, serving the same student population, built on <strong>radically opposing architectural philosophies</strong>, controlling for the social confounders that normally make this kind of research inconclusive.</p>`,
         figures: [
-          { src: "images/research/ariel_map.jpg", title: "Ariel University campus", cap: "Two opposing compounds, one shared campus.", wide: true },
+          { src: "images/research/ariel_map.jpg", title: "Ariel University campus", cap: "Two opposing compounds, one shared campus.", takeaway: "One campus, one population: the natural experiment that controls the social confounders.", wide: true },
           { src: "images/research/caravan_site.jpg", title: "Caravan compound", cap: "~350 scattered units, 0.106 km², pedestrian-first.", takeaway: "Decentralised: every unit faces shared green space.", accent: "var(--sage)" },
           { src: "images/research/midrise_site.jpg", title: "Mid-rise compound", cap: "1,550 students, Buildings 101–116, 0.033 km².", takeaway: "Dense and institutional: corridors replace communal space.", accent: "var(--clay)" }
         ]
@@ -204,9 +204,9 @@ window.SITE_DATA = {
         html: `<p>Student dormitory design has evolved through three canonical archetypes. The <strong>Corridor Plex</strong> lines rooms along a shared hallway with communal bathrooms per floor – consistently linked to social overload and withdrawal. The <strong>Cluster Plex</strong>, still the dominant contemporary model, groups rooms around a small shared suite; it improves privacy but paradoxically scores worse on campus-wide community metrics. The <strong>Scattered Plex</strong> organizes autonomous units across shared communal grounds, with the spatial relationship between each unit and the landscape defining the compound's social character – the least studied, and the most promising.</p>
         <p>Ariel's two compounds map directly onto this. The <strong>mid-rise compound</strong> is a cluster-corridor hybrid: densely packed towers with consolidated indoor amenities – ~1,550 students across 0.033 km². The <strong>caravan compound</strong> is a scattered plex: ~350 low-rise units distributed across 0.106 km² of organic, pedestrian-first grounds, organised into semi-private sub-clusters surrounded by greenery and shared outdoor space.</p>`,
         figures: [
-          { src: "images/shared/corridor_plex.png", title: "Corridor Plex", cap: "Rooms along a shared hallway: linked to social overload.", contain: true, accent: "var(--clay)" },
-          { src: "images/shared/cluster_plex.png", title: "Cluster Plex", cap: "Rooms around a shared suite: privacy up, community down.", contain: true, accent: "var(--clay)" },
-          { src: "images/shared/scattered_plex.png", title: "Scattered Plex", cap: "Autonomous units on shared grounds: the promising one.", contain: true, accent: "var(--sage)" },
+          { src: "images/shared/corridor_plex.png", title: "Corridor Plex", cap: "Rooms along a shared hallway: linked to social overload.", takeaway: "Forced proximity without retreat: contact becomes overload, not community.", contain: true, accent: "var(--clay)" },
+          { src: "images/shared/cluster_plex.png", title: "Cluster Plex", cap: "Rooms around a shared suite: privacy up, community down.", takeaway: "The privacy gain comes at the cost of campus-wide belonging.", contain: true, accent: "var(--clay)" },
+          { src: "images/shared/scattered_plex.png", title: "Scattered Plex", cap: "Autonomous units on shared grounds: the promising one.", takeaway: "The unit–landscape relationship, not density, sets the social character.", contain: true, accent: "var(--sage)" },
           { src: "images/research/building_101.jpg", title: "Building 101 floor plan", cap: "Cluster-corridor hybrid · 1,550 students · 0.033 km².", takeaway: "Dense towers; corridors replace communal outdoor space." },
           { src: "images/research/caravan_floor_plan.jpg", title: "Caravan unit floor plan", cap: "Scattered plex · ~350 units · 0.106 km².", takeaway: "Autonomous unit; every door opens onto shared green space." }
         ]
@@ -227,7 +227,7 @@ window.SITE_DATA = {
         <p><strong>Privacy-by-Design</strong> governed the entire pipeline. Survey responses and spatial telemetry were isolated across decoupled databases from the outset. User identities were obfuscated at device edge via a client-side cryptographic hash crossing hardware IDs with registration timestamps – the only identifier ever transmitted. GPS data was geofenced to city limits; when a participant was detected within their own residential cluster, the app substituted their precise coordinate with a cluster-centroid anchor, preventing hyper-local tracking while preserving compound-level movement data.</p>
         <p class="links">Source code:&nbsp; <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer">App ↗</a> &nbsp;·&nbsp; <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer">API ↗</a></p>`,
         figures: [
-          { src: "images/research/d1_participant_flow_v2.svg", title: "Participant flow", cap: "Onboarding through passive GPS collection.", contain: true, wide: true },
+          { src: "images/research/d1_participant_flow_v2.svg", title: "Participant flow", cap: "Onboarding through passive GPS collection.", takeaway: "One funnel from consent to telemetry: 38 downloads narrowed to 25 valid participants.", contain: true, wide: true },
           { src: "images/research/d2_anonymisation_v2.svg", title: "Anonymisation at the edge", cap: "Client-side SHA hash: hardware ID × registration timestamp.", takeaway: "No personal data ever leaves the device unhashed.", contain: true },
           { src: "images/research/d3_pipeline_v2.svg", title: "Data pipeline", cap: "Device → geofence → decoupled survey & spatial DBs.", takeaway: "Privacy-by-design end-to-end.", contain: true }
         ]
@@ -306,9 +306,9 @@ window.SITE_DATA = {
         { v: "18k", l: "gold, lost-wax cast" }
       ],
       images: [
-        { src: "images/design/drift_wood.png", cap: "Drift Wood: pendant" },
-        { src: "images/design/shade_perspective.png", cap: "Shade: tensegrity canopy" },
-        { src: "images/design/ring_studio.png", cap: "Engagement ring" }
+        { src: "images/design/drift_wood.png", cap: "Drift Wood: pendant", take: "Raw timber met by a fine metal stem: the join is the composition." },
+        { src: "images/design/shade_perspective.png", cap: "Shade: tensegrity canopy", take: "Beams held apart by wire tension alone: compression and tension separated." },
+        { src: "images/design/ring_studio.png", cap: "Engagement ring", take: "18k gold and amber from San Cristóbal: the ring carries the place it came from." }
       ]
     },
     chapters: [
@@ -372,9 +372,9 @@ window.SITE_DATA = {
         { v: "3", l: "roles, 2015 → present" }
       ],
       images: [
-        { src: "images/research/d3_pipeline_v2.svg", cap: "Pipeline design", contain: true },
-        { src: "images/research/d2_anonymisation_v2.svg", cap: "Privacy architecture", contain: true },
-        { src: "images/research/d4_instruments_v1.svg", cap: "Instrumentation", contain: true }
+        { src: "images/research/d3_pipeline_v2.svg", cap: "Pipeline design", take: "Decoupled databases end-to-end: the automation backbone behind the testing roadmap.", contain: true },
+        { src: "images/research/d2_anonymisation_v2.svg", cap: "Privacy architecture", take: "Identities hashed at the device edge: rigour applied to data integrity.", contain: true },
+        { src: "images/research/d4_instruments_v1.svg", cap: "Instrumentation", take: "Measurement you can trust: the same thread that runs through the architecture work.", contain: true }
       ]
     },
     chapters: [
@@ -529,7 +529,7 @@ window.SITE_DATA = {
       headline: 'Question or claim with one <em>accent</em> word.',
       paras: ["Paragraph 1.", "Paragraph 2."],
       facts: [{ v: "1", l: "fact label" }],
-      images: [{ src: "images/…/a.png", cap: "Caption" }]
+      images: [{ src: "images/…/a.png", cap: "Caption", take: "One-line → bottom note." }]
     },
     chapters: [
       { num: "01", title: "Chapter title", html: `<p>Text…</p>`,

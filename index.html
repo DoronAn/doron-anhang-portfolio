@@ -154,6 +154,9 @@ nav a:hover{border-color:var(--bronze)}
 .stage-media{position:relative;flex:1;min-height:0;background:var(--ivory2);border-top:1px dashed var(--hair);overflow:hidden}
 .stage-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
 .stage-media img.contain{object-fit:contain;padding:1rem;background:#fff}
+.stage-foot{padding:.65rem .9rem;border-top:1px solid var(--ivory2);font-size:.75rem;font-style:italic;color:#494337;line-height:1.5}
+.stage-foot:empty{display:none}
+.stage-foot::before{content:'→';font-style:normal;font-weight:600;color:var(--acc,var(--bronze));margin-right:.4rem}
 .stage-thumbs{display:flex;gap:.5rem}
 .stage-thumbs button{flex:1;aspect-ratio:4/3;max-height:84px;overflow:hidden;border:1px solid var(--hair);padding:0;opacity:.65;transition:opacity .2s,border-color .2s;background:var(--ivory2)}
 .stage-thumbs button img{width:100%;height:100%;object-fit:cover}
@@ -441,6 +444,7 @@ function renderStrip(p, idx) {
       <figure class="stage-hero" data-lb="${p.id}" data-gi="0" role="button" tabindex="0">
         <span class="stage-head"><span class="stage-cap" id="stagecap-${p.id}">${sImgs[0].cap || ''}</span><span class="stage-hint">↗ expand</span></span>
         <span class="stage-media"><img id="stagehero-${p.id}" src="${src(sImgs[0].src)}" alt="${esc(sImgs[0].cap || '')}" class="${sImgs[0].contain ? 'contain' : ''}" ${sImgs[0].pos ? `style="object-position:${sImgs[0].pos}"` : ''}></span>
+        <span class="stage-foot" id="stagetake-${p.id}">${sImgs[0].take || ''}</span>
       </figure>
       ${sImgs.length > 1 ? `<div class="stage-thumbs">${sImgs.map((im, i) => `
         <button class="${i === 0 ? 'on' : ''}" data-stage="${p.id}" data-i="${i}" aria-label="Show image ${i + 1}">
@@ -681,6 +685,8 @@ document.body.addEventListener('click', e => {
       hero.className = im.contain ? 'contain' : '';
       hero.style.objectPosition = im.pos || '';
       document.getElementById('stagecap-' + pid).textContent = im.cap || '';
+      const tk = document.getElementById('stagetake-' + pid);
+      if (tk) tk.textContent = im.take || '';
       document.querySelector(`.stage-hero[data-lb="${pid}"]`).dataset.gi = i;
       hero.style.opacity = 1;
     }, 180);
