@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Doron Anhang – Architectural R&D</title>
-<meta name="description" content="Doron Anhang — architect-researcher. Evidence-based architecture, spatial research, and handcrafted design.">
+<meta name="description" content="Doron Anhang – architect-researcher. Evidence-based architecture, spatial research, and handcrafted design.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,300;0,400;0,500;0,600;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -239,7 +239,7 @@ nav a:hover{border-color:var(--bronze)}
 .viab-row .vb i{display:block;height:100%;background:var(--vc);border-radius:4px}
 .viab-row .vstat{font-family:var(--mono);font-size:.58rem;color:var(--warm-gray);white-space:nowrap}
 
-/* floating close — fixed bottom-right, hollow pill, visible while a project is fully open */
+/* floating close – fixed bottom-right, hollow pill, visible while a project is fully open */
 .float-close{position:fixed;right:1.1rem;bottom:1.1rem;z-index:80;font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;background:var(--ivory);color:var(--ink);border:1px solid var(--ink);border-radius:99px;padding:.85rem 1.7rem;box-shadow:0 4px 16px rgba(33,30,25,.14);opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .3s,transform .3s,background .25s,color .25s}
 .float-close.show{opacity:1;pointer-events:auto;transform:none}
 .float-close:hover{background:var(--ink);color:var(--ivory)}
@@ -315,7 +315,7 @@ footer a:hover{color:var(--ink)}
 
 <main class="grid">
   <div class="idx-label">
-    <h2>Index — Selected Work</h2>
+    <h2>Index – Selected Work</h2>
     <div class="filters" id="filters"></div>
   </div>
   <div id="strips"></div>
@@ -435,7 +435,7 @@ function renderStrip(p, idx) {
       if (ch.figures) {
         figs = `<div class="figs">${ch.figures.map(f => {
           const gi = gallery.length;
-          gallery.push({ src: f.src, cap: (f.title ? f.title + ' — ' : '') + (f.cap || '') });
+          gallery.push({ src: f.src, cap: (f.title ? f.title + ': ' : '') + (f.cap || '') });
           return figCard(f, p.id, gi);
         }).join('')}</div>`;
       }
@@ -452,7 +452,7 @@ function renderStrip(p, idx) {
       </div>
       <div class="full-cols">
         <aside class="rail" data-rail="${p.id}">
-          ${p.chapters.map(ch => `<a href="#ch-${p.id}-${ch.num}" data-ch="ch-${p.id}-${ch.num}"><b>${ch.num}</b>${ch.title.split('—')[0].trim()}</a>`).join('')}
+          ${p.chapters.map(ch => `<a href="#ch-${p.id}-${ch.num}" data-ch="ch-${p.id}-${ch.num}"><b>${ch.num}</b>${ch.title.split(/[—:]/)[0].trim()}</a>`).join('')}
         </aside>
         <div>${chaps}</div>
       </div>
@@ -474,7 +474,7 @@ function renderStrip(p, idx) {
         <span class="strip-tag">${cat.label}</span>
         <span class="strip-title">${p.stripTitle}</span>
         <span class="strip-year">${p.year}</span>
-        <span class="strip-cue">Open —</span>
+        <span class="strip-cue">Open –</span>
       </span>
     </button>
     <div class="panel xp"><div><div class="panel-in${stage ? '' : ' solo'}">
@@ -508,7 +508,7 @@ const strips = () => document.querySelectorAll('.strip');
 function applyDim() {
   strips().forEach(s => s.classList.toggle('dim', filter !== 'all' && s.dataset.cat !== filter));
 }
-/* graceful scroll tween — replaces the browser's abrupt smooth-scroll.
+/* graceful scroll tween – replaces the browser's abrupt smooth-scroll.
    Driven by wall-clock time; falls back to setTimeout when the tab is
    hidden (rAF is suspended there). A new glide cancels the previous one. */
 let glideGen = 0;
@@ -605,7 +605,7 @@ document.body.addEventListener('click', e => {
       t.textContent = 'Minimize project';
       document.getElementById('floatClose').classList.add('show');
       if (t.dataset.full === 'research') loadCharts();
-      /* gentle nudge downward — show the full view opened, user scrolls on */
+      /* gentle nudge downward – show the full view opened, user scrolls on */
       setTimeout(() => glideTo(window.scrollY + 340, 1100), 250);
     } else {
       /* minimize: scroll to the banner top first, then collapse the full view */

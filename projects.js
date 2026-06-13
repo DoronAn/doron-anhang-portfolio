@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════════════
-   PROJECTS DATA — single source of truth for the portfolio.
+   PROJECTS DATA – single source of truth for the portfolio.
    Plain JS (not .json) so the site works when opened directly from disk
    (browsers block fetch() of local .json files).
 
@@ -23,7 +23,7 @@ window.SITE_DATA = {
   identity: {
     name: "Doron Anhang",
     dossier: "DOSSIER / DA-2026 / ARCHITECTURAL R&D",
-    kicker: "// EVIDENCE-BASED ARCHITECTURE — FIELD NOTES & BUILT WORK",
+    kicker: "// EVIDENCE-BASED ARCHITECTURE – FIELD NOTES & BUILT WORK",
     headline: 'Buildings are<br><span class="alt">hypotheses.</span><br>I test them.',
     statement: "Architect-researcher working between quantitative spatial analysis and hands-on making. Empirical research on how housing shapes community; structures and objects built from timber, metal and light.",
     specs: [
@@ -58,7 +58,7 @@ window.SITE_DATA = {
     featured: true,
     title: "NKDT // Architecture as a Dynamic System",
     stripTitle: "NKDT — Architecture as a Dynamic System",
-    stripSub: "An architectural laboratory for communal living — ~5,000 beds, 3 typologies, 1 module.",
+    stripSub: "An architectural laboratory for communal living – ~5,000 beds, 3 typologies, 1 module.",
     year: "2022",
     eyebrow: "B.Arch. Final Project · Ariel University, 2022",
     meta: "Supervisor: Arch. Daniel Azerrad · Ariel University",
@@ -68,8 +68,8 @@ window.SITE_DATA = {
       kicker: "B.Arch. Final Project · Ariel University, 2022",
       headline: 'An architectural <em>laboratory</em> for communal living.',
       paras: [
-        "Two urgencies meet in one programme: loneliness is an epidemic, and data finally lets architecture answer for its social claims. NKDT redesigns Ariel University's dormitories as a live laboratory — every design decision a testable, measurable hypothesis.",
-        "One module, three building typologies, 28 plots, 7 neighbourhoods: spatial variation emerges from configuration, not unit design — which is what makes head-to-head comparison meaningful."
+        "Two urgencies meet in one programme: loneliness is an epidemic, and data finally lets architecture answer for its social claims. NKDT redesigns Ariel University's dormitories as a live laboratory – every design decision a testable, measurable hypothesis.",
+        "One module, three building typologies, 28 plots, 7 neighbourhoods: spatial variation emerges from configuration, not unit design – which is what makes head-to-head comparison meaningful."
       ],
       facts: [
         { v: "~5,000", l: "beds planned" },
@@ -78,7 +78,7 @@ window.SITE_DATA = {
       ],
       images: [
         { src: "images/nkdt/nkdt_combined.png", cap: "Site masterplan model", pos: "center 55%" },
-        { src: "images/nkdt/nkdt_type_a.jpg", cap: "Type A — exploded axon" },
+        { src: "images/nkdt/nkdt_type_a.jpg", cap: "Type A: exploded axon" },
         { src: "images/nkdt/nkdt_unit_detail.jpg", cap: "Unit plan & section" }
       ]
     },
@@ -119,21 +119,21 @@ window.SITE_DATA = {
         ]
       },
       {
-        num: "03", title: "Flexible repetition — the modular design system",
+        num: "03", title: "Flexible repetition: the modular design system",
         html: `<p>At the core: an intentional <strong>Spatial &amp; Structural Surplus</strong> – a calculated structural over-engineering of the grid that supports far more spatial permutations than strictly required. The surplus manifests as programmatic voids within floor levels that shift as units expand or contract, mutating internal pathways, changing degrees of physical intimacy between residents, and transforming the building's external facade.</p>
         <p>The module is the <strong>atom of the system</strong>: each dorm room is a composite of 2–4 module units – a self-contained workspace, sleeping complex, and ventilated space. Modular flexibility deconstructs traditional corridors, transforming them into shared communal living nodes – <em>the corridor as a living room.</em></p>`,
         figures: [
-          { src: "images/nkdt/nkdt_unit_detail.jpg", title: "Apartment unit: plan & section", cap: "Floor plan · Section A–A · exploded axon · module isometry.", takeaway: "A designed privacy gradient — not a binary public / private wall." },
-          { src: "images/nkdt/nkdt_unit_sheet.jpg", title: "Type A building sheet", cap: "Section B–B · 3rd floor plan · full building isometric.", takeaway: "Module placement generates spatial variety — not internal configuration." }
+          { src: "images/nkdt/nkdt_unit_detail.jpg", title: "Apartment unit: plan & section", cap: "Floor plan · Section A–A · exploded axon · module isometry.", takeaway: "A designed privacy gradient: not a binary public / private wall." },
+          { src: "images/nkdt/nkdt_unit_sheet.jpg", title: "Type A building sheet", cap: "Section B–B · 3rd floor plan · full building isometric.", takeaway: "Module placement generates spatial variety: not internal configuration." }
         ]
       },
       {
         num: "04", title: "Three building typologies, one module",
         html: `<p>The same module deploys in <strong>three configurations</strong>, each testing a different social hypothesis across the 28 plots. Spatial variation emerges from <em>configuration</em>, not from different unit designs – which is what makes head-to-head comparison meaningful.</p>`,
         figures: [
-          { src: "images/nkdt/nkdt_type_a.jpg", title: "Type A — Urban Corridor", cap: "6 floors · ~3,100 beds · 16 plots · main boulevard facade.", takeaway: "The dense edge: testing community against urban scale.", accent: "var(--slate)" },
-          { src: "images/nkdt/nkdt_type_b.jpg", title: "Type B — Mixed Cluster", cap: "4 floors · ~1,100 beds · 6 plots · follows topography.", takeaway: "The mid-scale: community shaped by the terrain it sits on.", accent: "var(--bronze)" },
-          { src: "images/nkdt/nkdt_type_c.jpg", title: "Type C — Rural Scattered", cap: "3 floors · ~800 beds · 6 plots · no fixed boundary.", takeaway: "The dispersed extreme: community lives in the spatial voids.", accent: "var(--sage)" }
+          { src: "images/nkdt/nkdt_type_a.jpg", title: "Type A: Urban Corridor", cap: "6 floors · ~3,100 beds · 16 plots · main boulevard facade.", takeaway: "The dense edge: testing community against urban scale.", accent: "var(--slate)" },
+          { src: "images/nkdt/nkdt_type_b.jpg", title: "Type B: Mixed Cluster", cap: "4 floors · ~1,100 beds · 6 plots · follows topography.", takeaway: "The mid-scale: community shaped by the terrain it sits on.", accent: "var(--bronze)" },
+          { src: "images/nkdt/nkdt_type_c.jpg", title: "Type C: Rural Scattered", cap: "3 floors · ~800 beds · 6 plots · no fixed boundary.", takeaway: "The dispersed extreme: community lives in the spatial voids.", accent: "var(--sage)" }
         ]
       },
       {
@@ -145,7 +145,7 @@ window.SITE_DATA = {
         ]
       },
       {
-        num: "06", title: "Grounded in evidence — the feedback loop",
+        num: "06", title: "Grounded in evidence: the feedback loop",
         html: `<p>This design is not speculative. Its typological strategy is directly grounded in a prior empirical study – <em>Student Dorms Archetype as a Driving Factor in the Formation of a Sense of Community</em> (Ariel University, 2022) – which used <strong>SCI-2 and URES psychometric instruments</strong> alongside passive <strong>GPS telemetry</strong> to compare the two existing Ariel compounds. The caravan scattered-plex scored <strong>3.9&nbsp;/&nbsp;5</strong> on spatial quality against the mid-rise cluster's <strong>2.9&nbsp;/&nbsp;5</strong>, with corresponding quantitative differences in Sense of Community.</p>
         <p>Those findings – which spatial features drive belonging and which suppress it – shaped <strong>the void strategy, the privacy gradient, the typology mix, and the community-space hierarchy</strong> across all three building types. The measurement infrastructure (NKDT Points app, privacy-by-design GPS pipeline) developed for that study becomes the lab's ongoing instrument: data accumulates across semesters and informs incremental modifications to void placement, shared-wall positions, and community programme.</p>
         <div class="note"><b>Architecture-as-laboratory</b><p>Each spatial iteration is <em>simultaneously intervention and measurement</em>. The truest ambition of NKDT is not the building – it is the methodology: a proof of concept that spatial quality can be measured, iterated, and progressively refined, replacing intuition with evidence at every scale from the private room to the city edge.</p></div>
@@ -172,8 +172,8 @@ window.SITE_DATA = {
       kicker: "Academic Seminar Paper · Published 2022",
       headline: 'Does dormitory design <em>measurably</em> shape community?',
       paras: [
-        "A mixed-method field study exploiting a rare natural experiment: two dormitory compounds on one campus, same population, opposing architectural philosophies. Psychometric surveys (SCI-2, URES) and 47 days of passive GPS telemetry — collected through a custom privacy-by-design Android app — against a 7-parameter spatial scoring framework.",
-        "The verdict: the decentralised caravan compound beat the dense mid-rise on every spatial parameter (3.9 vs 2.9 / 5) and on measured sense of community — nature, appeal and spatial buffers outperform structural density."
+        "A mixed-method field study exploiting a rare natural experiment: two dormitory compounds on one campus, same population, opposing architectural philosophies. Psychometric surveys (SCI-2, URES) and 47 days of passive GPS telemetry – collected through a custom privacy-by-design Android app – against a 7-parameter spatial scoring framework.",
+        "The verdict: the decentralised caravan compound beat the dense mid-rise on every spatial parameter (3.9 vs 2.9 / 5) and on measured sense of community – nature, appeal and spatial buffers outperform structural density."
       ],
       facts: [
         { v: "25", l: "valid participants" },
@@ -181,7 +181,7 @@ window.SITE_DATA = {
         { v: "47", l: "days of telemetry" }
       ],
       images: [
-        { src: "images/research/ariel_map.jpg", cap: "Campus — two compounds" },
+        { src: "images/research/ariel_map.jpg", cap: "Campus: two compounds" },
         { src: "images/research/caravan_site.jpg", cap: "Caravan compound" },
         { src: "images/research/midrise_site.jpg", cap: "Mid-rise compound" }
       ]
@@ -203,15 +203,15 @@ window.SITE_DATA = {
         html: `<p>Student dormitory design has evolved through three canonical archetypes. The <strong>Corridor Plex</strong> lines rooms along a shared hallway with communal bathrooms per floor – consistently linked to social overload and withdrawal. The <strong>Cluster Plex</strong>, still the dominant contemporary model, groups rooms around a small shared suite; it improves privacy but paradoxically scores worse on campus-wide community metrics. The <strong>Scattered Plex</strong> organizes autonomous units across shared communal grounds, with the spatial relationship between each unit and the landscape defining the compound's social character – the least studied, and the most promising.</p>
         <p>Ariel's two compounds map directly onto this. The <strong>mid-rise compound</strong> is a cluster-corridor hybrid: densely packed towers with consolidated indoor amenities – ~1,550 students across 0.033 km². The <strong>caravan compound</strong> is a scattered plex: ~350 low-rise units distributed across 0.106 km² of organic, pedestrian-first grounds, organised into semi-private sub-clusters surrounded by greenery and shared outdoor space.</p>`,
         figures: [
-          { src: "images/shared/corridor_plex.png", title: "Corridor Plex", cap: "Rooms along a shared hallway — linked to social overload.", contain: true, accent: "var(--clay)" },
-          { src: "images/shared/cluster_plex.png", title: "Cluster Plex", cap: "Rooms around a shared suite — privacy up, community down.", contain: true, accent: "var(--clay)" },
-          { src: "images/shared/scattered_plex.png", title: "Scattered Plex", cap: "Autonomous units on shared grounds — the promising one.", contain: true, accent: "var(--sage)" },
+          { src: "images/shared/corridor_plex.png", title: "Corridor Plex", cap: "Rooms along a shared hallway: linked to social overload.", contain: true, accent: "var(--clay)" },
+          { src: "images/shared/cluster_plex.png", title: "Cluster Plex", cap: "Rooms around a shared suite: privacy up, community down.", contain: true, accent: "var(--clay)" },
+          { src: "images/shared/scattered_plex.png", title: "Scattered Plex", cap: "Autonomous units on shared grounds: the promising one.", contain: true, accent: "var(--sage)" },
           { src: "images/research/building_101.jpg", title: "Building 101 floor plan", cap: "Cluster-corridor hybrid · 1,550 students · 0.033 km².", takeaway: "Dense towers; corridors replace communal outdoor space." },
           { src: "images/research/caravan_floor_plan.jpg", title: "Caravan unit floor plan", cap: "Scattered plex · ~350 units · 0.106 km².", takeaway: "Autonomous unit; every door opens onto shared green space." }
         ]
       },
       {
-        num: "03", title: "Methodology — two parallel tracks",
+        num: "03", title: "Methodology: two parallel tracks",
         html: `<p>The analysis ran on <strong>two parallel tracks designed to cross-validate each other</strong>. The <strong>qualitative track</strong> scored each compound against seven spatial parameters – <em>control, views, and scale</em> (Place Attachment) and <em>strollability, buffers, opportunities, and perception</em> (Informal Contact) – on a 1–5 scale through direct architectural observation benchmarked against the academic literature. The goal: a predicted Sense of Community score based purely on spatial merit.</p>
         <p>The <strong>quantitative track</strong> measured what residents actually experienced, using two validated instruments translated to Hebrew: the <strong>University Residence Environment Scale (URES)</strong>, assessing social climate across ten subscales, and the <strong>Sense of Community Index 2 (SCI-2)</strong>, measuring SoC across four dimensions. Passive <strong>GPS telemetry</strong>, collected continuously over 47 days via the same app, added a behavioural layer – tracking actual movement through and between compounds to calibrate the self-report data.</p>
         <p>Comparing predicted against measured outcomes both validated the spatial framework and surfaced where the two diverged – and why.</p>`,
@@ -221,7 +221,7 @@ window.SITE_DATA = {
         ]
       },
       {
-        num: "04", title: "The app — NKDT Points",
+        num: "04", title: "The app: NKDT Points",
         html: `<p>To orchestrate data collection during the pandemic, I co-developed a custom native <strong>Android application – NKDT Points</strong> – functioning as a live research platform. The app simultaneously administered the psychometric questionnaires remotely and captured <strong>continuous passive background GPS telemetry</strong>, mapping how residents actually moved through and between the compounds over time.</p>
         <p><strong>Privacy-by-Design</strong> governed the entire pipeline. Survey responses and spatial telemetry were isolated across decoupled databases from the outset. User identities were obfuscated at device edge via a client-side cryptographic hash crossing hardware IDs with registration timestamps – the only identifier ever transmitted. GPS data was geofenced to city limits; when a participant was detected within their own residential cluster, the app substituted their precise coordinate with a cluster-centroid anchor, preventing hyper-local tracking while preserving compound-level movement data.</p>
         <p class="links">Source code:&nbsp; <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer">App ↗</a> &nbsp;·&nbsp; <a href="https://github.com/doron-anhang" target="_blank" rel="noopener noreferrer">API ↗</a></p>`,
@@ -245,7 +245,7 @@ window.SITE_DATA = {
         charts: [
           {
             id: "qual",
-            title: "Qualitative spatial scores — Caravan vs Mid-rise",
+            title: "Qualitative spatial scores: Caravan vs Mid-rise",
             sub: "7 architectural parameters scored 1–5 against literature benchmarks.",
             takeaway: "Caravan wins on every parameter; gap widens most on Nature, Buffers, and Views.",
             howto: "Score / 5",
@@ -256,14 +256,14 @@ window.SITE_DATA = {
           },
           {
             id: "sci",
-            title: "Quantitative — Sense of Community Index (SCI-2)",
+            title: "Quantitative: Sense of Community Index (SCI-2)",
             sub: "Residents' actual sense of community across 4 subscales. Normalised 0–1; Caravan n=18, Mid-rise n=3.",
             takeaway: "Caravan leads on every subscale; biggest gap on Membership (0.534 vs 0.278).",
             howto: "Higher = stronger SoC"
           },
           {
             id: "ures",
-            title: "Quantitative — University Residence Environment (URES)",
+            title: "Quantitative: University Residence Environment (URES)",
             sub: "10-subscale social-climate profile. * marks statistically significant differences (p<0.1).",
             takeaway: "Caravan higher on involvement, emotional support, academic achievement. Mid-rise higher on independence: the lone reversal.",
             howto: "Standardised score"
@@ -296,8 +296,8 @@ window.SITE_DATA = {
       kicker: "Personal Practice · Handcrafted Objects",
       headline: 'The construction logic, left <em>legible.</em>',
       paras: [
-        "Three bodies of handcrafted work — lighting fixtures in timber and metal, a tensegrity shade canopy, and an engagement ring in 18k gold and amber. Across all of them the same rule: the junction between materials is the composition, and fabrication is the finished detail.",
-        "The materials carry their history — raw grain, weathered steel, a stone from the place we met."
+        "Three bodies of handcrafted work – lighting fixtures in timber and metal, a tensegrity shade canopy, and an engagement ring in 18k gold and amber. Across all of them the same rule: the junction between materials is the composition, and fabrication is the finished detail.",
+        "The materials carry their history – raw grain, weathered steel, a stone from the place we met."
       ],
       facts: [
         { v: "7", l: "lighting fixtures" },
@@ -305,40 +305,40 @@ window.SITE_DATA = {
         { v: "18k", l: "gold, lost-wax cast" }
       ],
       images: [
-        { src: "images/design/drift_wood.png", cap: "Drift Wood — pendant" },
-        { src: "images/design/shade_perspective.png", cap: "Shade — tensegrity canopy" },
+        { src: "images/design/drift_wood.png", cap: "Drift Wood: pendant" },
+        { src: "images/design/shade_perspective.png", cap: "Shade: tensegrity canopy" },
         { src: "images/design/ring_studio.png", cap: "Engagement ring" }
       ]
     },
     chapters: [
       {
-        num: "01", title: "Lighting — timber & metal",
+        num: "01", title: "Lighting: timber & metal",
         html: `<p>A series of handcrafted lighting designs exploring timber and metal as complementary materials. Each fixture treats the junction between raw wood grain and precision metal as the compositional centrepiece – the construction logic is left legible rather than concealed.</p>`,
         figures: [
-          { src: "images/design/drift_wood.png", title: "Drift Wood", cap: "Pendant fixture — overview", takeaway: "Raw timber grain met by a fine metal stem: the join is the composition." },
-          { src: "images/design/drift_wood_detail.png", title: "Drift Wood", cap: "Pendant fixture — detail", takeaway: "The junction left legible: fabrication as the finished detail." },
-          { src: "images/design/rail_wood.png", title: "Rail Wood", cap: "Track fixture — overview", takeaway: "Metal rail reads as armature; timber reads as warmth: neither dominates." },
-          { src: "images/design/rail_wood_detail.png", title: "Rail Wood", cap: "Track fixture — detail", takeaway: "The metal carries the load so the timber can stay purely expressive." },
+          { src: "images/design/drift_wood.png", title: "Drift Wood", cap: "Pendant fixture: overview", takeaway: "Raw timber grain met by a fine metal stem: the join is the composition." },
+          { src: "images/design/drift_wood_detail.png", title: "Drift Wood", cap: "Pendant fixture: detail", takeaway: "The junction left legible: fabrication as the finished detail." },
+          { src: "images/design/rail_wood.png", title: "Rail Wood", cap: "Track fixture: overview", takeaway: "Metal rail reads as armature; timber reads as warmth: neither dominates." },
+          { src: "images/design/rail_wood_detail.png", title: "Rail Wood", cap: "Track fixture: detail", takeaway: "The metal carries the load so the timber can stay purely expressive." },
           { src: "images/design/plank.png", title: "Plank", cap: "Pendant fixture", takeaway: "A single plank of timber, suspended: form and material as one statement." },
           { src: "images/design/desk_lamp.png", title: "Desk Lamp", cap: "Task fixture", takeaway: "The same timber-and-metal logic scaled down to the desk." },
           { src: "images/design/petach_tikva_fixture.png", title: "Hanging Enamel Fixture", cap: "Pendant fixture", takeaway: "Enamel brings colour where the others stay in raw material." }
         ]
       },
       {
-        num: "02", title: "Shade — a tensegrity canopy",
+        num: "02", title: "Shade: a tensegrity canopy",
         html: `<p>A canopy built on a <strong>tensegrity principle</strong>: the beams carry no bending – they are held apart purely by the tension wires strung between them. Compression and tension are separated into distinct members, so the structure reads as floating rather than supported. The three views document how the geometry resolves across all orientations.</p>`,
         figures: [
-          { src: "images/design/shade_perspective.png", title: "Shade structure", cap: "Tensegrity canopy — perspective", takeaway: "Beams held apart by wire tension alone: compression and tension fully separated.", wide: true },
+          { src: "images/design/shade_perspective.png", title: "Shade structure", cap: "Tensegrity canopy: perspective", takeaway: "Beams held apart by wire tension alone: compression and tension fully separated.", wide: true },
           { src: "images/design/shade_front.png", title: "Shade structure", cap: "Front elevation", takeaway: "Front-on, the wires resolve into a clean tensioned plane." },
           { src: "images/design/shade_side.png", title: "Shade structure", cap: "Side elevation", takeaway: "The section reveals how the floating geometry holds itself open." }
         ]
       },
       {
-        num: "03", title: "Jewellery — an engagement ring",
+        num: "03", title: "Jewellery: an engagement ring",
         html: `<p>Made for my wife – an engagement ring in <strong>18k gold</strong> set with an <strong>amber stone</strong> sourced in <strong>San Cristóbal de las Casas, Mexico</strong>, where we met. The ring was fabricated using <strong>lost-wax casting</strong>: a wax model was hand-carved to shape, invested in plaster, then burned out to leave a cavity into which molten gold was cast. Three renders examine the piece under different lighting conditions.</p>`,
         figures: [
-          { src: "images/design/ring_wip.png", title: "Engagement ring", cap: "Wax model & raw amber — before casting", takeaway: "The hand-carved wax and the uncut stone: the piece begins as the lost-wax pattern." },
-          { src: "images/design/ring_overview.png", title: "Engagement ring", cap: "18k gold & amber — overview", takeaway: "Gold band and amber stone from San Cristóbal: the ring carries the place it came from." },
+          { src: "images/design/ring_wip.png", title: "Engagement ring", cap: "Wax model & raw amber: before casting", takeaway: "The hand-carved wax and the uncut stone: the piece begins as the lost-wax pattern." },
+          { src: "images/design/ring_overview.png", title: "Engagement ring", cap: "18k gold & amber: overview", takeaway: "Gold band and amber stone from San Cristóbal: the ring carries the place it came from." },
           { src: "images/design/ring_studio.png", title: "Engagement ring", cap: "Studio view", takeaway: "Neutral light reads the lost-wax surface and the band's hand-carved profile." },
           { src: "images/design/ring_lit.png", title: "Engagement ring", cap: "Lit view", takeaway: "Directional light brings the amber alive: the stone becomes the source." },
           { src: "images/design/ring_sunlight.png", title: "Engagement ring", cap: "Daylight view", takeaway: "In natural sunlight the amber warms to its deepest tone: the finished piece in the world." }
@@ -362,7 +362,7 @@ window.SITE_DATA = {
       kicker: "Professional Experience · Tel Aviv · 2015 – Present",
       headline: 'A decade of <em>research systems</em> at scale.',
       paras: [
-        "Ten years at Yahoo! across three roles — from validating ML deployments as a student analyst to engineering the Python/PySpark automation frameworks behind a $10M+/year experimentation roadmap.",
+        "Ten years at Yahoo! across three roles – from validating ML deployments as a student analyst to engineering the Python/PySpark automation frameworks behind a $10M+/year experimentation roadmap.",
         "The common thread with the architecture work: rigorous measurement, automated pipelines, and methodology you can trust."
       ],
       facts: [
@@ -388,7 +388,7 @@ window.SITE_DATA = {
         </ul>`
       },
       {
-        num: "02", title: "Data Analyst — Systems & Methodology · 2021 – 2023",
+        num: "02", title: "Data Analyst: Systems & Methodology · 2021 – 2023",
         html: `<ul>
           <li><strong>Managed end-to-end execution of a $10M+/year technical testing roadmap</strong>, ensuring strict algorithmic validity and data integrity across continuous operational pipelines.</li>
           <li><strong>Implemented multi-layered SQL and data automation workflows</strong> to guarantee data quality and detect pipeline contamination.</li>
@@ -422,7 +422,7 @@ window.SITE_DATA = {
       kicker: "Applied Design · Professional Practice · Ongoing",
       headline: 'Working drawings for a <em>real client.</em>',
       paras: [
-        "An ongoing renovation and expansion project for a private home in Kibbutz Merchavia — full BIM workflow in Revit, from survey through construction documentation."
+        "An ongoing renovation and expansion project for a private home in Kibbutz Merchavia – full BIM workflow in Revit, from survey through construction documentation."
       ],
       facts: [],
       images: []
@@ -522,7 +522,7 @@ window.SITE_DATA = {
       kicker: "Technical Drawing · B.Arch Coursework, 2017",
       headline: 'A complete <em>construction set</em>, drawn by hand-logic.',
       paras: [
-        "An early, full construction-documentation exercise for a small clinic: ground and second-floor plans, roof plan, north and west facades, two A–A sections (1:25 and 1:50), a stair detail, and two detail sheets — eleven coordinated drawings in all.",
+        "An early, full construction-documentation exercise for a small clinic: ground and second-floor plans, roof plan, north and west facades, two A–A sections (1:25 and 1:50), a stair detail, and two detail sheets – eleven coordinated drawings in all.",
         "The drawings exist as a measured PDF set; web-ready raster sheets are in preparation."
       ],
       facts: [],
@@ -563,7 +563,7 @@ window.SITE_DATA = {
     ]
   }
 
-  /* ── TEMPLATE — future Digital project (copy, fill, uncomment) ────
+  /* ── TEMPLATE – future Digital project (copy, fill, uncomment) ────
   ,{
     id: "new-project",
     cat: "digital",
