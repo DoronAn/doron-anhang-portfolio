@@ -1,3 +1,7 @@
+# Private task scratchpads (kept local, not part of the site)
+TASKS.md
+tasks.xlsx
+
 # Office temp / lock files
 ~$*
 *.tmp

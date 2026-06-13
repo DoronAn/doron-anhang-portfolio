@@ -90,10 +90,13 @@ nav a:hover{border-color:var(--bronze)}
 .strip-num{font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:rgba(246,241,231,.7)}
 .strip-tag{font-family:var(--mono);font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;padding:.34rem .9rem;border:1px solid rgba(246,241,231,.55);border-radius:99px;backdrop-filter:blur(2px);transition:opacity .4s}
 .strip-title{font-size:1.3rem;font-weight:800;letter-spacing:-.015em;text-transform:uppercase;transition:font-size .4s}
+/* thin divider between the two halves of a strip title (replaces the em dash) */
+.strip-sep{display:inline-block;width:1px;height:.92em;margin:0 .62em;vertical-align:-.06em;background:currentColor;opacity:.42}
 .strip-year{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:rgba(246,241,231,.75);transition:opacity .4s}
 /* inline "open" cue, pushed to the band's right edge */
-.strip-cue{margin-left:auto;font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,231,.8);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s;display:inline-flex;align-items:center;gap:.35em}
-.strip-cue-arrow{font-size:1.05rem;line-height:0;letter-spacing:0;position:relative;top:-.12em}
+.strip-cue{margin-left:auto;font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,231,.8);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s;display:inline-flex;align-items:center;gap:.5em}
+/* CSS-drawn down chevron — aligns to the cap height of the text, no glyph drift */
+.strip-cue-arrow{width:.55em;height:.55em;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg);margin-top:-.28em;flex-shrink:0}
 .strip-bar:hover .strip-cue{opacity:1;transform:none}
 
 /* open: bar becomes a slim banner */
@@ -140,12 +143,16 @@ nav a:hover{border-color:var(--bronze)}
 .btn-quiet:hover{color:var(--ink)}
 .wip-flag{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--bronze);border:1px dashed var(--bronze);border-radius:99px;padding:.6rem 1.4rem;margin-top:2rem}
 
-/* panel image stage: hero + thumb swap */
-.stage{display:flex;flex-direction:column;gap:.7rem;align-self:stretch;min-height:0}
-.stage-hero{position:relative;flex:1;min-height:300px;overflow:hidden;border:1px solid var(--hair);background:var(--ivory2);cursor:zoom-in}
-.stage-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
-.stage-hero img.contain{object-fit:contain;padding:1rem}
-.stage-hero figcaption{position:absolute;left:.9rem;bottom:.75rem;font-family:var(--mono);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;color:#F6F1E7;text-shadow:0 1px 8px rgba(0,0,0,.5);z-index:2}
+/* panel image stage: hero + thumb swap — framed like a figure card */
+.stage{display:flex;flex-direction:column;gap:.5rem;align-self:stretch;min-height:0}
+.stage-hero{flex:1;min-height:300px;display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--hair);border-left:3px solid var(--acc,var(--bronze));background:#fff;cursor:zoom-in;transition:box-shadow .2s}
+.stage-hero:hover{box-shadow:0 5px 18px rgba(33,30,25,.1)}
+.stage-head{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline;padding:.6rem .9rem .55rem}
+.stage-cap{font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--warm-gray);line-height:1.5}
+.stage-hint{font-family:var(--mono);font-size:.56rem;color:var(--warm-gray);white-space:nowrap;flex-shrink:0}
+.stage-media{position:relative;flex:1;min-height:0;background:var(--ivory2);border-top:1px dashed var(--hair);overflow:hidden}
+.stage-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .35s}
+.stage-media img.contain{object-fit:contain;padding:1rem;background:#fff}
 .stage-thumbs{display:flex;gap:.5rem}
 .stage-thumbs button{flex:1;aspect-ratio:4/3;max-height:84px;overflow:hidden;border:1px solid var(--hair);padding:0;opacity:.65;transition:opacity .2s,border-color .2s;background:var(--ivory2)}
 .stage-thumbs button img{width:100%;height:100%;object-fit:cover}
@@ -209,15 +216,18 @@ nav a:hover{border-color:var(--bronze)}
 .figcard{border:1px solid var(--hair);border-left:3px solid var(--facc,var(--hair));background:#fff;text-align:left;padding:0;display:flex;flex-direction:column;cursor:zoom-in;transition:box-shadow .2s,transform .15s}
 .figcard:hover{box-shadow:0 5px 18px rgba(33,30,25,.1);transform:translateY(-2px)}
 .figcard.wide{grid-column:1/-1}
-.figcard .fc-head{padding:.65rem .9rem .45rem}
+/* head & foot are COERCED to a fixed height so every card in a row is
+   structurally identical — same top/bottom text spacing, images perfectly
+   aligned. Long captions/takeaways clamp rather than push the layout. */
+.figcard .fc-head{padding:.7rem .9rem;height:4.6rem;flex:0 0 auto;overflow:hidden;display:flex;flex-direction:column;justify-content:center}
 .figcard .fc-title{font-size:.85rem;font-weight:600}
-.figcard .fc-cap{font-family:var(--mono);font-size:.6rem;color:var(--warm-gray);margin-top:.15rem;line-height:1.5}
-.figcard .fc-media{background:var(--ivory2);border-top:1px dashed var(--hair);min-height:0}
+.figcard .fc-cap{font-family:var(--mono);font-size:.6rem;color:var(--warm-gray);margin-top:.6rem;line-height:1.6;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.figcard .fc-media{background:var(--ivory2);border-top:1px dashed var(--hair);flex:0 0 auto}
 .figcard .fc-media img{width:100%;height:210px;object-fit:cover}
 .figcard.wide .fc-media img{height:330px}
 .figcard .fc-media img.contain{object-fit:contain;padding:.7rem;background:#fff}
-.figcard .fc-foot{display:flex;justify-content:space-between;gap:.6rem;align-items:baseline;padding:.5rem .9rem .65rem;border-top:1px solid var(--ivory2);font-size:.72rem}
-.figcard .fc-take{font-style:italic;color:#494337;line-height:1.5}
+.figcard .fc-foot{display:flex;justify-content:space-between;gap:.6rem;align-items:center;padding:.6rem .9rem;border-top:1px solid var(--ivory2);font-size:.72rem;flex:0 0 auto;height:3rem;overflow:hidden}
+.figcard .fc-take{font-style:italic;color:#494337;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .figcard .fc-take::before{content:'→';font-style:normal;font-weight:600;color:var(--facc,var(--bronze));margin-right:.4rem}
 .figcard .fc-hint{font-family:var(--mono);font-size:.56rem;color:var(--warm-gray);white-space:nowrap;flex-shrink:0}
 
@@ -420,8 +430,8 @@ function renderStrip(p, idx) {
   const stage = sImgs.length ? `
     <div class="stage">
       <figure class="stage-hero" data-lb="${p.id}" data-gi="0" role="button" tabindex="0">
-        <img id="stagehero-${p.id}" src="${src(sImgs[0].src)}" alt="${esc(sImgs[0].cap || '')}" class="${sImgs[0].contain ? 'contain' : ''}" ${sImgs[0].pos ? `style="object-position:${sImgs[0].pos}"` : ''}>
-        <figcaption id="stagecap-${p.id}">${sImgs[0].cap || ''}</figcaption>
+        <span class="stage-head"><span class="stage-cap" id="stagecap-${p.id}">${sImgs[0].cap || ''}</span><span class="stage-hint">↗ expand</span></span>
+        <span class="stage-media"><img id="stagehero-${p.id}" src="${src(sImgs[0].src)}" alt="${esc(sImgs[0].cap || '')}" class="${sImgs[0].contain ? 'contain' : ''}" ${sImgs[0].pos ? `style="object-position:${sImgs[0].pos}"` : ''}></span>
       </figure>
       ${sImgs.length > 1 ? `<div class="stage-thumbs">${sImgs.map((im, i) => `
         <button class="${i === 0 ? 'on' : ''}" data-stage="${p.id}" data-i="${i}" aria-label="Show image ${i + 1}">
@@ -473,9 +483,9 @@ function renderStrip(p, idx) {
       <span class="strip-info">
         <span class="strip-num">${num}</span>
         <span class="strip-tag">${cat.label}</span>
-        <span class="strip-title">${p.stripTitle}</span>
+        <span class="strip-title">${p.stripTitle.replace(/ — /g, '<span class="strip-sep" aria-hidden="true"></span>')}</span>
         <span class="strip-year">${p.year}</span>
-        <span class="strip-cue">Open <span class="strip-cue-arrow">⌄</span></span>
+        <span class="strip-cue">Open <span class="strip-cue-arrow" aria-hidden="true"></span></span>
       </span>
     </button>
     <div class="panel xp"><div><div class="panel-in${stage ? '' : ' solo'}">
@@ -512,25 +522,34 @@ function applyDim() {
 /* graceful scroll tween – replaces the browser's abrupt smooth-scroll.
    Driven by wall-clock time; falls back to setTimeout when the tab is
    hidden (rAF is suspended there). A new glide cancels the previous one. */
-let glideGen = 0;
+let glideGen = 0, gliding = false;
 function glideTo(targetY, dur, onDone) {
   const gen = ++glideGen;
+  gliding = true;
   const start = window.scrollY;
   const max = document.documentElement.scrollHeight - window.innerHeight;
   const dist = Math.min(Math.max(targetY, 0), max) - start;
-  if (Math.abs(dist) < 2) { if (onDone) onDone(); return; }
+  if (Math.abs(dist) < 2) { gliding = false; if (onDone) onDone(); return; }
   dur = dur || 800;
   const t0 = performance.now();
   const ease = p => p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2; /* easeInOutCubic */
   (function step() {
-    if (gen !== glideGen) return;
+    if (gen !== glideGen) return;        /* superseded by a newer glide or a manual cancel */
     const p = Math.min(1, (performance.now() - t0) / dur);
     /* behavior:'instant' so the CSS scroll-behavior:smooth doesn't fight the tween */
     window.scrollTo({ top: start + dist * ease(p), behavior: 'instant' });
-    if (p < 1) document.hidden ? setTimeout(step, 16) : requestAnimationFrame(step);
-    else if (onDone) onDone();
+    if (p < 1) { document.hidden ? setTimeout(step, 16) : requestAnimationFrame(step); }
+    else { gliding = false; if (onDone) onDone(); }
   })();
 }
+/* a manual scroll/keypress during a glide hands control back to the user
+   (bumps glideGen so the running step() bails; onDone is skipped) */
+function cancelGlide() { if (gliding) { gliding = false; glideGen++; } }
+['wheel', 'touchmove', 'pointerdown'].forEach(ev =>
+  window.addEventListener(ev, cancelGlide, { passive: true }));
+window.addEventListener('keydown', e => {
+  if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End',' ','Spacebar'].includes(e.key)) cancelGlide();
+}, { passive: true });
 const headerH = () => document.querySelector('header').offsetHeight;
 const stripTopY = s => s.getBoundingClientRect().top + window.scrollY - headerH();
 const glideToStrip = (s, dur, onDone) => glideTo(stripTopY(s), dur, onDone);
@@ -554,6 +573,12 @@ function barExpanded(s, v) {
 function openProject(id, full, push) {
   const s = document.getElementById('strip-' + id);
   if (!s) return;
+  /* B6: if another project is open ABOVE the target, collapsing it shifts the
+     page up and the user "feels" the old one close. Capture the target's
+     viewport-top before the collapse, then compensate scroll instantly so the
+     target stays visually pinned — the glide that follows feels clean. */
+  const hadOpen = !!document.querySelector('.strip.open:not(#strip-' + id + '), .strip.full-open:not(#strip-' + id + ')');
+  const topBefore = s.getBoundingClientRect().top;
   clearFull();
   strips().forEach(x => { if (x !== s) { x.classList.remove('open'); barExpanded(x, false); } });
   applyDim();
@@ -567,8 +592,14 @@ function openProject(id, full, push) {
   }
   barExpanded(s, true);
   if (push !== false) history.pushState({ p: id }, '', '#' + id);
+  /* instantly absorb the collapse-induced shift so there's no visible lurch */
+  if (hadOpen) {
+    const topAfter = s.getBoundingClientRect().top;
+    const delta = topAfter - topBefore;
+    if (Math.abs(delta) > 1) window.scrollTo({ top: window.scrollY + delta, behavior: 'instant' });
+  }
   /* glide so the tab's top edge lands at the top of the view */
-  setTimeout(() => glideToStrip(s, 850), 100);
+  setTimeout(() => glideToStrip(s, 850), hadOpen ? 0 : 100);
   if (id === 'research') loadCharts();
 }
 function closeProject(id, push) {
@@ -578,10 +609,13 @@ function closeProject(id, push) {
   applyDim();
   if (push !== false && location.hash === '#' + id) history.pushState({}, '', location.pathname + location.search);
 }
-/* close gesture: glide the banner top to the top of the view, THEN collapse
-   (collapsing below the fold means no visual lurch) */
+/* close gesture: only scroll up if the strip's top has scrolled ABOVE the
+   header (off the top of the view). If the banner is already on screen, just
+   collapse in place — no needless upward jump (TASKS #11). */
 function closeWithScroll(s) {
-  glideToStrip(s, 850, () => closeProject(s.dataset.id));
+  const top = s.getBoundingClientRect().top;
+  if (top < headerH() + 1) glideToStrip(s, 850, () => closeProject(s.dataset.id));
+  else closeProject(s.dataset.id);
 }
 function closeAll() {
   clearFull();
@@ -592,6 +626,15 @@ function closeAll() {
 }
 
 document.body.addEventListener('click', e => {
+  /* chapter-rail link: glide to the chapter, never touch the hash (a hash
+     change here can trip syncFromHash and collapse the open project) */
+  const railLink = e.target.closest('.rail a[data-ch]');
+  if (railLink) {
+    e.preventDefault();
+    const sec = document.getElementById(railLink.dataset.ch);
+    if (sec) glideTo(sec.getBoundingClientRect().top + window.scrollY - headerH() - 8, 650);
+    return;
+  }
   const t = e.target.closest('[data-toggle],[data-full],.f-btn,[data-stage],[data-lb]');
   if (!t) return;
   if (t.dataset.toggle) {
@@ -657,6 +700,7 @@ document.querySelectorAll('.fchap').forEach(c => railIO.observe(c));
 function syncFromHash(push) {
   const id = location.hash.slice(1);
   if (id && document.getElementById('strip-' + id)) openProject(id, false, push);
+  else if (id.startsWith('ch-')) { /* chapter anchor — leave open state untouched */ }
   else { clearFull(); strips().forEach(s => { s.classList.remove('open'); barExpanded(s, false); }); }
 }
 document.getElementById('floatClose').addEventListener('click', () => {
@@ -725,10 +769,18 @@ function loadCharts() {
   if (chartsLoaded) { initCharts(); return; }
   if (chartsLoading) return;
   chartsLoading = true;
-  const s = document.createElement('script');
-  s.src = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js';
-  s.onload = () => { chartsLoaded = true; initCharts(); };
-  document.head.appendChild(s);
+  /* prefer the vendored local copy (works from disk / offline); fall back to
+     the CDN if it isn't present. */
+  const CDN = 'https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js';
+  const done = () => { chartsLoaded = true; initCharts(); };
+  const load = (url, onfail) => {
+    const s = document.createElement('script');
+    s.src = url;
+    s.onload = done;
+    s.onerror = onfail;
+    document.head.appendChild(s);
+  };
+  load('vendor/chart.umd.min.js', () => load(CDN, () => { chartsLoading = false; }));
 }
 function initCharts() {
   const SP = D.chartSpecs;

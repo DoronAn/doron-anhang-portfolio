@@ -5,13 +5,15 @@ This is Doron Anhang's architectural-R&D portfolio: a single-page, **data-driven
 The site is **two files**:
 
 - **[projects.js](projects.js)** — the single source of truth. One global object, `window.SITE_DATA`, holding the identity block, the category→color map, every project's copy/images/chart data, and the Chart.js specs. **This is where content lives.** Adding or editing a project means editing this file — never hand-writing HTML.
-- **[index.html](index.html)** — all CSS (one `<style>` block) and all JS (one `<script>` block). It renders the entire site from `SITE_DATA` in a single render loop. No framework, no build step, no dependencies except Chart.js (lazy-loaded from CDN, research project only).
+- **[index.html](index.html)** — all CSS (one `<style>` block) and all JS (one `<script>` block). It renders the entire site from `SITE_DATA` in a single render loop. No framework, no build step, no dependencies except Chart.js (lazy-loaded on first open of the research project from the vendored `vendor/chart.umd.min.js`, with a CDN fallback).
 
 > **It's `.js`, not `.json`, on purpose.** `projects.js` is essentially JSON wrapped in `window.SITE_DATA = { … }`. A real `.json` file would require `fetch()`, which browsers block between local files — so the site would render blank when opened from disk (`file://`). The `.js` wrapper loads identically from disk and from a server. Editing experience is the same as JSON; it also tolerates comments (used for field docs and the project template at the bottom of the file).
 
 When in doubt, copy an existing project entry (or the commented template at the bottom of `projects.js`) before inventing a new shape. **Reuse > recreate.**
 
 > **⚠️ Commit before big tasks.** Uncommitted work lives only in the working tree. Before any large or destructive task (promoting a branch, a sweeping find-replace, a refactor), **prompt the user to commit first** — and never `git checkout`/`restore` a tracked file without confirming there's nothing unsaved. A working-tree edit that was never staged is *not* recoverable through git.
+
+> **📋 Check `TASKS.md` at the start of each session.** The user keeps a private (gitignored) `TASKS.md` checklist in the repo root with portfolio changes to make — read it when a session begins (or when asked to "pull tasks"). Add new items under `## Open`; move finished ones to `## Done` with a one-line note on what changed. It's never committed; stage only the site files you edit, never `git add -A` (the user keeps live working files in the root).
 
 ---
 
