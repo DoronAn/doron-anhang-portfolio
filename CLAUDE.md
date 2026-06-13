@@ -90,7 +90,7 @@ color: var(--acc, var(--bronze));
 
 ### Motion
 - Tokens: `--ease` = `cubic-bezier(.4,0,.2,1)`, `--dur` = `.55s`. Hover/state transitions use these.
-- **All programmatic scrolling goes through `glideTo()`** — a custom tween using **easeInOutCubic** that forces `behavior:'instant'` per frame (so it isn't fought by CSS `scroll-behavior:smooth`). Never call `scrollIntoView`/`scrollTo({behavior:'smooth'})` for project navigation; use `glideTo` / `glideToStrip`. Durations in use: **850ms** (open/close glide), **1100ms** (full-project reveal nudge of ~340px).
+- **All programmatic scrolling goes through `glideTo()`** — a custom tween using **easeInOutCubic** that forces `behavior:'instant'` per frame (so it isn't fought by CSS `scroll-behavior:smooth`). Never call `scrollIntoView`/`scrollTo({behavior:'smooth'})` for project navigation; use `glideTo` / `glideToStrip`. Durations in use: **850ms** (open/close glide), **1100ms** (full-project reveal nudge of ~520px).
 - Image hover zoom on strip covers: slow **2.2s** ease. Panel hero/thumb swap: **180ms** crossfade.
 
 ### Breakpoints

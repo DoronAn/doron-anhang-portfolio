@@ -92,7 +92,8 @@ nav a:hover{border-color:var(--bronze)}
 .strip-title{font-size:1.3rem;font-weight:800;letter-spacing:-.015em;text-transform:uppercase;transition:font-size .4s}
 .strip-year{font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:rgba(246,241,231,.75);transition:opacity .4s}
 /* inline "open" cue, pushed to the band's right edge */
-.strip-cue{margin-left:auto;font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,231,.8);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s}
+.strip-cue{margin-left:auto;font-family:var(--mono);font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(246,241,231,.8);opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .3s;display:inline-flex;align-items:center;gap:.35em}
+.strip-cue-arrow{font-size:1.05rem;line-height:0;letter-spacing:0;position:relative;top:-.12em}
 .strip-bar:hover .strip-cue{opacity:1;transform:none}
 
 /* open: bar becomes a slim banner */
@@ -474,7 +475,7 @@ function renderStrip(p, idx) {
         <span class="strip-tag">${cat.label}</span>
         <span class="strip-title">${p.stripTitle}</span>
         <span class="strip-year">${p.year}</span>
-        <span class="strip-cue">Open –</span>
+        <span class="strip-cue">Open <span class="strip-cue-arrow">⌄</span></span>
       </span>
     </button>
     <div class="panel xp"><div><div class="panel-in${stage ? '' : ' solo'}">
@@ -606,7 +607,7 @@ document.body.addEventListener('click', e => {
       document.getElementById('floatClose').classList.add('show');
       if (t.dataset.full === 'research') loadCharts();
       /* gentle nudge downward – show the full view opened, user scrolls on */
-      setTimeout(() => glideTo(window.scrollY + 340, 1100), 250);
+      setTimeout(() => glideTo(window.scrollY + 520, 1100), 250);
     } else {
       /* minimize: scroll to the banner top first, then collapse the full view */
       glideToStrip(s, 850, () => {

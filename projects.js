@@ -430,108 +430,57 @@ window.SITE_DATA = {
     chapters: null
   },
 
-  /* ── 06 · ACRE (WIP) ───────────────────────────────────────────── */
+  /* ── 06 · UNIVERSITY PROJECTS ──────────────────────────────────── */
   {
-    id: "acre",
+    id: "university",
     cat: "architecture",
-    title: "Acre // Symbiotic Urban Fabric",
-    stripTitle: "Acre — Symbiotic Urban Fabric",
-    year: "Year 3",
-    eyebrow: "Urban Studio · Year 3",
-    meta: "Studio Urban · Advisors: Arch. David Aharoni & Kobi Zik · with Chen Ponces & Hila Zahrihan",
-    kw: ["Urban Design", "Mixed-Use", "Urban Fabric", "Symbiosis"],
+    title: "University Projects // Studio & Coursework",
+    stripTitle: "University Projects — Studio & Coursework",
+    stripSub: "Four design-studio and coursework projects from the B.Arch — urban, digital, interior & technical.",
+    year: "2015 – 2022",
+    eyebrow: "B.Arch Studio & Coursework · Ariel University",
+    meta: "Design studios (Years 3–4) & technical coursework · Ariel University",
+    kw: ["Urban Design", "Parametric Design", "Interior Design", "Construction Docs"],
     cover: null,
-    wip: true,
-    wipNote: "Site plans, urban diagrams, and project documentation are being prepared.",
     summary: {
-      kicker: "Urban Studio · Year 3",
-      headline: 'Stitching new fabric into an <em>ancient city.</em>',
+      kicker: "B.Arch Studio & Coursework · Ariel University",
+      headline: 'The studio years, across <em>four registers.</em>',
       paras: [
-        "An urban-scale studio project in Acre exploring symbiosis between the historic fabric and contemporary mixed-use development. With Chen Ponces & Hila Zahrihan."
+        "Four projects from the architecture degree, spanning the full range of the studio sequence: an urban-scale intervention in Acre, a parametric adaptive building in Tel Aviv, an interior hospitality scheme, and an early technical construction-documentation set.",
+        "Documentation for these is still being prepared for the web — each chapter below sketches the brief; drawings and renders will follow."
       ],
-      facts: [],
+      facts: [{ v: "4", l: "studio & coursework projects" }],
       images: []
     },
-    chapters: null
+    chapters: [
+      {
+        num: "01", title: "Acre: Symbiotic Urban Fabric",
+        html: `<p class="links" style="font-size:.8rem!important;margin-bottom:.9rem">Urban Studio · Year 3 &nbsp;·&nbsp; Advisors: Arch. David Aharoni &amp; Kobi Zik &nbsp;·&nbsp; with Chen Ponces &amp; Hila Zahrihan</p>
+        <p>An urban-scale studio project in Acre exploring <strong>symbiosis between the historic fabric and contemporary mixed-use development</strong> — stitching new tissue into an ancient city without erasing it.</p>
+        <div class="note"><b>In preparation</b><p>Site plans, urban diagrams, and project documentation are being prepared for the web.</p></div>`
+      },
+      {
+        num: "02", title: "Tel Aviv: Adaptive Environment",
+        html: `<p class="links" style="font-size:.8rem!important;margin-bottom:.9rem">Digital Studio · Year 3 &nbsp;·&nbsp; Advisor: Arch. Yoav Lanir</p>
+        <p>A parametric studio project: an <strong>adaptive environment whose topology responds to environmental conditions</strong>, developed through Grasshopper logic and simulation.</p>
+        <div class="note"><b>In preparation</b><p>Parametric diagrams, Grasshopper logic, and simulation outputs are being documented.</p></div>`
+      },
+      {
+        num: "03", title: "Nomad Hotel: Flexible In-Between",
+        html: `<p class="links" style="font-size:.8rem!important;margin-bottom:.9rem">Interior Studio · Year 4 &nbsp;·&nbsp; Advisor: Arch. Dana Oberzon</p>
+        <p>An interior studio project: a hotel for the modern nomad built on <strong>modular, flexible in-between spaces</strong> that adapt between private retreat and shared encounter.</p>
+        <div class="note"><b>In preparation</b><p>Interior renders, section drawings, and material studies are being compiled.</p></div>`
+      },
+      {
+        num: "04", title: "Clinic: Construction Documentation Set",
+        html: `<p class="links" style="font-size:.8rem!important;margin-bottom:.9rem">Technical Drawing · B.Arch Coursework, 2017</p>
+        <p>An early, full <strong>construction-documentation exercise</strong> for a small clinic: ground and second-floor plans, roof plan, north and west facades, two A–A sections (1:25 and 1:50), a stair detail, and two detail sheets — eleven coordinated drawings in all.</p>
+        <div class="note"><b>In preparation</b><p>The drawings exist as a measured 11-sheet PDF set (1:25–1:100); web-ready raster sheets are in preparation.</p></div>`
+      }
+    ]
   },
 
-  /* ── 07 · TEL AVIV (WIP) ───────────────────────────────────────── */
-  {
-    id: "telaviv",
-    cat: "architecture",
-    title: "Tel Aviv // Adaptive Environment",
-    stripTitle: "Tel Aviv — Adaptive Environment",
-    year: "Year 3",
-    eyebrow: "Digital Studio · Year 3",
-    meta: "Studio Digital · Advisor: Arch. Yoav Lanir",
-    kw: ["Parametric Design", "Adaptive Systems", "Dynamic Topology", "Environmental Response"],
-    cover: null,
-    wip: true,
-    wipNote: "Parametric diagrams, Grasshopper logic, and simulation outputs are being documented.",
-    summary: {
-      kicker: "Digital Studio · Year 3",
-      headline: 'A building that <em>responds.</em>',
-      paras: [
-        "A parametric studio project in Tel Aviv: an adaptive environment whose topology responds to environmental conditions, developed through Grasshopper logic and simulation."
-      ],
-      facts: [],
-      images: []
-    },
-    chapters: null
-  },
-
-  /* ── 08 · NOMAD HOTEL (WIP) ────────────────────────────────────── */
-  {
-    id: "nomad",
-    cat: "architecture",
-    title: "Nomad Hotel // Flexible In-Between",
-    stripTitle: "Nomad Hotel — Flexible In-Between",
-    year: "Year 4",
-    eyebrow: "Interior Studio · Year 4",
-    meta: "Studio Interior · Advisor: Arch. Dana Oberzon",
-    kw: ["Interior Design", "Hospitality", "Modularity", "In-Between Space"],
-    cover: null,
-    wip: true,
-    wipNote: "Interior renders, section drawings, and material studies are being compiled.",
-    summary: {
-      kicker: "Interior Studio · Year 4",
-      headline: 'Hospitality in the <em>in-between.</em>',
-      paras: [
-        "An interior studio project: a hotel for the modern nomad built on modular, flexible in-between spaces that adapt between private retreat and shared encounter."
-      ],
-      facts: [],
-      images: []
-    },
-    chapters: null
-  },
-
-  /* ── 09 · CLINIC (WIP) ─────────────────────────────────────────── */
-  {
-    id: "clinic",
-    cat: "architecture",
-    title: "Clinic // Construction Documentation Set",
-    stripTitle: "Clinic — Construction Documentation Set",
-    year: "2017",
-    eyebrow: "Technical Drawing · B.Arch Coursework, 2017",
-    meta: "Full construction-documentation set · plans, sections, facades & details",
-    kw: ["Construction Docs", "Technical Drawing", "Detailing", "AutoCAD"],
-    cover: null,
-    wip: true,
-    wipNote: "An 11-sheet construction-documentation set (plans, sections, facades, stairs & details, 1:25–1:100) is being prepared for the web.",
-    summary: {
-      kicker: "Technical Drawing · B.Arch Coursework, 2017",
-      headline: 'A complete <em>construction set</em>, drawn by hand-logic.',
-      paras: [
-        "An early, full construction-documentation exercise for a small clinic: ground and second-floor plans, roof plan, north and west facades, two A–A sections (1:25 and 1:50), a stair detail, and two detail sheets – eleven coordinated drawings in all.",
-        "The drawings exist as a measured PDF set; web-ready raster sheets are in preparation."
-      ],
-      facts: [],
-      images: []
-    },
-    chapters: null
-  },
-
-  /* ── 10 · PUBLICATIONS ─────────────────────────────────────────── */
+  /* ── 07 · PUBLICATIONS ─────────────────────────────────────────── */
   {
     id: "pubs",
     cat: "research",
