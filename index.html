@@ -265,14 +265,16 @@ nav a:hover{border-color:var(--bronze)}
 .lb-frame{position:relative;cursor:grab;touch-action:none;user-select:none}
 .lb-frame:active{cursor:grabbing}
 .lb-frame img{max-width:88vw;max-height:82vh;width:auto;height:auto;pointer-events:none;background:var(--ivory);border:1px solid var(--hair);border-radius:8px}
+.lb-chapter{position:absolute;left:50%;transform:translateX(-50%);top:1.4rem;z-index:3;color:#EDE5D5;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;max-width:80vw;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.lb-chapter:empty{display:none}
 .lb-cap{position:absolute;left:50%;transform:translateX(-50%);bottom:1.4rem;color:#EDE5D5;font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;text-align:center;max-width:80vw;text-shadow:0 1px 6px rgba(0,0,0,.6)}
-.lb-x{position:absolute;top:1rem;right:1.4rem;color:#EDE5D5;font-size:1.6rem;opacity:.75;padding:.4rem .7rem}
-.lb-x:hover{opacity:1}
-.lb-nav{position:absolute;top:50%;transform:translateY(-50%);color:#EDE5D5;font-size:2.2rem;width:2.6rem;height:3rem;opacity:.55;display:flex;align-items:center;justify-content:center;text-shadow:0 1px 3px rgba(0,0,0,.6)}
-.lb-nav:hover{opacity:1}
+.lb-x{position:absolute;top:1rem;right:1.4rem;z-index:3;color:#EDE5D5;font-size:1.4rem;line-height:1;opacity:.9;width:2.4rem;height:2.4rem;display:flex;align-items:center;justify-content:center;background:rgba(18,15,10,.6);border-radius:50%;backdrop-filter:blur(2px);transition:opacity .2s,background .2s}
+.lb-x:hover{opacity:1;background:rgba(18,15,10,.82)}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:3;color:#EDE5D5;font-size:1.8rem;line-height:1;width:2.8rem;height:2.8rem;opacity:.9;display:flex;align-items:center;justify-content:center;background:rgba(18,15,10,.6);border-radius:50%;backdrop-filter:blur(2px);transition:opacity .2s,background .2s}
+.lb-nav:hover{opacity:1;background:rgba(18,15,10,.82)}
 .lb-nav.off{opacity:0;pointer-events:none}
 .lb-prev{left:.7rem}.lb-next{right:.7rem}
-.lb-n{position:absolute;top:1.3rem;left:1.6rem;color:#EDE5D5;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;opacity:.6}
+.lb-n{position:absolute;top:1.3rem;left:1.6rem;z-index:3;color:#EDE5D5;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;opacity:.6}
 
 /* ═══════════════ CTA + FOOTER ═══════════════ */
 .cta{padding:5.5rem 0;text-align:center;border-top:2px solid var(--ink)}
@@ -401,6 +403,7 @@ footer a:hover{color:var(--ink)}
   <button class="lb-x" id="lbX" aria-label="Close">✕</button>
   <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
   <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+  <div class="lb-chapter" id="lbChapter"></div>
   <div class="lb-frame" id="lbFrame"><img id="lbImg" alt=""></div>
   <div class="lb-cap" id="lbCap"></div>
 </div>
@@ -482,7 +485,9 @@ const GALLERIES = {};
 function renderStrip(p, idx) {
   const cat = CATS[p.cat];
   const num = String(idx + 1).padStart(3, '0');
-  const gallery = [];
+  const gallery = [];          /* full-project figures (the chapter images) */
+  const stageGallery = [];     /* the panel/mid-expand thumbnails only */
+  const stageKey = p.id + ':stage';
   /* cover */
   let coverHtml;
   if (p.cover) {
@@ -490,12 +495,13 @@ function renderStrip(p, idx) {
   } else {
     coverHtml = `<span class="ghost">${num}</span>`;
   }
-  /* summary stage images */
+  /* summary stage images — their own gallery so the panel lightbox shows
+     only the thumbnails, not every chapter figure */
   const sImgs = (p.summary.images || []);
-  sImgs.forEach(im => gallery.push({ src: im.src, cap: im.cap || p.stripTitle }));
+  sImgs.forEach(im => stageGallery.push({ src: im.src, cap: im.cap || p.stripTitle }));
   const stage = sImgs.length ? `
     <div class="stage">
-      <figure class="stage-hero" data-lb="${p.id}" data-gi="0" role="button" tabindex="0">
+      <figure class="stage-hero" data-lb="${stageKey}" data-gi="0" role="button" tabindex="0">
         <span class="stage-head"><span class="stage-cap" id="stagecap-${p.id}">${sImgs[0].cap || ''}</span><span class="stage-hint">↗ expand</span></span>
         <span class="stage-media"><img id="stagehero-${p.id}" src="${src(sImgs[0].src)}" alt="${esc(sImgs[0].cap || '')}" class="${sImgs[0].contain ? 'contain' : ''}" ${sImgs[0].pos ? `style="object-position:${sImgs[0].pos}"` : ''}></span>
         <span class="stage-foot" id="stagetake-${p.id}">${sImgs[0].take || ''}</span>
@@ -513,7 +519,7 @@ function renderStrip(p, idx) {
       if (ch.figures) {
         figs = `<div class="figs">${ch.figures.map(f => {
           const gi = gallery.length;
-          gallery.push({ src: f.src, cap: (f.title ? f.title + ': ' : '') + (f.cap || '') });
+          gallery.push({ src: f.src, cap: (f.title ? f.title + ': ' : '') + (f.cap || ''), chapter: `${ch.num} · ${ch.title}` });
           return figCard(f, p.id, gi);
         }).join('')}</div>`;
       }
@@ -537,6 +543,7 @@ function renderStrip(p, idx) {
     </div></div></div>`;
   }
   GALLERIES[p.id] = gallery;
+  GALLERIES[stageKey] = stageGallery;
   /* panel */
   const facts = (p.summary.facts || []).length ? `<div class="panel-facts">${p.summary.facts.map(f => `<div class="fact"><b>${f.v}</b><small>${f.l}</small></div>`).join('')}</div>` : '';
   const kws = (p.kw || []).length ? `<div class="kws">${p.kw.map(k => `<span>${k}</span>`).join('')}</div>` : '';
@@ -640,34 +647,46 @@ function barExpanded(s, v) {
 function openProject(id, full, push) {
   const s = document.getElementById('strip-' + id);
   if (!s) return;
-  /* B6: if another project is open ABOVE the target, collapsing it shifts the
-     page up and the user "feels" the old one close. Capture the target's
-     viewport-top before the collapse, then compensate scroll instantly so the
-     target stays visually pinned — the glide that follows feels clean. */
+  /* Is another project already open? */
   const hadOpen = !!document.querySelector('.strip.open:not(#strip-' + id + '), .strip.full-open:not(#strip-' + id + ')');
-  const topBefore = s.getBoundingClientRect().top;
   clearFull();
-  strips().forEach(x => { if (x !== s) { x.classList.remove('open'); barExpanded(x, false); } });
+  /* collapse any other open project INSTANTLY (no animation) so the layout is
+     settled before we glide — otherwise the glide target drifts mid-collapse */
+  strips().forEach(x => {
+    if (x !== s && x.classList.contains('open')) {
+      x.querySelectorAll('.xp').forEach(xp => xp.style.transition = 'none');
+      x.classList.remove('open'); barExpanded(x, false);
+      void x.offsetHeight;
+      x.querySelectorAll('.xp').forEach(xp => xp.style.transition = '');
+    } else if (x !== s) { x.classList.remove('open'); barExpanded(x, false); }
+  });
   applyDim();
   s.classList.remove('dim');
-  s.classList.add('open');
-  if (full && s.querySelector('.full')) {
-    s.classList.add('full-open');
-    const b = s.querySelector('[data-full]');
-    if (b) b.textContent = 'Minimize project';
-    document.getElementById('floatClose').classList.add('show');
-  }
-  barExpanded(s, true);
+
+  const expand = () => {
+    s.classList.add('open');
+    if (full && s.querySelector('.full')) {
+      s.classList.add('full-open');
+      const b = s.querySelector('[data-full]');
+      if (b) b.textContent = 'Minimize project';
+      document.getElementById('floatClose').classList.add('show');
+    }
+    barExpanded(s, true);
+    if (id === 'research') loadCharts();
+  };
+
   if (push !== false) history.pushState({ p: id }, '', '#' + id);
-  /* instantly absorb the collapse-induced shift so there's no visible lurch */
+
   if (hadOpen) {
-    const topAfter = s.getBoundingClientRect().top;
-    const delta = topAfter - topBefore;
-    if (Math.abs(delta) > 1) window.scrollTo({ top: window.scrollY + delta, behavior: 'instant' });
+    /* switch: slide the (still-collapsed) target to the top FIRST, then
+       expand — so the panel opens in place instead of jumping mid-project */
+    void s.offsetHeight; /* settle the other project's collapse */
+    glideToStrip(s, 700, expand);
+  } else {
+    /* opening from the index: expand, then glide its top to the view top */
+    expand();
+    setTimeout(() => glideToStrip(s, 850), 100);
   }
-  /* glide so the tab's top edge lands at the top of the view */
-  setTimeout(() => glideToStrip(s, 850), hadOpen ? 0 : 100);
-  if (id === 'research') loadCharts();
 }
 function closeProject(id, push) {
   const s = document.getElementById('strip-' + id);
@@ -741,7 +760,7 @@ document.body.addEventListener('click', e => {
       document.getElementById('stagecap-' + pid).textContent = im.cap || '';
       const tk = document.getElementById('stagetake-' + pid);
       if (tk) tk.textContent = im.take || '';
-      document.querySelector(`.stage-hero[data-lb="${pid}"]`).dataset.gi = i;
+      document.querySelector(`.stage-hero[data-lb="${pid}:stage"]`).dataset.gi = i;
       hero.style.opacity = 1;
     }, 180);
     t.parentElement.querySelectorAll('button').forEach(b => b.classList.toggle('on', b === t));
@@ -783,6 +802,7 @@ if (location.hash) syncFromHash(false);
 /* ═══════════════ LIGHTBOX (zoom / pan / gallery) ═══════════════ */
 const lb = document.getElementById('lb'), lbImg = document.getElementById('lbImg'),
       lbCap = document.getElementById('lbCap'), lbN = document.getElementById('lbN'),
+      lbChapter = document.getElementById('lbChapter'),
       lbPrev = document.getElementById('lbPrev'), lbNext = document.getElementById('lbNext');
 let lbGal = [], lbIdx = 0, z = 1, px = 0, py = 0, dragging = null;
 
@@ -793,12 +813,17 @@ function lbShow(i) {
   const it = lbGal[i];
   lbImg.src = src(it.src);
   lbCap.textContent = it.cap || '';
+  lbChapter.textContent = it.chapter || '';
   lbN.textContent = (i + 1) + ' / ' + lbGal.length;
   lbPrev.classList.toggle('off', i === 0);
   lbNext.classList.toggle('off', i === lbGal.length - 1);
 }
 function openLB(pid, gi) {
-  lbGal = GALLERIES[pid] || [];
+  /* fall back to the base project gallery if a (stage) key resolves empty,
+     so a click never dead-ends */
+  lbGal = (GALLERIES[pid] && GALLERIES[pid].length)
+    ? GALLERIES[pid]
+    : (GALLERIES[String(pid).replace(/:stage$/, '')] || []);
   if (!lbGal.length) return;
   lbShow(Math.min(gi || 0, lbGal.length - 1));
   lb.classList.add('open');
