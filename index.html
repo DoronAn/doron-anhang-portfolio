@@ -20,7 +20,7 @@
   /* one motion system for everything */
   --ease:cubic-bezier(.4,0,.2,1); --dur:.55s;
 }
-html{scroll-behavior:smooth;scrollbar-gutter:stable}
+html{scroll-behavior:smooth;scrollbar-gutter:stable;overflow-anchor:none} /* no auto scroll-shift when a panel expands below the fold */
 body{font-family:var(--sans);background:var(--ivory);color:var(--ink);font-size:15px;line-height:1.7;font-weight:300;-webkit-font-smoothing:antialiased}
 .grid{max-width:1240px;margin:0 auto;padding:0 2.5rem}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
@@ -649,21 +649,8 @@ function collapseAll() {
 function openProject(id, full, push) {
   const s = document.getElementById('strip-' + id);
   if (!s) return;
-  /* Is another project already open? */
-  const hadOpen = !!document.querySelector('.strip.open:not(#strip-' + id + '), .strip.full-open:not(#strip-' + id + ')');
-  clearFull();
-  /* collapse any other open project INSTANTLY (no animation) so the layout is
-     settled before we glide — otherwise the glide target drifts mid-collapse */
-  strips().forEach(x => {
-    if (x !== s && x.classList.contains('open')) {
-      x.querySelectorAll('.xp').forEach(xp => xp.style.transition = 'none');
-      x.classList.remove('open'); barExpanded(x, false);
-      void x.offsetHeight;
-      x.querySelectorAll('.xp').forEach(xp => xp.style.transition = '');
-    } else if (x !== s) { x.classList.remove('open'); barExpanded(x, false); }
-  });
-  applyDim();
-  s.classList.remove('dim');
+  const others = [...strips()].filter(x => x !== s);
+  const hadOpen = others.some(x => x.classList.contains('open'));
 
   const expand = () => {
     s.classList.add('open');
@@ -677,15 +664,46 @@ function openProject(id, full, push) {
     if (id === 'research') loadCharts();
   };
 
+  /* collapse every OTHER project INSTANTLY while keeping s pinned on screen, so
+     removing a tall open project above s doesn't jump the view. Restore the
+     killed transition next frame (Edge animates the collapse otherwise). */
+  const settleOthers = () => {
+    const before = s.getBoundingClientRect().top;
+    clearFull();
+    const reanimate = [];
+    others.forEach(x => {
+      if (x.classList.contains('open'))
+        x.querySelectorAll('.xp').forEach(xp => { xp.style.transition = 'none'; reanimate.push(xp); });
+      x.classList.remove('open'); barExpanded(x, false);
+    });
+    applyDim(); s.classList.remove('dim');
+    void s.offsetHeight;
+    if (reanimate.length) requestAnimationFrame(() => reanimate.forEach(xp => xp.style.transition = ''));
+    const shift = s.getBoundingClientRect().top - before;
+    if (shift) window.scrollBy({ top: shift, behavior: 'instant' });
+  };
+
   if (push !== false) history.pushState({ p: id }, '', '#' + id);
 
   if (hadOpen) {
-    /* switch: slide the (still-collapsed) target to the top FIRST, then
-       expand — so the panel opens in place instead of jumping mid-project */
-    void s.offsetHeight; /* settle the other project's collapse */
-    glideToStrip(s, 700, expand);
+    /* slide s into place with the old project STILL open, THEN expand s and
+       (with s pinned) collapse the old project above it — no reveal, no jump */
+    s.classList.remove('dim');
+    glideToStrip(s, 700, () => {
+      expand(); settleOthers();
+      /* keep s flush while its bar shrinks 158→96px on open: the browser holds
+         the content below the bar fixed, which would otherwise slide the bar
+         down out from under the header. Re-pin each frame for the transition. */
+      const deadline = performance.now() + 620; /* a touch past --dur (.55s) */
+      (function hold() {
+        const off = s.getBoundingClientRect().top - headerH();
+        if (Math.abs(off) > 0.5) window.scrollBy({ top: off, behavior: 'instant' });
+        if (performance.now() < deadline) requestAnimationFrame(hold);
+      })();
+    });
   } else {
     /* opening from the index: expand, then glide its top to the view top */
+    clearFull(); applyDim(); s.classList.remove('dim');
     expand();
     setTimeout(() => glideToStrip(s, 850), 100);
   }
